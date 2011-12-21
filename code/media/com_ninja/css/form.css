@@ -1,0 +1,1017 @@
+/* @group scrollbar */
+
+/* http://almaer.com/scrollbar/debug.html */
+/*
+::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+
+::-webkit-scrollbar-button:start:decrement,
+::-webkit-scrollbar-button:end:increment {
+    display: block;
+    height: 10px;
+}
+
+::-webkit-scrollbar-button:vertical:increment {
+    background-color: #fff;
+}
+
+::-webkit-scrollbar-track-piece {
+    background-color: #eee;
+    -webkit-border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:vertical {
+    height: 50px;
+    background-color: #ccc;
+    -webkit-border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:horizontal {
+    width: 50px;
+    background-color: #ccc;
+    -webkit-border-radius: 3px;
+}
+*/
+/* @end */
+
+button::-moz-focus-inner{border:0;padding:0}
+
+.button-wrap {
+	border: black 1px solid;
+	display: inline-block;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
+}
+
+.button-wrap .button, .button-wrap a.button:link, .button-wrap a.button:visited {
+	background: transparent url(../images/button_bg.png) repeat-x center right;
+	display: inline-block;
+	color: hsl(0, 0%, 39%);
+	font-size: 11px;
+	height: 23px;
+	line-height: 18px;
+	text-decoration: none;
+	
+	text-shadow: black 0 -1px 0;
+	padding: 0;
+	
+	/* An opera quirk requires us to use an negative text indent, and correct it with extra left padding */
+	text-indent: -8px;
+	padding-left: 18px;
+	
+	padding-right: 35px;
+	margin: 0;
+	border: 1px rgb(90, 90, 89) solid;
+	/*
+	border-color: hsla(0, 0%, 85%, .2);
+	-webkit-background-clip: border;
+	-webkit-background-origin: border;
+	-moz-background-clip: border-box;
+	-moz-background-origin: border-box;
+	background-clip: border-box;
+	background-origin: border-box;
+	*/
+	-webkit-border-radius: 2px;
+	-moz-border-radius: 2px;
+	border-radius: 2px;
+	-webkit-transition: all 300ms ease-out;
+	-moz-transition: all 300ms ease-out;
+	-o-transition: all 300ms ease-out;
+	transition: all 300ms ease-out;
+}
+.button-wrap a.button, .button-wrap a.button:link, .button-wrap a.button:visited {
+	line-height: 23px;
+}
+.button-wrap .button:hover, .button-wrap a.button:hover, .button-wrap a.button:link:hover, .button-wrap a.button:visited:hover {
+	background-position: top right;
+	color: hsl(0, 0%, 29%);
+	text-shadow: black 0 1px 0;
+	-webkit-transition: all 300ms ease-in;
+	-moz-transition: all 300ms ease-in;
+	-o-transition: all 300ms ease-in;
+	transition: all 300ms ease-in;
+	text-decoration: none;
+}
+.button-wrap .button:active, .button-wrap a.button:active, .button-wrap a.button:link:active, .button-wrap a.button:visited:active {
+	background-position: bottom right;
+	color: white;
+	text-shadow: white 0 1px 10px;
+	-webkit-transition: all 0s;
+	-moz-transition: all 0s;
+	-o-transition: all 0s;
+	transition: all 0s;
+}
+/* Removing firefox's ugly dotted border */
+.button-wrap .button:focus, .button-wrap .button:active,  .button-wrap.button:active:hover { 
+    outline: none!important; 
+}
+.button-wrap.light {
+	display: block;
+	border-color: lightgray;
+}
+.button-wrap .button.light, .button-wrap a.button.light, .button-wrap .button.light:link, .button-wrap a.button.light:visited {
+	background-image: url(../images/button_light_bg.png);
+	border-color: #F3F3F3;
+	text-indent: 0;
+	padding-left: 0;
+	padding-right: 0;
+	display: block;
+	text-align: center;
+	text-shadow: hsla(0, 0%, 95%, .8) 0 1px 0;
+}
+.button.light:hover, a.button.light:hover, a.button.light:link:hover, a.button.light:visited:hover {
+	text-shadow: hsla(0, 0%, 95%, .8) 0 1px 0;
+}
+.button.light:active, a.button.light:active, a.button.light:link:active, a.button.light:visited:active {
+	color: hsl(0, 0%, 29%);
+	text-shadow: hsla(0, 0%, 5%, .2) 0 1px 0;
+	text-decoration: none;
+}
+
+.symbol {
+	font: normal normal normal xx-large/1 'Arial Unicode MS', FreeSerif, OpenSymbol, 'DejaVu Sans', sans-serif;
+}
+
+.validation-advice {
+	position: absolute;
+	left: 99.5%;
+	top: 50%;
+	margin-top: -11px;
+	font-size: 11px;
+	line-height: 12px;
+	padding: 4px;
+	height: 12px;
+	white-space: nowrap;
+	background-color: black;
+	background-color: hsla(0, 0%, 0%, .7);
+	background-image: -webkit-gradient(linear, left top, left bottom, from(hsla(0, 0%, 100%, .2)), color-stop(.5, hsla(0, 0%, 50%, .2)), to(hsla(0, 0%, 0%, .2)));
+	background-image: -moz-linear-gradient(
+	    center top,
+	    hsla(0, 0%, 100%, .2) 0%,
+	    hsla(0, 0%, 50%, .2) 50%,
+	    hsla(0, 0%, 0%, .2) 100%
+	)
+	;
+	color: white;
+	display: block;
+	z-index: 100;
+	border-radius: 2px;
+	-webkit-background-clip: padding-box;
+	-moz-background-clip: padding-box;
+	background-clip: padding-box;
+	-webkit-border-radius: 2px;
+	-moz-border-radius: 2px;
+	-webkit-box-shadow: hsla(0, 0%, 0%, .6) 0 0 10px;
+	-moz-box-shadow: hsla(0, 0%, 0%, .6) 0 0 10px;
+	box-shadow: hsla(0, 0%, 0%, .6) 0 0 10px;
+	border: 1px hsla(0, 0%, 100%, .4) solid;
+	border-color: white;
+	text-shadow: black 0 -1px 0;
+}
+
+/*.validation-advice:before {
+	content: '\25C0';
+	color: hsla(0, 0%, 100%, 1);
+	height: 12px;
+	font-size: 20px;
+	position: absolute;
+	left: -8px;
+	width: 8px;
+	overflow: hidden;
+	text-align: right;
+}*/
+.validation-advice:before {
+	content: '\25C0';
+	color: hsla(0, 0%, 0%, .65);
+	height: 12px;
+	font-size: 20px;
+	position: absolute;
+	left: -6px;
+	width: 6px;
+	overflow: hidden;
+	text-align: right;
+	text-shadow: hsla(0, 0%, 100%, 1) -2px 0 0;
+}
+.validation-advice-align-left .validation-advice {
+	left: 170px;
+	top: 100%;
+	margin-top: -6px;
+}
+
+.validation-advice-align-left .validation-advice:before {
+	left: 50%;
+	margin-left: -14px;
+	font-weight: bolder;
+	top: -14px;
+	padding-top: 10px;
+	color: hsla(0, 0%, 0%, .55);
+	content: '\25B2';
+	width: 26px;
+	height: 4px;
+	text-shadow: hsla(0, 0%, 100%, 1) 0 -2px 0, hsla(0, 0%, 0%, .6) 0 0 10px;
+}
+/* @group RTL */
+html[dir=rtl] .validation-advice {
+	left: auto;
+	right: 99.5%;
+}
+html[dir=rtl] .validation-advice:before {
+	left: auto;
+	right: -6px;
+	content: '\25B6';
+	text-shadow: hsla(0, 0%, 100%, 1) 2px 0 0;
+}
+html[dir=rtl] .validation-advice-align-left .validation-advice {
+	left: auto;
+	right: 170px;
+}
+html[dir=rtl] .validation-advice-align-left .validation-advice:before {
+	left: auto;
+	right: 50%;
+	margin-left: auto;
+	margin-right: -14px;
+	content: '\25B2';
+	text-shadow: hsla(0, 0%, 100%, 1) 0 -2px 0, hsla(0, 0%, 0%, .6) 0 0 10px;
+}
+/* @end */
+
+
+.ninja-col {
+	display: block;
+	clear: both;
+}
+
+fieldset.ninja-form.right legend {
+	text-align: right;
+}
+
+.ninja-form .value,
+.ninja-form textarea {
+	border: 1px solid silver;
+	border-radius: 2px;
+	-webkit-border-radius: 2px;
+	-moz-border-radius: 2px;
+	/*-webkit-box-shadow: hsla(0, 0%, 0%, .1) 0 0 4px;*/
+	-webkit-box-shadow: hsla(0, 0%, 0%, 0.2) 0px 0px 2px, hsla(0, 0%, 0%, 0.1) 0px 2px 10px inset;
+	-moz-box-shadow: hsla(0, 0%, 0%, 0.2) 0px 0px 2px, hsla(0, 0%, 0%, 0.1) 0px 2px 10px inset;
+	box-shadow: hsla(0, 0%, 0%, 0.2) 0px 0px 2px, hsla(0, 0%, 0%, 0.1) 0px 2px 10px inset;
+	background-color: transparent;
+	background-image: -webkit-gradient(linear, left top, left bottom, from(hsla(0, 0%, 0%, .05)), color-stop(.5, hsla(0, 0%, 50%, .05)), to(hsla(0, 0%, 100%, .05)));
+	background-image: -moz-linear-gradient(
+	    center top,
+	    hsla(0, 0%, 0%, .05) 0%,
+	    hsla(0, 0%, 50%, .05) 50%,
+	    hsla(0, 0%, 100%, .05) 100%
+	);
+	-webkit-transition: border-color 600ms ease-in;
+	-moz-transition: border-color 600ms ease-in;
+	transition: border-color 600ms ease-in;
+}
+
+
+.ninja-form .value .value {
+	-webkit-box-shadow:none;
+	border:none;
+	background:none;
+	padding:0px 2px;
+}
+
+.ninja-form .value {
+	float: none;
+	margin: 0 0 0 0;
+}
+
+.ninja-form .value:hover:not([disabled]):not(:focus),
+.ninja-form textarea:hover:not([disabled]):not(:focus) {
+	border-color: #99F;
+	border-color: hsla(240, 100%, 80%, 0.8);
+	background-color: hsla(0, 0%, 100%, 0.2);
+	-webkit-transition: all 150ms ease-in;
+	-moz-transition: all 150ms ease-in;
+	transition: all 150ms ease-in;
+}
+
+.ninja-form .value:focus,
+.ninja-form textarea:focus {
+	outline: none;
+	/*-webkit-box-shadow: blue 0 0 4px;
+	-moz-box-shadow: blue 0 0 4px;*/
+	border-color: blue;
+	border-color: hsla(240, 100%, 50%, 0.6);
+	/*background-color: hsla(195, 53%, 79%, 0.2);*/
+	background-color: transparent;
+	background-image: -webkit-gradient(linear, left top, left bottom, from(hsla(0, 0%, 0%, .1)), color-stop(.5, hsla(0, 0%, 50%, .1)), to(hsla(0, 0%, 100%, .1)));
+	background-image: -moz-linear-gradient(
+	    center top,
+	    hsla(0, 0%, 0%, .1) 0%,
+	    hsla(0, 0%, 50%, .1) 50%,
+	    hsla(0, 0%, 100%, .1) 100%
+	);
+	-webkit-transition: border-color 300ms ease-out;
+	-moz-transition: border-color 300ms ease-out;
+	transition: border-color 300ms ease-out;
+}
+
+/* 1.6 compat */
+.col {
+	float: left;
+}
+
+/* Styling for invalid data */
+div.width-50 fieldset.ninja-form, fieldset.ninja-form, .ninja-form fieldset, .ninja-form .element .group {
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
+	padding: 0;
+}
+.ninja-form div.element:last-child {
+	border-bottom-left-radius: 3px;
+	border-bottom-right-radius: 3px;
+	-moz-border-radius-bottomLeft: 3px;
+	-moz-border-radius-bottomRight: 3px;
+	-webkit-border-bottom-left-radius: 3px;
+	-webkit-border-bottom-right-radius: 3px;
+}
+form .required.invalid, form .validation-failed {
+	/*background: url(../images/errorIcon.png) 100% 50% no-repeat;
+	background-origin: content-box;*/
+	padding-right: 2px;
+	border-color: red!important;
+	border-color: hsla(0, 100%, 50%, .6)!important;
+	border-radius: 2px;
+	-webkit-border-radius: 2px;
+	/*background-color: hsla(0, 100%, 50%, 0.1);*/
+}
+form .required.invalid::-webkit-input-placeholder, form .validation-failed::-webkit-input-placeholder {
+	color: hsl(0, 70%, 50%);
+}
+textarea::-webkit-input-placeholder {
+	/*text-align: center;*/
+}
+
+form .required.invalid:focus, .ninja-form .value.validation-failed:focus {
+	/*-webkit-box-shadow: red 0 0 4px;
+	-moz-box-shadow: red 0 0 4px;*/
+	/*background-color: hsla(0, 100%, 50%, 0.05);*/
+	outline: none;
+}
+
+/* reset stuff for mostly 1.6 */
+fieldset.ninja-form label, .ninja-form label {
+	clear: none;
+	display: inline-block;
+	float: none;
+	width: auto!important;
+}
+fieldset.ninja-form input, .ninja-form input {
+	float: none;
+}
+
+.ninja-form .key {
+	display: inline-block;
+	/*background-color: hsl(0, 0%, 96%);
+	border-bottom: 1px solid hsl(0, 0%, 91%);
+	border-right: 1px solid hsl(0, 0%, 91%);*/
+	color: #666666;
+	font-weight: bold;
+	text-align: left;
+	/*max-width: 25%;*/
+	/*min-width: 25%;*/
+	padding: 3px 0;
+	/*-webkit-transition: max-width 400ms linear;*/
+	position: absolute;
+	left: 10px;
+	max-width: 140px;
+	top: 50%;
+	height: 1em;
+	margin: -0.9em 3px 0;
+}
+
+/** tooltip-ed element styling **/
+
+.ninja-form .key.hasTip {
+	border-bottom: 1px dashed;
+	border-bottom-color: currentcolor;
+}
+.ninja-form [title].key.hasTip {
+	border-bottom-width: 0;
+}
+/* @group RTL */
+html[dir=rtl] .ninja-form .key {
+	left: auto;
+	right: 10px;
+    text-align: right;
+}
+/* @end */
+.ninja-form .col .key {
+	left: 0;
+}
+.ninja-form .key + * {
+	
+}
+.ninja-form .key:hover{
+	/*max-width: 40%;*/
+	/*-webkit-transition: max-width 400ms linear;*/
+}
+/*.ninja-form .key:empty {
+	display: none;
+}*/
+
+.ninja-form .value {
+	display: inline-block;
+	padding-left: 0;
+	padding-right: 0;
+	margin-left: 0;
+	margin-right: 0;
+}
+
+.ninja-form select[size].value, .ninja-form select[multiple].value {
+	padding: 0;
+	width: 100%;
+}
+.ninja-form input[type=text].value, .ninja-form input[type=password].value, .ninja-form input[type=search].value, .ninja-form input[type=file].value, .ninja-form textarea.value {
+	width: 98%;
+	padding: 1%;
+
+	/* Epic FireFox workaround needs to come last */
+	-moz-box-sizing: border-box;
+	padding: -moz-calc(5px);
+	width: -moz-calc(100%);
+}
+
+.ninja-form .element {
+	margin: 0;
+	padding: 10px 10px 10px 163px;
+	position: relative;
+	clear: both;
+}
+.ninja-form .element.wide {
+	padding-left: 10px;
+	overflow: hidden;
+}
+/* @group RTL */
+html[dir=rtl] .ninja-form .element {
+	padding-left: 10px;
+	padding-right: 163px;
+}
+html[dir=rtl] .ninja-form .element.wide {
+	padding-right: 10px;
+}
+/* @end */
+.ninja-form .element:nth-child(odd), 
+.ninja-form .spacer:nth-child(odd), 
+.ninja-form tbody tr:nth-child(odd),
+.ninja-form.odd .element:nth-child(even), 
+.ninja-form.odd .spacer:nth-child(even), 
+.ninja-form.odd tbody tr:nth-child(even) {
+	background-color: whiteSmoke;
+	background-color: hsla(0, 0%, 96%, 0.8);
+}
+.panel .ninja-form .element:nth-child(odd), 
+.panel .ninja-form .spacer:nth-child(odd), 
+.panel .ninja-form tbody tr:nth-child(odd),
+.panel .ninja-form.odd .element:nth-child(even), 
+.panel .ninja-form.odd .spacer:nth-child(even), 
+.panel .ninja-form.odd tbody tr:nth-child(even) {
+	background-color: #F3F3F3;
+	background-color: hsla(0, 0%, 95%, 0.8);
+}
+
+.ninja-form.odd .element:nth-child(odd), 
+.ninja-form.odd .spacer:nth-child(odd), 
+.ninja-form.odd tbody tr:nth-child(odd) {
+	background-color: transparent;
+}
+.panel .ninja-form.odd .element:nth-child(odd), 
+.panel .ninja-form.odd .spacer:nth-child(odd), 
+.panel .ninja-form.odd tbody tr:nth-child(odd) {
+	background-color: transparent;
+}
+.ninja-form .element .value div, .ninja-form .element .value ul, .ninja-form .element ul.group {
+	display: inline-block;
+}
+
+.ninja-form .element option{
+	display: block;
+}
+
+.ninja-form .element ul {
+	margin: 0;
+	padding: 0;
+}
+
+.ninja-form .element .group {
+	background-color: #EBEBEB;
+	background-color: hsla(0, 0%, 77%, 0.2);
+	border: 1px solid #E6E6E6;
+	border-color: hsla(0, 0%, 90%, 0.8);
+	padding: 1px 0 0 1px;
+}
+.ninja-form .element .group .value {
+	margin: 0 1px 1px 0;
+}
+.ninja-form .element .group img {
+	max-width: 100%;
+}
+.ninja-form .element .group .value:active, .ninja-form .element .group .value:checked {
+	background-color: hsla(0, 0%, 84%, 0.8);
+}
+.ninja-form .element .group .value *, .ninja-form .element ul.group li * {
+	padding: 3px 0;
+	clear: none;
+}
+.ninja-form .element .group .value label {
+	padding-right: 5px;
+}
+.ninja-form .element .group .value img, .ninja-form .element ul.group li img {
+	padding: 0;
+	height: auto;
+}
+
+.ninja-form .element .group.vertical .value, .ninja-form .element ul.group.vertical li {
+	display: block;
+	position: relative;
+}
+
+.ninja-form .element .group.vertical .value label, .ninja-form .element ul.group.vertical li label {
+	display: block;
+	clear: none;
+}
+.ninja-form .element .value ul li {
+	background-color: transparent;
+	background-image: -webkit-gradient(linear, left top, left bottom, from(hsla(0, 0%, 0%, .05)), color-stop(.5, hsla(0, 0%, 50%, .05)), to(hsla(0, 0%, 100%, .05)));
+	display: inline-block;
+}
+
+
+#enabled1 {
+	background-image: url(../images/16/enable.png);
+	background-position: left center;
+}
+
+/*Extra styling */
+.ninja-form .element .col {
+	text-align: center;
+}
+.ninja-form .col .key {
+	position: relative;
+	text-align: center;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+}
+
+.ninja-form .divider.horizontal::before {
+	content: '\007D';
+	display: block;
+	left: 0;
+	margin-left: -40px;
+	position: absolute;
+}
+.ninja-form .divider.horizontal {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	height: 40px;
+	width: 40px;
+	margin-top: -20px;
+	margin-left: -20px;
+	white-space: nowrap;
+}
+.ninja-form .divider.horizontal::after {
+	content: '\007B';
+	display: block;
+	left: auto;
+	right: 0px;
+	top: 0px;
+	margin-right: -20px;
+	position: absolute;
+}
+.ninja-form .divider.horizontal::before, .ninja-form .divider.horizontal::after {
+	color: hsla(0, 0%, 0%, 0.09);
+	font-weight: lighter;
+	font-size: 90px;
+	top: -45px;
+}
+
+.ninja-col.ninja-form {
+	margin: 0 0 0 0;
+}
+.ninja-form .permissionlist thead th.permission-level {
+	text-align: left;
+}
+.permissionlist select {
+	width: 110px;
+	white-space: nowrap;
+}
+.ninja-col.ninja-form legend select  {
+	margin: 0 0 0 0;
+	display: block;
+	font-size: small;
+}
+.permissionlist {
+	border-collapse: collapse;
+}
+.permissionlist tbody tr:first-child > * {
+	border-top: 1px solid hsla(0, 0%, 50%, 0.1);
+}
+.permissionlist tbody tr > * {
+	border-top: 1px dotted hsla(0, 0%, 50%, 0.2);
+}
+.permissionlist tr > td:not(:first-child) {
+	/*border-left: 1px solid hsla(0, 0%, 50%, 0.1);*/
+}
+
+
+.ninja-form .permissionlist {
+	width: 100%;
+	white-space: nowrap;
+}
+.ninja-form .permissionlist thead th {
+	padding-bottom: 7px;
+	padding-top: 16px;
+	padding-left: 10px;
+	background: -webkit-gradient(linear, left top, left bottom, from(hsla(0, 0%, 96%, 0)), to(hsla(0, 0%, 96%, 0.8)));
+	background: -moz-linear-gradient(top, hsla(0, 0%, 96%, 0), hsla(0, 0%, 96%, 0.8));
+	text-shadow: white 0 1px 0;
+}
+.ninja-form .permissionlist thead th {
+	padding-left: 10px;
+}
+.ninja-form .permissionlist td {
+	text-align: center;
+	padding: 10px 0;
+}
+.ninja-form .permissionlist td.permissions-level {
+	color: green;
+}
+.ninja-form .permissionlist tr td.permissions-level.level-0 {
+	color: red;
+}
+.ninja-form .permissionlist tr:hover td.permissions-level.level-0 {
+	color: #F05;
+}
+.ninja-form .permissionlist thead th:first-child {
+	text-align: left;
+}
+.ninja-form .permissionlist tbody th {
+	padding: 10px;
+	color: #666;
+	font-weight: normal;
+	text-shadow: white 0 1px 0, hsla(0, 0%, 0%, 0.1) 0 0 5px;
+}
+.ninja-form .permissionlist tbody tr:hover {
+	background-color: #E6FFFF;
+	background-color: hsla(180, 100%, 90%, 0.4);
+}
+.ninja-form .permissionlist tbody tr:hover th {
+	color: black;
+}
+
+/* Image select element */
+
+.image-select {
+	overflow: hidden;
+}
+
+/* Chained Elements */
+.chain {float:left;margin-right:10px;}
+.chain-selectbox, .chain-position, .chain-menuitem {margin-right:34px;}
+.chain-label {font-size:100%;display:block;color:#666;text-align:center;margin-bottom:5px;}
+.chain-showmax select {margin-left:15px;}
+#g-settings-inner .chain-text span, #g-settings-inner .date-formats span.chain-label {display:none;}
+#g-settings-inner .chain-text .text-long, #g-settings-inner .date-formats .selectbox-wrapper {margin-top:17px;}
+.ie6warn-delay span.chain-label {display:block !important;}
+
+/* Toggle */
+.checkbox {height: 23px;}
+.chain-enabled {height: 50px;}
+.checkbox span {display: none;}
+.ninja-iphone-container {width: 73px;height: 23px;margin: 0;padding: 0;position: relative;}
+.ninja-iphone-sides {width: 73px;height: 23px;margin: 0;padding: 0;position: relative;background: url(../images/elements/toggle/toggle.png) 0 -81px no-repeat;}
+.ninja-iphone-wrapper {overflow: hidden;margin: 0;padding: 0;width: 68px;height: 23px;position: relative;top: 0;left: 3px;}
+.ninja-iphone-switch {background: url(../images/elements/toggle/toggle.png) 0 0 no-repeat;position: relative;top: 0;left: -55px;width: 118px;height: 23px;}
+.ninja-iphone-button {cursor: move;width: 23px;height: 23px;top: 0;position: absolute;}
+
+.ninja-iphone-container.disabled .ninja-iphone-sides, .ninja-iphone-container.disabled .ninja-iphone-switch {background-image: url(../images/elements/toggle/toggle-disabled.png);}
+.ninja-iphone-container.disabled .ninja-iphone-button {cursor: default;}
+
+.ninja-iphone-incl-container {width: 112px;height: 23px;margin: 0;padding: 0;position: relative;}
+.ninja-iphone-incl-sides {width: 112px;height: 23px;margin: 0;padding: 0;position: relative;background: url(../images/elements/incltoggle/incltoggle.png) 0 -81px no-repeat;}
+.ninja-iphone-incl-wrapper {overflow: hidden;margin: 0;padding: 0;width: 105px;height: 23px;position: relative;top: 0;left: 3px;}
+.ninja-iphone-incl-switch {background: url(../images/elements/incltoggle/incltoggle.png) 0 0 no-repeat;position: relative;top: 0;left: -85px;width: 190px;height: 23px;}
+.ninja-iphone-incl-button {cursor: move;width: 27px;height: 23px;top: 0;position: absolute;}
+
+/* @group iPhone switch */
+.wrapper.switch .ninja-iphone-incl-container {
+	margin: 0;
+	padding: 0;
+	position: relative;
+	top: 0;
+	left: 0;
+	overflow: hidden;
+	/*-webkit-transform: scale(.7);
+	-webkit-transform-origin: 82% 50%;
+	-moz-transform: scale(.7);
+	-moz-transform-origin: 82% 50%;
+	transform: scale(.7);
+	transform-origin: 82% 50%;*/
+}
+.wrapper.switch .ninja-iphone-incl-sides {
+	margin: 0;
+	padding: 0;
+	top: 0;
+	left: 0;
+	background: transparent;
+	position: relative;
+}
+
+.wrapper.switch .ninja-iphone-incl-wrapper {
+	left: 0;
+	margin-right: 0;
+	overflow: hidden;
+}
+.wrapper.switch .ninja-iphone-incl-switch {
+	position: relative;
+	top: 0;
+	/*left: -54px;*/
+	/*width: 147px;*/
+	left: 0;
+	border: 1px solid #b2b2b2;
+	border-color: hsla(0, 0%, 0%, .1);
+}
+.wrapper.switch .disabled .ninja-iphone-incl-switch {
+	
+}
+.wrapper.switch .ninja-iphone-incl-button {
+	cursor: move;
+	top: 0;
+	z-index: 11;
+	position: absolute;
+	/*background: hsla(0, 0%, 0%, 0.5);*/
+}
+.wrapper.switch .ninja-iphone-incl-button * {
+	position: absolute;
+	text-transform: uppercase;
+	text-align: center;
+}
+.wrapper.switch .ninja-iphone-incl-button .on {
+	color: white;
+	text-shadow: hsla(0,0%,0%,.8) 0 -1px 0;
+}
+.wrapper.switch .ninja-iphone-incl-button .off {
+	color: #8c8c8c;
+}
+.wrapper.switch .ninja-iphone-incl-button:hover {
+	/*background-color: hsla(0, 0%, 0%, 0.1);*/
+}
+.wrapper.switch .ninja-iphone-incl-button:active {
+	background-color: hsla(0, 0%, 0%, 0.2);
+}
+	/* @group large */
+	.wrapper.switch .ninja-iphone-incl-wrapper,
+	.wrapper.switch .ninja-iphone-incl-sides,
+	.wrapper.switch .ninja-iphone-incl-container,
+	.wrapper.switch .ninja-iphone-incl-button {
+		width: 94px;
+		height: 27px;
+	}
+	.wrapper.switch .ninja-iphone-incl-switch {
+		background-image: url(../images/elements/switch/bg.png);
+		width: 92px;
+		height: 25px;
+		-webkit-border-radius: 5px;
+		-moz-border-radius: 5px;
+		border-radius: 5px;
+	}
+	.wrapper.switch .ninja-iphone-incl-button {
+		width: 40px;
+	}
+	.wrapper.switch .ninja-iphone-incl-button * {
+		top: 5px;
+		font-size: 18px;
+	}
+	.wrapper.switch .ninja-iphone-incl-button .on {
+		left: -52px;
+		right: 39px;
+	}
+	.wrapper.switch .ninja-iphone-incl-button .off {
+		right: -53px;
+		left: 41px;
+	}
+	/* @end */
+	
+	/* @group small */
+	.wrapper.switch .ninja-iphone-incl-wrapper,
+	.wrapper.switch .ninja-iphone-incl-sides,
+	.wrapper.switch .ninja-iphone-incl-container,
+	.wrapper.switch .ninja-iphone-incl-button {
+		width: 66px;
+		height: 19px;
+	}
+	.wrapper.switch .ninja-iphone-incl-switch {
+		background-image: url(../images/elements/switch/bg_sml.png);
+		width: 64px;
+		height: 17px;
+		-webkit-border-radius: 3px;
+		-moz-border-radius: 3px;
+		border-radius: 3px;
+	}
+	.wrapper.switch .ninja-iphone-incl-button {
+		width: 28px;
+		-webkit-border-radius: 2px;
+		-moz-border-radius: 2px;
+		border-radius: 2px;
+	}
+	.wrapper.switch .ninja-iphone-incl-button * {
+		top: 3px;
+		font-size: 12px;
+	}
+	.wrapper.switch .ninja-iphone-incl-button .on {
+		left: -37px;
+		right: 27px;
+	}
+	.wrapper.switch .ninja-iphone-incl-button .off {
+		right: -37px;
+		left: 28px;
+	}
+	/* @end */
+/* @end */
+
+/*
+190
+112
+105
+23
+89*/
+/* togglepanel */
+.nj-tp-title {cursor:pointer;}
+.nj-tp-title {padding:0 15px;
+              margin:0;
+              height:33px;
+              line-height:33px;
+              font-size:14px;
+              background:#F6F6F6 none repeat scroll 0 0;
+              color:#666;
+              text-shadow:#fff 1px 1px 0px;
+              position:relative;
+              border-bottom:1px solid #CCC} 
+.nj-tp-surround{border-color:#CCCCCC #CCCCCC;
+                border-style:solid solid none;
+                border-width:1px;}
+.nj-tp-inner {border-bottom:1px solid #CCC}
+.nj-tp-title span.switch {
+        position: absolute;
+        right:10px;
+        top: 6px; 
+        height:23px; 
+        width:90px; 
+        background:url(../images/elements/togglepanel/smpl-toggle.png) 0 -23px no-repeat;}
+.nj-tp-title span.switch.toggleon {background-position:0 0;}
+.remove-table > table.paramlist {display:none}
+
+
+.spinner {
+	position: absolute;
+	opacity: 0.9;
+	filter: alpha(opacity=90);
+	z-index: 999;
+	background: #fff;
+}
+.spinner-msg {
+	text-align: center;
+	font-weight: bold;
+}
+
+.spinner-img {
+	background: url(../images/16/spinner.gif) no-repeat center center;
+	width: 24px;
+	height: 24px;
+	margin: 0 auto;
+}
+.bubble {
+	-webkit-box-sizing: border-box;
+	background-color: #7F97BD;
+	background-image: none;
+	border-radius: 10px;
+	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+	color: #FFF;
+	display: inline-block;
+	float: none;
+	font-family: Helvetica, Arial, sans-serif;
+	font-size: 11px;
+	font-style: normal;
+	font-variant: normal;
+	font-weight: bold;
+	line-height: 14px;
+	height: 14px;
+	margin-bottom: 0px;
+	margin-left: 0px;
+	margin-right: 4px;
+	margin-top: 0px;
+	padding-bottom: 1px;
+	padding-bottom: 0px;
+	padding-left: 4px;
+	padding-right: 4px;
+	padding-top: 1px;
+	white-space: nowrap;
+}
+
+.slider {
+	background: gray;
+	background: -moz-linear-gradient(top, hsla(0, 0%, 0%, .4), hsla(0, 0%, 70%, .4));
+	-moz-border-radius: 4px;
+	border-radius: 4px;
+	height: 4px;
+	width: 129px;
+	top: 4px;
+	position: relative;
+}
+.knob {
+	width: 9px;
+	height: 9px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+	background: black;
+	background: -moz-linear-gradient(top, hsl(0, 0%, 70%), hsl(0, 0%, 0%));
+	top: -2px;
+}
+
+
+
+/** styling for note elements **/
+
+.ninja-form .element .note{
+	border-bottom: 1px solid;
+	border-top: 1px solid;
+	padding: 5px 5px 5px 25px;
+	background-position: 5px 3px;
+	background-repeat: no-repeat;
+}
+
+.ninja-form .element .noteHeading,
+.ninja-form .element .noteToggle{
+	width: 100%;
+	font-weight: bold;
+}
+
+.ninja-form .element .noteToggle{
+	cursor: pointer;
+}
+
+.ninja-form .element .noteToggle:hover{
+	text-decoration: underline;
+}
+
+.ninja-form .element .noteBody{
+	padding-top: 10px;
+}
+
+.ninja-form .element .noteNote{
+	background-image: url('../images/16/noteNote.png');
+	background-color: #F3F3F3;
+	border-color: #D4D4D4;
+	color: #727272;
+}
+
+.ninja-form .element .noteTip {
+	background-image: url('../images/16/noteTip.png');
+	background-color: #F6FBFB;
+	border-color: #C9D5D8;
+	color: #55A0B4;
+	
+}
+
+.ninja-form .element .noteWarning{
+	background-image: url('../images/16/noteImportant.png');
+	background-color: #F7F5F3;
+	border-color: #F7C49B;
+	color: #F77D1B;
+}
+
+.ninja-form .element .noteAlert{
+	background-image: url('../images/16/noteAlert.png');
+	background-color: #FFFBFB;
+	border-color: #F8C9BB;
+	color: #D0583F;
+	
+}
+
+.ninja-form .element .noteDownload{
+	background-image: url('../images/16/noteDownload.png');
+	background-color: #FAFDF9;
+	border-color: #C1CEC1;
+	color: #6CB656;
+}
+
+.ninja-form .element .noteHelp{
+	background-image: url('../images/16/noteHelp.png');
+	background-color: #FAFCFD;
+	border-color: #C7CDDA;
+	color: #6187B3;
+}

@@ -1,0 +1,13 @@
+/*Styling manifest related output, like changelogs, etc*/
+html[dir=rtl] .changelog dt,
+html[dir=rtl] .changelog dd {
+	float: right;
+}
+html[dir=rtl] .changelog dd {
+	padding-right: 0.6em !important;
+}
+
+html[dir=rtl] .changelog ul [rel]::before {
+	left: auto;
+	right: 20px;
+}

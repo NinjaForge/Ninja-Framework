@@ -1,0 +1,51 @@
+.wrapper {
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
+	background-color: #EBEBEB;
+	background-color: hsla(0, 0%, 94%, 0.8);
+	border: 1px solid #E6E6E6;
+	border-color: hsla(0, 0%, 90%, 0.8);
+	overflow: hidden;
+	padding: 6px;
+}
+
+.wrapper .chain-label {
+	display: block;
+	
+}
+.wrapper .chain .value, .wrapper .chain ul.group {
+	padding:0px 2px;
+}
+
+.chainPlusRow {
+	margin-bottom:10px;
+	overflow: hidden;
+}
+
+.buttonAddChainLevel,.buttonRemoveChainLevel {
+	text-indent:-999px;
+	width:16px;
+	height:16px;
+	display:block;
+	float:left;
+}
+
+
+.buttonAddChainLevel {	
+	margin-top:20px;
+	background:url(../images/16/new.png);
+}
+
+a.buttonAddChainLevel:hover{
+	background:url(../images/16/new.png) 0 -16px;
+}
+
+.buttonRemoveChainLevel {
+	background:url(../images/16/cancel.png);
+	margin-top: 5px;
+}
+
+a.buttonRemoveChainLevel:hover{
+	background:url(../images/16/cancel.png) 0 -16px;
+}

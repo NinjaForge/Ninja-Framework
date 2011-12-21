@@ -1,0 +1,297 @@
+/*Pagination styling*/
+div.pagination div.limit {
+	text-transform: lowercase;
+}
+
+div.pagination div.limit::first-letter {
+	text-transform: capitalize;
+}
+
+div.pagination div.count, div.pagination div.limit {
+	line-height: normal;
+	margin-bottom: 0;
+	margin: 0 0 0 0;
+	float: left;
+	height: auto;
+	white-space: nowrap;
+}
+
+div.pagination div.limit select {
+	height: 1em;
+	min-height: 15px;
+	-webkit-border-radius: 2px;
+	-moz-border-radius: 2px;
+}
+
+.pagination .pages, .pagination .pagination {
+	margin: 0px;
+	padding: 0 0 0 0;
+	float: left!important;
+}
+
+.pagination .active {
+	font-weight: bold;
+}
+
+.pagination ul {
+	list-style: none;
+}
+.pagination li  {
+	display:inline-block;
+	text-align: center;
+	padding: 0;
+	background: none;
+}
+
+.pagination li.page {
+	margin:0;
+}
+
+.pagination li.page.first-child {
+}
+
+.pagination-footer {
+	text-align: center;
+	vertical-align: middle;
+}
+
+table.adminlist tfoot .pagination {
+	display: inline-block;
+	margin: 0px auto;
+	padding: 0px;
+}
+
+/* Arrows rounded corners */
+.pagination .first *, .pagination .next *, .pagination li.page.first-child *, .pagination div.count, .pagination div.limit, .pagination .pages li.page.first-child .active {
+	-webkit-border-bottom-left-radius: 4px;
+	-webkit-border-top-left-radius: 4px;
+	-moz-border-radius-bottomleft: 4px;
+	-moz-border-radius-topleft: 4px;
+	border-bottom-left-radius: 4px;
+	border-top-left-radius: 4px;
+}
+
+/* Arrows, left and right */
+.pagination .last *, .pagination .previous *, .pagination li.page.last-child *, .pagination .count, .pagination .limit {
+	-webkit-border-bottom-right-radius: 4px;
+	-webkit-border-top-right-radius: 4px;
+	-moz-border-radius-bottomright: 4px;
+	-moz-border-radius-topright: 4px;
+	border-bottom-right-radius: 4px;
+	border-top-right-radius: 4px;
+}
+
+.pagination .pages li.first, .pagination .pages li.next {
+	margin: 0 0 0 10px;
+}
+.pagination .pages li.previous, .pagination .pages li.last {
+	margin: 0 10px 0 0;
+}
+
+table.pagination tbody tr td:nth-child(even){
+	width: 100%;
+}
+
+.pagination td{
+	text-align: center;
+}
+
+.pagination span {
+	cursor: default;
+	opacity: 0.5;
+}
+
+.pagination li span {
+	opacity: 1;
+}
+
+.pagination .pages li *, .pagination .count, .pagination .limit {
+	background-color: rgba(0,0,0,0.1);
+	display:inline-block;
+	border: 1px solid transparent;
+	border-color: rgba(0,0,0,0.1);
+	font-size: 13px;
+	font-style:normal;
+	min-width: 13px;
+	padding: 2px 5px;
+	margin: 0 0 0 0;
+	-webkit-box-shadow: hsla(0, 0%, 0%, 0.2) 0 -1px 0, hsla(0, 0%, 100%, 0.2) 0px 1px 0;
+}
+
+.pagination .count, .pagination .limit {
+	border-color: rgba(0,0,0,0.1);
+}
+
+.pagination .pages span:not(.active) {
+	color: gray;
+	opacity: 0.6;
+}
+
+.pagination .pages li * {
+	background-color: rgba(255,255,255,0.05);
+	background-image: -webkit-gradient(
+							linear, 
+							left top, left bottom, 
+							from(hsla(0, 0%, 70%, 0.2)), 
+							to(hsla(0, 0%, 0%, 0.2)),
+							color-stop(0.5, hsla(0, 0%, 50%, 0.2)))
+							;
+	background-image: -moz-linear-gradient(hsla(0, 0%, 70%, 0.2), hsla(0, 0%, 50%, 0.2) 50%, hsla(0, 0%, 0%, 0.2) 100%);
+	background-image: -moz-linear-gradient(left top, left bottom, from(hsla(0, 0%, 70%, 0.2)), to(hsla(0, 0%, 0%, 0.2)), color-stop(0.5, hsla(0, 0%, 50%, 0.2)));
+	border: none;
+	margin-top: 1px;
+	-webkit-box-shadow: 
+		hsla(0, 0%, 100%, 0.8) 0px -1px 0,
+		hsla(0, 0%, 0%, 0.2) 0 -2px 0, 
+		hsla(0, 0%, 100%, 0.4) -1px 0 0, 
+		hsla(0, 0%, 0%, 0.2) 1px 0 0, 
+		hsla(0, 0%, 100%, 0.2) 0px 2px 0, 
+		hsla(0, 0%, 0%, 0.4) 0 1px 0
+		;
+	-moz-box-shadow: 
+		hsla(0, 0%, 100%, 0.8) 0px -1px 0,
+		hsla(0, 0%, 0%, 0.2) 0 -2px 0, 
+		hsla(0, 0%, 100%, 0.4) -1px 0 0, 
+		hsla(0, 0%, 0%, 0.2) 1px 0 0, 
+		hsla(0, 0%, 100%, 0.2) 0px 2px 0, 
+		hsla(0, 0%, 0%, 0.4) 0 1px 0
+		;
+	text-shadow: hsla(0, 0%, 100%, 0.2) 0px 1px 0;
+}
+
+.pagination .pages li.first-child * {
+	-webkit-box-shadow: 
+		hsla(0, 0%, 100%, 0.8) 0px -1px 0,
+		hsla(0, 0%, 0%, 0.2) 0 -2px 0, 
+		hsla(0, 0%, 0%, 0.2) -1px 0 0, 
+		hsla(0, 0%, 0%, 0.2) 1px 0 0, 
+		hsla(0, 0%, 100%, 0.2) 0px 2px 0, 
+		hsla(0, 0%, 0%, 0.4) 0 1px 0
+		;
+	-moz-box-shadow: 
+		hsla(0, 0%, 100%, 0.8) 0px -1px 0,
+		hsla(0, 0%, 0%, 0.2) 0 -2px 0, 
+		hsla(0, 0%, 0%, 0.2) -1px 0 0, 
+		hsla(0, 0%, 0%, 0.2) 1px 0 0, 
+		hsla(0, 0%, 100%, 0.2) 0px 2px 0, 
+		hsla(0, 0%, 0%, 0.4) 0 1px 0
+		;
+}
+
+.pagination .pages li:hover a {
+	-webkit-box-shadow: 
+		hsla(0, 0%, 100%, 0.8) 0px -1px 0,
+		hsla(0, 0%, 0%, 0.2) 0 -2px 0, 
+		hsla(0, 0%, 0%, 0.2) -1px 0 0, 
+		hsla(0, 0%, 0%, 0.2) 1px 0 0, 
+		hsla(0, 0%, 100%, 0.2) 0px 2px 0, 
+		hsla(0, 0%, 0%, 0.4) 0 1px 0;
+	-moz-box-shadow: 
+		hsla(0, 0%, 100%, 0.8) 0px -1px 0,
+		hsla(0, 0%, 0%, 0.2) 0 -2px 0, 
+		hsla(0, 0%, 0%, 0.2) -1px 0 0, 
+		hsla(0, 0%, 0%, 0.2) 1px 0 0, 
+		hsla(0, 0%, 100%, 0.2) 0px 2px 0, 
+		hsla(0, 0%, 0%, 0.4) 0 1px 0;
+}
+
+.pagination .pages li:active a, .pagination .pages li span.active {
+	-webkit-box-shadow: 
+		hsla(0, 0%, 0%, 0.8) 0 1px 0,
+		hsla(0, 0%, 50%, 0.8) 0 -2px 0,
+		hsla(0, 0%, 0%, 0.8) 0px -1px 0, 
+		hsla(0, 0%, 100%, 1) -1px 0 0, 
+		hsla(0, 0%, 100%, 1) 1px 0 0, 
+		hsla(0, 0%, 100%, 0.2) 0px 2px 0
+		;
+	-moz-box-shadow: 
+		hsla(0, 0%, 0%, 0.8) 0 1px 0,
+		hsla(0, 0%, 50%, 0.8) 0 -2px 0,
+		hsla(0, 0%, 0%, 0.8) 0px -1px 0, 
+		hsla(0, 0%, 100%, 1) -1px 0 0, 
+		hsla(0, 0%, 100%, 1) 1px 0 0, 
+		hsla(0, 0%, 100%, 0.2) 0px 2px 0
+		;
+}
+
+.pagination .pages li:active + li a, .pagination .pages li.active + li a {
+	-webkit-box-shadow: 
+		hsla(0, 0%, 100%, 0.8) 0px -1px 0,
+		hsla(0, 0%, 0%, 0.2) 0 -2px 0, 
+		hsla(0, 0%, 0%, 0.2) -1px 0 0, 
+		hsla(0, 0%, 0%, 0.2) 1px 0 0, 
+		hsla(0, 0%, 100%, 0.2) 0px 2px 0, 
+		hsla(0, 0%, 0%, 0.4) 0 1px 0
+		;
+	-moz-box-shadow: 
+		hsla(0, 0%, 100%, 0.8) 0px -1px 0,
+		hsla(0, 0%, 0%, 0.2) 0 -2px 0, 
+		hsla(0, 0%, 0%, 0.2) -1px 0 0, 
+		hsla(0, 0%, 0%, 0.2) 1px 0 0, 
+		hsla(0, 0%, 100%, 0.2) 0px 2px 0, 
+		hsla(0, 0%, 0%, 0.4) 0 1px 0
+		;
+}
+
+.pagination .pages li.active + li:active a, .pagination .pages li:active + li.active span.active {
+	-webkit-box-shadow: 
+		hsla(0, 0%, 0%, 0.8) 0 1px 0,
+		hsla(0, 0%, 50%, 0.8) 0 -2px 0,
+		hsla(0, 0%, 0%, 0.8) 0px -1px 0, 
+		hsla(0, 0%, 0%, 0.2) -1px 0 0, 
+		hsla(0, 0%, 0%, 0.2) 1px 0 0, 
+		hsla(0, 0%, 100%, 0.2) 0px 2px 0
+		;
+	-moz-box-shadow: 
+		hsla(0, 0%, 0%, 0.8) 0 1px 0,
+		hsla(0, 0%, 50%, 0.8) 0 -2px 0,
+		hsla(0, 0%, 0%, 0.8) 0px -1px 0, 
+		hsla(0, 0%, 0%, 0.2) -1px 0 0, 
+		hsla(0, 0%, 0%, 0.2) 1px 0 0, 
+		hsla(0, 0%, 100%, 0.2) 0px 2px 0
+		;
+}
+
+.pagination a:hover {
+	background-color: white;
+	text-decoration: none;
+}
+
+.pagination a:hovr {
+	background-color: currentcolor;
+	background-image: -webkit-gradient(
+							linear, 
+							left top, 0% 9%, 
+							from(hsla(0, 0%, 100%, 0.5)), 
+							to(hsla(0, 0%, 100%, 0))),
+						-webkit-gradient(
+							linear, 
+							left top, left bottom, 
+							from(rgba(250,250,250,0.7)), 
+							to(rgba(250,250,250,0)))
+							;
+	-webkit-box-shadow: rgba(0,0,0,0.6) 0px 1px 10px;
+}
+
+.pagination li:active a, .pagination li .active {
+	background-color:rgba(0,0,0,0.6);
+	background-image: -webkit-gradient(
+							linear, 
+							left bottom, left top, 
+							from(hsla(0, 0%, 70%, 0.2)), 
+							to(hsla(0, 0%, 0%, 0.2)),
+							color-stop(0.5, hsla(0, 0%, 50%, 0.2)))
+							;
+	background-image: -moz-linear-gradient(hsla(0, 0%, 70%, 0.2), hsla(0, 0%, 50%, 0.2) 50%, hsla(0, 0%, 0%, 0.2) 100%);
+	background-image: -moz-linear-gradient(left top, left bottom, from(hsla(0, 0%, 70%, 0.2)), to(hsla(0, 0%, 0%, 0.2)), color-stop(0.5, hsla(0, 0%, 50%, 0.2)));
+	color: white;
+	text-shadow: white 0px 0px 3px;
+}
+
+/* @group AdminPraise 2 */
+
+#ap-content .template-adminpraise2 .ninja-list ul.pages {
+margin-left: 0px;
+}
+
+/* @end */

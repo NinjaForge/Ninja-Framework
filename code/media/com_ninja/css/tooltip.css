@@ -1,0 +1,264 @@
+/* Tooltip css */ 
+.cooltip-tip-outer {
+	position: absolute;
+	top: 0;
+	color: white;
+	left: 0;
+	font-weight: bold;
+	cursor: pointer;
+	cursor:  wait;
+	z-index: 98;
+	text-shadow: hsla(0, 0%, 100%, 0) 0 0 0, black 0 0 1px;
+}
+.cooltip-tip-outer:hover {
+	z-index: 200;
+}
+
+/*Experimental CSS 3*/
+@-webkit-keyframes scale-in {
+	from {
+		-webkit-transform: translateY(-10px);
+		color: hsla(0, 0%, 100%, 0);
+		text-shadow: hsla(0, 0%, 100%, 1) 0 0 20px, hsla(0, 0%, 0%, 0) 0 0 22px;
+	}
+	to {
+		-webkit-transform: translateY(0px);
+		color: white;
+		text-shadow: hsla(0, 0%, 100%, 0) 0 0 0, hsla(0, 0%, 0%, 1) 0 0 1px;
+	}
+}
+@-webkit-keyframes scale-out {
+	from {
+		-webkit-transform: translateY(0px);
+		color: white;
+		text-shadow: hsla(0, 0%, 100%, 0) 0 0 0, hsla(0, 0%, 0%, 1) 0 0 1px;
+	}
+	to {
+		-webkit-transform: translateY(-10px);
+		color: hsla(0, 0%, 100%, 0);
+		text-shadow: hsla(0, 0%, 100%, 1) 0 0 20px, hsla(0, 0%, 0%, 0) 0 0 22px;
+	}
+}
+
+.cooltip-tip-outer.scale-in {
+	-webkit-animation: scale-in 150ms ease-in;
+}
+
+.cooltip-tip-outer.scale-out {
+	-webkit-animation: scale-out 150ms ease-out;
+}
+
+.cooltip-tip {
+	bottom: 0;
+	display: inline-block;
+	padding: 0px;
+	text-align: left;
+	position: relative;
+	right: -8px;
+}
+
+.cooltip-tip-outer.fixed {
+/*	-webkit-transition-property: top, left, right, bottom;
+	-webkit-transition-duration: 0.5s;
+	-webkit-transition-timing-function: ease-in-out;
+	-moz-transition: top, left, right, bottom 0.5s ease-in-out;*/
+}
+.cooltip-tip-outer.fixed .close {
+    display: block;
+}
+
+.cooltip-tip .middle.center {
+	background-color: rgba(0,0,0,0.7);
+	/*margin: 9px;
+	margin-right: -6px;
+	margin-bottom: -2px;*/
+	margin: 9px;
+	margin-bottom: 13px;
+	position: relative;
+	display: block;
+	z-index: 10;
+	font-size: 10px;
+	max-height: 148px;
+	max-width: 264px;
+	min-width: 44px;
+	min-height: 12px;
+	/*font-family: Helvetica;*/
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	white-space: normal;
+	padding: 2px;
+	/*padding-right: 12px;*/
+	overflow: visible;
+	text-shadow: hsla(0, 0%, 100%, 0) 0 0 0, hsla(0, 0%, 0%, 0.5) 0 -1px 0;
+}
+
+.cooltip-tip-outer .middle span {
+	margin: 2px;
+	/*width: 100%;*/
+	display: block;
+	overflow: hidden;
+	position: relative;
+}
+.cooltip-tip-outer .middle span img, .cooltip-tip-outer .middle span video, .cooltip-tip-outer .middle span object, .cooltip-tip-outer .middle span embed {
+	position: relative;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	overflow: hidden;
+	max-height: 144px;
+	max-width: 260px;
+}
+
+.cooltip-tip-outer .middle span {
+	text-shadow: inherit;
+}
+
+.cooltip-tip-outer.fixed .middle span {
+
+}
+
+.cooltip-tip-outer .middle span:first-line {
+	clear: right;
+}
+
+.cooltip-tip-outer .close {
+	opacity: 0;
+	display: none;
+	-webkit-transition: opacity 500ms;
+}
+
+.cooltip-tip-outer.fixed .close {
+	font-size: 14px;
+	display: block;
+	height: 10px;
+	-webkit-border-radius: 1000px;
+	padding: 1px;
+	-webkit-background-clip: padding-box;
+	-webkit-background-origin: border-box;
+	position: absolute;
+	left: 2px;
+	background-color: hsla(0, 0%, 0%, 0.7);
+	border: white 2px solid;
+	-webkit-box-shadow: hsla(0, 0%, 0%, 0.6) 0 0 5px;
+	line-height: 10px;
+	text-align: center;
+	text-transform: uppercase;
+	top: 2px;
+	width: 10px;
+	vertical-align: middle;
+	z-index: 99;
+	text-shadow: black 0 0 1px, black 0 0 10px;
+}
+.cooltip-tip-outer.fixed:hover .close {
+	opacity: 1;
+}
+.cooltip-tip-outer.fixed.close-on-click:hover .close, .cooltip-tip-outer.fixed .close:hover {
+	text-shadow: black 0 0 1px, black 0 0 10px;
+	/*-webkit-transform: scale(1.4);
+	-moz-transform: scale(1.4);*/
+}
+
+.cooltip-tip-outer.fixed.close-on-click:active .close, .cooltip-tip-outer.fixed .close:active {
+	text-shadow: white 0 0 10px;
+	color: black;
+}
+
+.cooltip-tip .top, .cooltip-tip .middle.left, .cooltip-tip .middle.right, .cooltip-tip .bottom {
+	background-image: url("../images/bubble.png");
+	background-repeat: no-repeat;
+	position: absolute;
+}
+
+.cooltip-tip-outer .cooltip-tip .top, .cooltip-tip-outer .cooltip-tip .bottom {
+	height: 15px;
+}
+
+.cooltip-tip-outer.flip .cooltip-tip .top, .cooltip-tip-outer.flip .cooltip-tip .bottom {
+	background-image: url("../images/bubble_flip.png");
+}
+
+.cooltip-tip .middle.left, .cooltip-tip .middle.right {
+	top: 15px;
+	bottom: 15px;
+}
+
+.cooltip-tip .top.center, .cooltip-tip .bottom.center {
+	left: 35px;
+	right: 35px;
+}
+
+.cooltip-tip .right, .cooltip-tip .left {
+	width: 35px;
+}
+
+.cooltip-tip .top {
+	top: 0;
+	/*height: 15px;*/
+}
+
+.cooltip-tip .right {
+	/*width: 100%;*/
+	right: 0;
+	/*margin: 0 -15px;*/
+}
+
+.cooltip-tip .bottom {
+	bottom: 0;
+	/*margin-bottom: -15px;
+	height: 100%;*/
+}
+
+.cooltip-tip .left {
+	left: 0;
+	/*width: 15px;*/
+}
+
+
+.cooltip-tip .top.right {
+	background-position: 100% 0;
+}
+
+.cooltip-tip .top.center {
+	background-position: 50% 0%;
+}
+
+.cooltip-tip .middle.left {
+	background-position: 0% 50%;
+}
+
+.cooltip-tip .middle.right {
+	background-position: 100% 50%;
+}
+
+
+.cooltip-tip .bottom.right {
+	background-position: 100% 100%;
+}
+
+.cooltip-tip .bottom.center {
+	background-position: 50% 100%;
+}
+
+.cooltip-tip .bottom.left {
+	background-position: 0 100%;
+}
+
+/* Flipped */
+/*.cooltip-tip-outer.flipback  {
+	-webkit-animation: flip 500ms ease-in-out 0 1 alternate;
+}
+.cooltip-tip-outer.flip {
+	-webkit-animation: flip 500ms ease-in-out 0 1 alternate;
+}*/
+.cooltip-tip-outer.flip .cooltip-tip {
+	right: auto;
+	left: -23px;
+	/*-webkit-transform-origin: left bottom;*/
+	/*-webkit-transform: perspective(600) rotateY(180deg);*/
+}
+.cooltip-tip-outer.flip .cooltip-tip .middle {
+	/*-webkit-transform: perspective(600) rotateY(180deg);*/
+}
+.cooltip-tip-outer.flip .cooltip-tip .close {
+	/*left: 10px;*/
+	/*right: auto;*/
+}

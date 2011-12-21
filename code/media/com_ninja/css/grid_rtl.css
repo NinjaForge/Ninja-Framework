@@ -1,0 +1,98 @@
+/* @group Table styling */
+/* @group Border radius */
+/* Top right */
+html[dir=rtl] body table.ninja-list > thead:first-child > tr:first-child > th:first-child {
+	border-top-left-radius: 0;
+	-webkit-border-top-left-radius: 0;
+	-moz-border-radius-topleft: 0;
+	
+	border-top-right-radius: 5px;
+	-webkit-border-top-right-radius: 5px;
+	-moz-border-radius-topright: 5px;
+}
+
+/* Bottom right */
+html[dir=rtl] body table.ninja-list > *:last-child > tr:last-child > td:last-child,
+html[dir=rtl] body table.ninja-list > *:last-child > tr:last-child > th:last-child,
+html[dir=rtl] body table.ninja-list > tfoot > tr:last-child > td:last-child {
+	border-bottom-right-radius: 5px;
+	-webkit-border-bottom-right-radius: 5px;
+	-moz-border-radius-bottomright: 5px;
+	
+	border-bottom-left-radius: 0;
+	-webkit-border-bottom-left-radius: 0;
+	-moz-border-radius-bottomleft: 0;
+}
+/* Bottom right with <tfoot> */
+html[dir=rtl] body table.ninja-list > tfoot + tbody:last-child > tr:last-child > td:last-child {
+	border-bottom-left-radius: 0px;
+	-webkit-border-bottom-left-radius: 0px;
+	-moz-border-radius-bottomleft: 0px;
+}
+
+/* Bottom left */
+html[dir=rtl] body table.ninja-list > *:last-child > tr:last-child > td:last-child,
+html[dir=rtl] body table.ninja-list > *:last-child > tr:last-child > th:last-child,
+html[dir=rtl] body table.ninja-list > tfoot > tr:last-child > td:last-child {
+	border-bottom-right-radius: 0;
+	-webkit-border-bottom-right-radius: 0;
+	-moz-border-radius-bottomright: 0;
+	
+	border-bottom-left-radius: 5px;
+	-webkit-border-bottom-left-radius: 5px;
+	-moz-border-radius-bottomleft: 5px;
+}
+html[dir=rtl] body table.ninja-list > tfoot > tr:last-child > td:last-child {
+	border-bottom-right-radius: 5px;
+	-webkit-border-bottom-right-radius: 5px;
+	-moz-border-radius-bottomright: 5px;
+}
+/* Bottom left with <tfoot> */
+html[dir=rtl] body table.ninja-list > tfoot + tbody:last-child > tr:last-child > td:first-child {
+	border-bottom-right-radius: 0px;
+	-webkit-border-bottom-right-radius: 0px;
+	-moz-border-radius-bottomright: 0px;
+}
+
+/* Top left */
+html[dir=rtl] body table.ninja-list > thead:first-child > tr:first-child > th:last-child {
+	border-top-left-radius: 5px;
+	-webkit-border-top-left-radius: 5px;
+	-moz-border-radius-topleft: 5px;
+	
+	border-top-right-radius: 0;
+	-webkit-border-top-right-radius: 0;
+	-moz-border-radius-topright: 0;
+}
+/* Top left with top right border */
+html[dir=rtl] body table.ninja-list > thead:first-child > tr:first-child > th:last-child:first-child {
+	border-top-right-radius: 5px;
+	-webkit-border-right-left-radius: 5px;
+	-moz-border-radius-topright: 5px;
+}
+/* @end */
+
+html[dir=rtl] .grid-count {
+	text-align: left !important;
+}
+html[dir=rtl] body table.ninja-list > * > tr > *:first-child {
+	padding-right: 10px;
+	padding-left: 5px;
+}
+html[dir=rtl] body table.ninja-list > * > tr > *:last-child {
+	padding-right: 5px;
+	padding-left: 10px;
+}
+/* @group Table tfoot and thead */
+html[dir=rtl] body table.ninja-list thead tr th:first-child {
+	border-left-width: 1px;
+}
+html[dir=rtl] body table.ninja-list thead tr th:last-child {
+	border-left-width: 0;
+}
+/* @end */
+/* @end */
+
+html[dir=rtl] .ninja-list .grid-align, body table.ninja-list thead th {
+	text-align: right;
+}

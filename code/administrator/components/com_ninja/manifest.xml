@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<install type="component" version="1.5.0" method="upgrade">
+	<name>Ninja</name>
+	<creationDate>November 2009</creationDate>
+	<author>Stian Didriksen</author>
+	<authorEmail>stian@ninjaforge.com</authorEmail>
+	<authorUrl>http://ninjaforge.com</authorUrl>
+	<copyright>(C) 2009-2010 Ninja Media Group. All rights reserved.</copyright>
+	<license>GNU GPLv3</license>
+	<version>1.0.0</version>
+	<revision>$Rev: 1046 $</revision>
+	<koowa>3090</koowa>
+	<description>NinjaForge API Library</description>
+	
+	<!-- Admin Files Copy Section -->
+	<administration>
+		<files folder="administrator/components/com_ninja">
+			<file>htaccess.txt</file>
+			<file>ninja.php</file>
+			<file>permissions.php</file>
+			<folder>controllers</folder>
+			<folder>databases</folder>
+			<folder>elements</folder>
+			<folder>filters</folder>
+			<folder>forms</folder>
+			<folder>helpers</folder>
+			<folder>html</folder>
+			<folder>mixins</folder>
+			<folder>models</folder>
+			<folder>overrides</folder>
+			<folder>setup</folder>
+			<folder>templates</folder>
+			<folder>toolbars</folder>
+			<folder>views</folder>
+		</files>
+	</administration>	
+	
+	<!-- Media Files Copy Section -->
+	<media destination="com_ninja" folder="media/com_ninja">  
+		<file>htaccess.txt</file>
+ 		<folder>css</folder>
+ 		<folder>fonts</folder>  
+ 		<folder>images</folder>  
+ 		<folder>js</folder>
+ 		<folder>swf</folder>
+	</media>
+	
+	<deleted>
+		<admin>
+			<folder revision="693">databases/behavior</folder>
+			<file revision="681">elements/joomla.php</file>
+			<folder revision="655">helpers/images</folder>
+			<folder revision="641">forms/elememts/select</folder>
+			<folder revision="641">forms/elememt</folder>
+			<folder revision="640">toolbars/button</folder>
+			<folder revision="625">behaviors</folder>
+			<folder revision="625">rows</folder>
+			<folder revision="625">tables</folder>
+			<folder revision="537">commands</folder>
+			<folder revision="0">helpers/htmlpurifier</folder>
+			<file revision="0">helpers/htmlpurifier.php</file>
+			<file revision="0">views/dashboard/html.php</file>
+			<file revision="0">forms/element/select.php</file>
+			<file revision="0">forms/element/select/select.php</file>
+		</admin>
+		<site removed="true" revision="0" />
+		<media>
+		    <file revision="1037">images/32/unread_badge.png</file>
+			<file revision="872">fonts/Fertigo_PRO.otf</file>
+			<file revision="678">images/16/checkbox_active.png</file>
+			<file revision="678">images/16/checkbox_checked.png</file>
+			<file revision="678">images/16/checkbox_checked_active.png</file>
+			<file revision="678">images/16/checkbox_checked_active_selected.png</file>
+			<file revision="678">images/16/checkbox_checked_selected.png</file>
+			<file revision="535">images/mysqli.png</file>
+		
+			<!-- All this because stupid Comodo thinks g.dot.js is a virus... -->
+			<file revision="462">js/g.bar.js</file>
+			<file revision="462">js/g.dot.js</file>
+			<file revision="462">js/g.line.js</file>
+			<file revision="462">js/g.pie.js</file>
+			<file revision="462">js/g.raphael.js</file>
+
+			<file revision="312">js/jquery/jquery.pack.js</file>
+		</media>
+	</deleted>
+	
+</install>

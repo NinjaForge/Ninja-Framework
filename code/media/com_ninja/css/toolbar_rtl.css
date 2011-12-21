@@ -1,0 +1,47 @@
+/* @group from Khepri */
+body div.header.pagetitle {
+	padding-left: 0px;
+	padding-right: 60px;
+}
+body table.toolbar td {
+	padding-right: 4px;
+	padding-left: 1px;
+}
+body .toolbar.template-bluestork {
+	float: left;
+}
+body .template-stainless table.toolbar td {
+	padding-right: 0px;
+	padding-left: 1px;
+}
+body table.toolbar td.divider {
+	border-right-width: 0px;
+	border-left: 1px solid #EEEEEE;
+}
+body table.toolbar a {
+	float: right;
+}
+
+/* @end */
+
+/* @group Khepri */
+
+body div.toolbar.template-khepri {
+	float: left;
+	text-align: left;
+}
+
+/* @end */
+
+/* @group APLite */
+body .template-aplite [class^="icon-32-"] 	{ 
+float: right;
+}
+/* @end */
+
+
+body .m table.toolbar {
+	margin-right: 0px;
+	margin-left: 10px;
+	margin-bottom: 0;
+}

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<install version="1.5" type="plugin" group="system" method="upgrade">
+	<name>System - Ninja Framework</name>
+	<author>NinjaForge</author>
+	<creationDate>January 2010</creationDate>
+	<copyright>(C) 2007-2010 Ninja Media Group. All rights reserved.</copyright>
+	<license>GNU/GPL</license>
+	<authoremail>support@ninjaforge.com</authoremail>
+	<authorurl>ninjaforge.com</authorurl>
+	<version>1.5.0</version>
+	<description>Loads MooTools and jQuery when needed by NinjaForge extensions. Also makes available napi (NinjaAPI) APIs.</description>
+	<files>
+		<filename plugin="ninja">ninja.php</filename>
+	</files>
+	<params />
+</install>

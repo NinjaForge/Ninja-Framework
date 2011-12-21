@@ -1,0 +1,291 @@
+/* @group from Khepri */
+div.header.pagetitle {
+	padding-left: 60px;
+}
+.header h2 {
+	font-size: inherit;
+	font-family: inherit;
+	color: inherit;
+	line-height: inherit;
+	padding: 0;
+	margin: 0;
+}
+table.toolbar td {
+	/*color:#666666;*/
+	height:48px;
+	padding-top: 1px;
+	padding-right: 1px;
+	padding-bottom: 1px;
+	padding-left: 4px;
+	text-align: center;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+}
+.toolbar.template-bluestork {
+	display: inline-block;
+	float: right;
+}
+.template-aplite table.toolbar td,
+.template-stainless table.toolbar td,
+.template-aplite table.toolbar td.spacer,
+.template-stainless table.toolbar td.spacer {
+	height: 16px;
+}
+.template-stainless table.toolbar td {
+	padding-top: 1px;
+	padding-right: 1px;
+	padding-bottom: 1px;
+	padding-left: 0px;
+}
+table.toolbar td.spacer {
+	width: 10px;
+}
+table.toolbar td.divider {
+	border-right: 1px solid #EEEEEE;
+	width: 5px;
+}
+table.toolbar span {
+	display: block;
+	float: none;
+	height: 32px;
+	margin: 0 auto;
+	width: 32px;
+}
+table.toolbar a {
+	border: 1px solid #FBFBFB;
+	cursor: pointer;
+	display: block;
+	float: left;
+	padding: 1px 5px;
+	white-space: nowrap;
+	text-shadow: hsla(0, 0%, 100%, .2) 0 1px 0;
+	color: #333;
+}
+
+/* @end */
+
+/* Removing firefox's ugly dotted border */
+.toolbar a:focus { 
+    outline: none; 
+}
+
+/* @group Khepri */
+
+div.toolbar.template-khepri {
+	float: right;
+	padding: 0;
+	text-align: right;
+	max-height: 48px;
+}
+
+/* @end */
+
+/* @group AdminPraise2 */
+.template-adminpraise2.header.icon-48-generic {
+	background-image: none;
+}
+.template-adminpraise2.header h2 {
+	font-size: inherit;
+}
+.template-adminpraise2 table.toolbar span, .template-adminpad table.toolbar span {
+	height: 32px;
+	width: 32px;
+}
+.template-adminpraise2 table.toolbar span:hover, .template-adminpad table.toolbar span:hover {
+	background-position: 50% 0px;
+}
+.template-adminpraise2 table.toolbar td.spacer {
+	width: 10px!important;
+}
+
+/* @end */
+
+/* @group APLite */
+.template-aplite div.toolbar {
+	max-height: 18px;
+}
+.template-aplite [class^="icon-32-"] 	{ 
+background-position: 0 0;
+background-repeat: no-repeat;
+display: block;
+float: left;
+height: 16px;
+width: 16px; 
+margin-right: 2px;
+}
+
+.template-aplite .button .toolbar {
+	margin: 0 7px;
+}
+
+.template-aplite .toolbar .icon-32-new { background-image: url(../images/16/new.png); }
+.template-aplite .toolbar .icon-32-edit { background-image: url(../images/16/edit.png); }
+.template-aplite .toolbar .icon-32-delete { background-image: url(../images/16/delete.png); }
+.template-aplite .toolbar .icon-32-save { background-image: url(../images/16/save.png); }
+.template-aplite .toolbar .icon-32-apply { background-image: url(../images/16/apply.png); }
+.template-aplite .toolbar .icon-32-cancel { background-image: url(../images/16/cancel.png); }
+.template-aplite .toolbar .icon-32-preferences { background-image: url(../images/16/preferences.png); }
+.template-aplite .toolbar .icon-32-about { background-image: url(../images/16/about.png); }
+.template-aplite .toolbar .icon-32-enable, #ap-content .icon-32-publish	{ background-image: url(../images/16/enable.png); }
+.template-aplite .toolbar .icon-32-disable, #ap-content .icon-32-unpublish	{ background-image: url(../images/16/disable.png); }
+
+/* @end */
+
+/* @group Stainless */
+.template-stainless .toolbar a span {
+	background-image: url(../../../administrator/templates/stainless/images/icons/icons-16.png);
+}
+.template-stainless table.toolbar td.spacer {
+	display: none;
+}
+.template-stainless .toolbar .icon-32-new { background-position: -206px 0px !important; }
+.template-stainless .toolbar .icon-32-edit { background-position: 0px 0px !important; }
+.template-stainless .toolbar .icon-32-delete { background-position: -225px 0px !important; }
+.template-stainless .toolbar .icon-32-save { background-position: 0px 0px !important; }
+.template-stainless .toolbar .icon-32-apply { background-position: -150px 0px !important; }
+.template-stainless .toolbar .icon-32-cancel { background-position: -225px 0px !important; }
+.template-stainless .toolbar .icon-32-preferences { background-position: -258px 0px !important; }
+.template-stainless .toolbar .icon-32-about { background-position: -114px 0px !important; }
+.template-stainless .toolbar .icon-32-enable { background-position: -94px 0px !important; }
+.template-stainless .toolbar .icon-32-disable { background-position: -74px 0px !important; }
+/* @end */
+
+/* @group JB Crisp & JB Simpla */
+#toolbar.template-jbcrisp table.toolbar td, #toolbar.template-jbsimpla table.toolbar td {
+	border-right-width: 0px;
+}
+#toolbar.template-jbcrisp table.toolbar td.spacer, #toolbar.template-jbsimpla table.toolbar td.spacer {
+	border-right-width: 1px;
+	padding: 0;
+	width: 0;
+}
+/* @end */
+
+/* @group RT MissionControl */
+#mc-title div[id^="toolbar-"]:not([id$="-about"]) {float:right;}
+/* dropdown */
+body div[id^="toolbar-"] .dropdown, body div[id^="toolbar-"] .select-active, body div[id^="toolbar-"] .mc-dropdown-selected {position:relative;}
+body div[id^="toolbar-"] .mc-dropdown, body div[id^="toolbar-"] .select-arrow {position: absolute;z-index:500;}
+body div[id^="toolbar-"] .select-arrow {height: 25px;line-height: 25px;padding: 0;right: 0;text-align: center;top: 0; width: 20px;}
+body div[id^="toolbar-"] .select-arrow {line-height:20px;}
+body div[id^="toolbar-"] .mc-dropdown {display:none;padding: 0;margin:25px 0 0 0;}
+body div[id^="toolbar-"] .select-active {margin-right: 20px;display:block;}
+body div[id^="toolbar-"] .mc-dropdown li {line-height: 14px;font-weight: normal;padding: 3px 0;margin-left:0;float:left;width:100%;}
+body div[id^="toolbar-"] li:hover .mc-dropdown {display:block;}
+div[id^="toolbar-"] li.dropdown {background:#999;}
+body div[id^="toolbar-"] .dropdown, body div[id^="toolbar-"] .select-active, body div[id^="toolbar-"] .mc-dropdown-selected {color:#fff;}
+body div[id^="toolbar-"] .select-arrow {color: #fff;border-left: 1px solid #F5F5F5;}
+body div[id^="toolbar-"] .mc-dropdown {border-top: 1px solid #F5F5F5;margin: 0;background:#777;}
+body div[id^="toolbar-"] li:hover li a {color:#fff;}
+div[id^="toolbar-"] li.dropdown:hover {background:#777;}
+body div[id^="toolbar-"] .mc-dropdown li {margin:0;}
+body div[id^="toolbar-"] .mc-dropdown a {padding: 4px 10px;background:none;}
+div[id^="toolbar-"] li.dropdown a, div[id^="toolbar-"] li.dropdown a:hover {background:none;}
+
+body div[id^="toolbar-"] .mc-dropdown, div[id^="toolbar-"] .mc-dropdown li:last-child {
+	-moz-border-radius-bottomleft: 4px;-moz-border-radius-bottomright: 4px;
+	-webkit-border-bottom-left-radius: 4px;-webkit-border-bottom-right-radius: 4px;
+	
+}
+div[id^="toolbar-"] li.dropdown:hover  {
+	-moz-border-radius-bottomleft: 0px;-moz-border-radius-bottomright: 0px;
+	-webkit-border-bottom-left-radius: 0px;-webkit-border-bottom-right-radius: 0px;
+}
+div[id^="toolbar-"] .mc-dropdown li a {
+	-moz-border-radius:0;
+	-webkit-border-radius:0;
+}
+div[id^="toolbar-"] .mc-dropdown {
+	-moz-box-shadow:0px 5px 10px rgba(0, 0, 0, 0.25);
+	-webkit-box-shadow:0px 5px 10px rgba(0, 0, 0, 0.5);
+}
+/* @end */
+
+body table.toolbar {
+	border-collapse: collapse;
+	margin: 0;
+	margin-bottom: 5px;
+	padding: 0;
+}
+.m table.toolbar {
+	margin-right: 10px;
+	margin-bottom: 0;
+}
+table.toolbar tbody tr td .toolbar, table.toolbar a:hover {
+	border-color: #EEEEEE #CCCCCC #CCCCCC #EEEEEE;
+	border-style: solid;
+	border-width: 1px;
+	/*color:#0B55C4;*/
+	text-decoration: none;
+	opacity: 1;
+	
+	border: 0px transparent;
+	border-radius: 5px;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	
+	-webkit-transition: opacity 100ms ease-in-out;
+	-moz-transition: opacity 100ms ease-in-out;
+	transition: opacity 100ms ease-in-out;
+}
+
+table.toolbar tbody tr td .toolbar:hover {
+	/*-webkit-box-shadow: white 0 -1px 0, lightgray 0 1px 0;
+	-moz-box-shadow: white 0 -1px 0, lightgray 0 1px 0;
+	background-color: white;
+	background-color: hsla(0, 0%, 100%, 0.95);*/
+}
+table.toolbar tbody tr td .toolbar.invalid {
+	opacity: 0.5;
+	/*color: gray;*/
+	cursor: default;
+}
+table.toolbar tbody tr td .toolbar.disabled, table.toolbar tbody tr td .toolbar.disabled:hover, table.toolbar tbody tr td .toolbar.disabled:active {
+	box-shadow: none;
+	-webkit-box-shadow: none;
+	-moz-box-shadow: none;
+	opacity: 0.5;
+	background-color: transparent;
+	transform: translateY(0px);
+	-webkit-transform: translateY(0px);
+	-moz-transform: translateY(0px);
+	top: 0;
+	background-color: transparent;
+	text-shadow: hsla(0, 0%, 100%, .2) 0 1px 0;
+	background-image: none;
+	box-shadow: none;
+	-webkit-box-shadow: none;
+	-moz-box-shadow: none;
+}
+table.toolbar tbody tr td a.toolbar:active, table.toolbar tbody tr td a.toolbar.active, table.toolbar tbody tr td .toolbar.droppable.active {
+	/*transform: translateY(1px);
+	-webkit-transform: translateY(1px);
+	-moz-transform: translateY(1px);*/
+	top: 1px;
+	position: relative;
+	background-color: #F3F3F3;
+	background-color: hsla(0, 0%, 0%, 0.05);
+	background-color: hsla(0, 0%, 0%, 0.0);
+	text-shadow: none;
+	background-image: -webkit-gradient(linear, left bottom, left top, from(hsla(0, 0%, 100%, .1)), color-stop(.3, hsla(0, 0%, 50%, .1)), to(hsla(0, 0%, 0%, .1)));
+	background-image: -moz-linear-gradient(0% 100% 90deg,hsla(0, 0%, 100%, .1),hsla(0, 0%, 50%, .1),hsla(0, 0%, 0%, .1) 70%);
+	box-shadow: hsla(0, 0%, 0%, .2) 0 -1px 0, hsla(0, 0%, 100%, .2) 0 1px 0;
+	-webkit-box-shadow: hsla(0, 0%, 0%, .2) 0 -1px 0, hsla(0, 0%, 100%, .2) 0 1px 0;
+	-moz-box-shadow: hsla(0, 0%, 0%, .2) 0 -1px 0, hsla(0, 0%, 100%, .2) 0 1px 0;
+}
+table.toolbar tbody tr td .toolbar:active span, table.toolbar tbody tr td .toolbar.droppable.active span, table.toolbar tbody tr td .toolbar.disabled span {
+	background-position: center bottom;
+}
+table.toolbar tbody tr td.spacer {
+	display: table-cell;
+	height: 32px;
+	border: 0px solid transparent;
+}
+/* Don't display two spacers that are next to one another */
+table.toolbar tbody tr td.spacer + td.spacer {
+	display: none;
+}
+
+
+/* The default button, should have a star, not the default icon */
+.toolbar .icon-32-default { background-image: url(../images/32/star.png) !important; }

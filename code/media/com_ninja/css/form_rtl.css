@@ -1,0 +1,8 @@
+.ninja-form .element .group.vertical .value label, .ninja-form .element ul.group.vertical li label {
+	padding-left: 3px;
+	padding-right: 18px;
+}
+.group.images label,
+.ninja-form .group.images label {
+	float: right;
+}

@@ -1,0 +1,347 @@
+/* -------------------------------------------------------------------
+// markItUp!
+// By Jay Salvat - http://markitup.jaysalvat.com/
+// ------------------------------------------------------------------*/
+.markItUp .markItUpButton1 a	{
+	background-image:url(../images/bbcode/bold.png);
+}
+.markItUp .markItUpButton2 a	{
+	background-image:url(../images/bbcode/italic.png);
+}
+.markItUp .markItUpButton3 a	{
+	background-image:url(../images/bbcode/underline.png);
+}
+
+.markItUp .markItUpButton4 a	{
+	background-image:url(../images/bbcode/picture.png);
+}
+.markItUp .markItUpButton5 a	{
+	background-image:url(../images/bbcode/link.png);
+}
+
+.markItUp .markItUpButton6 a	{
+	background-image:url(../images/bbcode/fonts.png);
+}
+.markItUp .markItUpButton7 a	{
+	background-image:url(../images/bbcode/list-bullet.png);
+}
+.markItUp .markItUpButton8 a	{
+	background-image:url(../images/bbcode/list-numeric.png);
+}
+.markItUp .markItUpButton9 a	{
+	background-image:url(../images/bbcode/list-item.png);
+}
+
+.markItUp .markItUpButton10 a	{
+	background-image:url(../images/bbcode/quotes.png);
+}
+.markItUp .markItUpButton11 a	{
+	background-image:url(../images/bbcode/code.png);
+}
+	
+.markItUp .clean a {
+	background-image:url(../images/bbcode/clean.png);
+}
+.markItUp .preview a {
+	background-image:url(../images/bbcode/preview.png);
+}
+
+/* -------------------------------------------------------------------
+// markItUp!
+// By Jay Salvat - http://markitup.jaysalvat.com/
+// ------------------------------------------------------------------*/
+.markItUp .colors a {
+	background-image:url(../images/bbcode/colors.png);
+}
+	.markItUp .colors ul {
+		width:81px;
+		padding:1px;	
+	}
+	.markItUp .colors li {
+		border:1px solid transparent;
+		width:25px;	height:25px;
+		overflow:hidden;
+		padding:0px; margin:0px;
+		float:left;
+	}
+	.markItUp .markItUpButton6 ul a {
+		width:25px;	height:25px;
+		-webkit-border-radius: 0!important;
+		-moz-border-radius: 0!important;
+		border-radius: 0!important;
+	}
+	.markItUp .colors ul a:hover {
+		background-color:none;
+	}
+	
+	.markItUp .colors .col1-1 a {
+		background:yellow;
+	}
+	.markItUp .colors .col1-2 a {
+		background:orange;
+	}
+	.markItUp .colors .col1-3 a {
+		background:red;
+	}
+	
+	.markItUp .colors .col2-1 a {
+		background:blue;
+	}
+	.markItUp .colors .col2-2 a {
+		background:purple;
+	}
+	.markItUp .colors .col2-3 a {
+		background:green;
+	}
+	
+	.markItUp .colors .col3-1 a {
+		background:white;
+	}
+	.markItUp .colors .col3-2 a {
+		background:gray;
+	}
+	.markItUp .colors .col3-3 a {
+		background:black;
+	}
+	
+/* -------------------------------------------------------------------
+// markItUp! Universal MarkUp Engine, JQuery plugin
+// By Jay Salvat - http://markitup.jaysalvat.com/
+// ------------------------------------------------------------------*/
+.markItUp * {
+	margin:0px; padding:0px;
+	outline:none;
+}
+.markItUp {
+	//width:700px;
+	margin:5px 0 5px 0;
+}
+.markItUpContainer {
+	font:11px Verdana, Arial, Helvetica, sans-serif;
+}
+.markItUpEditor {
+	font:12px 'Courier New', Courier, monospace;
+	padding:5px;
+	width:690px;
+	height:320px;
+	clear:both; display:block!important;
+	line-height:18px;
+	overflow:auto;
+}
+.markItUpPreviewFrame	{
+	overflow:auto;
+	background-color:#FFFFFF;
+	width:99.9%;
+	height:350px;
+	margin:5px 0;
+}
+.markItUpFooter {
+	width:100%;
+}
+.markItUpResizeHandle {
+	overflow:hidden;
+	width:22px; height:5px;
+	margin-left:auto;
+	margin-right:auto;
+	background-image:url(../images/bbcode/handle.png);
+	cursor:n-resize;
+}
+/***************************************************************************************/
+/* first row of buttons */
+.markItUpHeader ul li	{
+	list-style:none;
+	float:left;
+	position:relative;
+}
+.markItUpHeader ul li:hover > ul{
+	display: block!important;
+}
+.markItUpHeader ul .markItUpDropMenu {
+	background:transparent url(../images/bbcode/menu.png) no-repeat 115% 50%;
+	margin-right:5px;
+}
+.markItUpHeader ul .markItUpDropMenu ul {
+	display: none!important;
+}
+.markItUpHeader ul .markItUpDropMenu li {
+	margin-right:0px;
+}
+/* next rows of buttons */
+.markItUpHeader ul ul {
+	display: none!important;
+	position:absolute;
+	top:18px;
+	left:0px;	
+	background:#FFF;
+	background-color: hsla(0, 0%, 100%, 0.8);
+	border:1px solid #000;
+	border-color: hsla(0, 0%, 100%, 0.1);
+	-webkit-box-shadow: hsla(0, 0%, 0%, 0.4) 0 3px 6px;
+	-moz-box-shadow: hsla(0, 0%, 0%, 0.4) 0 3px 6px;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+}
+.markItUpHeader ul ul li {
+	float:none;
+	/*border-bottom:1px solid #000;*/
+}
+.markItUpHeader ul ul .markItUpDropMenu {
+	background:#FFF url(../images/bbcode/submenu.png) no-repeat 100% 50%;
+}
+.markItUpHeader ul .markItUpSeparator {
+	margin:0 10px;
+	width:1px;
+	height:16px;
+	overflow:hidden;
+	background-color:#CCC;
+}
+.markItUpHeader ul ul .markItUpSeparator {
+	width:auto; height:1px;
+	margin:0px;
+}
+/* next rows of buttons */
+.markItUpHeader ul ul ul {
+	position:absolute;
+	top:-1px; left:150px; 
+}
+.markItUpHeader ul ul ul li {
+	float:none;
+}
+.markItUpHeader ul a {
+	display: block!important;
+	width:16px; height:16px;
+	text-indent:-10000px;
+	background-repeat:no-repeat;
+	padding:3px;
+	margin:0px;
+}
+.markItUpHeader ul ul a {
+	display: block!important;
+	padding-left:0px;
+	text-indent:0;
+	width:120px; 
+	padding:5px 5px 5px 25px;
+	background-position:2px 50%;
+	-webkit-border-radius: 4px;
+}
+.markItUpHeader ul ul a:hover {
+	color:#FFF;
+	background-color:#000;
+	background-color: hsla(0, 0%, 0%, 0.9);
+	text-shadow: white 0 0 5px;
+}
+
+/* -------------------------------------------------------------------
+// markItUp!
+// By Jay Salvat - http://markitup.jaysalvat.com/
+// ------------------------------------------------------------------*/
+.bbcode .markItUpButton1 a	{
+	background-image:url(../images/bbcode/bold.png);
+}
+.bbcode .markItUpButton2 a	{
+	background-image:url(../images/bbcode/italic.png);
+}
+.bbcode .markItUpButton3 a	{
+	background-image:url(../images/bbcode/underline.png);
+}
+
+.bbcode .markItUpButton4 a	{
+	background-image:url(../images/bbcode/picture.png);
+}
+.bbcode .markItUpButton5 a	{
+	background-image:url(../images/bbcode/link.png);
+}
+
+.bbcode .markItUpButton6 a {
+	background-image:url(../images/bbcode/colors.png);
+}
+	.bbcode .markItUpButton6 ul {
+		width:81px;
+		padding:1px;	
+	}
+	.bbcode .markItUpButton6 li {
+		border:1px solid white;
+		width:25px;	height:25px;
+		overflow:hidden;
+		padding:0px; margin:0px;
+		float:left;
+	}
+	.bbcode .markItUpButton6 ul a {
+		width:25px;	height:25px;
+	}
+	.bbcode .markItUpButton6 ul a:hover {
+		background-color:none;
+	}
+	
+	.bbcode .markItUpButton6 .col1-1 a {
+		background:yellow;
+	}
+	.bbcode .markItUpButton6 .col1-2 a {
+		background:orange;
+	}
+	.bbcode .markItUpButton6 .col1-3 a {
+		background:red;
+	}
+	
+	.bbcode .markItUpButton6 .col2-1 a {
+		background:blue;
+	}
+	.bbcode .markItUpButton6 .col2-2 a {
+		background:purple;
+	}
+	.bbcode .markItUpButton6 .col2-3 a {
+		background:green;
+	}
+	
+	.bbcode .markItUpButton6 .col3-1 a {
+		background:white;
+	}
+	.bbcode .markItUpButton6 .col3-2 a {
+		background:gray;
+	}
+	.bbcode .markItUpButton6 .col3-3 a {
+		background:black;
+	}
+	
+.bbcode .markItUpButton7 a	{
+	background-image:url(../images/bbcode/fonts.png);
+}
+.bbcode .markItUpButton8 a	{
+	background-image:url(../images/bbcode/list-bullet.png);
+}
+.bbcode .markItUpButton9 a	{
+	background-image:url(../images/bbcode/list-numeric.png);
+}
+.bbcode .markItUpButton10 a	{
+	background-image:url(../images/bbcode/list-item.png);
+}
+
+.bbcode .markItUpButton11 a	{
+	background-image:url(../images/bbcode/quotes.png);
+}
+.bbcode .markItUpButton12 a	{
+	background-image:url(../images/bbcode/code.png);
+}
+	
+.bbcode .markItUpButton13 a	{
+	background-image:url(../images/bbcode/clean.png);
+}
+.bbcode .button_preview a {
+	background-image:url(../images/bbcode/magnifier.png);
+}
+.bbcode .button_preview a.previewing {
+	background-image:url(../images/bbcode/magifier_zoom_out.png);
+}
+
+.ninja-form .element .markItUpHeader {
+	text-align: left;
+}
+
+.ninja-form .element .markItUpHeader ul {
+	margin-left: 0;
+	text-align: left;
+}
+.ninja-form .element .markItUpContainer > .markItUpHeader > ul {
+	margin: 0!important;
+}

@@ -1,0 +1,25 @@
+.ninja-form {
+	position: relative;
+}
+.ninja-form.toggle {
+	padding-top: 20px !important;
+}
+.wrapper.switch {
+	position: relative;
+	z-index: 1;
+}
+.ninja-form.toggle .wrapper.switch {
+	right: 4px;
+	top: 10px;
+	margin-bottom: 5px;
+	float: right;
+}
+
+/* custom layout fixes for NRSS as Stian keeps undoing my fixes and breaking NRSS layout*/
+#com-ninjarss-feed-tabs .ninja-form.toggle {
+	padding-top: 0px !important;
+}
+
+#com-ninjarss-feed-tabs .ninja-form.toggle .wrapper.switch {
+	top: 0px;
+}

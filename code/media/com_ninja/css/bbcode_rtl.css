@@ -1,0 +1,41 @@
+.markItUp .colors li {
+	float: right;
+}
+
+/***************************************************************************************/
+/* first row of buttons */
+.markItUpHeader ul li	{
+	float: right;
+}
+
+.markItUpHeader ul ul {
+	right: 0px;	
+	left: auto;
+}
+
+/* next rows of buttons */
+.markItUpHeader ul ul ul {
+	right: 150px;
+	left: auto;
+}
+
+.markItUpHeader ul ul a {
+	padding-left: 5px;
+	padding-right: 25px;
+	/*this background position should be 2px from the right*/
+	background-position: 99% 50%;
+}
+
+.bbcode .markItUpButton6 li {
+	float: right;
+}
+
+.ninja-form .element .markItUpHeader {
+	text-align: right;
+}
+
+.ninja-form .element .markItUpHeader ul {
+	margin-left: auto;
+	margin-right: 0;
+	text-align: right;
+}
