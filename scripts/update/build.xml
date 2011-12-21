@@ -1,5 +1,5 @@
 <?xml version="1.0" ?>  
-<project name="Update Koowa snapshot" basedir=".." default="build">
+<project name="Update Koowa snapshot" basedir="../.." default="build">
 
 	<!-- Put username and password here, this file wont be stored on the svn -->
 	<property file="scripts/build.properties" />
