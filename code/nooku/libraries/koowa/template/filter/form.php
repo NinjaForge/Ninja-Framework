@@ -1,6 +1,6 @@
 <?php
 /**
-* @version      $Id: form.php 1372 2011-10-11 18:56:47Z stian $
+* @version      $Id: form.php 4439 2011-12-20 23:35:24Z johanjanssens $
 * @category		Koowa
 * @package      Koowa_Template
 * @subpackage	Filter
@@ -118,8 +118,15 @@ class KTemplateFilterForm extends KTemplateFilterAbstract implements KTemplateFi
                 parse_str(str_replace('&amp;', '&', $query), $query);
                 
                 $input = '';
-                foreach($query as $name => $value) {
-                    $input .= PHP_EOL.'<input type="hidden" name="'.$name.'" value="'.$value.'" />';
+                foreach($query as $name => $value)
+                {
+                    if(is_array($value))
+                    {
+                        foreach($value as $k => $v) {
+                            $input .= PHP_EOL.'<input type="hidden" name="'.$name.'['.$k.']" value="'.$v.'" />';
+                        }
+                    }
+                    else $input .= PHP_EOL.'<input type="hidden" name="'.$name.'" value="'.$value.'" />';
                 }
                 
                 $text = str_replace($matches[0][$key], $matches[0][$key].$input, $text);

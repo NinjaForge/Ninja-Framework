@@ -1,6 +1,6 @@
 <?php
 /**
- * @version		$Id: service.php 1372 2011-10-11 18:56:47Z stian $
+ * @version		$Id: service.php 4401 2011-12-03 02:03:43Z johanjanssens $
  * @category	Koowa
  * @package		Koowa_Controller
  * @copyright	Copyright (C) 2007 - 2010 Johan Janssens. All rights reserved.
@@ -28,7 +28,6 @@ abstract class KControllerService extends KControllerResource
     protected function _initialize(KConfig $config)
     {
     	$config->append(array(
-    		'persistable' => false,
     		'behaviors'  => array('discoverable', 'editable'),
     	    'readonly'   => false, 
         ));

@@ -1,6 +1,6 @@
 <?php
 /**
- * @version     $Id: module.php 1372 2011-10-11 18:56:47Z stian $
+ * @version     $Id: module.php 4390 2011-11-24 15:52:54Z johanjanssens $
  * @category	Nooku
  * @package     Nooku_Components
  * @subpackage  Default
@@ -23,7 +23,24 @@
  * @subpackage  Default
  */
 class ComDefaultTemplateFilterModule extends KTemplateFilterAbstract implements KTemplateFilterWrite
-{  
+{
+    /**
+     * Initializes the options for the object
+     *
+     * Called from {@link __construct()} as a first step of object instantiation.
+     *
+     * @param   object  An optional KConfig object with configuration options
+     * @return void
+     */
+    protected function _initialize(KConfig $config)
+    {
+        $config->append(array(
+            'priority' => KCommand::PRIORITY_LOW,
+        ));
+
+        parent::_initialize($config);
+    }
+    
     /**
 	 * Find any <module></module> elements and inject them into the JDocument object
 	 *

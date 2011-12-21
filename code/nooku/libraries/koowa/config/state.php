@@ -1,6 +1,6 @@
 <?php
 /**
- * @version		$Id: state.php 1414 2011-11-07 23:27:31Z stian $
+ * @version		$Id: state.php 4388 2011-11-20 22:55:56Z johanjanssens $
  * @category	Koowa
  * @package		Koowa_Model
  * @copyright	Copyright (C) 2007 - 2010 Johan Janssens. All rights reserved.
@@ -112,8 +112,11 @@ class KConfigState extends KConfig
         return $this;
     }
     
-    /**
+     /**
      * Set the state data
+     * 
+     * This function will only filter values if we have a value. If the value
+     * is an empty string it will be filtered to NULL.
      *
      * @param   array|object    An associative array of state values by name
      * @return  KConfigState
@@ -126,12 +129,22 @@ class KConfigState extends KConfig
             if(isset($this->_data[$key]))
             {
                 $filter = $this->_data[$key]->filter;
+                
+                //Only filter if we have a value
+                if($value !== null)
+                {
+                    if($value !== '') 
+                    {
+                        if(!($filter instanceof KFilterInterface)) {
+                            $filter = KService::get('koowa:filter.factory')->instantiate($filter);
+                        }
 
-                if(!($filter instanceof KFilterInterface)) {
-                    $filter = KService::get('koowa:filter.factory')->instantiate($filter);
+                        $value = $filter->sanitize($value);
+                    }
+                    else $value = null;
+                    
+                    $this->_data[$key]->value = $value;
                 }
-
-                $this->_data[$key]->value = $filter->sanitize($value);
             }
         }
 

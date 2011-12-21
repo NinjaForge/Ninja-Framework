@@ -1,6 +1,6 @@
 <?php
 /**
-* @version		$Id: boolean.php 1372 2011-10-11 18:56:47Z stian $
+* @version		$Id: boolean.php 4387 2011-11-20 22:52:48Z johanjanssens $
 * @category		Koowa
 * @package      Koowa_Filter
 * @copyright    Copyright (C) 2007 - 2010 Johan Janssens. All rights reserved.
@@ -41,6 +41,6 @@ class KFilterBoolean extends KFilterAbstract
 	 */
 	protected function _sanitize($value)
 	{
-		return $value !== '' ? (bool) filter_var($value, FILTER_VALIDATE_BOOLEAN) : NULL;
+		return (bool) filter_var($value, FILTER_VALIDATE_BOOLEAN);
 	}
 }

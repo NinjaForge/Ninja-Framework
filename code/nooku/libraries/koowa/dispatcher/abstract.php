@@ -1,6 +1,6 @@
 <?php
 /**
- * @version		$Id: abstract.php 1372 2011-10-11 18:56:47Z stian $
+ * @version		$Id: abstract.php 4430 2011-12-11 15:45:29Z johanjanssens $
  * @category	Koowa
  * @package		Koowa_Dispatcher
  * @copyright	Copyright (C) 2007 - 2010 Johan Janssens. All rights reserved.
@@ -56,10 +56,10 @@ abstract class KDispatcherAbstract extends KControllerAbstract
     protected function _initialize(KConfig $config)
     {
     	$config->append(array(
-        	'controller'			=> $this->getIdentifier()->package,
-    		'request'				=> KRequest::get('get', 'string'),
-        ))->append(array(
-            'request' 				=> array('format' => KRequest::format() ? KRequest::format() : 'html')
+        	'controller' => $this->getIdentifier()->package,
+    		'request'	 => KRequest::get('get', 'string'),
+        ))->append(array (
+            'request' 	 => array('format' => KRequest::format() ? KRequest::format() : 'html')
         ));
 
         parent::_initialize($config);

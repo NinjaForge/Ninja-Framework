@@ -1,6 +1,6 @@
 <?php
 /**
-* @version		$Id: slug.php 1372 2011-10-11 18:56:47Z stian $
+* @version		$Id: slug.php 4402 2011-12-03 14:04:04Z johanjanssens $
 * @category		Koowa
 * @package      Koowa_Filter
 * @copyright    Copyright (C) 2007 - 2010 Johan Janssens. All rights reserved.
@@ -100,6 +100,9 @@ class KFilterSlug extends KFilterAbstract
 		
 		//remove any duplicate whitespace, and ensure all characters are alphanumeric
 		$value = preg_replace(array('/\s+/','/[^A-Za-z0-9\-]/'), array($this->_separator,''), $value);
+		
+		//remove repeated occurences of the separator
+		$value = preg_replace('/['.preg_quote($this->_separator, '/').']+/', $this->_separator, $value);		
 		
 		//limit length
 		if (strlen($value) > $this->_length) {

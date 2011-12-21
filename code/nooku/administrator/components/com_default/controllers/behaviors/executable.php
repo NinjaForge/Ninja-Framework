@@ -1,6 +1,6 @@
 <?php
 /**
- * @version     $Id: executable.php 1414 2011-11-07 23:27:31Z stian $
+ * @version     $Id: executable.php 4404 2011-12-06 14:58:11Z johanjanssens $
  * @category	Nooku
  * @package     Nooku_Components
  * @subpackage  Default
@@ -27,7 +27,7 @@ class ComDefaultControllerBehaviorExecutable extends KControllerBehaviorExecutab
      * @return  boolean     Can return both true or false.  
      * @throws  KControllerException
      */
-    final public function execute( $name, KCommandContext $context) 
+    public function execute( $name, KCommandContext $context) 
     { 
         $parts = explode('.', $name); 
         

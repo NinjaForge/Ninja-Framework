@@ -1,6 +1,6 @@
 <?php
 /**
- * @version		$Id: select.php 1054 2011-06-16 14:35:04Z stian $
+ * @version		$Id: select.php 4408 2011-12-07 16:29:58Z johanjanssens $
  * @category	Koowa
  * @package		Koowa_Template
  * @subpackage	Helper
@@ -88,14 +88,14 @@ class KTemplateHelperSelect extends KTemplateHelperAbstract
 					foreach ($config->selected as $selected)
 					{
 						$sel = is_object( $selected ) ? $selected->value : $selected;
-						if ($value == $sel)
+						if ((string) $value === (string) $sel)
 						{
 							$extra .= 'selected="selected"';
 							break;
 						}
 					}
 				} 
-				else $extra .= ((string) $value == $config->selected ? ' selected="selected"' : '');
+				else $extra .= ((string) $value == (string) $config->selected ? ' selected="selected"' : '');
 			}
 				
 			$html[] = '<option value="'. $value .'" '. $extra .'>' . $text . '</option>';

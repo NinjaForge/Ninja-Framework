@@ -1,6 +1,6 @@
 <?php
 /**
- * @version     $Id: dispatcher.php 1372 2011-10-11 18:56:47Z stian $
+ * @version     $Id: dispatcher.php 4400 2011-12-02 15:19:28Z johanjanssens $
  * @category	Koowa
  * @package     Koowa_Event
  * @copyright   Copyright (C) 2007 - 2010 Johan Janssens. All rights reserved.
@@ -148,7 +148,7 @@ class KEventDispatcher extends KObject
     {
         $result = false;
         if(isset($this->_listeners[$name])) {
-             $result = (boolean) count($this->_listereners[$name]);
+             $result = (boolean) count($this->_listeners[$name]); 
         }
         
         return $result;

@@ -1,6 +1,6 @@
 <?php
 /**
-* @version		$Id: int.php 1372 2011-10-11 18:56:47Z stian $
+* @version		$Id: int.php 4386 2011-11-20 22:52:11Z johanjanssens $
 * @category		Koowa
 * @package      Koowa_Filter
 * @copyright    Copyright (C) 2007 - 2010 Johan Janssens. All rights reserved.
@@ -36,7 +36,7 @@ class KFilterInt extends KFilterAbstract
 	 */
 	protected function _sanitize($value)
 	{
-		return $value !== '' ? (int) filter_var($value, FILTER_SANITIZE_NUMBER_INT) : NULL;
+		return (int) filter_var($value, FILTER_SANITIZE_NUMBER_INT);
 	}
 }
 

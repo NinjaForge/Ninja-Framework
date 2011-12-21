@@ -1,6 +1,6 @@
 <?php
 /**
- * @version     $Id: url.php 1372 2011-10-11 18:56:47Z stian $
+ * @version     $Id: url.php 4393 2011-11-24 17:21:13Z johanjanssens $
  * @category	Koowa
  * @package     Koowa_Http
  * @copyright   Copyright (C) 2007 - 2010 Johan Janssens. All rights reserved.
@@ -322,7 +322,7 @@ class KHttpUrl extends KObject
     {
         if(!empty($url)) 
         {
-            $segments = parse_url(urldecode($url));
+            $segments = parse_url($url);
             
             foreach ($segments as $key => $value) {
                 $this->$key = $value;

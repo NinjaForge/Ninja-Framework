@@ -1,6 +1,6 @@
 <?php
 /**
- * @version		$Id: executable.php 1351 2011-09-13 15:57:05Z stian $
+ * @version		$Id: executable.php 4394 2011-11-24 17:23:00Z johanjanssens $
  * @category	Koowa
  * @package		Koowa_Controller
  * @subpackage	Command
@@ -142,7 +142,7 @@ class KControllerBehaviorExecutable extends KControllerBehaviorAbstract
      */
     public function isReadOnly()
     {
-        return $this->readonly;
+        return $this->_readonly;
     }
     
 	/**

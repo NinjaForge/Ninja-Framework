@@ -1,6 +1,6 @@
 <?php
 /**
- * @version     $Id: paginator.php 1390 2011-10-18 21:34:16Z stian $
+ * @version     $Id: default.php 2721 2010-10-27 00:58:51Z johanjanssens $
  * @category    Nooku
  * @package     Nooku_Components
  * @subpackage  Default
@@ -42,8 +42,8 @@ class ComDefaultTemplateHelperPaginator extends KTemplateHelperPaginator
         
         $this->_initialize($config);
         
-        $html  = '<div class="container">';
-        $html  = '<div class="pagination">';
+        $html   = '<div class="container">';
+        $html  .= '<div class="pagination">';
         if($config->show_limit) {
             $html .= '<div class="limit">'.JText::_('Display NUM').' '.$this->limit($config).'</div>';
         }
