@@ -1,0 +1,30 @@
+<?xml version="1.0" ?>  
+<project name="Update Koowa snapshot" basedir=".." default="build">
+
+	<!-- Put username and password here, this file wont be stored on the svn -->
+	<property file="scripts/build.properties" />
+
+	<property name="framework.path" value="tags/0.7.0-alpha-4" />
+	<property name="com_koowa.path" value="trunk" />
+	<echo message="framework.path = ${framework.path}" />
+	<echo message="If you need to use a branch, call 'phing -Dframework.path=branches/99-toolbar'" />
+	
+	<echo message="SVN usernames and passwords will be optional once the incubator assembla space is public" />
+	<propertyprompt propertyName="framework.username" defaultValue="" promptText="SVN username" useExistingValue="true" />
+	<propertyprompt propertyName="framework.password" defaultValue="" promptText="SVN password" useExistingValue="true" />
+
+	<target name="build">
+
+		<!-- Get the koowa plugin -->
+		<svnexport username="${framework.username}" password="${framework.password}" repositoryurl="http://svn2.assembla.com/svn/nooku-framework/${framework.path}/code/" todir="code/nooku" nocache="true" force="true" />
+		
+		<!-- Get the installer and installer assets -->
+		<svnexport username="${framework.username}" password="${framework.password}" repositoryurl="http://svn2.assembla.com/svn/nooku-components/${com_koowa.path}/code/administrator/components/com_koowa" todir="code/nooku/administrator/components/com_koowa" nocache="true" force="true" />
+		<svnexport username="${framework.username}" password="${framework.password}" repositoryurl="http://svn2.assembla.com/svn/nooku-components/${com_koowa.path}/code/media/com_koowa" todir="code/nooku/media/com_koowa" nocache="true" force="true" />
+
+		<!-- Move the xml manifest to a place joomla can find it -->
+		<move file="code/nooku/administrator/components/com_koowa/manifest.xml" tofile="code/nooku/manifest.xml" overwrite="true" />
+		
+	</target>
+	
+</project>

@@ -1,0 +1,58 @@
+<?xml version="1.0" ?>  
+<project basedir=".." default="build">
+
+	<!-- Get custom phing task class definitions -->
+	<taskdef name="getversion" classname="scripts.tasks.GetVersionTask" />
+	<taskdef name="setrevision" classname="scripts.tasks.SetRevisionTask" />
+
+	<!-- Get general build props -->
+	<property file="scripts/build/build.properties" />
+	<!-- Get component specific build props -->
+	<property file="scripts/build/module.properties" />
+	
+	
+	<svnlastrevision workingcopy="${build.workingcopy}" propertyname="svn.lastrevision" />
+	<setrevision file="${build.manifestdir}" property="${svn.lastrevision}" />
+	<getversion file="${build.manifestdir}" property="ext.version" />
+
+	
+	<target name="prepare">
+
+		<delete dir="${build.tmpdir}" includeemptydirs="true" />
+
+		<copy todir="${build.tmpdir}" >
+		  <fileset dir="${build.code}" />
+		</copy>
+		
+		<!-- Move the manifest into the right place -->
+		<move file="${build.tmpmanifestdir}" tofile="${build.tmpdir}/${build.manifest}" />
+
+	</target>
+	<target name="build">
+			
+		<echo message="Packaging ${phing.project.name}" />
+		<echo message="XML Manifest should be here ${build.manifestdir}" />
+		<echo message="build.tmpdir = ${build.tmpdir}" />
+			
+		<phingcall target="prepare" />
+		
+		<property name="build.package" value="${phing.project.name}_v${ext.version}_rev${svn.lastrevision}.zip" />
+
+		<delete file="${build.packages}/${build.package}" includeemptydirs="true" />
+		<zip destfile="${build.packages}/${build.package}">
+			<fileset dir="${build.tmpdir}" expandsymboliclinks="true" />
+		</zip>
+		
+		<delete dir="${build.tmpdir}" includeemptydirs="true" />
+
+		<if>
+			<istrue value="${build.output.props}"/>
+			<then>
+				<taskdef name="saveprops" classname="SavePropsTask" classpath="scripts/tasks" />
+				<saveprops targetfile="output.props" />
+			</then>
+		</if>
+		
+	</target>
+
+</project>

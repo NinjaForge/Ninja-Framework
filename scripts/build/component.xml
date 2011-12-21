@@ -1,0 +1,111 @@
+<?xml version="1.0" ?>  
+<project basedir=".." default="build">
+
+	<!-- Get custom phing task class definitions -->
+	<taskdef name="getversion" classname="scripts.tasks.GetVersionTask" />
+	<taskdef name="setrevision" classname="scripts.tasks.SetRevisionTask" />
+	<taskdef name="transifex" classname="scripts.tasks.TransifexTask" />
+
+	<!-- Get general build props -->
+	<property file="scripts/build/build.properties" />
+	<!-- Get component specific build props -->
+	<property file="scripts/build/component.properties" />
+	
+	
+	<svnlastrevision workingcopy="${build.workingcopy}" propertyname="svn.lastrevision" />
+	<setrevision file="${build.manifestdir}" property="${svn.lastrevision}" />
+	<getversion file="${build.code}/administrator/components/${phing.project.name}/${build.manifest}" property="ext.version" />
+
+	
+	<target name="prepare">
+
+		<delete dir="${build.tmpdir}" includeemptydirs="true" />
+		
+		<!-- Update manifest.xml with language files -->
+		<transifex dir="${build.code}" file="${build.manifestdir}" />
+
+		<copy todir="${build.tmpdir}" >
+		  <fileset dir="${build.code}" />
+		</copy>
+
+		<!-- Get the koowa plugin -->
+		<!-- We have a snapshot of koowa that we're going to use until 0.7 stable is released -->
+		<!--<svnexport username="" password="" repositoryurl="https://nooku-framework.svn.sourceforge.net/svnroot/nooku-framework/trunk/code/" todir=".tmp" nocache="true" force="true" />
+		<move file=".tmp/koowa.xml" tofile=".tmp/plugins/system/koowa.xml" />-->
+
+		<!-- NAPI -->
+		<svnexport username="phing" password="" repositoryurl="${build.napi}" todir="${build.tmpdir}/napi" nocache="true" force="true" />
+		
+		<!-- Move component files around -->
+		<move file="${build.tmpdir}/administrator/components/${phing.project.name}/${build.manifest}" tofile="${build.tmpdir}/${build.manifest}" />
+		<copy todir="${build.tmpdir}/administrator/components/${phing.project.name}/install/" overwrite="true">
+			<fileset dir="${build.tmpdir}/napi/administrator/components/com_ninja/install/" />
+		</copy>
+		<copy todir="${build.tmpdir}/install">
+			<fileset dir="${build.tmpdir}/administrator/components/${phing.project.name}/install/" />
+		</copy>
+		
+		<!-- Prepare Nooku framework -->
+		<copy todir="${build.tmpdir}/nooku">
+			<fileset dir="${build.tmpdir}/napi/nooku" />
+		</copy>
+		<!-- com_extensions got renamed to com_koowa at some point, we need to support both -->
+		<property name="nooku.installer" value="com_koowa" />
+		<available file="${build.tmpdir}/nooku/administrator/components/com_extensions/install" type="dir" property="nooku.installer" value="com_extensions" />
+		<copy todir="${build.tmpdir}/nooku/install" haltonerror="false">
+			<fileset dir="${build.tmpdir}/nooku/administrator/components/${nooku.installer}/install/" />
+		</copy>
+		<delete dir="${build.tmpdir}/napi/nooku" includeemptydirs="true" />
+		
+		<mkdir dir="${build.tmpdir}/packages" />
+		
+		<!-- Package com_ninja and plg_system_ninja -->
+		<move file="${build.tmpdir}/napi/administrator/components/com_ninja/manifest.xml" tofile="${build.tmpdir}/napi/manifest.xml" />
+		<zip destfile="${build.tmpdir}/packages/com_ninja.zip">
+			<fileset dir="${build.tmpdir}/napi">
+				<exclude name="plugins/**" />
+			</fileset>
+		</zip>
+		<mkdir dir="${build.tmpdir}/ninja" />
+		<copy todir="${build.tmpdir}/ninja" >
+		  <fileset dir="${build.tmpdir}/napi/plugins/system/" />
+		</copy>
+		<delete dir="${build.tmpdir}/napi" includeemptydirs="true" />
+		
+		<!-- Package any additionals if needed -->
+		<copy todir="${build.tmpdir}/packages" haltonerror="false">
+			<fileset dir="${build.additionals}" />
+		</copy>
+		
+		
+		
+		
+	</target>
+	<target name="build">
+			
+		<echo message="Packaging ${phing.project.name}" />
+		<echo message="XML Manifest should be here ${build.manifestdir}" />
+		<echo message="build.tmpdir = ${build.tmpdir}" />
+			
+		<phingcall target="prepare" />
+		
+		<property name="build.package" value="${phing.project.name}_v${ext.version}_rev${svn.lastrevision}.zip" />
+
+		<delete file="${build.packages}/${build.package}" includeemptydirs="true" />
+		<zip destfile="${build.packages}/${build.package}">
+			<fileset dir="${build.tmpdir}" expandsymboliclinks="true" />
+		</zip>
+		
+		<delete dir="${build.tmpdir}" includeemptydirs="true" />
+
+		<if>
+			<istrue value="${build.output.props}"/>
+			<then>
+				<taskdef name="saveprops" classname="SavePropsTask" classpath="scripts/tasks" />
+				<saveprops targetfile="output.props" />
+			</then>
+		</if>
+		
+	</target>
+
+</project>
