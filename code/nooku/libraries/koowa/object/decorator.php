@@ -1,6 +1,6 @@
 <?php
 /**
- * @version		$Id: decorator.php 1391 2011-10-25 20:21:52Z stian $
+ * @version		$Id: decorator.php 4279 2011-10-16 21:15:42Z johanjanssens $
  * @category	Koowa
  * @package		Koowa_Object
  * @copyright	Copyright (C) 2007 - 2010 Johan Janssens. All rights reserved.

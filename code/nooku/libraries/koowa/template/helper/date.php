@@ -1,6 +1,6 @@
 <?php
 /**
- * @version     $Id: date.php 1372 2011-10-11 18:56:47Z stian $
+ * @version     $Id: default.php 2057 2010-05-15 20:48:00Z johanjanssens $
  * @category    Koowa
  * @package     Koowa_Template
  * @subpackage  Helper

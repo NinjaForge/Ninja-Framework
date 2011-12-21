@@ -1,6 +1,6 @@
 <?php
 /**
- * @version		$Id: mysqli.php 1414 2011-11-07 23:27:31Z stian $
+ * @version		$Id: mysqli.php 4299 2011-10-21 17:41:00Z johanjanssens $
  * @category	Koowa
  * @package     Koowa_Database
  * @subpackage  Adapter

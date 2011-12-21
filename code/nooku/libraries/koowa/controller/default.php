@@ -1,6 +1,6 @@
 <?php
 /**
- * @version		$Id: default.php 1054 2011-06-16 14:35:04Z stian $
+ * @version		$Id: default.php 3277 2011-05-11 22:11:51Z johanjanssens $
  * @category	Koowa
  * @package     Koowa_Controller
  * @copyright	Copyright (C) 2007 - 2010 Johan Janssens. All rights reserved.

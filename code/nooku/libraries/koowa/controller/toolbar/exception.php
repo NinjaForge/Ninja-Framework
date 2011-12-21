@@ -1,6 +1,6 @@
 <?php
 /**
- * @version     $Id: exception.php 1081 2011-06-28 12:00:57Z stian $
+ * @version     $Id: exception.php 821 2009-05-09 02:35:59Z johan $
  * @category    Koowa
  * @package     Koowa_Controller
  * @subpackage 	Toolbar

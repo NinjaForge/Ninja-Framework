@@ -1,6 +1,6 @@
 <?php
 /**
- * @version     $Id: dispatcher.php 1372 2011-10-11 18:56:47Z stian $
+ * @version     $Id: mysqli.php 3702 2011-07-18 21:55:44Z johanjanssens $
  * @category	Nooku
  * @package     Nooku_Components
  * @subpackage  Default

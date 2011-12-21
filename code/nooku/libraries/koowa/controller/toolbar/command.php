@@ -1,6 +1,6 @@
 <?php
 /**
- * @version     $Id: command.php 1081 2011-06-28 12:00:57Z stian $
+ * @version     $Id: command.php 3627 2011-06-26 16:18:49Z johanjanssens $
  * @category	Koowa
  * @package     Koowa_Controller
  * @subpackage 	Toolba

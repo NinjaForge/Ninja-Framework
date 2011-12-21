@@ -1,6 +1,6 @@
 <?php
 /**
- * @version     $Id: link.php 1342 2011-09-13 15:49:16Z stian $
+ * @version     $Id: link.php 4266 2011-10-08 23:57:41Z johanjanssens $
  * @category	Nooku
  * @package     Nooku_Components
  * @subpackage  Default

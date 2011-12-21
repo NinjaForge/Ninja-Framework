@@ -1,6 +1,6 @@
 <?php
 /**
-* @version		$Id: alnum.php 1372 2011-10-11 18:56:47Z stian $
+* @version		$Id: alnum.php 4217 2011-10-04 14:32:04Z johanjanssens $
 * @category		Koowa
 * @package      Koowa_Filter
 * @copyright    Copyright (C) 2007 - 2010 Johan Janssens. All rights reserved.

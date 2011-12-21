@@ -1,6 +1,6 @@
 <?php
 /**
- * @version		$Id: listbox.php 1391 2011-10-25 20:21:52Z stian $
+ * @version		$Id: listbox.php 4278 2011-10-16 21:14:34Z johanjanssens $
  * @category	Koowa
  * @package		Koowa_Template
  * @subpackage	Helper

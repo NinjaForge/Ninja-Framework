@@ -1,6 +1,6 @@
 <?php
 /**
- * @version		$Id: accordion.php 1054 2011-06-16 14:35:04Z stian $
+ * @version		$Id: accordion.php 3474 2011-06-14 19:24:16Z johanjanssens $
  * @category	Koowa
  * @package		Koowa_Template
  * @subpackage	Helper

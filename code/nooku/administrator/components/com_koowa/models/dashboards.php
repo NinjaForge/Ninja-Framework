@@ -1,6 +1,6 @@
 <?php
 /**
- * @version     $Id: dashboards.php 1305 2011-09-01 12:09:51Z stian $
+ * @version     $Id: dashboards.php 917 2011-09-19 12:15:44Z stiandidriksen $
  * @category    Nooku
  * @package     Nooku_Components
  * @subpackage  Koowa

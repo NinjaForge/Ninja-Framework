@@ -1,6 +1,6 @@
 <?php
 /**
- * @version     $Id: commandchain.php 1372 2011-10-11 18:56:47Z stian $
+ * @version     $Id: commandchain.php 4266 2011-10-08 23:57:41Z johanjanssens $
  * @category	Koowa
  * @package     Koowa_Mixin
  * @copyright   Copyright (C) 2007 - 2010 Johan Janssens. All rights reserved.

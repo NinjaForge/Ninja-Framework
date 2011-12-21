@@ -1,6 +1,6 @@
 <?php
 /**
- * @version     $Id: html.php 1300 2011-09-01 11:09:48Z stian $
+ * @version     $Id: default.php 2721 2010-10-27 00:58:51Z johanjanssens $
  * @category    Nooku
  * @package     Nooku_Components
  * @subpackage  Default

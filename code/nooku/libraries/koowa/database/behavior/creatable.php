@@ -1,6 +1,6 @@
 <?php
 /**
- * @version     $Id: creatable.php 1344 2011-09-13 15:50:55Z stian $
+ * @version     $Id: abstract.php 1528 2010-01-26 23:14:08Z johan $
  * @category    Koowa
  * @package     Koowa_Database
  * @subpackage  Behavior

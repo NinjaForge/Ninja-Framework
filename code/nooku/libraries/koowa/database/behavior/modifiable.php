@@ -1,6 +1,6 @@
 <?php
 /**
- * @version 	$Id: modifiable.php 1344 2011-09-13 15:50:55Z stian $
+ * @version 	$Id: modifiable.php 4266 2011-10-08 23:57:41Z johanjanssens $
  * @category	Koowa
  * @package		Koowa_Database
  * @subpackage 	Behavior

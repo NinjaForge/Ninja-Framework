@@ -1,6 +1,6 @@
 <?php
 /**
- * @version     $Id: package.php 1395 2011-10-28 14:28:33Z stian $
+ * @version     $Id: package.php 1159 2011-10-28 14:27:47Z stiandidriksen $
  * @category    Nooku
  * @package     Nooku_Components
  * @subpackage  Koowa

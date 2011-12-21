@@ -1,6 +1,6 @@
 <?php
 /**
- * @version 	$Id: interface.php 1339 2011-09-13 15:42:12Z stian $
+ * @version 	$Id: interface.php 4266 2011-10-08 23:57:41Z johanjanssens $
  * @category	Koowa
  * @package		Koowa_Loader
  * @subpackage 	Adapter

@@ -1,6 +1,6 @@
 <?php
 /**
- * @version		$Id: abstract.php 1391 2011-10-25 20:21:52Z stian $
+ * @version		$Id: abstract.php 4275 2011-10-14 23:19:48Z johanjanssens $
  * @category	Koowa
  * @package     Koowa_Database
  * @subpackage  Rowset

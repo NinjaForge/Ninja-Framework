@@ -1,6 +1,6 @@
 <?php
 /**
- * @version		$Id: object.php 1436 2011-11-22 19:02:27Z stian $
+ * @version		$Id: object.php 4266 2011-10-08 23:57:41Z johanjanssens $
  * @category	Koowa
  * @package		Koowa_Object
  * @copyright	Copyright (C) 2007 - 2010 Johan Janssens. All rights reserved.
@@ -249,9 +249,6 @@ class KObject implements KObjectHandlable, KObjectServiceable
 	 */
 	final public function getService($identifier, array $config = array())
 	{
-	    if(!isset($this->__service_container)) {
-	        throw new KObjectException("Failed to call ".get_class($this)."::getService(). The '__service_container' property is undefined.");
-	    }
 	    return $this->__service_container->get($identifier, $config);
 	}
 	

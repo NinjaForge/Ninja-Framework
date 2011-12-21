@@ -1,6 +1,6 @@
 <?php
 /**
- * @version		$Id: default.php 1300 2011-09-01 11:09:48Z stian $
+ * @version		$Id: default.php 4266 2011-10-08 23:57:41Z johanjanssens $
  * @category	Koowa
  * @package     Koowa_Dispatcher
  * @copyright	Copyright (C) 2007 - 2010 Johan Janssens. All rights reserved.

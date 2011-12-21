@@ -1,6 +1,6 @@
 <?php
 /**
- * @version     $Id: sluggable.php 1372 2011-10-11 18:56:47Z stian $
+ * @version     $Id: abstract.php 1528 2010-01-26 23:14:08Z johan $
  * @category    Koowa
  * @package     Koowa_Database
  * @subpackage  Behavior

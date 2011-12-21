@@ -1,6 +1,6 @@
 <?php
 /**
- * @version		$Id: array.php 1372 2011-10-11 18:56:47Z stian $
+ * @version		$Id: array.php 4427 2011-12-10 00:34:16Z johanjanssens $
  * @category	Koowa
  * @package		Koowa_Object
  * @copyright	Copyright (C) 2007 - 2010 Johan Janssens. All rights reserved.
@@ -153,7 +153,7 @@ class KObjectArray extends KObject implements IteratorAggregate, ArrayAccess, Se
      */
     public function unserialize($data)
     {
-        $this->data = unserialize($data);
+        $this->_data = unserialize($data); 
     }
     
     /**

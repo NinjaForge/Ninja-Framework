@@ -1,6 +1,6 @@
 <?php
 /**
- * @version     $Id: uninstall.php 1418 2011-11-10 21:38:42Z stian $
+ * @version     $Id: uninstall.php 1227 2011-11-10 21:37:40Z stiandidriksen $
  * @category    Koowa
  * @package     Koowa_Components
  * @subpackage  Koowa

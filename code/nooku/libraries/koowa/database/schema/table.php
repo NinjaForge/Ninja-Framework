@@ -1,6 +1,6 @@
 <?php
 /**
- * @version		$Id: table.php 1054 2011-06-16 14:35:04Z stian $
+ * @version		$Id: table.php 3450 2011-06-07 09:47:29Z johanjanssens $
  * @category	Koowa
  * @package     Koowa_Database
  * @subpackage  Schema

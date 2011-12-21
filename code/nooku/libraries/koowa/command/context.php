@@ -1,6 +1,6 @@
 <?php
 /**
- * @version     $Id: context.php 1054 2011-06-16 14:35:04Z stian $
+ * @version     $Id: interface.php 1366 2009-11-28 01:34:00Z johan $
  * @category    Koowa
  * @package     Koowa_Command
  * @copyright   Copyright (C) 2007 - 2010 Johan Janssens. All rights reserved.

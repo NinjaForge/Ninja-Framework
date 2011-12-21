@@ -1,6 +1,6 @@
 <?php
 /**
-* @version		$Id: legacy.php 1414 2011-11-07 23:27:31Z stian $
+* @version		$Id: legacy.php 4295 2011-10-21 17:38:25Z johanjanssens $
 * @category		Koowa
 * @copyright    Copyright (C) 2007 - 2010 Johan Janssens. All rights reserved.
 * @license      GNU GPLv3 <http://www.gnu.org/licenses/gpl.html>

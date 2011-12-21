@@ -1,6 +1,6 @@
 <?php
 /**
- * @version     $Id: abstract.php 1372 2011-10-11 18:56:47Z stian $
+ * @version     $Id: abstract.php 1919 2010-04-25 20:49:47Z johanjanssens $
  * @category    Koowa
  * @package     Koowa_Database
  * @subpackage  Behavior

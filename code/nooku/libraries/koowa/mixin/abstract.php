@@ -1,6 +1,6 @@
 <?php
 /**
- * @version     $Id: abstract.php 1080 2011-06-23 22:21:14Z stian $
+ * @version     $Id: abstract.php 3564 2011-06-22 00:42:26Z johanjanssens $
  * @category	Koowa
  * @package     Koowa_Mixin
  * @copyright   Copyright (C) 2007 - 2010 Johan Janssens. All rights reserved.

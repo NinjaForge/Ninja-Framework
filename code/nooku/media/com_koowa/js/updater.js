@@ -1,5 +1,5 @@
 /*
- * @version		$Id: updater.js 1305 2011-09-01 12:09:51Z stian $
+ * @version		$Id: updater.js 918 2011-09-19 12:26:38Z stiandidriksen $
  * @category	Nooku
  * @package     Nooku_Components
  * @subpackage  Koowa

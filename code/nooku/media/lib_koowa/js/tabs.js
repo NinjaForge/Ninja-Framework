@@ -1,5 +1,5 @@
 /**
- * @version     $Id: tabs.js 1314 2011-09-07 12:30:43Z stian $
+ * @version     $Id: default.php 2721 2010-10-27 00:58:51Z johanjanssens $
  * @category    Nooku
  * @package     Nooku_Media
  * @subpackage  Javascript

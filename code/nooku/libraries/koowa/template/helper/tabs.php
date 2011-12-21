@@ -1,6 +1,6 @@
 <?php
 /**
- * @version     $Id: tabs.php 1054 2011-06-16 14:35:04Z stian $
+ * @version     $Id: behavior.php 1051 2009-07-13 22:08:57Z Johan $
  * @category    Koowa
  * @package     Koowa_Template
  * @subpackage  Helper

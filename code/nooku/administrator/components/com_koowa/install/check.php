@@ -1,6 +1,6 @@
 <?php
 /**
- * @version     $Id: check.php 1393 2011-10-27 01:59:57Z stian $
+ * @version     $Id: check.php 1147 2011-10-27 01:52:09Z stiandidriksen $
  * @category    Koowa
  * @package     Koowa_Components
  * @subpackage  Koowa

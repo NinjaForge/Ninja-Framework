@@ -1,6 +1,6 @@
 <?php
 /**
- * @version     $Id: json.php 1381 2011-10-11 22:29:55Z stian $
+ * @version     $Id: json.php 4272 2011-10-11 20:31:50Z johanjanssens $
  * @category	Koowa
  * @package     Koowa_View
  * @copyright   Copyright (C) 2007 - 2010 Johan Janssens. All rights reserved.

@@ -1,6 +1,6 @@
 <?php
 /**
- * @version     $Id: dispatcher.php 1380 2011-10-11 22:29:43Z stian $
+ * @version     $Id: dispatcher.php 1049 2011-10-11 22:22:24Z stiandidriksen $
  * @category    Nooku
  * @package     Nooku_Components
  * @subpackage  Koowa

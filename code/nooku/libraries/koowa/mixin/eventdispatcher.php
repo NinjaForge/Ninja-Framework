@@ -1,6 +1,6 @@
 <?php
 /**
- * @version     $Id: eventdispatcher.php 1054 2011-06-16 14:35:04Z stian $
+ * @version     $Id: eventdispatcher.php 3357 2011-05-24 23:25:17Z johanjanssens $
  * @category	Koowa
  * @package     Koowa_Mixin
  * @copyright   Copyright (C) 2007 - 2010 Johan Janssens. All rights reserved.

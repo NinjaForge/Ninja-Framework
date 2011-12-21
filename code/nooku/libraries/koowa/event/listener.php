@@ -1,6 +1,6 @@
 <?php
 /**
- * @version     $Id: listener.php 1414 2011-11-07 23:27:31Z stian $
+ * @version     $Id: listener.php 4301 2011-10-23 14:11:47Z johanjanssens $
  * @category	Koowa
  * @package     Koowa_Event
  * @copyright   Copyright (C) 2007 - 2010 Johan Janssens. All rights reserved.

@@ -1,6 +1,6 @@
 <?php
 /**
- * @version		$Id: paginator.php 1391 2011-10-25 20:21:52Z stian $
+ * @version		$Id: paginator.php 4277 2011-10-16 21:13:15Z johanjanssens $
  * @category	Koowa
  * @package		Koowa_Template
  * @subpackage	Helper

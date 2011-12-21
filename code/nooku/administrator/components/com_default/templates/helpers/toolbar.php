@@ -1,6 +1,6 @@
 <?php
 /**
- * @version     $Id: toolbar.php 1372 2011-10-11 18:56:47Z stian $
+ * @version     $Id: behavior.php 3364 2011-05-25 21:07:41Z johanjanssens $
  * @category	Nooku
  * @package     Nooku_Components
  * @subpackage  Default

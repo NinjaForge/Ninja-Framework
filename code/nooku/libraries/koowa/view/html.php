@@ -1,6 +1,6 @@
 <?php
 /**
- * @version		$Id: html.php 1054 2011-06-16 14:35:04Z stian $
+ * @version		$Id: html.php 2907 2011-03-16 20:43:17Z johanjanssens $
  * @category	Koowa
  * @package     Koowa_View
  * @copyright	Copyright (C) 2007 - 2010 Johan Janssens. All rights reserved.

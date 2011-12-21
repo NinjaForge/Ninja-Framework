@@ -1,6 +1,6 @@
 <?php
 /**
- * @version     $Id: stack.php 1372 2011-10-11 18:56:47Z stian $
+ * @version     $Id: template.php 2026 2010-05-14 16:47:03Z johanjanssens $
  * @category    Koowa
  * @package     Koowa_Template
  * @copyright   Copyright (C) 2007 - 2010 Johan Janssens. All rights reserved.

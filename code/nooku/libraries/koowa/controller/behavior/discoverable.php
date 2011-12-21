@@ -1,6 +1,6 @@
 <?php
 /**
- * @version		$Id: discoverable.php 1080 2011-06-23 22:21:14Z stian $
+ * @version		$Id: discoverable.php 3556 2011-06-21 23:45:16Z johanjanssens $
  * @category	Koowa
  * @package		Koowa_Controller
  * @subpackage	Command

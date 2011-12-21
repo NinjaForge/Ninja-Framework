@@ -1,4 +1,4 @@
-<? /* $Id: installing.php 1305 2011-09-01 12:09:51Z stian $ */ ?>
+<? /* $Id: installing.php 917 2011-09-19 12:15:44Z stiandidriksen $ */ ?>
 <? defined( 'KOOWA' ) or die( 'Restricted access' ) ?>
 <h2 class="working">
     <?= sprintf(@text('Installing %s'), $package) ?>

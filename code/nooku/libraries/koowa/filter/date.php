@@ -1,6 +1,6 @@
 <?php
 /**
-* @version		$Id: date.php 1054 2011-06-16 14:35:04Z stian $
+* @version		$Id: date.php 3414 2011-06-02 22:14:43Z johanjanssens $
 * @category		Koowa
 * @package      Koowa_Filter
 * @copyright    Copyright (C) 2007 - 2010 Johan Janssens. All rights reserved.

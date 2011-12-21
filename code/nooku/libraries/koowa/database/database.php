@@ -1,6 +1,6 @@
 <?php
 /**
- * @version		$Id: database.php 1215 2011-08-11 10:19:21Z stian $
+ * @version		$Id: database.php 4266 2011-10-08 23:57:41Z johanjanssens $
  * @category	Koowa
  * @package     Koowa_Database
  * @copyright	Copyright (C) 2007 - 2010 Johan Janssens. All rights reserved.

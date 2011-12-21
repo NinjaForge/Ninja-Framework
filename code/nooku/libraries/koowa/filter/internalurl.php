@@ -1,6 +1,6 @@
 <?php
 /**
-* @version		$Id: internalurl.php 1080 2011-06-23 22:21:14Z stian $
+* @version		$Id: internalurl.php 3575 2011-06-23 14:52:53Z johanjanssens $
 * @category		Koowa
 * @package      Koowa_Filter
 * @copyright    Copyright (C) 2007 - 2010 Johan Janssens. All rights reserved.

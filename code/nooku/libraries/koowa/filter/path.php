@@ -1,6 +1,6 @@
 <?php
 /**
-* @version		$Id: path.php 1054 2011-06-16 14:35:04Z stian $
+* @version		$Id: path.php 3290 2011-05-17 12:39:51Z johanjanssens $
 * @category		Koowa
 * @package      Koowa_Filter
 * @copyright    Copyright (C) 2007 - 2010 Johan Janssens. All rights reserved.

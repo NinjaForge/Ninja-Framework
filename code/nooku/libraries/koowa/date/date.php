@@ -1,6 +1,6 @@
 <?php
 /**
- * @version     $Id: date.php 1054 2011-06-16 14:35:04Z stian $
+ * @version     $Id: date.php 2876 2011-03-07 22:19:20Z johanjanssens $
  * @category	Koowa
  * @package     Koowa_Date
  * @copyright   Copyright (C) 2007 - 2010 Johan Janssens. All rights reserved.

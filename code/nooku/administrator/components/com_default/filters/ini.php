@@ -1,6 +1,6 @@
 <?php
 /**
-* @version      $Id: ini.php 1389 2011-10-17 17:45:47Z stian $
+* @version      $Id: ini.php 4274 2011-10-14 23:07:54Z johanjanssens $
 * @category     Koowa
 * @package      Koowa_Filter
 * @copyright    Copyright (C) 2007 - 2010 Johan Janssens. All rights reserved.

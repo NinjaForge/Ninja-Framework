@@ -1,6 +1,6 @@
 <?php
 /**
- * @version		$Id: exception.php 1054 2011-06-16 14:35:04Z stian $
+ * @version		$Id: exception.php 2901 2011-03-14 23:19:28Z johanjanssens $
  * @category	Koowa
  * @package		Koowa_Exception
  * @copyright	Copyright (C) 2007 - 2010 Johan Janssens. All rights reserved.

@@ -1,6 +1,6 @@
 <?php
 /**
-* @version		$Id: email.php 1054 2011-06-16 14:35:04Z stian $
+* @version		$Id: email.php 2725 2010-10-28 01:54:08Z johanjanssens $
 * @category		Koowa
 * @package      Koowa_Filter
 * @copyright    Copyright (C) 2007 - 2010 Johan Janssens. All rights reserved.

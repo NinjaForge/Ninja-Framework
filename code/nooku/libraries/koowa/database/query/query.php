@@ -1,6 +1,6 @@
 <?php
 /**
- * @version		$Id: query.php 1372 2011-10-11 18:56:47Z stian $
+ * @version		$Id: query.php 4267 2011-10-09 21:32:02Z johanjanssens $
  * @category	Koowa
  * @package     Koowa_Database
  * @subpackage  Query

@@ -1,6 +1,6 @@
 <?php
 /**
- * @version     $Id: abstract.php 1372 2011-10-11 18:56:47Z stian $
+ * @version     $Id: component.php 1263 2009-10-15 00:20:35Z johan $
  * @category    Koowa
  * @package     Koowa_Loader
  * @subpackage  Adapter

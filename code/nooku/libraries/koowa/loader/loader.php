@@ -1,6 +1,6 @@
 <?php
 /**
- * @version 	$Id: loader.php 1414 2011-11-07 23:27:31Z stian $
+ * @version 	$Id: loader.php 4285 2011-10-20 15:48:10Z johanjanssens $
  * @category	Koowa
  * @package		Koowa_Loader
  * @copyright	Copyright (C) 2007 - 2010 Johan Janssens. All rights reserved.

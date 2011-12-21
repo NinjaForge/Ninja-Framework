@@ -1,6 +1,6 @@
 <?php
 /**
- * @version		$Id: inflector.php 1257 2011-08-25 14:09:15Z stian $
+ * @version		$Id: inflector.php 3777 2011-08-23 15:05:57Z johanjanssens $
  * @category	Koowa
  * @package		Koowa_Inflector
  * @copyright	Copyright (C) 2007 - 2010 Johan Janssens. All rights reserved.

@@ -1,6 +1,6 @@
 <?php
 /**
- * @version		$Id: interface.php 1054 2011-06-16 14:35:04Z stian $
+ * @version		$Id: interface.php 2725 2010-10-28 01:54:08Z johanjanssens $
  * @category	Koowa
  * @package		Koowa_Exception
  * @copyright	Copyright (C) 2007 - 2010 Johan Janssens. All rights reserved.

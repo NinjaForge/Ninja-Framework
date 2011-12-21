@@ -1,6 +1,6 @@
 <?php
 /**
- * @version		$Id: chain.php 1054 2011-06-16 14:35:04Z stian $
+ * @version		$Id: chain.php 3467 2011-06-11 02:16:22Z johanjanssens $
  * @category	Koowa
  * @package		Koowa_Command
  * @copyright	Copyright (C) 2007 - 2010 Johan Janssens. All rights reserved.

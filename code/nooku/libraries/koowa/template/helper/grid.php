@@ -1,6 +1,6 @@
 <?php
 /**
- * @version		$Id: grid.php 1372 2011-10-11 18:56:47Z stian $
+ * @version		$Id: grid.php 4270 2011-10-10 11:57:58Z johanjanssens $
  * @category	Koowa
  * @package		Koowa_Template
  * @subpackage	Helper
