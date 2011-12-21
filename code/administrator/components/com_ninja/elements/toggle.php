@@ -11,7 +11,7 @@
  *
  */
 /**
- * @version		$Id: toggle.php 794 2011-01-10 18:44:32Z stian $
+ * @version		$Id: toggle.php 1399 2011-11-01 14:22:48Z stian $
  * @category	Napi
  * @package		Napi_Parameter
  * @copyright	Copyright (C) 2007 - 2011 NinjaForge. All rights reserved.
@@ -25,7 +25,7 @@
  * @package     gantry
  * @subpackage  admin.elements
  */
-class ComNinjaElementToggle extends ComNinjaElementAbstract
+class NinjaElementToggle extends NinjaElementAbstract
 {
 	function fetchElement($name, $value, &$node, $control_name='params')
 	{

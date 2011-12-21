@@ -7,7 +7,7 @@
 		<thead>
 			<tr>
 				<?= @ninja('grid.count', array('total' => @$total, 'title' => true)) ?>
-				<th width="1px"><?= @ninja('grid.checkall') ?></th>
+				<th width="1px"><?= @helper('grid.checkall') ?></th>
 				<th><?= @text('Name') ?></th>
 				<th><?= @text('Version') ?></th>
 				<th><?= @text('Date') ?></th>
@@ -16,7 +16,7 @@
 		</thead>
 		<?= @ninja('paginator.tfoot', array('total' => @$total, 'colspan' => 6)) ?>
 		<tbody>
-			<?= @template('admin::com.ninja.view.templates.default_items') ?>
+			<?= @template('ninja:view.templates.default_items') ?>
 		</tbody>
 	</table>
 </form>

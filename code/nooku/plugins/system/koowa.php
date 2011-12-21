@@ -1,6 +1,6 @@
 <?php
 /**
- * @version     $Id: koowa.php 3087 2011-04-08 10:48:05Z johanjanssens $
+ * @version     $Id: koowa.php 1414 2011-11-07 23:27:31Z stian $
  * @category	Nooku
  * @package     Nooku_Plugins
  * @subpackage  System
@@ -14,7 +14,7 @@
 .*
  * @author      Johan Janssens <johan@nooku.org>
  * @category    Nooku
- * @package     Nooku_Plugings
+ * @package     Nooku_Plugins
  * @subpackage  System
  */
 defined( '_JEXEC' ) or die( 'Restricted access' );
@@ -23,7 +23,19 @@ class plgSystemKoowa extends JPlugin
 {
 	public function __construct($subject, $config = array())
 	{
-		// Check if Koowa is active
+	    // Command line fixes for Joomla
+		if (PHP_SAPI === 'cli') 
+		{
+			if (!isset($_SERVER['HTTP_HOST'])) {
+				$_SERVER['HTTP_HOST'] = '';
+			}
+			
+			if (!isset($_SERVER['REQUEST_METHOD'])) {
+				$_SERVER['REQUEST_METHOD'] = '';
+			}
+		}
+	    
+	    // Check if Koowa is active
 		if(JFactory::getApplication()->getCfg('dbtype') != 'mysqli')
 		{
     		JError::raiseWarning(0, JText::_("Koowa plugin requires MySQLi Database Driver. Please change your database configuration settings to 'mysqli'"));
@@ -44,49 +56,55 @@ class plgSystemKoowa extends JPlugin
 			}
 		}
 		
+	    //Safety Extender compatibility
+		if(extension_loaded('safeex') && strpos('tmpl', ini_get('safeex.url_include_proto_whitelist')) === false)
+		{
+		    $whitelist = ini_get('safeex.url_include_proto_whitelist');
+		    $whitelist = (strlen($whitelist) ? $whitelist . ',' : '') . 'tmpl';
+		    ini_set('safeex.url_include_proto_whitelist', $whitelist);
+ 		}
+		
 		//Set constants
 		define('KDEBUG'      , JDEBUG);
-		define('JPATH_IMAGES', JPATH_ROOT.'/images');
+		
+		//Set path definitions
+		define('JPATH_FILES' , JPATH_ROOT);
+		define('JPATH_IMAGES', JPATH_ROOT.DS.'images');
 		
 		//Set exception handler
 		set_exception_handler(array($this, 'exceptionHandler'));
 		
-		// Require the library loader
-		JLoader::import('libraries.koowa.koowa', JPATH_ROOT);
-		JLoader::import('libraries.koowa.loader.loader', JPATH_ROOT);
+		// Koowa : setup
+        require_once( JPATH_LIBRARIES.'/koowa/koowa.php');
+        Koowa::getInstance(array(
+			'cache_prefix'  => md5(JFactory::getApplication()->getCfg('secret')).'-cache-koowa',
+			'cache_enabled' => JFactory::getApplication()->getCfg('caching')
+        ));	
+
+        KLoader::addAdapter(new KLoaderAdapterModule(array('basepath' => JPATH_BASE)));
+        KLoader::addAdapter(new KLoaderAdapterPlugin(array('basepath' => JPATH_ROOT)));
+        KLoader::addAdapter(new KLoaderAdapterComponent(array('basepath' => JPATH_BASE)));
+
+        KServiceIdentifier::addLocator(KService::get('koowa:service.locator.module'));
+        KServiceIdentifier::addLocator(KService::get('koowa:service.locator.plugin'));
+        KServiceIdentifier::addLocator(KService::get('koowa:service.locator.component'));
 		
-		 //Setup the loader
-		KLoader::addAdapter(new KLoaderAdapterKoowa(Koowa::getPath()));
-		KLoader::addAdapter(new KLoaderAdapterJoomla(JPATH_LIBRARIES));
-		KLoader::addAdapter(new KLoaderAdapterModule(JPATH_BASE));
-		KLoader::addAdapter(new KLoaderAdapterPlugin(JPATH_ROOT));
-        KLoader::addAdapter(new KLoaderAdapterComponent(JPATH_BASE));
-		
-        //Setup the factory
-		KFactory::addAdapter(new KFactoryAdapterKoowa());
-		KFactory::addAdapter(new KFactoryAdapterJoomla());
-		KFactory::addAdapter(new KFactoryAdapterModule());
-		KFactory::addAdapter(new KFactoryAdapterPlugin());
-		KFactory::addAdapter(new KFactoryAdapterComponent());
-		
-		//Setup the identifier application paths
-		KIdentifier::registerApplication('site' , JPATH_SITE);
-		KIdentifier::registerApplication('admin', JPATH_ADMINISTRATOR);
+        KServiceIdentifier::setApplication('site' , JPATH_SITE);
+        KServiceIdentifier::setApplication('admin', JPATH_ADMINISTRATOR);
+
+        KService::setAlias('koowa:database.adapter.mysqli', 'com://admin/default.database.adapter.mysqli');
 		
 	    //Setup the request
         KRequest::root(str_replace('/'.JFactory::getApplication()->getName(), '', KRequest::base()));
-			
-        //Set factory identifier aliasses
-        KFactory::map('lib.koowa.database.adapter.mysqli', 'admin::com.default.database.adapter.mysqli');
-         
+			 
 		//Load the koowa plugins
-		JPluginHelper::importPlugin('koowa', null, true, KFactory::get('lib.koowa.event.dispatcher'));
+		JPluginHelper::importPlugin('koowa', null, true, KService::get('com://admin/default.event.dispatcher'));
 		
 	    //Bugfix : Set offset accoording to user's timezone
-		if(!KFactory::get('lib.joomla.user')->guest) 
+		if(!JFactory::getUser()->guest) 
 		{
-		   if($offset = KFactory::get('lib.joomla.user')->getParam('timezone')) {
-		        KFactory::get('lib.joomla.config')->setValue('config.offset', $offset);
+		   if($offset = JFactory::getUser()->getParam('timezone')) {
+		        JFactory::getConfig()->setValue('config.offset', $offset);
 		   }
 		}
 
@@ -107,7 +125,7 @@ class plgSystemKoowa extends JPlugin
 	     * 
 	     * If the request contains authorization information we try to log the user in
 	     */
-	    if($this->params->get('auth_basic', 0) && KFactory::get('lib.joomla.user')->get('guest')) {
+	    if($this->params->get('auth_basic', 0) && JFactory::getUser()->guest) {
 	        $this->_authenticateUser();
 	    }
 	    
@@ -117,15 +135,53 @@ class plgSystemKoowa extends JPlugin
 	     * In case another plugin have logged in after we initialized we need to reset the token and user object
 	     * One plugin that could cause that, are the Remember Me plugin
 	     */
-	     if(KFactory::get('lib.joomla.user')->get('guest') && !JFactory::getUser()->get('guest'))
-	     {
-	         //Reset the user object in the factory
-	         KFactory::set('lib.koowa.user', JFactory::getUser());
-	          
-	         //Force the token
+	     if(!JFactory::getUser()->guest) {
 	         KRequest::set('request._token', JUtility::getToken());
 	     }
-	    
+	     
+	     /*
+	     * Dispatch the default dispatcher 
+	     *
+	     * If we are running in CLI mode bypass the default Joomla executition chain and dispatch the default
+	     * dispatcher.
+	     */
+	    if (PHP_SAPI === 'cli') 
+	    {
+	    	$url = null;
+	    	foreach ($_SERVER['argv'] as $arg) 
+	    	{
+	    		if (strpos($arg, '--url') === 0) 
+	    		{
+	    			$url = str_replace('--url=', '', $arg);
+	    			if (strpos($url, '?') === false) {
+	    				$url = '?'.$url;
+	    			}
+	    			break; 
+	    		}
+	    	}
+	    	
+	    	if (!empty($url)) 
+	    	{
+	    		$component = 'default';
+	    		$url = KService::get('koowa:http.url', array('url' => $url));
+    			if (!empty($url->query['option'])) {
+    				$component = substr($url->query['option'], 4);
+    			}
+
+	    		// Thanks Joomla. We will take it from here.
+	    		echo KService::get('com:'.$component.'.dispatcher.cli')->dispatch();
+	    		exit(0);	
+	    	}
+	    }
+	}
+	
+	/**
+	 * On after route event handler
+	 * 
+	 * @return void
+	 */
+	public function onAfterRoute()
+	{      
 	    /*
 	     * Special handling for AJAX requests
 	     * 
@@ -144,8 +200,14 @@ class plgSystemKoowa extends JPlugin
         		$document = null;
         		JFactory::getDocument()->setType($format);
         		
+        		
         		JRequest::setVar('format', $format); //revert format to original
         	}
+        }
+        
+        //Set the request format
+        if(!KRequest::has('request.format')) {
+            KRequest::set('request.format', KRequest::format());
         }
 	}
 	
@@ -163,6 +225,8 @@ class plgSystemKoowa extends JPlugin
 		
 		//Change the Joomla error handler to our own local handler and call it
 		JError::setErrorHandling( E_ERROR, 'callback', array($this,'errorHandler'));
+		
+		//Make sure we have a valid status code
 		JError::raiseError(KHttpResponse::isError($exception->getCode()) ? $exception->getCode() : 500, $exception->getMessage());
 	}
 
@@ -183,10 +247,10 @@ class plgSystemKoowa extends JPlugin
 			'line'		=> $this->_exception->getLine()
 		));
 		
-		if(KFactory::get('lib.joomla.config')->getValue('config.debug')) {
+	    if(JFactory::getConfig()->getValue('config.debug')) {
 			$error->set('message', (string) $this->_exception);
 		} else {
-			$error->set('message', $this->_exception->getMessage());
+			$error->set('message', KHttpResponse::getMessage($error->get('code')));
 		}
 		
 	    if($this->_exception->getCode() == KHttpResponse::UNAUTHORIZED) {
@@ -216,14 +280,11 @@ class plgSystemKoowa extends JPlugin
 	            'password' => KRequest::get('server.PHP_AUTH_PW'  , 'url'),
 	        );
 	        
-	        if(KFactory::get('lib.koowa.application')->login($credentials) !== true) 
+	        if(JFactory::getApplication()->login($credentials) !== true) 
 	        {  
 	            throw new KException('Login failed', KHttpResponse::UNAUTHORIZED);
         	    return false;      
 	        }
-	        
-	        //Reset the user object in the factory
-	        KFactory::set('lib.koowa.user', JFactory::getUser());
 	         
 	        //Force the token
 	        KRequest::set('request._token', JUtility::getToken());
@@ -233,21 +294,4 @@ class plgSystemKoowa extends JPlugin
 	    
 	    return false;
 	}
-}
-
-/**
- * PHP5.3 compatibility
- */
-if(false === function_exists('lcfirst'))
-{
-    /**
-     * Make a string's first character lowercase
-     *
-     * @param string $str
-     * @return string the resulting string.
-     */
-    function lcfirst( $str ) {
-        $str[0] = strtolower($str[0]);
-        return (string)$str;
-    }
 }

@@ -1,6 +1,6 @@
 <?php defined( 'KOOWA' ) or die( 'Restricted access' );
 /**
- * @version		$Id: fieldset.php 552 2010-10-28 19:41:51Z stian $
+ * @version		$Id: fieldset.php 1399 2011-11-01 14:22:48Z stian $
  * @category	Koowa
  * @package		Koowa_Form
  * @subpackage 	Element
@@ -17,7 +17,7 @@
  * @package     Koowa_Form
  * @subpackage 	Element
  */
-class ComNinjaFormElementFieldset extends ComNinjaFormElementAbstract implements ComNinjaFormElementInterface
+class NinjaFormElementFieldset extends NinjaFormElementAbstract implements NinjaFormElementInterface
 {
 	/**
 	 * Valid attributes for the element
@@ -38,8 +38,8 @@ class ComNinjaFormElementFieldset extends ComNinjaFormElementAbstract implements
 		
 		foreach($this->_xml->children() as $name => $xmlElem)
 		{
-			$type = $name == 'element' ? (string) $xmlElem['type'] : 'admin::com.ninja.form.element.' . $name;
-			$element = KFactory::tmp($type)
+			$type = $name == 'element' ? (string) $xmlElem['type'] : 'ninja:form.element.' . $name;
+			$element = $this->getService($type)
 				->importXml($xmlElem);
 			$elem->addElement($element);
 		}

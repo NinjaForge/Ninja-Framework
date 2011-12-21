@@ -1,6 +1,6 @@
 <?php defined( 'KOOWA' ) or die( 'Restricted access' );
 /**
- * @version		$Id: setting.php 1029 2011-04-25 12:45:07Z richie $
+ * @version		$Id: setting.php 1399 2011-11-01 14:22:48Z stian $
  * @category	Ninja
  * @copyright	Copyright (C) 2007 - 2011 NinjaForge. All rights reserved.
  * @license		GNU GPLv3 <http://www.gnu.org/licenses/gpl.html>
@@ -12,7 +12,7 @@
  *
  * @package Ninja
  */
-class ComNinjaControllerSetting extends ComNinjaControllerView
+class NinjaControllerSetting extends NinjaControllerDefault
 {
 	/**
 	 * Constructor
@@ -76,11 +76,11 @@ class ComNinjaControllerSetting extends ComNinjaControllerView
 		if($table->count(array()) === 0) return;
 		
 		//Don't do anything if there already exists rows that are enabled and default
-		if($table->count(array('enabled' => true, 'default' => true)) > 1) return;
+		if($table->count(array('enabled' => true, 'default' => true)) > 0) return;
 		
 		//Don't do anything if there are no enabled rows
 		if($table->count(array('enabled' => true)) === 0) return;
-		
+
 		//Undefault any other default setting
 		$table->select(array('default' => true), KDatabase::FETCH_ROWSET)->setData(array('default' => false))->save();
 		

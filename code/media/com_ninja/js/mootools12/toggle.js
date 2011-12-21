@@ -17,10 +17,10 @@
 					toggle  = options[options.toggle],
 					data	= {
 						action: 'edit',
-						_token: $(this).getElement('[name=_token]').get('value')
+						_token: $(this).get('data-token-value')
 					};
 					
-				if(!options.id) options.id = target.getParent().getParent().getElement('input.id').get('value');
+				if(!options.id) options.id = target.getParent().getParent().getElement('input.-koowa-grid-checkbox').get('value');
 				
 				data[options.toggle] = options[options.toggle] === 0 ? 1 : 0;
 					
@@ -38,7 +38,7 @@
 						target.store('options', options).eliminate('busy');
 					},
 					onSuccess: function(response){
-						if(!response.msg) return;
+						if(!response) return;
 						if(typeof Roar == 'function') new Roar().alert(response.msg);
 					}
 				}).post();

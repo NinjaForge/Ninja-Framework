@@ -1,6 +1,6 @@
 <?php
 /**
-* @version      $Id: form.php 2943 2011-03-19 02:59:47Z johanjanssens $
+* @version      $Id: form.php 1372 2011-10-11 18:56:47Z stian $
 * @category		Koowa
 * @package      Koowa_Template
 * @subpackage	Filter
@@ -76,12 +76,35 @@ class KTemplateFilterForm extends KTemplateFilterAbstract implements KTemplateFi
      * @return KTemplateFilterForm
      */
     public function write(&$text)
-    {   
+    {  
+    	// All: Add the action if left empty
+    	if (preg_match_all('#<\s*form.*?action=""#im', $text, $matches, PREG_SET_ORDER)) 
+    	{
+    		$view   = $this->getTemplate()->getView();
+    		$state  = $view->getModel()->getState();
+    		$action = $view->createRoute(http_build_query($state->getData($state->isUnique())));
+    		
+    		foreach ($matches as $match) 
+    		{
+    			$str  = str_replace('action=""', 'action="'.$action.'"', $match[0]);
+    			$text = str_replace($match[0], $str, $text);
+    		}
+    	}
+    	
         // POST : Add token 
         if(!empty($this->_token_value)) 
         {
             $text    = preg_replace('/(<form.*method="post".*>)/i', 
             	'\1'.PHP_EOL.'<input type="hidden" name="'.$this->_token_name.'" value="'.$this->_token_value.'" />', 
+                $text	
+            );
+        }
+        
+        // GET : Add token to .-koowa-grid forms
+        if(!empty($this->_token_value)) 
+        {
+            $text    = preg_replace('#(<\s*?form\s+?.*?class=(?:\'|")[^\'"]*?-koowa-grid.*?(?:\'|").*?)>#im', 
+            	'\1 data-token-name="'.$this->_token_name.'" data-token-value="'.$this->_token_value.'">', 
                 $text
             );
         }
@@ -102,5 +125,7 @@ class KTemplateFilterForm extends KTemplateFilterAbstract implements KTemplateFi
                 $text = str_replace($matches[0][$key], $matches[0][$key].$input, $text);
             }   
         }
+        
+        return $this;
     }
 }

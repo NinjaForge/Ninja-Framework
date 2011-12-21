@@ -1,14 +1,12 @@
-<?php 
+<?php defined( '_JEXEC' ) or die( 'Restricted access' );
 /**
- * @version		$Id: ninja.php 1167 2011-08-06 14:45:57Z stian $
+ * @version		$Id: ninja.php 1401 2011-11-01 14:52:38Z stian $
  * @category	Ninja
  * @copyright	Copyright (C) 2007 - 2011 NinjaForge. All rights reserved.
  * @license		GNU GPLv3 <http://www.gnu.org/licenses/gpl.html>
  * @link     	http://ninjaforge.com
  */
 
-// no direct access
-defined( '_JEXEC' ) or die( 'Restricted access' );
 
 jimport('joomla.filesystem.file');
 
@@ -107,18 +105,20 @@ if(version_compare('5.3', phpversion(), '<='))
     }
 }
 
-
 // Add Ninja template filters and some legacy
 if(defined('KOOWA'))
 {
-	//@TODO get rid of this legacy mapping	
-	KFactory::map('lib.koowa.document', 'lib.joomla.document');
+    require_once JPATH_ADMINISTRATOR.'/components/com_ninja/loader/loader.php';
+    KLoader::addAdapter(new NinjaLoader(array('basepath' => JPATH_ADMINISTRATOR)));
+    
+    require_once JPATH_ADMINISTRATOR.'/components/com_ninja/service/locator/locator.php';
+    KServiceIdentifier::addLocator(new NinjaServiceLocator());
 
 	$rules = array(
-		KFactory::get('admin::com.ninja.template.filter.document')
+		KService::get('ninja:template.filter.document')
 	);
 
-	KFactory::get('lib.koowa.template.default')->addFilters($rules);
+	KService::get('koowa:template.default')->addFilter($rules);
 }
 
 $cache = JPATH_ROOT.'/cache/'.$extension_name.'/upgrade';

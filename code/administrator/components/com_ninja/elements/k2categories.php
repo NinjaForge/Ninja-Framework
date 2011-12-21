@@ -29,7 +29,7 @@ defined('_JEXEC') or die ('Restricted access');
  * @package NinjaForge
  * @subpackage com_ninja.elements
  */
-class ComNinjaElementK2categories extends ComNinjaElementAbstract
+class NinjaElementK2categories extends NinjaElementAbstract
 {
 
 	var	$_name = 'categories';

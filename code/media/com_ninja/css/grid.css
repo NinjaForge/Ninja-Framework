@@ -1,807 +1,118 @@
-/* @group Table styling */
-/* @group Border radius */
-/* Top right */
-body table.ninja-list,
-body table.ninja-list > thead:first-child,
-body table.ninja-list > thead:first-child > tr:first-child,
-body table.ninja-list > thead:first-child > tr:first-child > th:last-child {
-	border-top-right-radius: 5px;
-	-webkit-border-top-right-radius: 5px;
-	-moz-border-radius-topright: 5px;
-}
-
-/* Bottom right */
-body table.ninja-list,
-body table.ninja-list > *:last-child,
-body table.ninja-list > *:last-child > tr:last-child,
-body table.ninja-list > *:last-child > tr:last-child > td:last-child,
-body table.ninja-list > *:last-child > tr:last-child > th:last-child,
-body table.ninja-list > tfoot,
-body table.ninja-list > tfoot > tr:last-child,
-body table.ninja-list > tfoot > tr:last-child > td:last-child {
-	border-bottom-right-radius: 5px;
-	-webkit-border-bottom-right-radius: 5px;
-	-moz-border-radius-bottomright: 5px;
-}
-/* Bottom right with <tfoot> */
-body table.ninja-list > tfoot + tbody:last-child,
-body table.ninja-list > tfoot + tbody:last-child > tr:last-child,
-body table.ninja-list > tfoot + tbody:last-child > tr:last-child > td:last-child {
-	border-bottom-right-radius: 0px;
-	-webkit-border-bottom-right-radius: 0px;
-	-moz-border-radius-bottomright: 0px;
-}
-
-/* Bottom left */
-body table.ninja-list,
-body table.ninja-list > *:last-child,
-body table.ninja-list > *:last-child > tr:last-child,
-body table.ninja-list > *:last-child > tr:last-child > td:first-child,
-body table.ninja-list > *:last-child > tr:last-child > th:first-child,
-body table.ninja-list > tfoot,
-body table.ninja-list > tfoot > tr:last-child,
-body table.ninja-list > tfoot > tr:last-child > td:first-child {
-	border-bottom-left-radius: 5px;
-	-webkit-border-bottom-left-radius: 5px;
-	-moz-border-radius-bottomleft: 5px;
-}
-/* Bottom left with <tfoot> */
-body table.ninja-list > tfoot + tbody:last-child,
-body table.ninja-list > tfoot + tbody:last-child > tr:last-child,
-body table.ninja-list > tfoot + tbody:last-child > tr:last-child > td:first-child {
-	border-bottom-left-radius: 0px;
-	-webkit-border-bottom-left-radius: 0px;
-	-moz-border-radius-bottomleft: 0px;
-}
-
-/* Top left */
-body table.ninja-list,
-body table.ninja-list > thead:first-child,
-body table.ninja-list > thead:first-child > tr:first-child,
-body table.ninja-list > thead:first-child > tr:first-child > th:first-child {
-	border-top-left-radius: 5px;
-	-webkit-border-top-left-radius: 5px;
-	-moz-border-radius-topleft: 5px;
-}
-body table.ninja-list > thead:only-child > tr:last-child > th {
-	border-bottom-width: 0;
-}
-
-/* @group Stainless */
-/* Top right */
-body .template-stainless table.ninja-list,
-body .template-stainless table.ninja-list > thead:first-child,
-body .template-stainless table.ninja-list > thead:first-child > tr:first-child,
-body .template-stainless table.ninja-list > thead:first-child > tr:first-child > th:last-child {
-	border-top-right-radius: 10px;
-	-webkit-border-top-right-radius: 10px;
-	-moz-border-radius-topright: 10px;
-}
-
-/* Bottom right */
-body .template-stainless table.ninja-list,
-body .template-stainless table.ninja-list > *:last-child,
-body .template-stainless table.ninja-list > *:last-child > tr:last-child,
-body .template-stainless table.ninja-list > *:last-child > tr:last-child > td:last-child,
-body .template-stainless table.ninja-list > *:last-child > tr:last-child > th:last-child,
-body .template-stainless table.ninja-list > tfoot,
-body .template-stainless table.ninja-list > tfoot > tr:last-child,
-body .template-stainless table.ninja-list > tfoot > tr:last-child > td:last-child {
-	border-bottom-right-radius: 10px;
-	-webkit-border-bottom-right-radius: 10px;
-	-moz-border-radius-bottomright: 10px;
-}
-
-/* Bottom left */
-body .template-stainless table.ninja-list,
-body .template-stainless table.ninja-list > *:last-child,
-body .template-stainless table.ninja-list > *:last-child > tr:last-child,
-body .template-stainless table.ninja-list > *:last-child > tr:last-child > td:first-child,
-body .template-stainless table.ninja-list > *:last-child > tr:last-child > th:first-child,
-body .template-stainless table.ninja-list > tfoot,
-body .template-stainless table.ninja-list > tfoot > tr:last-child,
-body .template-stainless table.ninja-list > tfoot > tr:last-child > td:first-child {
-	border-bottom-left-radius: 10px;
-	-webkit-border-bottom-left-radius: 10px;
-	-moz-border-radius-bottomleft: 10px;
-}
-
-/* Top left */
-body .template-stainless table.ninja-list,
-body .template-stainless table.ninja-list > thead:first-child,
-body .template-stainless table.ninja-list > thead:first-child > tr:first-child,
-body .template-stainless table.ninja-list > thead:first-child > tr:first-child > th:first-child {
-	border-top-left-radius: 10px;
-	-webkit-border-top-left-radius: 10px;
-	-moz-border-radius-topleft: 10px;
-}
-/* @end */
-
-/* @end */
-
-body table.ninja-list {
-	position: relative;
-	border-spacing: 0px 0px;
-	border-collapse: separate;
-	border: 1px solid #E1E1E1;
-	padding: 0px 0px 0px 0px !important;
-	
-}
-body table.ninja-list thead th {
-	text-align: left;
-	border-top-width: 0;
-	vertical-align: middle;
-}
-body table.ninja-list thead .grid-sort img {
-	margin-left: 5px;
-}
-body table.ninja-list thead th.grid-check,
-body table.ninja-list tbody td.grid-check {
-	text-align: center;
-	width: 20px;
-}
-
-/* @group Grid checkbox styling */
-.ninja-list .grid-check input[type=checkbox] {
-	-webkit-appearance: none;
-	border-spacing: 0 !important;
-	color: hsla(0, 0%, 0%, 0) !important;
-	font-size: 11px !important;
-	background-color: hsla(0, 0%, 0%, 0) !important;
-	outline: 2pz solid red;
-	background-repeat: no-repeat !important;
-	background-image: url(../images/16/checkbox.png) !important;
-	background-position: 50% 0 !important;
-	border-style: solid !important;
-	border-color: hsla(0, 0%, 0%, 0) !important;
-	border-width: 0px !important;
-	border: 0 solid transparent !important;
-	margin: 0 !important;
-	padding: 0 !important;
-	height: 16px !important;
-	width: 16px !important;
-}
-.ninja-list .grid-check input[type=checkbox]:active:not(:disabled),
-.ninja-list .grid-check:active input[type=checkbox]:not(:disabled),
-.ninja-list tr:active td.grid-check input[type=checkbox]:not(:disabled) {
-	background-position: 50% -16px !important;
-}
-.ninja-list .grid-check input[type=checkbox]:checked {
-	background-position: 50% -32px !important;
-}
-.ninja-list .grid-check input[type=checkbox]:checked:active:not(:disabled),
-.ninja-list .grid-check:active input[type=checkbox]:checked:not(:disabled) {
-	background-position: 50% -48px !important;
-}
-.ninja-list .selected td.grid-check input[type=checkbox]:checked {
-	background-position: 50% -64px !important;
-}
-.ninja-list .selected td.grid-check input[type=checkbox]:checked:active:not(:disabled),
-.ninja-list .selected td.grid-check:active input[type=checkbox]:checked:not(:disabled),
-.ninja-list .selected:active td.grid-check input[type=checkbox]:checked:not(:disabled) {
-	background-position: 50% -80px !important;
-}
-/* @end */
-
-body table.ninja-list thead th.grid-center,
-body table.ninja-list tbody td.grid-center {
-	text-align: center;
-}
-
-body table.ninja-list th, body table.ninja-list th > a {
-	color: #666;
-}
-.grid-count {
-	text-align: right !important;
-	width: 20px;
-}
-
-body table.ninja-list > * > tr > * {
-	padding-left: 5px;
-	padding-right: 5px;
-}
-
-body table.ninja-list > * > tr > *:first-child {
-	padding-left: 10px;
-}
-body table.ninja-list > * > tr > *:last-child {
-	padding-right: 10px;
-}
-
-.ninja-list + .ninja-list, .ninja-list + form {
-	margin-top: 5px !important;
-}
-
-/* @group AdminPraise3 */
-.template-adminpraise3 .ninja-list + .ninja-list, .template-adminpraise3 .ninja-list + form {
-	margin-top: 0px !important;
-}
-/* @end */
-
-body table.ninja-list,
-body table.ninja-list tbody,
-body table.ninja-list tbody tr {
-	background-color: transparent !important;
-}
-body table.ninja-list tbody {
-	background-color: white!important;
-}
-body table.ninja-list tbody tr.row0 td {
-	background-color: white;
-	background-color: hsla(0, 0%, 100%, .4);
-}
-body table.ninja-list tbody tr.row1 td {
-	background-color: #F9F9F9;
-	background-color: hsla(0, 0%, 68%, .1);
-}
-
-body table.ninja-list tbody tr td {
-	padding-left: 6px;
-	border-left: 0px hidden transparent !important;
-	border-top: 0px hidden transparent !important;
-	border-right: 0px hidden transparent !important;
-	border-bottom: 1px solid #ECECEC !important;
-	vertical-align: middle;
-}
-
-
-body table.ninja-list tbody tr.selected, 
-body table.ninja-list tbody tr.selected td, 
-body table.ninja-list tbody tr.selected:hover > td,
-body table.ninja-list:hover tbody tr.selected:hover > td {
-	-webkit-transition: 0s all;
-	background-color: #2B91E3 !important;
-	color: #CDE7FD !important;
-}
-body table.ninja-list tbody.selected-single tr.selected, 
-body table.ninja-list tbody.selected-single tr.selected td, 
-body table.ninja-list tbody.selected-single tr.selected:hover > td,
-body table.ninja-list:hover tbody.selected-single tr.selected:hover > td {
-	-webkit-box-shadow: inset #187DD3 0 1px 0, inset #004BA5 0 -1px 0, inset hsla(0, 100%, 100%, 0.1) 0 2px 0;
-	-moz-box-shadow: inset #187DD3 0 1px 0, inset #004BA5 0 -1px 0, inset hsla(0, 100%, 100%, 0.2) 0 2px 0;
-	/*box-shadow: inset #187dd3 0 1px 0, inset #004ba5 0 -1px 0;*/
-	background-image: -webkit-gradient(linear, left top, left bottom, from(#2c8bdc), to(#0e67ca));
-	/*background-image: -webkit-gradient(linear, left top, left bottom, from(#3A92DF), to(#1071E0));*/
-	background-image: -moz-linear-gradient(top, #2c8bdc, #0e67ca);
-	text-shadow: rgba(0, 0, 0, 0.33) 0 1px 0;
-}
-body table.ninja-list tbody tr.selected td, 
-body table.ninja-list tbody tr.selected:hover > td,
-body table.ninja-list:hover tbody tr.selected:hover > td {
-	border-bottom-color: white;
-}
-body table.ninja-list > tbody:last-child > tr:last-child td, body table.ninja-list > tfoot > tr:last-child td {
-	border-bottom-width: 0 !important;
-}
-
-body.inactive table.ninja-list tbody tr.selected, 
-body.inactive table.ninja-list tbody tr.selected td, 
-body.inactive table.ninja-list tbody tr.selected:hover > td,
-body.inactive table.ninja-list:hover tbody tr.selected:hover > td {
-	-webkit-box-shadow: inset rgb(151, 151, 151) 0 1px 0;
-	-moz-box-shadow: inset rgb(151, 151, 151) 0 1px 0;
-	background-image: -webkit-gradient(linear, left top, left bottom, from(rgb(180, 180, 180)), to(rgb(138, 138, 138)));
-	background-image: -moz-linear-gradient(top, rgb(180, 180, 180), rgb(138, 138, 138));
-}
-
-
-
-body table.ninja-list tbody tr.selected a, 
-body table.ninja-list tbody tr.selected td a, 
-body table.ninja-list tbody tr.selected:hover > td a,
-body table.ninja-list:hover tbody tr.selected:hover > td a {
-	color: white;
-}
-/* @group Table tfoot and thead */
-body table.ninja-list thead tr,
-body table.ninja-list thead tr th,
-body table.ninja-list tfoot tr,
-body table.ninja-list tfoot tr td {
-	background: white -webkit-gradient(linear, 0% 0%, 0% 100%, from(hsla(0, 0%, 96%, 0)), to(hsla(0, 0%, 96%, 0.796875)));
-	background: white -moz-linear-gradient(top, hsla(0, 0%, 96%, 0), hsla(0, 0%, 96%, 0.796875));
-}
-body table.ninja-list thead tr th:empty,
-body table.ninja-list thead tr th.void {
-	cursor: default;
-}
-body table.ninja-list thead:not(:only-child) tr th:hover:not(:empty):not(.void) {
-	cursor: pointer;
-}
-body table.ninja-list thead:not(:only-child) tr th:active:not(:empty):not(.void) {
-	background: white -webkit-gradient(linear, 0% 100%, 0% 0%, from(hsla(0, 0%, 96%, 0)), to(hsla(0, 0%, 96%, 0.796875)));
-	background: white -moz-linear-gradient(bottom, hsla(0, 0%, 96%, 0), hsla(0, 0%, 96%, 0.796875));
-}
-body table.ninja-list tfoot tr td {
-	border-top-style: solid;
-	border-top-width: 1px;
-}
-body table.ninja-list thead tr th,
-body table.ninja-list tfoot tr td {
-	border-color: #E1E1E1;
-}
-body table.ninja-list thead tr th:first-child {
-	border-left-width: 0;
-}
-
-/* @end */
-/* @end */
-
-
-/* @group Placeholder */
-
-/* If placeholder is current, hide the grid */
-.placeholder ~ .adminlist {
-	display: none;
-}
-
-/* @group Layout */
-
-.placeholder {
-	font-size: 10px;
-	text-align: center;
-	min-height: 42em;
-	position: relative;
-}
-.placeholder.smaller {
-	font-size: 6px;
-}
-.placeholder .title {
-	white-space: inherit;
-	position: absolute;
-	text-align: center;
-	cursor: default;
-	-khtml-user-select: none;
-	-moz-user-select: none;
-	left: 0px;
-	right: 0px;
-	
-	background-size: 100% 37px;
-	font-size: 32px;
-	line-height: 35px;
-	margin: 0 20px;
-	top: 140px;
-	
-	background-size: 100% 1.16em;
-	font-size: 3.2em;
-	line-height: 1.1em;
-	
-	/*text-transform: lowercase;*/
-}
-.placeholder .title * {
-	-khtml-user-select: text;
-	-moz-user-select: text;
-}
-.placeholder .title code {
-	padding: 0px 6px;
-}
-.placeholder-up-one-line .placeholder .title, .placeholder-up-one-line.placeholder .title {
-	top: 121px;
-}
-.placeholder-up-two-lines .placeholder .title, .placeholder-up-two-lines.placeholder .title {
-	top: 103px;
-}
-.placeholder-up-three-lines .placeholder .title, .placeholder-up-three-lines.placeholder .title {
-	top: 85px;
-}
-.placeholder-up-four-lines .placeholder .title, .placeholder-up-four-lines.placeholder .title {
-	top: 66px;
-}
-
-
-.placeholder a.button, .placeholder a.button:visited, .placeholder a.button:link {
-	display: inline-block;
-	-khtml-user-select: none;
-	margin: 300px auto 20px auto;
-	padding: 10px 30px;
-}
-
-.placeholder span {
-	display: block;
-	float: none;
-	margin: 0px auto;
-	height: 32px;
-	width: 32px;
-	margin-bottom: 2px;
-}
-.placeholder span span {
-	margin-bottom: 0;
-}
-
-.placeholder .close {
-	left: 5px;
-	top: 5px;
-	color: transparent;
-	height: 14px;
-	width: 14px;
-	padding: 0;
-	font-size: 10px;
-	line-height: 5px;
-	border: 0 transparent solid;
-	font-weight: 900;
-	text-align: center;
-	position: absolute;
-}
-
-/* @end */
-
-/* @group Style */
-
-.placeholder {
-	background-color: #FAFAFA;
-	background-image: url(../images/gradients/black-white.420.png);
-	background-image: -webkit-gradient(linear, left top, left bottom, from(rgba(255,255,255,0.2)), to(rgba(0,0,0,0.2)));
-	background-image: -moz-linear-gradient(top, rgba(255,255,255,0.2), rgba(0,0,0,0.2));
-	background-position: center top;
-	background-repeat: repeat-x;
-	border: 1px solid white;
-	-webkit-box-shadow: black 0 0 1px;
-	-moz-box-shadow: black 0 0 1px;
-	box-shadow: black 0 0 1px;
-}
-.placeholder .title {
-	background-image: -webkit-gradient(linear, left top, left bottom, from(hsla(0, 0%, 0%, 1)), to(hsla(0, 0%, 40%, 0.8)));
-	background-repeat: repeat-y;
-	-webkit-background-clip: text;
-	-webkit-text-fill-color: transparent;
-	color: #595959;
-	text-shadow: rgba(255,255,255,0.4) 0 1px 0;
-}
-.placeholder .title code {
-	background-image: -moz-linear-gradient(top, hsla(0, 0%, 0%, .1), hsla(0, 0%, 40%, 0.02));
-	background-image: -webkit-gradient(linear, left top, left bottom, from(hsla(0, 0%, 60%, 1)), to(hsla(0, 0%, 40%, 0.8))), -webkit-gradient(linear, left top, left bottom, from(hsla(0, 0%, 0%, .1)), to(hsla(0, 0%, 40%, 0.02)));
-	-webkit-background-clip: text, border-box;
-	-webkit-box-shadow: hsla(0, 0%, 100%, .2) 0 1px 0;
-	-moz-box-shadow: hsla(0, 0%, 100%, .2) 0 1px 0;
-	-webkit-text-fill-color: transparent;
-	border-radius: 4px;
-	-moz-border-radius: 4px;
-	text-shadow: none;
-}
-.placeholder .title code::-moz-selection {
-	background-color: hsla(0, 0%, 0%, .2);
-	color: white;
-	text-shadow: hsla(0, 0%, 0%, .4) 0 1px 1px;
-}
-.placeholder .title code::selection {
-	background-color: hsla(0, 0%, 0%, .2);
-	color: white;
-	-webkit-text-fill-color: white;
-	text-shadow: hsla(0, 0%, 0%, .4) 0 1px 1px;
-}
-
-.placeholder .title::first-letter {
-	text-transform: capitalize;
-}
-.placeholder .title em {
-	text-transform: lowercase;
-	font-style: normal;
-}
-.placeholder a.button, .placeholder a.button:visited, .placeholder a.button:link {
-	border: #CFCFCF 1px solid;
-	color: #444;
-	font-weight: bold;
-	font-size: 11px;
-	text-shadow: hsla(0, 0%, 100%, 0.4) 0 1px 0;
-	border-color: rgba(255,255,255,0.3);
-	-webkit-background-clip: border;
-	-webkit-background-origin: border;
-	-moz-background-clip: border;
-	-moz-background-origin: border;
-	background-clip: border-box;
-	background-origin: border-box;
-	background-color: #B5B5B5;
-	background-color: hsla(0, 0%, 71%, 0.5);
-	background-image: url(../images/gradients/black-white.66.png);
-	background-position: top center;
-	background-repeat: repeat-x;
-	background-image: -moz-linear-gradient(top, rgba(255,255,255,0.2), rgba(0,0,0,0.2));
-	background-image: -webkit-gradient(linear, left top, left bottom, from(rgba(255,255,255,0.2)), to(rgba(0,0,0,0.2)));
-	cursor: pointer;
-	/*-webkit-box-shadow: 
-						hsla(0, 0%, 10%, 0.1) 0 1px 0,
-						hsla(0, 0%, 10%, 0.1) 0 2px 0,
-						hsla(0, 0%, 10%, 0.1) 0 3px 0,
-						hsla(0, 0%, 0%, 0.5) 0 4px 10px,
-						hsla(0, 0%, 0%, 0) 0 1px 5px inset
-	;
-	-webkit-transform: translate(0, -2px);*/
-	-webkit-box-shadow: hsla(0, 0%, 0%, 0.5) 0 1px 5px, hsla(0, 0%, 0%, 0) 0 1px 5px inset;
-	-moz-box-shadow: hsla(0, 0%, 0%, 0.5) 0 1px 5px, hsla(0, 0%, 0%, 0) 0 1px 5px inset;
-	box-shadow: hsla(0, 0%, 0%, 0.5) 0 1px 5px, hsla(0, 0%, 0%, 0) 0 1px 5px inset;
-	-webkit-border-radius: 5px;
-	-moz-border-radius: 5px;
-	border-radius: 5px;
-	-webkit-transition: all 300ms ease-in-out;
-	-moz-transition: all 300ms ease-in-out;
-	transition: all 300ms ease-in-out;
-}
-.placeholder a.button:hover {
-	text-decoration: none;
-	border-color: #B5B5B5;
-	border-color: hsla(0, 0%, 100%, .3);
-	background-color: #CFCFCF;
-}
-.placeholder a.button:active, .placeholder a.button.active:active, .placeholder a.button.active {
-	background-color: #9C9C9C;
-	color: #222;
-	text-shadow: hsla(0, 0%, 100%, 0.2) 0 1px 0;
-	border-color: #7F7F7F;
-	/*-webkit-box-shadow: 
-						hsla(0, 0%, 10%, 0) 0 1px 0,
-						hsla(0, 0%, 10%, 0) 0 2px 0,
-						hsla(0, 0%, 10%, 0) 0 3px 0,
-						hsla(0, 0%, 0%, 0) 0 4px 10px,
-						hsla(0, 0%, 0%, 0.5) 0 1px 5px inset
-	;
-	-webkit-transform: translate(0, 0);*/
-	-webkit-box-shadow: hsla(0, 0%, 0%, 0) 0 1px 5px, hsla(0, 0%, 0%, 0.5) 0 1px 5px inset;
-	-moz-box-shadow: hsla(0, 0%, 0%, 0) 0 1px 5px, hsla(0, 0%, 0%, 0.5) 0 1px 5px inset;
-	box-shadow: hsla(0, 0%, 0%, 0) 0 1px 5px, hsla(0, 0%, 0%, 0.5) 0 1px 5px inset;
-	-webkit-transition: all 0s;
-	-moz-transition: all 0s;
-	transition: all 0s;
-}
-.placeholder a.button.active {
-	background-color: #B5B5B5;
-}
-.placeholder a.button:active span {
-	background-position: center bottom;
-}
-.placeholder span {
-	background: transparent url(../images/32/default.png) no-repeat center top;
-}
-.placeholder span span {
-	background: url(../images/32/add_overlay.png) no-repeat center top;
-}
-.no-placeholder-overlay .placeholder span span {
-	background-image: none;
-}
-
-.placeholder .close {
-	/*color: white;*/
-	/*background-color: #999;*/
-	-khtml-user-select: none;
-	cursor: pointer;
-	background: url(../images/close.png) no-repeat center;
-}
-.placeholder .close:hover {
-	/*font-weight: normal;
-	color: #CCC;
-	background-color: #555;*/
-	background-image: url(../images/close-hovered.png);
-}
-.placeholder .close:active {
-	/*color: white;
-	font-weight: bolder;
-	background-color: #777;*/
-	background-image: url(../images/close-pressed.png);
-}
-
-/* @end */
-
-
-/* @end */
-
-/*Grid styling*/
-
-table .thin {
-	width: 1%;
-}
-
-table .wide {
-	width: 100%;
-}
-
-form[name="adminForm"]::before {
-	/*content: attr(id);*/
-}
-
-form [class^="icon"]::before {
-	/*content: attr(class);*/
-}
-
-
-
-.adminlist:hover td {
-	-webkit-transition: all 600ms ease-in-out;
-	-moz-transition: all 600ms ease-in-out;
-	-o-transition: all 600ms ease-in-out;
-	transition: all 600ms ease-in-out;
-}
-.adminlist:hover tr:hover td {
-	-webkit-transition-duration: 200ms;
-	-moz-transition-duration: 200ms;
-	-o-transition-duration: 200ms;
-	transition-duration: 200ms;
-}
-.adminlist:active tr td {
-	-webkit-transition-duration: 0ms;
-	-moz-transition-duration: 0ms;
-	-o-transition-duration: 0ms;
-	transition-duration: 0ms;
-}
-
-.adminlist:hover tbody tr:hover > td {
-	background-color: #E6FFFF;
-	background-color: hsla(180, 100%, 90%, 0.4)!important;
-}
-
-.adminlist .state-enable td {
-	opacity: 1;
-	filter:alpha(opacity=100);
-}
-.adminlist .state-disable td {
-	opacity: 0.6;
-	filter:alpha(opacity=60);
-}
-.adminlist .state-disable td:hover {
-	opacity: 1;
-	filter:alpha(opacity=100);
-}
-
-
-/* Icon styling */
-.icon-toggle {
-	display: inline-block;
-	width: 16px;
-	cursor: pointer;
-	height: 16px;
-	background-image: url(../images/16/spacer.png);
-	background-repeat: no-repeat;
-	text-indent:-9999px;
-}
-
-.icon-toggle-enabled-true {
-	background-image: url(../images/16/enable.png);
-}
-.icon-toggle-enabled-false {
-	background-image: url(../images/16/disable.png);
-}
-.icon-toggle-lock {
-	background-image: url(../images/16/lock.png);
-}
-.icon-toggle-unlock {
-	background-image: url(../images/16/unlock.png);
-}
-.icon-toggle-publish {
-	background-image: url(../images/16/enable.png);
-}
-.icon-toggle-unpublish {
-	background-image: url(../images/16/disable.png);
-}
-
-/* Icon selected styling */
-/*@TODO we need to make these into sprites, as soon as our grid.statelist helpers are changed to use backgrounds instead of imgs */
-.ninja-list .selected .icon-toggle-enabled-true {
-	background-image: url(../images/16/enable_focus.png);
-}
-.ninja-list .selected .icon-toggle-enabled-false {
-	background-image: url(../images/16/disable_focus.png);
-}
-.ninja-list .selected .icon-toggle-lock {
-	background-image: url(../images/16/lock_focus.png);
-}
-.ninja-list .selected .icon-toggle-unlock {
-	background-image: url(../images/16/unlock_focus.png);
-}
-.ninja-list .selected .icon-toggle-publish {
-	background-image: url(../images/16/enable_focus.png);
-}
-.ninja-list .selected .icon-toggle-unpublish {
-	background-image: url(../images/16/disable_focus.png);
-}
-
-form table.adminlist tbody tr.selected td a  {
-	/*color: white;*/
-}
-form table.adminlist tbody tr.selected td, .adminlist:hover tbody tr.selected:hover > td, form table.adminlist tbody tr.selected:hover > td {
-	/*background-color: rgb(56, 121, 217)!important;
-	border-width: 0;
-	color: white!important;*/
-	/*background-color: activeborder;*/
-	/*background-color: highlight;*/
-	/*background-color: highlighttext;*/
-}
-
-
-.adminlist.treelist, table.adminlist.treelist, table.treelist table.adminlist {
-	background-color: transparent;
-	border-spacing: 0;
-}
-
-.ninja-empty-list {
-	font-size:  2em;
-}
-
-
-
-
-tr.selected .bubble {
-	background-color: #FFF;
-	color: hsl(213, 100%, 42%);
-	text-shadow: transparent 0 0 0;
-}
-.selected-multiple tr.selected .bubble {
-	color: hsl(207, 77%, 53%);
-}
-
-
-.ninja-filter {
-	display: block;
-	height: 23px;
-	overflow: hidden;
-	padding: 2px 0px 0px 10px;
-	margin-bottom: -20px;
-	margin-top: -16px;
-	-khtml-user-select: none;
-	-moz-user-select: none;
-	width: 100%;
-}
-
-.ninja-filter br {
-	display: none;
-}
-
-.ninja-filter input {
-	display: none;
-}
-
-.ninja-filter label {
-	background: transparent;
-	border-radius: 8px;
-	-webkit-border-radius: 8px;
-	-moz-border-radius: 8px;
-	color: hsl(0, 0%, 18%);
-	font-size: 11px;
-	font-weight: bold;
-	line-height: 12px;
-	margin: 1px 2px 0px 0px;
-	padding: 1px 7px 3px;
-	text-shadow: hsla(0, 100%, 100%, 0.496094) 0px 1px 0px;
-	vertical-align: middle;
-	font-family: 'Lucida Grande', sans-serif;
-	text-transform: capitalize;
-}
-
-.ninja-filter label.divider {
-	display: inline-block;
-	background-color: hsla(0, 0%, 0%, 0.398438);
-	height: 16px;
-	margin: 1px 9px 0px 8px;
-	vertical-align: middle;
-	width: 1px;
-	border-radius: 0px;
-	-webkit-border-radius: 0px;
-	-moz-border-radius: 0px;
-	padding: 0;
-}
-
-.ninja-filter label.selected, .ninja-filter label:hover, .ninja-filter label:active {
-    color: white;
-    text-shadow: rgba(0, 0, 0, 0.4) 0 1px 0;
-}
-
-.ninja-filter label:hover {
-    background: rgba(0, 0, 0, 0.2);
-}
-
-.ninja-filter label.selected {
-    background: rgba(0, 0, 0, 0.3);
-    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.5) inset, 0 -1px 1px rgba(255, 255, 255, 0.25) inset, 0 1px 0 rgba(255, 255, 255, 0.5);
-    -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.5) inset, 0 -1px 1px rgba(255, 255, 255, 0.25) inset, 0 1px 0 rgba(255, 255, 255, 0.5);
-    -moz-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.5) inset, 0 -1px 1px rgba(255, 255, 255, 0.25) inset, 0 1px 0 rgba(255, 255, 255, 0.5);
-}
-
-.ninja-filter label:active {
-    background: rgba(0, 0, 0, 0.5);
-    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.5) inset, 0 -1px 1px rgba(255, 255, 255, 0.25) inset, 0 1px 0 rgba(255, 255, 255, 0.5);
-    -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.5) inset, 0 -1px 1px rgba(255, 255, 255, 0.25) inset, 0 1px 0 rgba(255, 255, 255, 0.5);
-    -moz-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.5) inset, 0 -1px 1px rgba(255, 255, 255, 0.25) inset, 0 1px 0 rgba(255, 255, 255, 0.5);
-}
-
-
-/* @group AdminPraise2 */
-.nf.template-adminpraise2 {
-	margin: 0 10px;
-}
-/* @end */
+body table.ninja-list,body table.ninja-list>thead:first-child,body table.ninja-list>thead:first-child>tr:first-child,body table.ninja-list>thead:first-child>tr:first-child>th:last-child{-moz-border-radius-topright:5px;border-top-right-radius:5px;}
+body table.ninja-list,body table.ninja-list>*:last-child,body table.ninja-list>*:last-child>tr:last-child,body table.ninja-list>*:last-child>tr:last-child>td:last-child,body table.ninja-list>*:last-child>tr:last-child>th:last-child,body table.ninja-list>tfoot,body table.ninja-list>tfoot>tr:last-child,body table.ninja-list>tfoot>tr:last-child>td:last-child{-moz-border-radius-bottomright:5px;border-bottom-right-radius:5px;}
+body table.ninja-list>tfoot+tbody:last-child,body table.ninja-list>tfoot+tbody:last-child>tr:last-child,body table.ninja-list>tfoot+tbody:last-child>tr:last-child>td:last-child{-moz-border-radius-bottomright:0px;border-bottom-right-radius:0px;}
+body table.ninja-list,body table.ninja-list>*:last-child,body table.ninja-list>*:last-child>tr:last-child,body table.ninja-list>*:last-child>tr:last-child>td:first-child,body table.ninja-list>*:last-child>tr:last-child>th:first-child,body table.ninja-list>tfoot,body table.ninja-list>tfoot>tr:last-child,body table.ninja-list>tfoot>tr:last-child>td:first-child{-moz-border-radius-bottomleft:5px;border-bottom-left-radius:5px;}
+body table.ninja-list>tfoot+tbody:last-child,body table.ninja-list>tfoot+tbody:last-child>tr:last-child,body table.ninja-list>tfoot+tbody:last-child>tr:last-child>td:first-child{-moz-border-radius-bottomleft:0px;border-bottom-left-radius:0px;}
+body table.ninja-list,body table.ninja-list>thead:first-child,body table.ninja-list>thead:first-child>tr:first-child,body table.ninja-list>thead:first-child>tr:first-child>th:first-child{-moz-border-radius-topleft:5px;border-top-left-radius:5px;}
+body table.ninja-list>thead:only-child>tr:last-child>th{border-bottom-width:0;}
+body .template-stainless table.ninja-list,body .template-stainless table.ninja-list>thead:first-child,body .template-stainless table.ninja-list>thead:first-child>tr:first-child,body .template-stainless table.ninja-list>thead:first-child>tr:first-child>th:last-child{-moz-border-radius-topright:10px;border-top-right-radius:10px;}
+body .template-stainless table.ninja-list,body .template-stainless table.ninja-list>*:last-child,body .template-stainless table.ninja-list>*:last-child>tr:last-child,body .template-stainless table.ninja-list>*:last-child>tr:last-child>td:last-child,body .template-stainless table.ninja-list>*:last-child>tr:last-child>th:last-child,body .template-stainless table.ninja-list>tfoot,body .template-stainless table.ninja-list>tfoot>tr:last-child,body .template-stainless table.ninja-list>tfoot>tr:last-child>td:last-child{-moz-border-radius-bottomright:10px;border-bottom-right-radius:10px;}
+body .template-stainless table.ninja-list,body .template-stainless table.ninja-list>*:last-child,body .template-stainless table.ninja-list>*:last-child>tr:last-child,body .template-stainless table.ninja-list>*:last-child>tr:last-child>td:first-child,body .template-stainless table.ninja-list>*:last-child>tr:last-child>th:first-child,body .template-stainless table.ninja-list>tfoot,body .template-stainless table.ninja-list>tfoot>tr:last-child,body .template-stainless table.ninja-list>tfoot>tr:last-child>td:first-child{-moz-border-radius-bottomleft:10px;border-bottom-left-radius:10px;}
+body .template-stainless table.ninja-list,body .template-stainless table.ninja-list>thead:first-child,body .template-stainless table.ninja-list>thead:first-child>tr:first-child,body .template-stainless table.ninja-list>thead:first-child>tr:first-child>th:first-child{-moz-border-radius-topleft:10px;border-top-left-radius:10px;}
+body table.ninja-list{position:relative;border-spacing:0px 0px;border-collapse:separate;border:1px solid #E1E1E1;padding:0px 0px 0px 0px !important;}
+body table.ninja-list thead th{text-align:left;border-top-width:0;vertical-align:middle;}
+body table.ninja-list thead .grid-sort img{margin-left:5px;}
+body table.ninja-list thead th.grid-check,body table.ninja-list tbody td.grid-check{text-align:center;width:20px;}
+.ninja-list .grid-check input[type=checkbox]{-webkit-appearance:none;border-spacing:0 !important;color:rgba(0, 0, 0, 0) !important;font-size:11px !important;background-color:rgba(0, 0, 0, 0) !important;outline:2pz solid red;background-repeat:no-repeat !important;background-image:url(../images/16/checkbox.png) !important;background-position:50% 0 !important;border-style:solid !important;border-color:rgba(0, 0, 0, 0) !important;border-width:0px !important;border:0 solid transparent !important;margin:0 !important;padding:0 !important;height:16px !important;width:16px !important;}
+.ninja-list .grid-check input[type=checkbox]:active:not(:disabled),.ninja-list .grid-check:active input[type=checkbox]:not(:disabled),.ninja-list tr:active td.grid-check input[type=checkbox]:not(:disabled){background-position:50% -16px !important;}
+.ninja-list .grid-check input[type=checkbox]:checked{background-position:50% -32px !important;}
+.ninja-list .grid-check input[type=checkbox]:checked:active:not(:disabled),.ninja-list .grid-check:active input[type=checkbox]:checked:not(:disabled){background-position:50% -48px !important;}
+.ninja-list .selected td.grid-check input[type=checkbox]:checked{background-position:50% -64px !important;}
+.ninja-list .selected td.grid-check input[type=checkbox]:checked:active:not(:disabled),.ninja-list .selected td.grid-check:active input[type=checkbox]:checked:not(:disabled),.ninja-list .selected:active td.grid-check input[type=checkbox]:checked:not(:disabled){background-position:50% -80px !important;}
+body table.ninja-list thead th.grid-center,body table.ninja-list tbody td.grid-center{text-align:center;}
+body table.ninja-list th,body table.ninja-list th>a{color:#666;}
+.grid-count{text-align:right !important;width:20px;}
+body table.ninja-list>*>tr>*{padding-left:5px;padding-right:5px;}
+body table.ninja-list>*>tr>*:first-child{padding-left:10px;}
+body table.ninja-list>*>tr>*:last-child{padding-right:10px;}
+.ninja-list+.ninja-list,.ninja-list+form{margin-top:5px !important;}
+.template-adminpraise3 .ninja-list+.ninja-list,.template-adminpraise3 .ninja-list+form{margin-top:0px !important;}
+body table.ninja-list,body table.ninja-list tbody,body table.ninja-list tbody tr{background-color:transparent !important;}
+body table.ninja-list tbody{background-color:white!important;}
+body table.ninja-list tbody tr:nth-child(odd) td{background-color:white;background-color:rgba(255, 255, 255, 0.4);}
+body table.ninja-list tbody tr:nth-child(even) td{background-color:#F9F9F9;background-color:rgba(173, 173, 173, 0.1);}
+body table.ninja-list tbody tr td{padding-left:6px;border-left:0px hidden transparent !important;border-top:0px hidden transparent !important;border-right:0px hidden transparent !important;border-bottom:1px solid #ECECEC !important;vertical-align:middle;}
+body table.ninja-list tbody tr.selected,body table.ninja-list tbody tr.selected td,body table.ninja-list tbody tr.selected:hover>td,body table.ninja-list:hover tbody tr.selected:hover>td{-webkit-transition:0s all;background-color:#2B91E3 !important;color:#CDE7FD !important;}
+body table.ninja-list tbody.selected-single tr.selected,body table.ninja-list tbody.selected-single tr.selected td,body table.ninja-list tbody.selected-single tr.selected:hover>td,body table.ninja-list:hover tbody.selected-single tr.selected:hover>td{text-shadow:rgba(0, 0, 0, 0.33) 0 1px 0;background-image:-webkit-gradient(linear, 0% 0%, 0% 100%, from(#2c8add), to(#0e65c8));background-image:-webkit-linear-gradient(top, #2c8add, #0e65c8));background-image:-moz-linear-gradient(top, #2c8add, #0e65c8));background-image:-ms-linear-gradient(top, #2c8add, #0e65c8));background-image:-o-linear-gradient(top, #2c8add, #0e65c8));background-image:linear-gradient(top, #2c8add, #0e65c8));filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#2C8ADD', endColorstr='#0E65C8');-moz-box-shadow:inset #187DD3 0 1px 0, inset #004BA5 0 -1px 0, inset hsla(0, 100%, 100%, 0.1) 0 2px 0;box-shadow:inset #187DD3 0 1px 0, inset #004BA5 0 -1px 0, inset hsla(0, 100%, 100%, 0.1) 0 2px 0;}
+body table.ninja-list tbody tr.selected td,body table.ninja-list tbody tr.selected:hover>td,body table.ninja-list:hover tbody tr.selected:hover>td{border-bottom-color:white;}
+body table.ninja-list>tbody:last-child>tr:last-child td,body table.ninja-list>tfoot>tr:last-child td{border-bottom-width:0 !important;}
+body.inactive table.ninja-list tbody tr.selected,body.inactive table.ninja-list tbody tr.selected td,body.inactive table.ninja-list tbody tr.selected:hover>td,body.inactive table.ninja-list:hover tbody tr.selected:hover>td{background-image:-webkit-gradient(linear, 0% 0%, 0% 100%, from(#b4b4b4), to(#8a8a8a));background-image:-webkit-linear-gradient(top, #b4b4b4, #8a8a8a));background-image:-moz-linear-gradient(top, #b4b4b4, #8a8a8a));background-image:-ms-linear-gradient(top, #b4b4b4, #8a8a8a));background-image:-o-linear-gradient(top, #b4b4b4, #8a8a8a));background-image:linear-gradient(top, #b4b4b4, #8a8a8a));filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#B4B4B4', endColorstr='#8A8A8A');-moz-box-shadow:inset #979797 0 1px 0;box-shadow:inset #979797 0 1px 0;}
+body table.ninja-list tbody tr.selected a,body table.ninja-list tbody tr.selected td a,body table.ninja-list tbody tr.selected:hover>td a,body table.ninja-list:hover tbody tr.selected:hover>td a{color:white;}
+body table.ninja-list thead tr,body table.ninja-list thead tr th,body table.ninja-list tfoot tr,body table.ninja-list tfoot tr td{background-color:white;background-image:-webkit-gradient(linear, 0% 0%, 0% 100%, from(rgba(245, 245, 245, 0)), to(rgba(245, 245, 245, 0.796875)));background-image:-webkit-linear-gradient(top, rgba(245, 245, 245, 0), rgba(245, 245, 245, 0.796875)));background-image:-moz-linear-gradient(top, rgba(245, 245, 245, 0), rgba(245, 245, 245, 0.796875)));background-image:-ms-linear-gradient(top, rgba(245, 245, 245, 0), rgba(245, 245, 245, 0.796875)));background-image:-o-linear-gradient(top, rgba(245, 245, 245, 0), rgba(245, 245, 245, 0.796875)));background-image:linear-gradient(top, rgba(245, 245, 245, 0), rgba(245, 245, 245, 0.796875)));filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#00F5F5F5', endColorstr='#CBF5F5F5');}
+body table.ninja-list thead tr th:empty,body table.ninja-list thead tr th.void{cursor:default;}
+body table.ninja-list thead:not(:only-child) tr th:hover:not(:empty):not(.void){cursor:pointer;}
+body table.ninja-list thead:not(:only-child) tr th:active:not(:empty):not(.void){background-color:white;background-image:-webkit-gradient(linear, 0% 0%, 0% 100%, from(rgba(245, 245, 245, 0)), to(rgba(245, 245, 245, 0.796875)));background-image:-webkit-linear-gradient(top, rgba(245, 245, 245, 0), rgba(245, 245, 245, 0.796875)));background-image:-moz-linear-gradient(top, rgba(245, 245, 245, 0), rgba(245, 245, 245, 0.796875)));background-image:-ms-linear-gradient(top, rgba(245, 245, 245, 0), rgba(245, 245, 245, 0.796875)));background-image:-o-linear-gradient(top, rgba(245, 245, 245, 0), rgba(245, 245, 245, 0.796875)));background-image:linear-gradient(top, rgba(245, 245, 245, 0), rgba(245, 245, 245, 0.796875)));filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#00F5F5F5', endColorstr='#CBF5F5F5');}
+body table.ninja-list tfoot tr td{border-top-style:solid;border-top-width:1px;}
+body table.ninja-list thead tr th,body table.ninja-list tfoot tr td{border-color:#E1E1E1;}
+body table.ninja-list thead tr th:first-child{border-left-width:0;}
+.placeholder~.adminlist{display:none;}
+.placeholder{font-size:10px;text-align:center;min-height:42em;position:relative;}
+.placeholder.smaller{font-size:6px;}
+.placeholder .title{white-space:inherit;position:absolute;text-align:center;cursor:default;-khtml-user-select:none;-moz-user-select:none;left:0px;right:0px;background-size:100% 37px;font-size:32px;line-height:35px;margin:0 20px;top:140px;background-size:100% 1.16em;font-size:3.2em;line-height:1.1em;}
+.placeholder .title *{-khtml-user-select:text;-moz-user-select:text;}
+.placeholder .title code{padding:0px 6px;}
+.placeholder-up-one-line .placeholder .title,.placeholder-up-one-line.placeholder .title{top:121px;}
+.placeholder-up-two-lines .placeholder .title,.placeholder-up-two-lines.placeholder .title{top:103px;}
+.placeholder-up-three-lines .placeholder .title,.placeholder-up-three-lines.placeholder .title{top:85px;}
+.placeholder-up-four-lines .placeholder .title,.placeholder-up-four-lines.placeholder .title{top:66px;}
+.placeholder a.button,.placeholder a.button:visited,.placeholder a.button:link{display:inline-block;-khtml-user-select:none;margin:300px auto 20px auto;padding:10px 30px;}
+.placeholder span{display:block;float:none;margin:0px auto;height:32px;width:32px;margin-bottom:2px;}
+.placeholder span span{margin-bottom:0;}
+.placeholder .close{left:5px;top:5px;color:transparent;height:14px;width:14px;padding:0;font-size:10px;line-height:5px;border:0 transparent solid;font-weight:900;text-align:center;position:absolute;}
+.placeholder{background-color:#FAFAFA;background-image:url(../images/gradients/black-white.420.png);background-position:center top;background-repeat:repeat-x;border:1px solid white;background-image:-webkit-gradient(linear, 0% 0%, 0% 100%, from(rgba(255, 255, 255, 0.2)), to(rgba(0, 0, 0, 0.2)));background-image:-webkit-linear-gradient(top, rgba(255, 255, 255, 0.2), rgba(0, 0, 0, 0.2)));background-image:-moz-linear-gradient(top, rgba(255, 255, 255, 0.2), rgba(0, 0, 0, 0.2)));background-image:-ms-linear-gradient(top, rgba(255, 255, 255, 0.2), rgba(0, 0, 0, 0.2)));background-image:-o-linear-gradient(top, rgba(255, 255, 255, 0.2), rgba(0, 0, 0, 0.2)));background-image:linear-gradient(top, rgba(255, 255, 255, 0.2), rgba(0, 0, 0, 0.2)));filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#33FFFFFF', endColorstr='#33000000');-moz-box-shadow:black 0 0 1px;box-shadow:black 0 0 1px;}
+.placeholder .title{background-image:-webkit-gradient(linear, left top, left bottom, from(#000000), to(rgba(102, 102, 102, 0.8)));background-repeat:repeat-y;-webkit-background-clip:text;-webkit-text-fill-color:transparent;color:#595959;text-shadow:rgba(255, 255, 255, 0.4) 0 1px 0;}
+.placeholder .title code::-moz-selection{background-color:rgba(0, 0, 0, 0.2);color:white;text-shadow:rgba(0, 0, 0, 0.4) 0 1px 1px;}
+.placeholder .title code::selection{background-color:rgba(0, 0, 0, 0.2);color:white;-webkit-text-fill-color:white;text-shadow:rgba(0, 0, 0, 0.4) 0 1px 1px;}
+.placeholder .title::first-letter{text-transform:capitalize;}
+.placeholder .title em{text-transform:lowercase;font-style:normal;}
+.placeholder a.button,.placeholder a.button:visited,.placeholder a.button:link{border:#CFCFCF 1px solid;color:#444;font-weight:bold;font-size:11px;text-shadow:rgba(255, 255, 255, 0.4) 0 1px 0;border-color:rgba(255, 255, 255, 0.3);-webkit-background-clip:border;-webkit-background-origin:border;-moz-background-clip:border;-moz-background-origin:border;background-clip:border-box;background-origin:border-box;background-color:#B5B5B5;background-color:rgba(181, 181, 181, 0.5);background-image:url(../images/gradients/black-white.66.png);background-position:top center;background-repeat:repeat-x;cursor:pointer;background-image:-webkit-gradient(linear, 0% 0%, 0% 100%, from(rgba(255, 255, 255, 0.2)), to(rgba(0, 0, 0, 0.2)));background-image:-webkit-linear-gradient(top, rgba(255, 255, 255, 0.2), rgba(0, 0, 0, 0.2)));background-image:-moz-linear-gradient(top, rgba(255, 255, 255, 0.2), rgba(0, 0, 0, 0.2)));background-image:-ms-linear-gradient(top, rgba(255, 255, 255, 0.2), rgba(0, 0, 0, 0.2)));background-image:-o-linear-gradient(top, rgba(255, 255, 255, 0.2), rgba(0, 0, 0, 0.2)));background-image:linear-gradient(top, rgba(255, 255, 255, 0.2), rgba(0, 0, 0, 0.2)));filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#33FFFFFF', endColorstr='#33000000');-moz-box-shadow:hsla(0, 0%, 0%, 0.5) 0 1px 5px, hsla(0, 0%, 0%, 0) 0 1px 5px inset;box-shadow:hsla(0, 0%, 0%, 0.5) 0 1px 5px, hsla(0, 0%, 0%, 0) 0 1px 5px inset;-moz-border-radius:5px;border-radius:5px;-webkit-transition:all 300ms ease-in-out;-moz-transition:all 300ms ease-in-out;transition:all 300ms ease-in-out;}
+.placeholder a.button:hover{text-decoration:none;border-color:#B5B5B5;border-color:rgba(255, 255, 255, 0.3);background-color:#CFCFCF;}
+.placeholder a.button:active,.placeholder a.button.active:active,.placeholder a.button.active{background-color:#9C9C9C;color:#222;text-shadow:rgba(255, 255, 255, 0.2) 0 1px 0;border-color:#7F7F7F;-moz-box-shadow:hsla(0, 0%, 0%, 0) 0 1px 5px, hsla(0, 0%, 0%, 0.5) 0 1px 5px inset;box-shadow:hsla(0, 0%, 0%, 0) 0 1px 5px, hsla(0, 0%, 0%, 0.5) 0 1px 5px inset;-webkit-transition:all 0s;-moz-transition:all 0s;transition:all 0s;}
+.placeholder a.button.active{background-color:#B5B5B5;}
+.placeholder a.button:active span{background-position:center bottom;}
+.placeholder span{background:transparent url(../images/32/default.png) no-repeat center top;}
+.placeholder span span{background:url(../images/32/add_overlay.png) no-repeat center top;}
+.no-placeholder-overlay .placeholder span span{background-image:none;}
+.placeholder .close{-khtml-user-select:none;cursor:pointer;background:url(../images/close.png) no-repeat center;}
+.placeholder .close:hover{background-image:url(../images/close-hovered.png);}
+.placeholder .close:active{background-image:url(../images/close-pressed.png);}
+table .thin{width:1%;}
+table .wide{width:100%;}
+form[name="adminForm"]::before{}
+form [class^="icon"]::before{}
+.adminlist:hover td{-webkit-transition:all 600ms ease-in-out;-moz-transition:all 600ms ease-in-out;-o-transition:all 600ms ease-in-out;transition:all 600ms ease-in-out;}
+.adminlist:hover tr:hover td{-webkit-transition-duration:200ms;-moz-transition-duration:200ms;-o-transition-duration:200ms;transition-duration:200ms;}
+.adminlist:active tr td{-webkit-transition-duration:0ms;-moz-transition-duration:0ms;-o-transition-duration:0ms;transition-duration:0ms;}
+.adminlist:hover tbody tr:hover>td{background-color:#E6FFFF;background-color:rgba(204, 255, 255, 0.4) !important;}
+.adminlist .state-enable td{opacity:1;-ms-filter:progid:DXImageTransform.Microsoft.Alpha(Opacity=100);filter:alpha(opacity=100);}
+.adminlist .state-disable td{opacity:0.6;-ms-filter:progid:DXImageTransform.Microsoft.Alpha(Opacity=60);filter:alpha(opacity=60);}
+.adminlist .state-disable td:hover{opacity:1;-ms-filter:progid:DXImageTransform.Microsoft.Alpha(Opacity=100);filter:alpha(opacity=100);}
+.icon-toggle{display:inline-block;width:16px;cursor:pointer;height:16px;background-image:url(../images/16/spacer.png);background-repeat:no-repeat;text-indent:-9999px;}
+.icon-toggle-enabled-true{background-image:url(../images/16/enable.png);}
+.icon-toggle-enabled-false{background-image:url(../images/16/disable.png);}
+.icon-toggle-lock{background-image:url(../images/16/lock.png);}
+.icon-toggle-unlock{background-image:url(../images/16/unlock.png);}
+.icon-toggle-publish{background-image:url(../images/16/enable.png);}
+.icon-toggle-unpublish{background-image:url(../images/16/disable.png);}
+.ninja-list .selected .icon-toggle-enabled-true{background-image:url(../images/16/enable_focus.png);}
+.ninja-list .selected .icon-toggle-enabled-false{background-image:url(../images/16/disable_focus.png);}
+.ninja-list .selected .icon-toggle-lock{background-image:url(../images/16/lock_focus.png);}
+.ninja-list .selected .icon-toggle-unlock{background-image:url(../images/16/unlock_focus.png);}
+.ninja-list .selected .icon-toggle-publish{background-image:url(../images/16/enable_focus.png);}
+.ninja-list .selected .icon-toggle-unpublish{background-image:url(../images/16/disable_focus.png);}
+form table.adminlist tbody tr.selected td a{}
+form table.adminlist tbody tr.selected td,.adminlist:hover tbody tr.selected:hover>td,form table.adminlist tbody tr.selected:hover>td{}
+.adminlist.treelist,table.adminlist.treelist,table.treelist table.adminlist{background-color:transparent;border-spacing:0;}
+.ninja-empty-list{font-size:2em;}
+tr.selected .bubble{background-color:#FFF;color:#0060d6;text-shadow:transparent 0 0 0;}
+.selected-multiple tr.selected .bubble{color:#2b90e3;}
+.ninja-filter{display:block;height:23px;overflow:hidden;padding:2px 0px 0px 10px;margin-bottom:-20px;margin-top:-16px;-khtml-user-select:none;-moz-user-select:none;width:100%;}
+.ninja-filter br{display:none;}
+.ninja-filter input{display:none;}
+.ninja-filter label{background:transparent;color:#2e2e2e;font-size:11px;font-weight:bold;line-height:12px;margin:1px 2px 0px 0px;padding:1px 7px 3px;text-shadow:rgba(255, 255, 255, 0.496094) 0px 1px 0px;vertical-align:middle;font-family:'Lucida Grande',sans-serif;text-transform:capitalize;-moz-border-radius:8px;border-radius:8px;}
+.ninja-filter label.divider{display:inline-block;background-color:rgba(0, 0, 0, 0.398438);height:16px;margin:1px 9px 0px 8px;vertical-align:middle;width:1px;padding:0;-moz-border-radius:0px;border-radius:0px;}
+.ninja-filter label.selected,.ninja-filter label:hover,.ninja-filter label:active{color:white;text-shadow:rgba(0, 0, 0, 0.4) 0 1px 0;}
+.ninja-filter label:hover{background:rgba(0, 0, 0, 0.2);}
+.ninja-filter label.selected{background:rgba(0, 0, 0, 0.3);-moz-box-shadow:0 1px 1px rgba(0, 0, 0, 0.5) inset, 0 -1px 1px rgba(255, 255, 255, 0.25) inset, 0 1px 0 rgba(255, 255, 255, 0.5);box-shadow:0 1px 1px rgba(0, 0, 0, 0.5) inset, 0 -1px 1px rgba(255, 255, 255, 0.25) inset, 0 1px 0 rgba(255, 255, 255, 0.5);}
+.ninja-filter label:active{background:rgba(0, 0, 0, 0.5);-moz-box-shadow:0 1px 1px rgba(0, 0, 0, 0.5) inset, 0 -1px 1px rgba(255, 255, 255, 0.25) inset, 0 1px 0 rgba(255, 255, 255, 0.5);box-shadow:0 1px 1px rgba(0, 0, 0, 0.5) inset, 0 -1px 1px rgba(255, 255, 255, 0.25) inset, 0 1px 0 rgba(255, 255, 255, 0.5);}
+.nf.template-adminpraise2{margin:0 10px;}

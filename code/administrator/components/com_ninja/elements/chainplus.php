@@ -14,7 +14,7 @@
  * @package com_ninja
  * @subpackage admin.elements
  */
-class ComNinjaElementChainplus extends ComNinjaElementAbstract
+class NinjaElementChainplus extends NinjaElementAbstract
 {
 	public function fetchElement($name, $value, &$node, $control_name)
 	{
@@ -31,7 +31,7 @@ class ComNinjaElementChainplus extends ComNinjaElementAbstract
         	
         	
         
-        KFactory::get('admin::com.ninja.helper.default')->css("/chainplus.css");		
+        $this->getService('ninja:template.helper.document')->load('/chainplus.css');		
 		
 		$chainContId = str_replace("[","",str_replace("]","",$name));
 		$buffer .= '<div class="wrapper" id="'.$chainContId.'">';
@@ -49,17 +49,17 @@ class ComNinjaElementChainplus extends ComNinjaElementAbstract
 				        		$type = (string) $item['type'];
 				        		try
 				        		{
-				        			$identifier = new KIdentifier($type);
+				        			$identifier = new KServiceIdentifier($type);
 				        		}
 				        		catch(KException $e)
 				        		{
-				        			$identifier = 'admin::com.ninja.element.'.$type;
+				        			$identifier = 'ninja:element.'.$type;
 				        		}
 				        		
 				        	
 				        		
 				       
-				        		$element = KFactory::tmp($identifier, array(
+				        		$element = $this->getService($identifier, array(
 				        								'parent'		=> $this->_parent,
 				        								'node'			=> $item,
 				        								'value'			=> (string)$item['default'] ? (string)$item['default'] : '' ,
@@ -78,7 +78,7 @@ class ComNinjaElementChainplus extends ComNinjaElementAbstract
 				$jsHTMLBuffer .= '<a class="ninja-button buttonRemoveChainLevel brcl'.$chainContId.'" title="'. JText::_('Remove'). '" id="RemoveChainLevel_'.$chainContId.'{chaindivid}">'. JText::_('Remove'). '</a>';
 				//$jsHTMLBuffer .= '</div>';
 				
-				 KFactory::get('admin::com.ninja.helper.default')->js( '
+				 $this->getService('ninja:template.helper.document')->load('js',  '
 				 var rows_'.$chainContId.' = '.count($chaindata).';
 				 var template_'.$chainContId.' = \''.$jsHTMLBuffer.'\';
 				 
@@ -153,11 +153,11 @@ class ComNinjaElementChainplus extends ComNinjaElementAbstract
 			            		$type = (string) $item['type'];
 			            		try
 			            		{
-			            			$identifier = new KIdentifier($type);
+			            			$identifier = new KServiceIdentifier($type);
 			            		}
 			            		catch(KException $e)
 			            		{
-			            			$identifier = 'admin::com.ninja.element.'.$type;
+			            			$identifier = 'ninja:element.'.$type;
 			            		}
 			            		
 			            		if (isset($chaindataval[(string) $item['name']])&& $chaindataval[(string) $item['name']] !==false){
@@ -166,7 +166,7 @@ class ComNinjaElementChainplus extends ComNinjaElementAbstract
 			            			$value = (string)$item['default'];
 			            		}
 			            		
-			            		$element = KFactory::tmp($identifier, array(
+			            		$element = $this->getService($identifier, array(
 			            								'parent'		=> $this->_parent,
 			            								'node'			=> $item,
 			            								'value'			=> $value,

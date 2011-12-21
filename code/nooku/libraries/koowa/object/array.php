@@ -1,6 +1,6 @@
 <?php
 /**
- * @version		$Id: array.php 3055 2011-03-31 21:13:10Z johanjanssens $
+ * @version		$Id: array.php 1372 2011-10-11 18:56:47Z stian $
  * @category	Koowa
  * @package		Koowa_Object
  * @copyright	Copyright (C) 2007 - 2010 Johan Janssens. All rights reserved.
@@ -39,7 +39,7 @@ class KObjectArray extends KObject implements IteratorAggregate, ArrayAccess, Se
         
         parent::__construct($config);
             
-        $this->_data = KConfig::toData($config->data);
+        $this->_data = KConfig::unbox($config->data);
     }
     
  	/**
@@ -92,7 +92,7 @@ class KObjectArray extends KObject implements IteratorAggregate, ArrayAccess, Se
      *
      * @param   int     The offset of the item
      * @param   mixed   The item's value
-     * @return  object  KObjectSet
+     * @return  object  KObjectArray
      */
     public function offsetSet($offset, $value)
     {
@@ -114,7 +114,7 @@ class KObjectArray extends KObject implements IteratorAggregate, ArrayAccess, Se
      * Required by interface ArrayAccess
      *
      * @param   int     The offset of the item
-     * @return  object 	KObjectSet
+     * @return  object 	KObjectArray
      */
     public function offsetUnset($offset)
     {

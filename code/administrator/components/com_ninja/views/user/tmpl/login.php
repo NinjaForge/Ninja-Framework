@@ -1,7 +1,7 @@
-<? /** $Id: login.php 202 2010-03-10 10:18:34Z stian $ */ ?>
+<? /** $Id: login.php 1375 2011-10-11 21:28:25Z stian $ */ ?>
 <? defined( 'KOOWA' ) or die( 'Restricted access' ) ?>
 
-<? @$user = KFactory::get('lib.joomla.user') ?>
+<? @$user = JFactory::getUser() ?>
 <? @$type = (!@$user->get('guest')) ? 'logout' : 'login' ?>
 
 <form action="<?= @route('index.php') ?>" method="post" id="<?= @$helper('formid') ?>" >
@@ -44,7 +44,7 @@
 	<input type="hidden" name="task" value="login" />
 	
 	<? $url = KRequest::url() ?>
-	<? $uri = KFactory::get('lib.koowa.http.uri') ?>
+	<? $uri = KService::get('koowa:http.url') ?>
 	<? $uri->path = $url->path ?>
 	<? $uri->query = $url->getQuery(1) ?>
 	<input type="hidden" name="return" value="<?= base64_encode($uri) ?>" />

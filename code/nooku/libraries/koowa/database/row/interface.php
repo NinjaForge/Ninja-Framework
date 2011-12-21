@@ -1,6 +1,6 @@
 <?php
 /**
- * @version		$Id: interface.php 2876 2011-03-07 22:19:20Z johanjanssens $
+ * @version		$Id: interface.php 1372 2011-10-11 18:56:47Z stian $
  * @category	Koowa
  * @package     Koowa_Database
  * @subpackage  Row
@@ -17,7 +17,7 @@
  * @package     Koowa_Database
  * @subpackage  Row
  */
-interface KDatabaseRowInterface extends KObjectIdentifiable
+interface KDatabaseRowInterface
 {
 	/**
      * Returns the status of this row.
@@ -29,7 +29,7 @@ interface KDatabaseRowInterface extends KObjectIdentifiable
 	/**
      * Load the row from the database.
      *
-     * @return KDatabaseRowAbstract
+     * @return object	If successfull returns the row object, otherwise NULL
      */
 	public function load();
     
@@ -95,4 +95,11 @@ interface KDatabaseRowInterface extends KObjectIdentifiable
      * @return bool
      */
     public function isNew();
+    
+	/**
+	 * Test the connected status of the row.
+	 *
+	 * @return	bool
+	 */
+    public function isConnected();
 }

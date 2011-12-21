@@ -1,6 +1,6 @@
 <?php
 /**
- * @version     $Id: html.php 3048 2011-03-30 23:22:12Z johanjanssens $
+ * @version     $Id: html.php 1372 2011-10-11 18:56:47Z stian $
  * @category	Nooku
  * @package     Nooku_Modules
  * @subpackage  Default
@@ -20,26 +20,6 @@
 class ModDefaultHtml extends KViewHtml
 {
     /**
-     * Constructor
-     *
-     * @param   object  An optional KConfig object with configuration options
-     */
-    public function __construct(KConfig $config)
-    {
-        parent::__construct($config);
-        
-        //Assign module specific options
-        $this->params  = $config->params;
-        $this->module  = $config->module;
-        $this->attribs = $config->attribs;
-        
-        $template = KFactory::get('lib.joomla.application')->getTemplate();
-        $path     = JPATH_THEMES.DS.$template.DS.'html'.DS.'mod_'.$this->_identifier->package;
-          
-         $this->getTemplate()->addPath($path);
-    }
-    
-    /**
      * Initializes the default configuration for the object
      *
      * Called from {@link __construct()} as a first step of object instantiation.
@@ -48,64 +28,71 @@ class ModDefaultHtml extends KViewHtml
      * @return  void
      */
     protected function _initialize(KConfig $config)
-    {
+    {      
         $config->append(array(
-            'params'   => null,
-            'module'   => null,
-            'attribs'  => array(),
+        	'template_filters' => array('chrome'),
+            'data'			   => array(
+                'styles' => array() 
+            )
         ));
         
         parent::_initialize($config);
     }
     
-    /**
-     * Get the identifier for the model with the same name
-     *
-     * @return  KIdentifierInterface
-     */
-    public function getModel()
-    {
-        if(!$this->_model)
-        {
-            $identifier = clone $this->_identifier;
-            $identifier->name   = 'model';
-            
-            $this->_model = KFactory::get($identifier);
-        }
-        
-        return $this->_model;
-    }
-    
-    /**
-     * Get the identifier for the template with the same name
-     *
-     * @return  KIdentifierInterface
-     */
-    public function getTemplate()
-    {
-        if(!$this->_template)
-        {
-            $identifier = clone $this->_identifier;
-            $identifier->name   = 'template';
-            
-            $this->_template = KFactory::get($identifier);
-        }
-        
-        return $this->_template;
-    }
-    
+	/**
+	 * Get the name
+	 *
+	 * @return 	string 	The name of the object
+	 */
+	public function getName()
+	{
+		return $this->getIdentifier()->package;
+	}
+	  
     /**
      * Renders and echo's the views output
      *
      * @return ModDefaultHtml
      */
     public function display()
-    {
-        $this->output = $this->getTemplate()
+    { 
+		//Load the language files.
+		//Type only exists if the module is loaded through ComExtensionsModelsModules
+		if(isset($this->module->type)) {
+            JFactory::getLanguage()->load($this->module->type);
+		}
+        
+        if(empty($this->module->content)) 
+		{
+            $this->output = $this->getTemplate()
                 ->loadIdentifier($this->_layout, $this->_data)
-                ->render(true);
-                
-        echo $this->output;
-        return $this;
+                ->render();
+		}
+		else 
+		{
+		     $this->output = $this->getTemplate()
+                ->loadString($this->module->content, $this->_data, false)
+                ->render();
+		}
+	
+        return $this->output;
+    }
+    
+    /**
+     * Set a view properties
+     *
+     * @param   string  The property name.
+     * @param   mixed   The property value.
+     */
+    public function __set($property, $value)
+    {
+        if($property == 'module') 
+        {
+            if(is_string($value->params)) {
+                $value->params = new JParameter($value->params);
+            }
+        }
+        
+        parent::__set($property, $value);
     }
 }

@@ -1,5 +1,5 @@
 <?php
-// $Id: install.php 1049 2011-06-15 11:45:42Z stian $
+// $Id: install.php 1306 2011-09-01 12:10:47Z stian $
 
 defined( '_JEXEC' ) or die( 'Restricted access' );
 
@@ -106,37 +106,37 @@ $document = JFactory::getDocument();
 $packages = false;
 if(JFolder::exists($source.'/packages'))
 {
-	$packages = JPATH_ADMINISTRATOR.'/components/com_extensions/packages';
+	$packages = JPATH_ADMINISTRATOR.'/components/com_koowa/packages';
 	if(JFolder::exists($packages)) JFolder::delete($packages);
 	JFolder::copy($source.'/packages', $packages);
 	JFolder::delete($source.'/packages');
 
 	//Because 1.6 sucks, we have to do these inline
-	//$document->addScript(JURI::root(1).'/media/com_extensions/js/install.js');
+	//$document->addScript(JURI::root(1).'/media/com_koowa/js/install.js');
 }
 
-if(JFolder::exists(JPATH_ADMINISTRATOR.'/components/com_extensions/packages')) $packages = true;
+if(JFolder::exists(JPATH_ADMINISTRATOR.'/components/com_koowa/packages')) $packages = true;
 
 //Because 1.6 sucks, we have to do these inline
-//$document->addStyleSheet(JURI::root(1).'/media/com_extensions/css/install.css');
+//$document->addStyleSheet(JURI::root(1).'/media/com_koowa/css/install.css');
 //$document->addStyleDeclaration('.log {padding-left:270px}');
 
 //Always render install log
 $class = 'debug';
 //$config = JFactory::getConfig();
 //$class = $config->getValue('debug', null) ? 'debug' : null;
-$jversion	= JVersion::isCompatible('1.6.0') ? '1.6' : '1.5';
+$jversion	= version_compare(JVERSION,'1.6.0','ge') ? '1.6' : '1.5';
 
 
 //Run upgrade procedures if we're upgrading from a dashboard
 //@TODO make dashboard upgraders support com.extensions instead of doing the following
-if(JRequest::getCmd('view', false) == 'dashboard')
+if(JRequest::getCmd('view', false) == 'dashboard' || array_filter(headers_list(), $isNookuServer))
 {
 	//To prevent script timeouts, set limit to 5 minutes for those slow godaddy hosts
 	@set_time_limit(300);
 
 	Jloader::register('JArchive', JPATH_LIBRARIES.'/joomla/filesystem/archive.php');
-	$root	= JPATH_ADMINISTRATOR.'/components/com_extensions/packages';
+	$root	= JPATH_ADMINISTRATOR.'/components/com_koowa/packages';
 	$files  = JFolder::files($root);
 	
 	foreach($files as $file)
@@ -157,13 +157,13 @@ if(JRequest::getCmd('view', false) == 'dashboard')
 }
 ?>
 
-<link rel="stylesheet" href="<?php echo JURI::root(1) ?>/media/com_extensions/css/install.css" />
+<link rel="stylesheet" href="<?php echo JURI::root(1) ?>/media/com_koowa/css/install.css" />
 
 
 <?php if($packages) : ?>
 	<script type="text/javascript">
 		(function(version){
-			document.write(unescape('%3Cscript type="text/javascript" src="<?php echo JURI::root(1) ?>/media/com_extensions/js/install.'+version+'.js"%3E%3C/script%3E'));
+			document.write(unescape('%3Cscript type="text/javascript" src="<?php echo JURI::root(1) ?>/media/com_koowa/js/install.'+version+'.js"%3E%3C/script%3E'));
 			window.addEvent('domready', function(){
 				if($('install')) $('install').addEvent('complete', function(){
 					var url = "<?php echo JRoute::_('&option='.$extname) ?>";

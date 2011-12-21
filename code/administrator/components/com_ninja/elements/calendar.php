@@ -1,6 +1,6 @@
 <?php defined( 'KOOWA' ) or die( 'Restricted access' );
 /**
- * @version		$Id: calendar.php 887 2011-02-16 13:52:21Z stian $
+ * @version		$Id: calendar.php 1399 2011-11-01 14:22:48Z stian $
  * @category	Napi
  * @package		Napi_Parameter
  * @copyright	Copyright (C) 2007 - 2011 NinjaForge. All rights reserved.
@@ -8,7 +8,7 @@
  * @link     	http://ninjaforge.com
  */
 
-class ComNinjaElementCalendar extends ComNinjaElementAbstract
+class NinjaElementCalendar extends NinjaElementAbstract
 {
 	public function fetchElement($name, $value, &$node, $control_name)
 	{

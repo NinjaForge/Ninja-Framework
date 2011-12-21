@@ -1,6 +1,6 @@
 <?php defined( 'KOOWA' ) or die( 'Restricted access' );
 /**
-* @version		$Id: article.php 434 2010-08-17 15:32:50Z stian $
+* @version		$Id: article.php 1399 2011-11-01 14:22:48Z stian $
 * @package		Joomla
 * @copyright	Copyright (C) 2005 - 2008 Open Source Matters. All rights reserved.
 * @license		GNU/GPL, see LICENSE.php
@@ -14,7 +14,7 @@
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die( 'Restricted access' );
 
-class ComNinjaElementArticle extends ComNinjaElementAbstract
+class NinjaElementArticle extends NinjaElementAbstract
 {
 
 	function fetchElement($name, $value, &$node, $control_name)

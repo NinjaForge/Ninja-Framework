@@ -1,6 +1,6 @@
 <?php defined( 'KOOWA' ) or die( 'Restricted access' );
 /**
- * @version		$Id: pane.php 434 2010-08-17 15:32:50Z stian $
+ * @version		$Id: pane.php 1399 2011-11-01 14:22:48Z stian $
  * @package		Joomla.Framework
  * @subpackage	HTML
  * @copyright	Copyright (C) 2005 - 2008 Open Source Matters. All rights reserved.
@@ -24,7 +24,7 @@ defined('_JEXEC') or die();
  * @subpackage	HTML
  * @since		1.5
  */
-class ComNinjaHtmlPane 
+class NinjaHtmlPane 
 {
 
 	var $useCookies = false;

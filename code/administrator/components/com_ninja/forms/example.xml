@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
 $xml	= new SimpleXMLElement(file_get_contents('example.xml'));
-$form 	= KFactory::get('site::com.test.form.test')
+$form 	= $this->getService('com://site/test.form.test')
     ->importXml($xml);
 echo $form->render();  
 -->
 <form>
-	<element type="admin::com.test.form.element.text" name="person" size="20" default="testvalue" label="Author Alias" description="DETAILAUTHORALIAS" />
+	<element type="com://admin/test.form.element.text" name="person" size="20" default="testvalue" label="Author Alias" description="DETAILAUTHORALIAS" />
 	
-	<element type="admin::com.test.form.element.select" name="access" multiple="multiple" default="2" size="3" label="Access Level" description="DETAILACCESS">
+	<element type="com://admin/test.form.element.select" name="access" multiple="multiple" default="2" size="3" label="Access Level" description="DETAILACCESS">
 		<option value="0" label="Public" />
 		<option value="1" label="Registered" />
 		<option value="2" label="Special" />

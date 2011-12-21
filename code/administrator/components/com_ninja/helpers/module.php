@@ -1,6 +1,6 @@
 <?php defined( 'KOOWA' ) or die( 'Restricted access' );
 /**
- * @version		$Id: module.php 1008 2011-04-09 22:04:33Z stian $
+ * @version		$Id: module.php 1399 2011-11-01 14:22:48Z stian $
  * @package		Ninja
  * @copyright	Copyright (C) 2011 NinjaForge. All rights reserved.
  * @license 	GNU GPLv3 <http://www.gnu.org/licenses/gpl.html>
@@ -12,7 +12,7 @@
  *
  * @author		Stian Didriksen <stian@ninjaforge.com>
  */
-class ComNinjaHelperModule extends KObjectArray
+class NinjaHelperModule extends KObjectArray
 {
 
 	/**
@@ -36,8 +36,8 @@ class ComNinjaHelperModule extends KObjectArray
 	 */
 	public function __construct(KConfig $config)
 	{
-		KLoader::load('lib.joomla.module.helper');
-		$this->renderer =  KFactory::get('lib.joomla.document')->loadRenderer('module');
+	    jimport('joomla.module.helper');
+		$this->renderer =  JFactory::getDocument()->loadRenderer('module');
 
 		parent::__construct($config);
 	}

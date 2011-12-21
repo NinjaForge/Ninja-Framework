@@ -1,6 +1,6 @@
 <?php
 /**
- * @version 	$Id: filter.php 2725 2010-10-28 01:54:08Z johanjanssens $
+ * @version 	$Id: filter.php 1372 2011-10-11 18:56:47Z stian $
  * @category	Koowa
  * @package		Koowa_Template
  * @subpackage 	Filter
@@ -23,34 +23,4 @@ class KTemplateFilter
 	 */
 	const MODE_READ  = 1;
 	const MODE_WRITE = 2; 
-	
-	/**
-	 * Factory method for KTemplateFilterInterface classes.
-	 *
-	 * @param	string	Template filter identifier
-	 * @param 	object 	An optional KConfig object with configuration options
-	 * @return KTemplateFilter
-	 */
-	public static function factory($identifier, $config = array())
-	{		
-		try 
-		{
-			if(is_string($identifier) && strpos($identifier, '.') === false ) {
-				$identifier = 'com.default.template.filter.'.trim($identifier);
-			} 
-			
-			$filter = KFactory::tmp($identifier, $config);
-			
-		} catch(KFactoryAdapterException $e) {
-			throw new KTemplateFilterException('Invalid filter: '.$filter);
-		}
-		
-		if(!($filter instanceof KTemplateFilterInterface)) 
-		{
-			$identifier = $filter->getIdentifier();
-			throw new KDatabaseBehaviorException("Template filter $identifier does not implement KTemplateFilterInterface");
-		}
-		
-		return $filter;
-	}
 }

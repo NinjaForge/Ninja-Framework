@@ -1,6 +1,6 @@
 <?php
 /**
-* @version		$Id: alnum.php 2725 2010-10-28 01:54:08Z johanjanssens $
+* @version		$Id: alnum.php 1372 2011-10-11 18:56:47Z stian $
 * @category		Koowa
 * @package      Koowa_Filter
 * @copyright    Copyright (C) 2007 - 2010 Johan Janssens. All rights reserved.
@@ -38,7 +38,9 @@ class KFilterAlnum extends KFilterAbstract
 	 */
 	protected function _sanitize($value)
 	{
-		$pattern 	= '/[^\w]*/';
+		$value = trim($value);
+		
+	    $pattern 	= '/[^\w]*/';
     	return preg_replace($pattern, '', $value);
 	}
 }

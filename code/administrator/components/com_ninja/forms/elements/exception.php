@@ -1,6 +1,6 @@
 <?php defined( 'KOOWA' ) or die( 'Restricted access' );
 /**
- * @version     $Id: exception.php 552 2010-10-28 19:41:51Z stian $
+ * @version     $Id: exception.php 1399 2011-11-01 14:22:48Z stian $
  * @category	Koowa
  * @package     Form
  * @subpackage 	Element
@@ -17,7 +17,7 @@
  * @package     Form
  * @subpackage 	Element
  */
-class ComNinjaFormElementException extends ComNinjaFormException
+class NinjaFormElementException extends NinjaFormException
 {
 	//Do nothing
 }

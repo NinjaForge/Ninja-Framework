@@ -1,6 +1,6 @@
 <?php defined( 'KOOWA' ) or die( 'Restricted access' );
 /**
- * @version		$Id: napi.php 794 2011-01-10 18:44:32Z stian $
+ * @version		$Id: napi.php 1399 2011-11-01 14:22:48Z stian $
  * @category	Napi
  * @package		Napi_Parameter
  * @copyright	Copyright (C) 2007 - 2011 NinjaForge. All rights reserved.
@@ -52,7 +52,7 @@ class JFormFieldNapi extends JFormField
 		if(!$groupname) $groupname = 'params';
 		$data = $this->_parent->_raw;
 		if(!$data) $data = $this->_parent->_registry['_default']['data'];
-		$parameter = KFactory::tmp('admin::com.ninja.form.parameter', array(
+		$parameter = $this->getService('ninja:form.parameter', array(
 					  		'data' 	   => $data,
 					  		'xml'  	   => $form,
 					  		'render'   => 'inline',
@@ -65,7 +65,7 @@ class JFormFieldNapi extends JFormField
 		$html[] = $parameter->render();
 		$html[] = '<table id="'.$this->name.'"><tbody><tr><td>';
 					
-		KFactory::get('admin::com.ninja.helper.default')->js('window.addEvent(\'domready\', function(){
+		$this->getService('ninja:template.helper.document')->load('js', 'window.addEvent(\'domready\', function(){
 			$(\''.$this->name.'\').getParent().getChildren().each(function(el){
 				if(el.tagName == "TABLE") {
 					(function(){this.setStyle(\'height\', \'\');}.bind(el.getParent())).delay(601);
@@ -73,7 +73,7 @@ class JFormFieldNapi extends JFormField
 				}
 			});
 		});');
-		KFactory::get('admin::com.ninja.helper.default')->css('/form.css');
+		$this->getService('ninja:template.helper.document')->load('/form.css');
 		
 		return implode($html);
 	}

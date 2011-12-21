@@ -1,6 +1,6 @@
 <?php defined( 'KOOWA' ) or die( 'Restricted access' );
 /**
- * @version		$Id: dashboard.php 1041 2011-05-22 17:40:00Z stian $
+ * @version		$Id: dashboard.php 1409 2011-11-02 02:47:34Z stian $
  * @package		Ninja
  * @copyright	Copyright (C) 2011 NinjaForge. All rights reserved.
  * @license 	GNU GPLv3 <http://www.gnu.org/licenses/gpl.html>
@@ -10,7 +10,7 @@
 /**
  * Dashboard Controller
  */
-class ComNinjaControllerDashboard extends KControllerView
+class NinjaControllerDashboard extends ComDefaultControllerResource
 {
 	/**
 	 * Constructor
@@ -21,10 +21,74 @@ class ComNinjaControllerDashboard extends KControllerView
 	{
 		parent::__construct($config);
 
+        //Don't hide the mainmenu please
+        KRequest::set('get.hidemainmenu', 0);
+
 		if(KRequest::get('get.action', 'cmd') == 'update') $this->update();
 		if(KRequest::get('get.action', 'cmd') == 'updatespurss') $this->execute('updatespurss');
 		if(KRequest::get('get.action', 'cmd') == 'checkversion') $this->execute('checkversion');
 		if(KRequest::get('get.action', 'cmd') == 'checkversionspurss') $this->execute('checkversionspurss');
+	}
+
+    /**
+     * Get a behavior by identifier
+     *
+     * @NOTE overloaded to change the identifier of the toolbar to com_ninja's
+     *
+     * @return KControllerBehaviorAbstract
+     */
+    public function getBehavior($behavior, $config = array())
+    {
+       $result = parent::getBehavior($behavior, $config);
+
+       if($behavior == 'commandable') {
+           $result->setToolbar($this->getService('ninja:controller.toolbar.dashboard'));
+       }
+
+       return $result;
+    }
+
+	/**
+	 * Get the view object attached to the controller
+	 * 
+	 * This function will check if the view folder exists. If not it will throw
+	 * an exception. This is a security measure to make sure we can only explicitly
+	 * get data from views the have been physically defined. 
+	 *
+	 * @NOTE Customized in order to do some magic trickery regarding how the view is loaded
+	 *
+	 * @throws  KControllerException if the view cannot be found.
+	 * @return	KViewAbstract
+	 *  
+	 */
+	public function getView()
+	{
+	    if(!$this->_view instanceof KViewAbstract)
+		{	   
+		    //Make sure we have a view identifier
+		    if(!($this->_view instanceof KServiceIdentifier)) {
+		        $this->setView($this->_view);
+			}
+			
+			//Create the view
+			$config = array(
+			    'model'      => $this->getModel()
+	    	);
+	    	
+			$this->_view = $this->getService('ninja:view.dashboard.html', $config);
+			
+			//Set the layout
+			if(isset($this->_request->layout)) {
+	    	    $this->_view->setLayout($this->_request->layout);
+	    	} 
+			
+			//Make sure the view exists
+		    if(!file_exists(dirname($this->_view->getIdentifier()->filepath))) {
+		        throw new KControllerException('View :'.$this->_view->getName().' not found', KHttpResponse::NOT_FOUND);
+		    }
+		}
+		
+		return $this->_view;
 	}
 
 	/**
@@ -45,7 +109,7 @@ class ComNinjaControllerDashboard extends KControllerView
 		jimport('joomla.installer.installer');
 
 
-		$path = KFactory::get('admin::com.ninja.helper.application')->getPath('com_xml');
+		$path = $this->getService('ninja:helper.application')->getPath('com_xml');
 		$version = '0';
 		$revision = '0';
 		$fileUrl = null;
@@ -109,7 +173,7 @@ class ComNinjaControllerDashboard extends KControllerView
 		
 		
 		// Prepare curl
-		$curl = KFactory::get('admin::com.ninja.helper.curl');
+		$curl = $this->getService('ninja:helper.curl');
 		$opt  = array(
 						CURLOPT_RETURNTRANSFER => true,
 						//CURLOPT_FOLLOWLOCATION => true, //this don't work if open_basedir or safe_mode is on
@@ -169,7 +233,7 @@ class ComNinjaControllerDashboard extends KControllerView
 		jimport('joomla.installer.installer');
 
 
-		$path = KFactory::get('admin::com.ninja.helper.application')->getPath('com_xml');
+		$path = $this->getService('ninja:helper.application')->getPath('com_xml');
 		
 		//load the file, and save it to our object
 		$xml = simplexml_load_file($path);
@@ -177,7 +241,7 @@ class ComNinjaControllerDashboard extends KControllerView
 		$url = (string) $xml->updateurl;
 
 		// Prepare curl
-		$curl = KFactory::get('admin::com.ninja.helper.curl');
+		$curl = $this->getService('ninja:helper.curl');
 		$opt  = array(
 						CURLOPT_RETURNTRANSFER => true,
 						//CURLOPT_FOLLOWLOCATION => true, //this don't work if open_basedir or safe_mode is on
@@ -214,39 +278,26 @@ class ComNinjaControllerDashboard extends KControllerView
 		return true;
 	}
 
-	protected function _actionDisplay(KCommandContext $context)
+    /**
+     * Specialised display function.
+     *
+     * @param	KCommandContext	A command context object
+     * @return 	string|false 	The rendered output of the view or false if something went wrong
+     */
+	protected function _actionGet(KCommandContext $context)
 	{
 		$view = $this->getView();
 
-		if(!$view instanceof ComNinjaViewHtml && $view instanceof KViewTemplate) {
-			$view->getTemplate()->addFilters(array(KFactory::get('admin::com.ninja.template.filter.document')));
+		if($view instanceof KViewTemplate) {
+			$view->getTemplate()->addFilter(array($this->getService('ninja:template.filter.document')));
 		}
 
-		KRequest::set('get.hidemainmenu', 0);
-		if(!KRequest::has('get.layout', 'cmd'))
+		if(!KRequest::has('get.layout', 'cmd') && KRequest::get('get.tmpl', 'cmd') == 'component')
 		{
-			KRequest::set('get.layout', 'admin::com.ninja.views.dashboard.basic');
-			
-			if(KRequest::get('get.tmpl', 'cmd') == 'component') {
-				KRequest::set('get.layout', 'admin::com.ninja.views.dashboard.popup');
-			}
-
-			$view->setLayout(KRequest::get('get.layout', 'string', 'default' ));
+			$view->setLayout('popup');
 		}
 		
 		return $view->display();
-	}
-	
-	/**
-	 * Display a single item
-	 *
-	 * @TODO Overloaded because by default KControllerBread calls $model->getItem()->isNew() when that's blank so it throws an fatal error
-	 */
-	protected function _actionRead(KCommandContext $context)
-	{
-	    $row = $this->getModel()->getItem();
-
-		return $row;
 	}
 	
 	/**
@@ -263,7 +314,7 @@ class ComNinjaControllerDashboard extends KControllerView
 
 	protected function _actionCheckversionspurss()
 	{
-		$path = KFactory::get('admin::com.ninja.helper.application')->getPath('com_xml');
+		$path = $this->getService('ninja:helper.application')->getPath('com_xml');
 		$version = '0';
 		$revision = '0';
 		//load the file, and save it to our object
@@ -317,7 +368,7 @@ class ComNinjaControllerDashboard extends KControllerView
 	
 	protected function _actionCheckversion()
 	{
-		$path = KFactory::get('admin::com.ninja.helper.application')->getPath('com_xml');
+		$path = $this->getService('ninja:helper.application')->getPath('com_xml');
 
 		//load the file, and save it to our object
 		$xml = simplexml_load_file($path);
@@ -325,7 +376,7 @@ class ComNinjaControllerDashboard extends KControllerView
 		$url = (string) $xml->updateurl;
 
 		// Prepare curl
-		$curl = KFactory::get('admin::com.ninja.helper.curl');
+		$curl = $this->getService('ninja:helper.curl');
 		$opt  = array(
 						CURLOPT_RETURNTRANSFER => true,
 						//CURLOPT_FOLLOWLOCATION => true, //this don't work if open_basedir or safe_mode is on

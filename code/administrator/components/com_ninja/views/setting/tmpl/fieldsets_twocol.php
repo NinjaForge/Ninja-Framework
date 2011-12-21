@@ -1,4 +1,4 @@
-<? /** $Id: fieldsets_twocol.php 505 2010-09-21 11:01:08Z stian $ */ ?>
+<? /** $Id: fieldsets_twocol.php 1399 2011-11-01 14:22:48Z stian $ */ ?>
 <? defined( 'KOOWA' ) or die( 'Restricted access' ) ?>
 
 	<? @ninja('behavior.tooltip', array('selector' => '[title].hasTip')) ?>
@@ -10,7 +10,7 @@
 	<? ob_start() ?>
 	<fieldset class="adminform ninja-form <?= $fieldset['class'] ?>">	
 		<legend title="<?= \@$fieldset['title'] ?>"><?= \@$fieldset['legend'] ? \@$fieldset['legend'] : KInflector::humanize($fieldset['name']) ?></legend>
-		<? foreach(KFactory::tmp('admin::com.ninja.form.default')->importXml($fieldset) as $element) : ?>
+		<? foreach($this->getService('ninja:form.default')->importXml($fieldset) as $element) : ?>
 			<? if(!$element->getName()) : ?>
 				<div class="element">&nbsp;</div>
 				<? continue ?>

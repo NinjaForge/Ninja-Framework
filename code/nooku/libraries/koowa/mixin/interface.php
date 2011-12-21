@@ -1,6 +1,6 @@
 <?php
 /**
- * @version     $Id: interface.php 3004 2011-03-27 01:44:17Z johanjanssens $
+ * @version     $Id: interface.php 1080 2011-06-23 22:21:14Z stian $
  * @category	Koowa
  * @package     Koowa_Mixin
  * @copyright   Copyright (C) 2007 - 2010 Johan Janssens. All rights reserved.
@@ -24,10 +24,18 @@ interface KMixinInterface extends KObjectHandlable
      */
     public function getMixableMethods();
     
-    /**
-     * Notification function called when the mixin is being mixed
+	/**
+     * Get the mixer object
      * 
-     * @return void
+     * @return object 	The mixer object
      */
-    public function onMixin();
+    public function getMixer();
+    
+    /**
+     * Set the mixer object
+     * 
+     * @param object The mixer object
+     * @return KMixinInterface
+     */
+    public function setMixer($mixer);
 }

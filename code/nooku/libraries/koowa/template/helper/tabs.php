@@ -1,6 +1,6 @@
 <?php
 /**
- * @version     $Id: behavior.php 1051 2009-07-13 22:08:57Z Johan $
+ * @version     $Id: tabs.php 1054 2011-06-16 14:35:04Z stian $
  * @category    Koowa
  * @package     Koowa_Template
  * @subpackage  Helper
@@ -46,10 +46,12 @@ class KTemplateHelperTabs extends KTemplateHelperBehavior
         
         $id      = strtolower($config->id);
         $attribs = KHelperArray::toString($config->attribs);
+        //Don't pass an empty array as options
+        $options = $config->options->toArray() ? ', '.$config->options : '';
     
         $html .= "
             <script>
-                window.addEvent('domready', function(){ new Koowa.Tabs('tabs-".$id."', '".json_encode($config->options)."'); });
+                window.addEvent('domready', function(){ new Koowa.Tabs('tabs-".$id."'".$options."); });
             </script>";
     
         $html .= '<dl class="tabs" id="tabs-'.$id.'" '.$attribs.'>';

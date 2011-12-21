@@ -1,6 +1,6 @@
 <?php defined( 'KOOWA' ) or die( 'Restricted access' );
 /**
- * @version		$Id: core_categories.php 898 2011-02-26 18:19:25Z stian $
+ * @version		$Id: core_categories.php 1399 2011-11-01 14:22:48Z stian $
  * @category	Ninja
  * @copyright	Copyright (C) 2007 - 2011 NinjaForge. All rights reserved.
  * @license		GNU GPLv3 <http://www.gnu.org/licenses/gpl.html>
@@ -13,7 +13,7 @@
  *
  * @author		Richie Mortimer <richie@ninjaforge.com>
  */
-class ComNinjaModelCore_categories extends ComDefaultModelDefault
+class NinjaModelCore_categories extends ComDefaultModelDefault
 {	
 
 	/**

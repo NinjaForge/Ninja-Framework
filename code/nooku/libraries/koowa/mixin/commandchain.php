@@ -1,6 +1,6 @@
 <?php
 /**
- * @version     $Id: commandchain.php 2876 2011-03-07 22:19:20Z johanjanssens $
+ * @version     $Id: commandchain.php 1372 2011-10-11 18:56:47Z stian $
  * @category	Koowa
  * @package     Koowa_Mixin
  * @copyright   Copyright (C) 2007 - 2010 Johan Janssens. All rights reserved.
@@ -54,7 +54,7 @@ class KMixinCommandchain extends KMixinAbstract
         
         //Enqueue the event command with a lowest priority to make sure it runs last
         if($config->dispatch_events) {
-            $this->_command_chain->enqueue(KFactory::get('lib.koowa.command.event'), $config->event_priority);
+            $this->_command_chain->enqueue($config->event, $config->event_priority);
         }
     }
     
@@ -70,6 +70,7 @@ class KMixinCommandchain extends KMixinAbstract
     {
         $config->append(array(
             'command_chain'     => new KCommandChain(),
+            'event'				=> KService::get('koowa:command.event'),
             'dispatch_events'   => true,
             'event_priority'    => KCommand::PRIORITY_LOWEST,
             'enable_callbacks'  => false,
@@ -108,12 +109,22 @@ class KMixinCommandchain extends KMixinAbstract
     /**
      * Set the chain of command object
      *
-     * @var     KCommandInterface
-     * @return  KObject     The mixer object
+     * @param   object 	A command chain object
+     * @return  KObject The mixer object
      */
-    public function setCommandChain(KCommandInterface $command_chain)
+    public function setCommandChain(KCommandChain $chain)
     {
-        $this->_command_chain = $command_chain;
+        $this->_command_chain = $chain;
         return $this->_mixer;
+    }
+    
+	/**
+     * Preform a deep clone of the object.
+     *
+     * @retun void
+     */
+    public function __clone()
+    {
+        $this->_command_chain = clone $this->_command_chain;    
     }
 }

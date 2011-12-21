@@ -1,13 +1,13 @@
 <?php defined( 'KOOWA' ) or die( 'Restricted access' );
 /**
- * @version		$Id: images.php 1015 2011-04-11 19:20:56Z stian $
+ * @version		$Id: images.php 1399 2011-11-01 14:22:48Z stian $
  * @category	Ninja
  * @copyright	Copyright (C) 2007 - 2011 NinjaForge. All rights reserved.
  * @license		GNU GPLv3 <http://www.gnu.org/licenses/gpl.html>
  * @link     	http://ninjaforge.com
  */
 
-class ComNinjaModelImages extends KModelAbstract
+class NinjaModelImages extends KModelAbstract
 {
 
 	/**

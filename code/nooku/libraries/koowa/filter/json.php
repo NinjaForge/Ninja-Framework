@@ -1,6 +1,6 @@
 <?php
 /**
-* @version		$Id: json.php 2910 2011-03-16 23:41:16Z johanjanssens $
+* @version		$Id: json.php 1361 2011-09-16 09:14:29Z stian $
 * @category		Koowa
 * @package      Koowa_Filter
 * @copyright    Copyright (C) 2007 - 2010 Johan Janssens. All rights reserved.
@@ -10,9 +10,6 @@
 
 /**
  * Json filter
- * 
- * If the value being sanitized is a json string it will be decoded, otherwise
- * the value will be encoded upon sanitisation. 
  *
  * @author      Johan Janssens <johan@nooku.org>
  * @category    Koowa
@@ -46,27 +43,28 @@ class KFilterJson extends KFilterAbstract
     
     /**
      * Sanitize a value
+     * 
+     * The value passed will be encoded to JSON format.
      *
      * @param   scalar  Value to be sanitized
      * @return  string
      */
     protected function _sanitize($value)
     {
-        $result = null;
-        
-        if(is_a($value, 'KConfig')) {
-            $value = $value->toArray(); 
-        }   
-        
-        if(is_string($value)) {
-            $result = json_decode($value);
+        // If instance of KConfig casting to string will make it encode itself to JSON
+        if($value instanceof KConfig) {    
+            $result = (string) $value; 
+        } 
+        else 
+        {
+            //Don't re-encode if the value is already in json format
+            if(is_string($value) && (json_decode($value) !== NULL)) {
+                $result = $value;
+            } else {
+                $result = json_encode($value);
+            }
         }
-        
-        if(is_null($result)) {
-            $result =  json_encode($value);
-        }
-        
+            
         return $result;
     }
 }
-

@@ -1,6 +1,6 @@
 <?php
 /**
-* @version		$Id: tidy.php 2993 2011-03-26 22:34:36Z johanjanssens $
+* @version		$Id: tidy.php 1372 2011-10-11 18:56:47Z stian $
 * @category		Koowa
 * @package      Koowa_Filter
 * @copyright    Copyright (C) 2007 - 2010 Johan Janssens. All rights reserved.
@@ -36,17 +36,11 @@ class KFilterTidy extends KFilterAbstract
     protected $_encoding = 'utf8';
     
     /**
+     * The tidy configuration
+     * 
      * @var array
      */
-    protected $_config = array(
-            'clean'                       => true,
-            'drop-proprietary-attributes' => true, 
-            'output-html'                 => true,
-            'show-body-only'              => true,
-            'bare'                        => true, 
-            'wrap'                        => 0,
-            'word-2000'                   => true
-    );
+    protected $_config = array();
 
     /**
      * Constructor
@@ -56,18 +50,35 @@ class KFilterTidy extends KFilterAbstract
     public function __construct(KConfig $config)
     {
         parent::__construct($config);
+          
+        $this->_encdoing = $config->encoding;
+        $this->_config   = KConfig::unbox($config->config);
+    }
+    
+ 	/**
+     * Initializes the config for the object
+     *
+     * Called from {@link __construct()} as a first step of object instantiation.
+     *
+     * @param   object  An optional KConfig object with configuration options
+     * @return  void
+     */
+    protected function _initialize(KConfig $config)
+    {
+        $config->append(array(
+            'encoding'      => 'utf8',
+            'config'        =>  array(
+                	'clean'                       => true,
+                	'drop-proprietary-attributes' => true, 
+            		'output-html'                 => true,
+            		'show-body-only'              => true,
+            		'bare'                        => true, 
+            		'wrap'                        => 0,
+            		'word-2000'                   => true,
+                )
+            ));
         
-        if(isset($config->diagnose)) {
-            $this->_diagnose = $config->diagnose;
-        }
-        
-        if(isset($config->encoding)) {
-            $this->_encdoing = $config->encoding;
-        }
-        
-        if(isset($config->config)) {
-            //$this->_config = array_merge($this->_config, $config['config']);
-        }
+        parent::_initialize($config);
     }
     
     /**
@@ -90,8 +101,11 @@ class KFilterTidy extends KFilterAbstract
     protected function _sanitize($value)
     {   
         //Tidy is not installed, return the input
-        if($tidy = $this->getTidy($value)) {
-            $value = $tidy->cleanRepair();  
+        if($tidy = $this->getTidy($value)) 
+        {
+            if($tidy->cleanRepair()) {
+               $value = (string) $tidy;
+            }
         }
         
         return $value; 

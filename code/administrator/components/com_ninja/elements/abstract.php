@@ -1,6 +1,6 @@
 <?php defined( 'KOOWA' ) or die( 'Restricted access' );
 /**
- * @version		$Id: abstract.php 913 2011-03-17 18:19:44Z stian $
+ * @version		$Id: abstract.php 1399 2011-11-01 14:22:48Z stian $
  * @category	Napi
  * @package		Napi_Parameter
  * @copyright	Copyright (C) 2007 - 2011 NinjaForge. All rights reserved.
@@ -8,12 +8,12 @@
  * @link     	http://ninjaforge.com
  */
 
-abstract class ComNinjaElementAbstract extends KObject implements KObjectIdentifiable
+abstract class NinjaElementAbstract extends KObject
 {	
 	/**
 	 * Reference to the object that instantiated the element
 	 *
-	 * @var ComNinjaFormParameter | [ComNinjaElement instance]
+	 * @var NinjaFormParameter | [NinjaElement instance]
 	 */
 	protected $_parent;
 	
@@ -32,13 +32,6 @@ abstract class ComNinjaElementAbstract extends KObject implements KObjectIdentif
 	 * @var SimpleXMLElement 
 	 */
 	protected $_node;
-
-	/**
-	 * The object identifier
-	 *
-	 * @var KIdentifierInterface 
-	 */
-	protected $_identifier;
 	
 	/**
 	 * Constructor
@@ -47,9 +40,6 @@ abstract class ComNinjaElementAbstract extends KObject implements KObjectIdentif
 	 */
 	public function __construct(KConfig $options)
 	{
-		// Set the objects identifier first to allow to use it in the initialization
-	    $this->_identifier = $options->identifier;
-	    
 	    // Set the objects node second to allow to use it in the initialization
 	    $this->node = $options->node;
 		
@@ -61,7 +51,7 @@ abstract class ComNinjaElementAbstract extends KObject implements KObjectIdentif
 		 */
 		$this->_parent = $options->parent;
 		
-		$this->_name = $this->_identifier->name;
+		$this->_name = $this->getIdentifier()->name;
 		
 		$this->set($options->toArray());
 	}
@@ -88,7 +78,6 @@ abstract class ComNinjaElementAbstract extends KObject implements KObjectIdentif
 		
 		$options->append(array(
 	        'parent'		=> false,
-			'identifier'	=> null,
 			'group'			=> false,
 			'fetchTooltip'	=> true,
 			'name'			=> $name,
@@ -175,21 +164,11 @@ abstract class ComNinjaElementAbstract extends KObject implements KObjectIdentif
 	 * Get the element name
 	 *
 	 * @return 	string
-	 * @see 	ComNinjaElementAbstract::__construct
+	 * @see 	NinjaElementAbstract::__construct
 	 */
 	public function getName()
 	{
 		return $this->_name;
-	}
-	
-	/**
-	 * Get the identifier
-	 *
-	 * @return 	KIdentifierInterface
-	 */
-	public function getIdentifier()
-	{
-		return $this->_identifier;
 	}
 	
 	/**
@@ -200,7 +179,7 @@ abstract class ComNinjaElementAbstract extends KObject implements KObjectIdentif
 	 */
 	public function getList()
 	{
-		$model = KFactory::tmp((string)$this->node['get'])->limit(0);
+		$model = $this->getService((string)$this->node['get'])->limit(0);
 		
 		if(isset($this->node['set']))
 		{

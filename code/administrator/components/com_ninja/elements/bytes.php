@@ -1,6 +1,6 @@
 <?php defined( 'KOOWA' ) or die( 'Restricted access' );
 /**
- * @version		$Id: bytes.php 794 2011-01-10 18:44:32Z stian $
+ * @version		$Id: bytes.php 1399 2011-11-01 14:22:48Z stian $
  * @category	Napi
  * @package		Napi_Parameter
  * @copyright	Copyright (C) 2007 - 2011 NinjaForge. All rights reserved.
@@ -8,12 +8,12 @@
  * @link     	http://ninjaforge.com
  */
 
-class ComNinjaElementBytes extends ComNinjaElementText
+class NinjaElementBytes extends NinjaElementText
 {
 	public function fetchElement($name, $value, &$node, $control_name)
 	{
 		//@TODO Number.implement needs to be in its own js file
-		KFactory::get('admin::com.ninja.helper.default')->js("
+		$this->getService('ninja:template.helper.document')->load('js', "
 			window.addEvent('domready', function(){
 				var input = $('".$this->id."');
 				if(input) {

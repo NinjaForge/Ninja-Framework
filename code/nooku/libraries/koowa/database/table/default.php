@@ -1,6 +1,6 @@
 <?php
 /**
- * @version		$Id: default.php 2725 2010-10-28 01:54:08Z johanjanssens $
+ * @version		$Id: default.php 1372 2011-10-11 18:56:47Z stian $
  * @category	Koowa
  * @package     Koowa_Database
  * @subpackage  Table
@@ -17,7 +17,26 @@
  * @package     Koowa_Database
  * @subpackage  Table
  */
-class KDatabaseTableDefault extends KDatabaseTableAbstract
+class KDatabaseTableDefault extends KDatabaseTableAbstract implements KServiceInstantiatable
 {
-
+	/**
+     * Force creation of a singleton
+     *
+     * @param 	object 	An optional KConfig object with configuration options
+     * @param 	object	A KServiceInterface object
+     * @return KDatabaseTableDefault
+     */
+    public static function getInstance(KConfigInterface $config, KServiceInterface $container)
+    {
+        // Check if an instance with this identifier already exists or not
+        if (!$container->has($config->service_identifier))
+        {
+            //Create the singleton
+            $classname = $config->service_identifier->classname;
+            $instance  = new $classname($config);
+            $container->set($config->service_identifier, $instance);
+        }
+        
+        return $container->get($config->service_identifier);
+    }
 }

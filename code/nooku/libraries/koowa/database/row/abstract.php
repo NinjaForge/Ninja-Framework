@@ -1,6 +1,6 @@
 <?php
 /**
- * @version		$Id: abstract.php 3010 2011-03-27 01:51:09Z johanjanssens $
+ * @version		$Id: abstract.php 1372 2011-10-11 18:56:47Z stian $
  * @category	Koowa
  * @package     Koowa_Database
  * @subpackage  Row
@@ -30,19 +30,10 @@ abstract class KDatabaseRowAbstract extends KObjectArray implements KDatabaseRow
     /**
      * Tracks the status the row
      * 
-     * Status values are:
+     * Available row status values are defined as STATUS_ constants in KDatabase 
      * 
-     * `deleted`
-     * : This row has been deleted successfully
-     * 
-     * `inserted`
-     * : The row was inserted successfully.
-     * 
-     * `updated`
-     * : The row was updated successfully.
-     * 
-     * @var string
-     * 
+     * @var string 
+     * @see KDatabase  
      */
     protected $_status = null;
     
@@ -83,7 +74,7 @@ abstract class KDatabaseRowAbstract extends KObjectArray implements KDatabaseRow
     	if(isset($config->identity_column)) {
 			$this->_identity_column = $config->identity_column;
 		}
-           
+		
         // Reset the row
         $this->reset();
         
@@ -92,7 +83,7 @@ abstract class KDatabaseRowAbstract extends KObjectArray implements KDatabaseRow
         
         // Set the row data
         if(isset($config->data))  {
-            $this->setData($config->data->toArray(), $this->_new);
+            $this->setData((array) KConfig::unbox($config->data), $this->_new);
         }
         
         //Set the status
@@ -126,19 +117,18 @@ abstract class KDatabaseRowAbstract extends KObjectArray implements KDatabaseRow
         
         parent::_initialize($config);
     }
+	
+	/**
+	 * Test the connected status of the row.
+	 *
+	 * @return	boolean	Returns TRUE by default.
+	 */
+    public function isConnected()
+	{
+	    return true;
+	}
     
-    /**
-     * Get the object identifier
-     * 
-     * @return  KIdentifier 
-     * @see     KObjectIdentifiable
-     */
-    public function getIdentifier()
-    {
-        return $this->_identifier;
-    }
-    
- /**
+ 	/**
     * Returns an associative array of the raw data
     *
     * @param   boolean  If TRUE, only return the modified data. Default FALSE
@@ -205,7 +195,6 @@ abstract class KDatabaseRowAbstract extends KObjectArray implements KDatabaseRow
     {
         $this->_status   = $status;
         $this->_new      = ($status === NULL) ? true : false;
-        $this->_modified = array();
         
         return $this;
     }
@@ -236,11 +225,13 @@ abstract class KDatabaseRowAbstract extends KObjectArray implements KDatabaseRow
     /**
      * Load the row from the database.
      *
-     * @return boolean  If successfull return TRUE, otherwise FALSE
+     * @return object	If successfull returns the row object, otherwise NULL
      */
     public function load()
     {
-        return false;
+        $this->_modified = array();
+        
+        return $this;
     }
     
     /**
@@ -253,6 +244,8 @@ abstract class KDatabaseRowAbstract extends KObjectArray implements KDatabaseRow
      */
     public function save()
     {
+        $this->_modified = array();
+        
         return false;
     }
 
@@ -273,8 +266,8 @@ abstract class KDatabaseRowAbstract extends KObjectArray implements KDatabaseRow
      */
     public function reset()
     {
-        $this->_data = array();
-        $this->setStatus(NULL);
+        $this->_data     = array();
+        $this->_modified = array();
         
         return true;
     }

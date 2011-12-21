@@ -3,7 +3,7 @@
 /**
  * @todo Dummy model until I figure out a better way to do it
  */
-class ComNinjaModelDashboards extends KModelAbstract
+class NinjaModelDashboards extends KModelAbstract
 {
 	public function __construct(KConfig $options)
 	{
@@ -15,7 +15,7 @@ class ComNinjaModelDashboards extends KModelAbstract
 		
 		$this->_state->insert('limit', 'int', 0);
 
-		KFactory::tmp('admin::com.ninja.helper.installer', array('identifier' => $napi));
-		KFactory::tmp('admin::com.ninja.helper.installer', array('identifier' => $identifier));
+		$this->getService('ninja:helper.installer', array('identifier' => $napi));
+		$this->getService('ninja:helper.installer', array('identifier' => $identifier));
 	}
 }

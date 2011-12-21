@@ -1,6 +1,6 @@
 <?php defined( 'KOOWA' ) or die( 'Restricted access' );
 /**
-* @version		$Id: parameter.php 761 2010-12-16 16:22:26Z daniel $
+* @version		$Id: parameter.php 1399 2011-11-01 14:22:48Z stian $
 * @package		Joomla
 * @subpackage	Articles
 * @copyright	Copyright (C) 2005 - 2008 Open Source Matters. All rights reserved.
@@ -23,7 +23,7 @@ defined('_JEXEC') or die( 'Restricted access' );
  * @since		1.5
  */
 
-class ComNinjaFormParameter extends KObject implements KObjectIdentifiable
+class NinjaFormParameter extends KObject
 {
 
 	/**
@@ -62,22 +62,12 @@ class ComNinjaFormParameter extends KObject implements KObjectIdentifiable
 	protected $_name;
 	
 	/**
-	 * The object identifier
-	 *
-	 * @var KIdentifierInterface 
-	 */
-	protected $_identifier;
-	
-	/**
 	 * Constructor
 	 *
 	 * @param	array An optional associative array of configuration settings.
 	 */
 	public function __construct(KConfig $options)
 	{
-		// Set the objects identifier first to allow to use it in the initialization
-	    $this->_identifier = $options->identifier;
-		
 		parent::__construct($options);
 
 		/**
@@ -113,7 +103,6 @@ class ComNinjaFormParameter extends KObject implements KObjectIdentifiable
 	        'name'		 => 'params',
 	        'data'		 => null,
 	        'xml'		 => null,
-			'identifier' => null,
 			'render'	 => 'fieldset',
 			'grouptag'	 => 'params'
 	   	));
@@ -251,11 +240,11 @@ class ComNinjaFormParameter extends KObject implements KObjectIdentifiable
 		$type = (string) $node['type'];
 		try
 		{
-			$identifier = new KIdentifier($type);
+			$identifier = new KServiceIdentifier($type);
 		}
 		catch(KException $e)
 		{
-			$identifier = 'admin::com.ninja.element.'.$type;
+			$identifier = 'ninja:element.'.$type;
 		}
 		
 		$name = $this->_name.'['.$this->_group.']['.(string) $node['name'].']';
@@ -267,7 +256,7 @@ class ComNinjaFormParameter extends KObject implements KObjectIdentifiable
 			$id   = $this->_name.(string)$node['name'];
 		}
 
-		$element = KFactory::tmp($identifier, array(
+		$element = $this->getService($identifier, array(
 								'parent' => $this,
 								'node'	 => $node,
 								'value'	 => $this->get((string) $node['name']),
@@ -378,19 +367,19 @@ class ComNinjaFormParameter extends KObject implements KObjectIdentifiable
       					}
       					$checked = $value ? ' checked="checked"' : null;
       					
-      					KFactory::get('admin::com.ninja.helper.default')->js('/elements/toggle/touch.js');
-      					KFactory::get('admin::com.ninja.helper.default')->js('/switch.js');
+      					$this->getService('ninja:template.helper.document')->load('/elements/toggle/touch.js');
+      					$this->getService('ninja:template.helper.document')->load('/switch.js');
       					
       					//DC Nov 2010 - moved css into a file as it was being repeated whenever there was more than one toggle on a page
-      					KFactory::get('admin::com.ninja.helper.default')->css("/toggle.css");					
+      					$this->getService('ninja:template.helper.document')->load("/toggle.css");					
       					
       					
       					//DC Nov 2010 - temporarily removed the jtext because the buttons don't resize when the text is translated
       					//todo - make the buttons resize and put back translation 
       					$on = 'ON';  //JText::_('on');
       					$off = 'OFF'; //JText::_('off');
-      					$access = KFactory::get('admin::com.ninja.helper.default')->formid('forum');
-      					KFactory::get('admin::com.ninja.helper.default')->js("
+      					$access = $this->getService('ninja:template.helper.document')->formid('forum');
+      					$this->getService('ninja:template.helper.document')->load('js', "
       						window.addEvent('domready', function() {
       							var toggle = new Switch('".$id."', {
       								focus: true, 
@@ -524,15 +513,5 @@ class ComNinjaFormParameter extends KObject implements KObjectIdentifiable
 		}
 
 		return $result;
-	}
-	
-	/**
-	 * Get the identifier
-	 *
-	 * @return 	KIdentifierInterface
-	 */
-	public function getIdentifier()
-	{
-		return $this->_identifier;
 	}
 }

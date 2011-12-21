@@ -1,6 +1,6 @@
 <?php
 /**
- * @version     $Id: default.php 2876 2011-03-07 22:19:20Z johanjanssens $
+ * @version     $Id: default.php 1257 2011-08-25 14:09:15Z stian $
  * @category	Nooku
  * @package     Nooku_Components
  * @subpackage  Default
@@ -17,7 +17,7 @@
  * @package     Nooku_Components
  * @subpackage  Default
  */
-class ComDefaultTemplateDefault extends KTemplateDefault
+class ComDefaultTemplateDefault extends ComDefaultTemplateAbstract
 { 
     /**
      * Load a template helper
@@ -31,7 +31,7 @@ class ComDefaultTemplateDefault extends KTemplateDefault
      * @param   mixed   Parameters to be passed to the helper
      * @return  string  Helper output
      */
-    public function loadHelper($identifier, $params = array())
+    public function renderHelper($identifier, $params = array())
     {
         $view = $this->getView();
         
@@ -48,6 +48,6 @@ class ComDefaultTemplateDefault extends KTemplateDefault
             }
         }   
         
-        return parent::loadHelper($identifier, $params);
+        return parent::renderHelper($identifier, $params);
     }
 }

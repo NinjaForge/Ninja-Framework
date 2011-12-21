@@ -1,6 +1,6 @@
 <?php
 /**
- * @version		$Id: stream.php 2876 2011-03-07 22:19:20Z johanjanssens $
+ * @version		$Id: stream.php 1372 2011-10-11 18:56:47Z stian $
  * @category	Koowa
  * @package		Koowa_Template
  * @copyright	Copyright (C) 2007 - 2010 Johan Janssens. All rights reserved.
@@ -28,7 +28,7 @@ class KTemplateStream
     private $_pos = 0;
 
     /**
-     * Data for streaming.
+     * Template data
      *
      * @var string
      */
@@ -42,6 +42,13 @@ class KTemplateStream
     private $_stat;
     
     /**
+     * Template path
+     *
+     * @var string
+     */
+    private $_path;
+    
+    /**
      * Register the stream wrapper 
      * 
      * Function prevents from registering the wrapper twice
@@ -50,32 +57,32 @@ class KTemplateStream
     {       
         if (!in_array('tmpl', stream_get_wrappers())) {
             stream_wrapper_register('tmpl', __CLASS__);
-        }
-        
-        //Set shutdown function to handle stream errors
-        register_shutdown_function(array(__CLASS__, 'stream_error')); 
+        } 
     } 
-
+     
     /**
      * Opens the template file and converts markup.
      * 
      * This function filters the data from the stream by pushing it through the template's 
-     * read filter chain. The template object to use for filtering is looked up based on the 
-     * stream's path. 
+     * read filter chain. The template object to use for filtering is the top node on the
+     * template stack
      * 
      * @param string    The stream path
      * @return boolean
      */
     public function stream_open($path) 
-    {       
+    {        
         //Get the view script source
-        $path = str_replace('tmpl://', '', $path);
-            
-        //Get the template object from the template repository and filter 
-        //the data before reading                   
-        $this->_data = KFactory::get('lib.koowa.template.registry')
-                            ->get($path)
-                            ->filter(KTemplateFilter::MODE_READ);
+        $identifier = str_replace('tmpl://', '', $path);
+        
+        //Get the template object from the template stack and parse it
+        $template = KService::get($identifier)->top();
+        
+        //Get the template path
+        $this->_path = $template->getPath();
+        
+        //Get the template data
+        $this->_data = $template->parse();
         
        // file_get_contents() won't update PHP's stat cache, so performing
        // another stat() on it will hit the filesystem again. Since the file
@@ -148,6 +155,17 @@ class KTemplateStream
     {
         
     }
+    
+	/**
+     * Signal that stream_select is not supported by returning false	
+     *	
+     * @param  int   Can be STREAM_CAST_FOR_SELECT or STREAM_CAST_AS_STREAM
+     * @return bool  Always returns false as there is nounderlaying resource to return.	
+     */
+    public function stream_cast($cast_as)
+    {
+        return false; 
+    }
 
     /**
      * Seek to a specific point in the stream.
@@ -191,26 +209,7 @@ class KTemplateStream
                 return false;
         }
     }
-    
-    /**
-     * Handle stream errors
-     * 
-     * Clean all output buffers and display the latest error
-     * 
-     * @return bool
-     */
-    public static function stream_error() 
-    { 
-        if($error = error_get_last()) 
-        {
-            if($error['type'] === E_ERROR || $error['type'] === E_PARSE) 
-            {
-                while(@ob_get_clean());
-                echo '<strong>Fatal Error</strong>: '.$error['message'].' in <strong>'.$error['file'].'</strong> on line <strong>'.$error['line'].'</strong>';
-            }
-        }
-    }
-    
+     
     /**
      * Url statistics.
      *
@@ -224,23 +223,5 @@ class KTemplateStream
     public function url_stat($path, $flags) 
     {
         return $this->_stat;
-    }
-
-    /**
-     * Signal that stream_select is not supported by returning false
-     *
-     * Fixes an issue were some hosts would throw warnings like these:
-     *     Warning: include(): KTemplateStream::stream_cast is not implemented! in /libraries/koowa/template/abstract.php on line 266
-     *     Warning: include(): cannot represent a stream of type user-space as a STDIO FILE* in /libraries/koowa/template/abstract.php on line 266
-     *
-     * For more information, see: http://php.net/manual/en/streamwrapper.stream-cast.php
-     *
-     * @param   int     Can be STREAM_CAST_FOR_SELECT or STREAM_CAST_AS_STREAM
-     *
-     * @return  bool    false
-     */
-    public function stream_cast(int $cast_as)
-    {
-        return false;
     }
 }

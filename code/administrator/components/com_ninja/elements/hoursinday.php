@@ -1,6 +1,6 @@
 <?php defined( 'KOOWA' ) or die( 'Restricted access' );
 /**
- * @version		$Id: hoursinday.php 794 2011-01-10 18:44:32Z stian $
+ * @version		$Id: hoursinday.php 1399 2011-11-01 14:22:48Z stian $
  * @category	Napi
  * @package		Napi_Parameter
  * @copyright	Copyright (C) 2007 - 2011 NinjaForge. All rights reserved.
@@ -8,7 +8,7 @@
  * @link     	http://ninjaforge.com
  */
 
-class ComNinjaElementHoursinday extends ComNinjaElementAbstract
+class NinjaElementHoursinday extends NinjaElementAbstract
 {
 	public function fetchElement($name, $value, &$node, $control_name)
     {

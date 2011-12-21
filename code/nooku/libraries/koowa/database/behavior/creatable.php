@@ -1,6 +1,6 @@
 <?php
 /**
- * @version     $Id: abstract.php 1528 2010-01-26 23:14:08Z johan $
+ * @version     $Id: creatable.php 1344 2011-09-13 15:50:55Z stian $
  * @category    Koowa
  * @package     Koowa_Database
  * @subpackage  Behavior
@@ -49,7 +49,7 @@ class KDatabaseBehaviorCreatable extends KDatabaseBehaviorAbstract
     protected function _beforeTableInsert(KCommandContext $context)
     {
         if(isset($this->created_by) && empty($this->created_by)) {
-            $this->created_by  = (int) KFactory::get('lib.joomla.user')->get('id');
+            $this->created_by  = (int) JFactory::getUser()->get('id');
         }
         
         if(isset($this->created_on) && (empty($this->created_on) || $this->created_on == $context->caller->getDefault('created_on'))) { 

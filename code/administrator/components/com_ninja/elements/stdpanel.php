@@ -25,7 +25,7 @@
  * @package com_ninja
  * @subpackage admin.elements
  */
-class ComNinjaElementStdPanel extends ComNinjaElementAbstract
+class NinjaElementStdPanel extends NinjaElementAbstract
 {
 	public function fetchElement($name, $value, &$node, $control_name)
 	{
@@ -60,14 +60,14 @@ class ComNinjaElementStdPanel extends ComNinjaElementAbstract
         		$type = (string) $panelChild['type'];
         		try
         		{
-        			$identifier = new KIdentifier($type);
+        			$identifier = new KServiceIdentifier($type);
         		}
         		catch(KException $e)
         		{
-        			$identifier = 'admin::com.ninja.element.'.$type;
+        			$identifier = 'ninja:element.'.$type;
         		}
         
-        		$element = KFactory::tmp($identifier, array(
+        		$element = $this->getService($identifier, array(
         								'parent'		=> $this->_parent,
         								'node'			=> $panelChild,
         								'value'			=> $this->_parent->get($name . '_' .(string) $panelChild['name']),

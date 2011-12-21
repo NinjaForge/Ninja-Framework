@@ -1,6 +1,6 @@
 <?php
 /**
- * @version		$Id: default.php 2876 2011-03-07 22:19:20Z johanjanssens $
+ * @version		$Id: default.php 1300 2011-09-01 11:09:48Z stian $
  * @category	Koowa
  * @package     Koowa_Dispatcher
  * @copyright	Copyright (C) 2007 - 2010 Johan Janssens. All rights reserved.
@@ -11,8 +11,8 @@
 /**
  * Default controller dispatcher
  * 
- * The default dispatcher mplements a signleton. After instantiation the object can
- * be access using the mapped lib.koowa.dispatcher identifier.
+ * The default dispatcher mplements a signleton. After instantiation the 
+ * object can be access using the mapped dispatcher identifier.
  *
  * @author      Johan Janssens <johan@nooku.org>
  * @category    Koowa
@@ -21,25 +21,5 @@
 
 class KDispatcherDefault extends KDispatcherAbstract 
 { 
-    /**
-     * Force creation of a singleton
-     *
-     * @return KDispatcherDefault
-     */
-    public static function instantiate($config = array())
-    {
-        static $instance;
-        
-        if ($instance === NULL) 
-        {
-            //Create the singleton
-            $classname = $config->identifier->classname;
-            $instance = new $classname($config);
-            
-            //Add the factory map to allow easy access to the singleton
-            KFactory::map('lib.koowa.dispatcher', $config->identifier);
-        }
-        
-        return $instance;
-    }
+    
 }

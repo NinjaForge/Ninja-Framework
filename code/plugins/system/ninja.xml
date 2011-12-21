@@ -7,7 +7,7 @@
 	<license>GNU/GPL</license>
 	<authoremail>support@ninjaforge.com</authoremail>
 	<authorurl>ninjaforge.com</authorurl>
-	<version>1.5.0</version>
+	<version>2.0</version>
 	<description>Loads MooTools and jQuery when needed by NinjaForge extensions. Also makes available napi (NinjaAPI) APIs.</description>
 	<files>
 		<filename plugin="ninja">ninja.php</filename>

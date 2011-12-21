@@ -1,6 +1,6 @@
 <?php
 /**
- * @version		$Id: table.php 962 2011-03-28 23:27:53Z stian $
+ * @version		$Id: table.php 1372 2011-10-11 18:56:47Z stian $
  * @category	Koowa
  * @package     Koowa_Database
  * @subpackage  Rowset
@@ -21,11 +21,11 @@
 class KDatabaseRowsetTable extends KDatabaseRowsetAbstract
 {
 	/**
-	 * Table object or identifier (APP::com.COMPONENT.table.NAME)
+	 * Table object or identifier (com://APP/COMPONENT.table.NAME)
 	 *
 	 * @var	string|object
 	 */
-	protected $_table;
+	protected $_table = false;
 
 	/**
 	 * Constructor
@@ -36,10 +36,15 @@ class KDatabaseRowsetTable extends KDatabaseRowsetAbstract
 	{
 		parent::__construct($config);
 		
-		// Set the table indentifier.
-		if(isset($config->table)) {
-			$this->setTable($config->table);
-		}
+		$this->_table = $config->table;
+			    
+		// Reset the rowset
+        $this->reset();
+	    
+        // Insert the data, if exists        
+        if(!empty($config->data)) {
+	        $this->addData($config->data->toArray(), $config->new);	
+        }
 	}
 
 	/**
@@ -53,36 +58,47 @@ class KDatabaseRowsetTable extends KDatabaseRowsetAbstract
 	protected function _initialize(KConfig $config)
 	{
 		$config->append(array(
-			'table'	=> null
+			'table'	=> $this->getIdentifier()->name
 		));
 
 		parent::_initialize($config);
 	}
 
 	/**
-	 * Get the identifier for the table with the same name
-	 *
-	 * @return	KIdentifierInterface
-	 */
-	public function getTable()
-	{
-		if(!$this->_table)
-		{
-			$identifier 		= clone $this->_identifier;
-			$identifier->name	= KInflector::tableize($identifier->name);
-			$identifier->path	= array('database', 'table');
+     * Method to get a table object
+     * 
+     * Function catches KDatabaseTableExceptions that are thrown for tables that 
+     * don't exist. If no table object can be created the function will return FALSE.
+     *
+     * @return KDatabaseTableAbstract
+     */
+     public function getTable()
+    {
+        if($this->_table !== false)
+        {
+            if(!($this->_table instanceof KDatabaseTableAbstract))
+		    {   		        
+		        //Make sure we have a table identifier
+		        if(!($this->_table instanceof KServiceIdentifier)) {
+		            $this->setTable($this->_table);
+			    }
+		        
+		        try {
+		            $this->_table = $this->getService($this->_table);
+                } catch (KDatabaseTableException $e) {
+                    $this->_table = false;
+                }
+            }
+        }
 
-			$this->_table = KFactory::get($identifier);
-		}
-
-		return $this->_table;
-	}
+        return $this->_table;
+    }
 
 	/**
 	 * Method to set a table object attached to the rowset
 	 *
-	 * @param	mixed	An object that implements KObjectIdentifiable, an object that
-	 *                  implements KIndentifierInterface or valid identifier string
+	 * @param	mixed	An object that implements KObjectServiceable, KServiceIdentifier object 
+	 * 					or valid identifier string
 	 * @throws	KDatabaseRowsetException	If the identifier is not a table identifier
 	 * @return	KDatabaseRowsetAbstract
 	 */
@@ -90,44 +106,53 @@ class KDatabaseRowsetTable extends KDatabaseRowsetAbstract
 	{
 		if(!($table instanceof KDatabaseTableAbstract))
 		{
-			$identifier = KFactory::identify($table);
-
-			if($identifier->path[0] != 'table') {
-				throw new KModelException('Identifier: '.$identifier.' is not a table identifier');
+			if(is_string($table) && strpos($table, '.') === false ) 
+		    {
+		        $identifier         = clone $this->getIdentifier();
+		        $identifier->path   = array('database', 'table');
+		        $identifier->name   = KInflector::tableize($table);
+		    }
+		    else  $identifier = $this->getIdentifier($table);
+		    
+			if($identifier->path[1] != 'table') {
+				throw new KDatabaseRowsetException('Identifier: '.$identifier.' is not a table identifier');
 			}
 
-			$table = KFactory::get($identifier);
+			$table = $identifier;
 		}
 
 		$this->_table = $table;
 
 		return $this;
 	}
-
-	/**
-	 * Reset the rowset
-	 *
-	 * @return boolean	If successfull return TRUE, otherwise FALSE
-	 */
-	public function reset()
-	{
-		$result = parent::reset();
-		
-	    $this->_columns	   = array_keys($this->getTable()->getColumns());
 	
-		return $result;
+	/**
+	 * Test the connected status of the row.
+	 *
+	 * @return	boolean	Returns TRUE if we have a reference to a live KDatabaseTableAbstract object.
+	 */
+    public function isConnected()
+	{
+	    return (bool) $this->getTable();
 	}
 
 	/**
 	 * Get an empty row
 	 *
+	 * @param	array An optional associative array of configuration settings.
 	 * @return	object	A KDatabaseRow object.
 	 */
-	public function getRow() 
+	public function getRow(array $options = array()) 
 	{
-		return $this->getTable()->getRow();
+		$result = null;
+		
+	    if($this->isConnected()) {
+		    $result = $this->getTable()->getRow($options);
+		}
+	    
+	    return $result;
 	}
-
+	
 	/**
 	 * Forward the call to each row
 	 * 
@@ -143,7 +168,7 @@ class KDatabaseRowsetTable extends KDatabaseRowsetAbstract
 	public function __call($method, array $arguments)
 	{
 	    // If the method hasn't been mixed yet, load all the behaviors.
-		if(!isset($this->_mixed_methods[$method]))
+		if($this->isConnected() && !isset($this->_mixed_methods[$method]))
 		{
 			foreach($this->getTable()->getBehaviors() as $behavior) {
 				$this->mixin($behavior);

@@ -1,6 +1,6 @@
 <?php
 /**
- * @version    	$Id: request.php 2924 2011-03-17 21:04:16Z johanjanssens $
+ * @version    	$Id: request.php 1372 2011-10-11 18:56:47Z stian $
  * @category	Koowa
  * @package    	Koowa_Request
  * @copyright  	Copyright (C) 2007 - 2010 Johan Janssens. All rights reserved.
@@ -9,152 +9,140 @@
  */
 
 //Instantiate the request singleton
-KRequest::instantiate();
+KRequest::getInstance();
 
 /**
  * Request class
- *
- * Allows to get input from GET, POST, REQUEST, COOKIE, ENV, SERVER, SESSION, FILES
  *
  * @author      Johan Janssens <johan@nooku.org>
  * @category    Koowa
  * @package     Koowa_Request
  * @uses        KFilter
  * @uses        KInflector
- * @uses        KFactory
+ * @uses        KService
  * @static
  */
 class KRequest
 {
     /**
-     * Accepted request hashes
-     *
-     * @var array
-     */
-    protected static $_hashes = array('COOKIE', 'ENV', 'FILES', 'GET', 'POST', 'PUT', 'DELETE', 'SERVER', 'REQUEST', 'SESSION');
-
-    /**
-     * Accepted request methods
-     *
-     * @var array
-     */
-    protected static $_methods = array('GET', 'POST', 'PUT', 'DELETE' /*,'HEAD', 'OPTIONS'*/ );
-
-
-    /**
      * URL of the request regardless of the server
      *
-     * @var KHttpUri
+     * @var KHttpUrl
      */
-    protected static $_uri = null;
+    protected static $_url = null;
 
     /**
      * Base path of the request.
      *
-     * @var KHttpUri
+     * @var KHttpUrl
      */
     protected static $_base = null;
-    
+
     /**
      * Root path of the request.
      *
-     * @var KHttpUri
+     * @var KHttpUrl
      */
     protected static $_root = null;
 
     /**
      * Referrer of the request
      *
-     * @var KHttpUri
+     * @var KHttpUrl
      */
     protected static $_referrer = null;
-    
+
     /**
      * The raw post or put content information
      *
      * @var array
      */
     protected static $_content = null;
-    
+
     /**
      * The request accepts information
      *
      * @var array
      */
     protected static $_accept = null;
-    
-    
+
+
     /**
      * Constructor
      *
      * Prevent creating instances of this class by making the contructor private
      */
-    final private function __construct(KConfig $config) 
+    final private function __construct(KConfig $config)
     {
         $content = self::content();
-        
+
         if(self::type() == 'HTTP')
         {
-            $authorization = KRequest::get('server.HTTP_AUTHORIZATION', 'url');
-	        if (strstr($authorization,"Basic")) 
+            if(strpos(PHP_SAPI, 'cgi') !== false) {
+                $authorization = KRequest::get('server.REDIRECT_HTTP_AUTHORIZATION', 'string');
+            } else {
+                $authorization = KRequest::get('server.HTTP_AUTHORIZATION', 'url');
+            }
+            
+	        if (strstr($authorization,"Basic"))
 	        {
 	            $parts = explode(':',base64_decode(substr($authorization, 6)));
-			
-	            if (count($parts) == 2) 
+
+	            if (count($parts) == 2)
 			    {
-				    KRequest::set('server.PHP_AUTH_USER', $parts[0]); 
-				    KRequest::set('server.PHP_AUTH_PW'  , $parts[1]); 
+				    KRequest::set('server.PHP_AUTH_USER', $parts[0]);
+				    KRequest::set('server.PHP_AUTH_PW'  , $parts[1]);
 			    }
 		    }
         }
-        
+
         if(!empty($content['data']))
         {
-            if($content['type'] == 'application/x-www-form-urlencoded') 
+            if($content['type'] == 'application/x-www-form-urlencoded')
             {
-                if (in_array(self::method(), array('PUT', 'DELETE'))) 
+                if (in_array(self::method(), array('PUT', 'DELETE')))
                 {
                     parse_str($content['data'], $GLOBALS['_'.self::method()]);
-                    $GLOBALS['_REQUEST'] = array_merge($GLOBALS['_REQUEST'],  $GLOBALS['_'.self::method()]); 
+                    $GLOBALS['_REQUEST'] = array_merge($GLOBALS['_REQUEST'],  $GLOBALS['_'.self::method()]);
                 }
             }
-            
-            if($content['type'] == 'application/json') 
+
+            if($content['type'] == 'application/json')
             {
-                if(in_array(self::method(), array('POST', 'PUT', 'DELETE'))) 
+                if(in_array(self::method(), array('POST', 'PUT', 'DELETE')))
                 {
                     $GLOBALS['_'.self::method()] = json_decode($content['data'], true);
-                    $GLOBALS['_REQUEST'] = array_merge($GLOBALS['_REQUEST'],  $GLOBALS['_'.self::method()]); 
+                    $GLOBALS['_REQUEST'] = array_merge($GLOBALS['_REQUEST'],  $GLOBALS['_'.self::method()]);
                 }
-            }   
+            }
         }
      }
-    
+
     /**
-     * Clone 
+     * Clone
      *
      * Prevent creating clones of this class
      */
     final private function __clone() { }
-    
+
     /**
      * Force creation of a singleton
      *
      * @return void
      */
-    public static function instantiate($config = array())
+    public static function getInstance($config = array())
     {
         static $instance;
-        
-        if ($instance === NULL) 
+
+        if ($instance === NULL)
         {
             if(!$config instanceof KConfig) {
                 $config = new KConfig($config);
             }
-            
+
             $instance = new self($config);
         }
-        
+
         return $instance;
     }
 
@@ -171,7 +159,7 @@ class KRequest
     public static function get($identifier, $filter, $default = null)
     {
         list($hash, $keys) = self::_parseIdentifier($identifier);
-        
+
         $result = null;
         if(isset($GLOBALS['_'.$hash]))
         {
@@ -186,20 +174,20 @@ class KRequest
                 }
             }
         }
-       
-        
+
+
         // If the value is null return the default
         if(is_null($result)) {
             return $default;
         }
-    
+
         // Handle magic quotes compatability
         if (get_magic_quotes_gpc() && !in_array($hash, array('FILES', 'SESSION'))) {
             $result = self::_stripSlashes( $result );
         }
 
         if(!($filter instanceof KFilterInterface)) {
-            $filter = KFilter::factory($filter);
+            $filter = KService::get('koowa:filter.factory')->instantiate($filter);
         }
 
         return $filter->sanitize($result);
@@ -214,14 +202,14 @@ class KRequest
     public static function set($identifier, $value)
     {
         list($hash, $keys) = self::_parseIdentifier($identifier);
-
-        // Add to _REQUEST hash if original hash is get, post, or cookies 
+        
+        // Add to _REQUEST hash if original hash is get, post, or cookies
         if(in_array($hash, array('GET', 'POST', 'COOKIE'))) {
             self::set('request.'.implode('.', $keys), $value);
         }
-
+        
         // Store cookies persistently
-        if($hash == 'COOKIE')
+        if($hash == 'COOKIE' && strpos(KRequest::protocol(), 'http') !== false)
         {
             // rewrite the $keys as foo[bar][bar]
             $ckeys = $keys; // get a copy
@@ -229,16 +217,21 @@ class KRequest
             foreach($ckeys as $ckey) {
                 $name .= '['.$ckey.']';
             }
-
+ 
             if(!setcookie($name, $value)) {
                 throw new KRequestException("Couldn't set cookie, headers already sent.");
             }
         }
-        
+
         // Store in $GLOBALS
         foreach(array_reverse($keys, true) as $key) {
             $value = array($key => $value);
         }
+        
+        // Add the global if it's doesn't exist
+        if(!isset($GLOBALS['_'.$hash])) { 
+           $GLOBALS['_'.$hash] = array(); 
+        } 
         
         $GLOBALS['_'.$hash] = KHelperArray::merge($GLOBALS['_'.$hash], $value);
     }
@@ -253,23 +246,22 @@ class KRequest
     {
         list($hash, $keys) = self::_parseIdentifier($identifier);
 
-        // find $var in the hashe
         foreach($keys as $key)
         {
-            if(array_key_exists($key, $GLOBALS['_'.$hash])) {
-                return true;;
+            if(isset($GLOBALS['_'.$hash]) && array_key_exists($key, $GLOBALS['_'.$hash])) {
+                return true;
             }
         }
 
         return false;
     }
-    
+
     /**
      * Get the POST or PUT raw content information
-     * 
+     *
      * The raw post data is not available with enctype="multipart/form-data".
-     *  
-     * @param   string  The content data to return. Can be 'type' or 'data'. 
+     *
+     * @param   string  The content data to return. Can be 'type' or 'data'.
      *                  If not set, all the data will be returned.
      * @return  array   An associative array with the content data. Valid keys are
      *                  'type' and 'data'
@@ -277,25 +269,25 @@ class KRequest
     public static function content($key = null)
     {
         $result = '';
-        
-        if (!isset(self::$_content) && isset($_SERVER['CONTENT_TYPE'])) 
-        {             
-            $type = $_SERVER['CONTENT_TYPE']; 
-                        
-            // strip parameters from content-type like "; charset=UTF-8"             
-            if (is_string($type)) 
-            {                  
-                if (preg_match('/^([^,\;]*)/', $type, $matches)) {                    
-                    $type = $matches[1];                 
-                }             
-            }             
-                
-            self::$_content['type'] = $type;  
-            
-            
+
+        if (!isset(self::$_content) && isset($_SERVER['CONTENT_TYPE']))
+        {
+            $type = $_SERVER['CONTENT_TYPE'];
+
+            // strip parameters from content-type like "; charset=UTF-8"
+            if (is_string($type))
+            {
+                if (preg_match('/^([^,\;]*)/', $type, $matches)) {
+                    $type = $matches[1];
+                }
+            }
+
+            self::$_content['type'] = $type;
+
+
             $data = '';
-            if (isset($_SERVER['CONTENT_LENGTH']) && $_SERVER['CONTENT_LENGTH'] > 0) 
-            {   
+            if (isset($_SERVER['CONTENT_LENGTH']) && $_SERVER['CONTENT_LENGTH'] > 0)
+            {
                 $input = fopen('php://input', 'r');
                 while ($chunk = fread($input, 1024)) {
                     $data .= $chunk;
@@ -303,64 +295,74 @@ class KRequest
 
                 fclose($input);
             }
-            
+
             self::$_content['data'] = $data;
         }
-            
+
         return isset($key) ? self::$_content[$key] : self::$_content;
     }
-    
+
     /**
-     * Get the accept request information 
+     * Get the accept request information
      *
-     * @param   string  The accept data to return. Can be 'format', 'encoding' or 'language'. 
+     * @param   string  The accept data to return. Can be 'format', 'encoding' or 'language'.
      *                  If not set, all the accept data will be returned.
      * @return  array   An associative array with the content data. Valid keys are
      *                  'format', 'encoding' and 'language'
      */
     public static function accept($type = null)
     {
-        if (!isset(self::$_accept) && isset($_SERVER['HTTP_ACCEPT'])) 
-        {             
+        if (!isset(self::$_accept) && isset($_SERVER['HTTP_ACCEPT']))
+        {
             $accept = KRequest::get('server.HTTP_ACCEPT', 'string');
             self::$_accept['format'] = self::_parseAccept($accept);
-                            
-            if (isset($_SERVER['HTTP_ACCEPT_ENCODING'])) 
-            {   
+
+            if (isset($_SERVER['HTTP_ACCEPT_ENCODING']))
+            {
                 $accept = KRequest::get('server.HTTP_ACCEPT_ENCODING', 'string');
-                self::$_accept['encoding'] = self::_parseAccept($accept);   
+                self::$_accept['encoding'] = self::_parseAccept($accept);
             }
-            
-            if (isset($_SERVER['HTTP_ACCEPT_LANGUAGE'])) 
-            {   
+
+            if (isset($_SERVER['HTTP_ACCEPT_LANGUAGE']))
+            {
                 $accept = KRequest::get('server.HTTP_ACCEPT_LANGUAGE', 'string');
-                self::$_accept['language'] = self::_parseAccept($accept);   
-            }   
+                self::$_accept['language'] = self::_parseAccept($accept);
+            }
         }
-            
+
         return $type ? self::$_accept[$type] : self::$_accept;
     }
-    
+
+    /**
+     * Returns the client information doing the request
+     *
+     * @return string $_SERVER['HTTP_USER_AGENT'] or an empty string if it's not supplied in the request
+     */
+    public static function client()
+    {
+        return isset($_SERVER['HTTP_USER_AGENT']) ? $_SERVER['HTTP_USER_AGENT'] : '';
+    }
+
     /**
      * Returns the HTTP referrer.
-     * 
+     *
      * 'referer' a commonly used misspelling word for 'referrer'
      * @see     http://en.wikipedia.org/wiki/HTTP_referrer
      *
      * @param   boolean     Only allow internal url's
-     * @return  KHttpUri    A KHttpUri object
+     * @return  KHttpUrl    A KHttpUrl object
      */
     public static function referrer($isInternal = true)
     {
         if(!isset(self::$_referrer))
         {
-            if($referrer = KRequest::get('server.HTTP_REFERER', 'url')) 
+            if($referrer = KRequest::get('server.HTTP_REFERER', 'url'))
             {
-                self::$_referrer = KFactory::get('lib.koowa.http.uri', array('uri' => $referrer));
-                
+                self::$_referrer = KService::get('koowa:http.url', array('url' => $referrer));
+
                 if($isInternal)
                 {
-                    if(!KFactory::get('lib.koowa.filter.internalurl')->validate((string)self::$_referrer)) {
+                    if(!KService::get('koowa:filter.internalurl')->validate((string)self::$_referrer)) {
                         return null;
                     }
                 }
@@ -373,133 +375,145 @@ class KRequest
     /**
      * Return the URI of the request regardless of the server
      *
-     * @return  KHttpUri    A KHttpUri object
+     * @return  KHttpUrl    A KHttpUri object
      */
     public static function url()
     {
-        if(!isset(self::$_uri))
+        if(!isset(self::$_url))
         {
-            /*
-             * Since we are assigning the URI from the server variables, we first need
-             * to determine if we are running on apache or IIS.  If PHP_SELF and REQUEST_URI
-             * are present, we will assume we are running on apache.
-             */
-            if (!empty ($_SERVER['PHP_SELF']) && !empty ($_SERVER['REQUEST_URI']))
-            {
-                /*
-                 * To build the entire URI we need to prepend the protocol, and the http host
-                 * to the URI string.
-                 */
-                $url = self::protocol().'://'. $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
+            $url = self::protocol().'://';
+            
+            if (PHP_SAPI !== 'cli') 
+        	{
+        		/*
+            	 * Since we are assigning the URI from the server variables, we first need
+             	 * to determine if we are running on apache or IIS.  If PHP_SELF and REQUEST_URI
+             	 * are present, we will assume we are running on apache.
+             	 */
+        	    if (!empty ($_SERVER['PHP_SELF']) && !empty ($_SERVER['REQUEST_URI']))
+                {
+                	/*
+                 	 * To build the entire URI we need to prepend the protocol, and the http host
+                 	 * to the URI string.
+                 	 */
+                    $url .= $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
 
-                /*
-                 * Since we do not have REQUEST_URI to work with, we will assume we are
-                 * running on IIS and will therefore need to work some magic with the SCRIPT_NAME and
-                 * QUERY_STRING environment variables.
-                 */
-            }
-            else
-            {
-                // IIS uses the SCRIPT_NAME variable instead of a REQUEST_URI variable
-                $url = self::protocol().'://'. $_SERVER['HTTP_HOST'] . $_SERVER['SCRIPT_NAME'];
-
-                // If the query string exists append it to the URI string
-                if (isset($_SERVER['QUERY_STRING']) && !empty($_SERVER['QUERY_STRING'])) {
-                    $url .= '?' . $_SERVER['QUERY_STRING'];
+                	/*
+                 	 * Since we do not have REQUEST_URI to work with, we will assume we are
+                 	 * running on IIS and will therefore need to work some magic with the SCRIPT_NAME and
+                 	 * QUERY_STRING environment variables.
+                 	 */
                 }
-            }
+                else
+                {
+                    // IIS uses the SCRIPT_NAME variable instead of a REQUEST_URI variable
+                    $url .= $_SERVER['HTTP_HOST'] . $_SERVER['SCRIPT_NAME'];
+
+                    // If the query string exists append it to the URI string
+                    if (isset($_SERVER['QUERY_STRING']) && !empty($_SERVER['QUERY_STRING'])) {
+                        $url .= '?' . $_SERVER['QUERY_STRING'];
+                    }
+                }
+        	}
+        	else $url .= 'koowa';
             
             // Sanitize the url since we can't trust the server var
-            $url = KFactory::get('lib.koowa.filter.url')->sanitize($url);
+            $url = KService::get('koowa:filter.url')->sanitize($url);
 
             // Create the URI object
-            self::$_uri = KFactory::tmp('lib.koowa.http.uri', array('uri' => $url));
+            self::$_url = KService::get('koowa:http.url', array('url' => $url));
 
         }
 
-        return self::$_uri;
+        return self::$_url;
     }
 
     /**
      * Returns the base path of the request.
      *
-     * @return  object  A KHttpUri object
+     * @return  object  A KHttpUrl object
      */
     public static function base()
     {
         if(!isset(self::$_base))
         {
             // Get the base request path
-            if (strpos(php_sapi_name(), 'cgi') !== false && !empty($_SERVER['REQUEST_URI'])) {
-                //Apache CGI
-                $path =  rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
-            } else {
-                //Others
-                $path =  rtrim(dirname($_SERVER['SCRIPT_NAME']), '/\\');
-            }
+            if (strpos(PHP_SAPI, 'cgi') !== false && !ini_get('cgi.fix_pathinfo')  && !empty($_SERVER['REQUEST_URI'])) 
+            {    
+                // PHP-CGI on Apache with "cgi.fix_pathinfo = 0"
+                // We don't have user-supplied PATH_INFO in PHP_SELF
+                $path = $_SERVER['PHP_SELF'];
+            } 
+            else $path = $_SERVER['SCRIPT_NAME'];
+            
+            $path = rtrim(dirname($path), '/\\');
+         
+            // Sanitize the url since we can't trust the server var
+            $path = KService::get('koowa:filter.url')->sanitize($path);
 
-            // Sanitize the url since we can't trust the server var         
-            $path = KFactory::get('lib.koowa.filter.url')->sanitize($path);
-                
-            self::$_base = KFactory::tmp('lib.koowa.http.uri', array('uri' => $path));
+            self::$_base = KService::get('koowa:http.url', array('url' => $path));
         }
-        
+
         return self::$_base;
     }
-    
+
     /**
      * Returns the root path of the request.
-     * 
+     *
      * In most case this value will be the same as KRequest::base however it can be
      * changed by pushing in a different value
      *
-     * @return  object  A KHttpUri object
+     * @return  object  A KHttpUrl object
      */
     public static function root($path = null)
     {
-        if(!is_null($path)) 
+        if(!is_null($path))
         {
-            if(!$path instanceof KhttpUri) {
-                $path = KFactory::tmp('lib.koowa.http.uri', array('uri' => $path));
+            if(!$path instanceof KhttpUrl) {
+                $path = KService::get('koowa:http.url', array('url' => $path));
             }
-            
+
             self::$_root = $path;
         }
-        
+
         if(is_null(self::$_root)) {
             self::$_root = self::$_base;
         }
-        
+
         return self::$_root;
     }
 
     /**
      * Returns the current request protocol, based on $_SERVER['https']. In CLI
-     * mode, NULL will be returned.
+     * mode, 'cli' will be returned.
      *
      * @return  string
      */
     public static function protocol()
     {
-        if (PHP_SAPI === 'cli') {
-            return NULL;
-        }
-
-        if (isset($_SERVER['HTTPS']) && !empty($_SERVER['HTTPS']) && (strtolower($_SERVER['HTTPS']) != 'off')) {
-            return 'https';
-        } else {
-            return 'http';
-        }
+        $protocol = 'cli';
+        
+        if (PHP_SAPI !== 'cli') 
+        {
+            $protocol = 'http';
+            
+            if (isset($_SERVER['HTTPS']) && !empty($_SERVER['HTTPS']) && (strtolower($_SERVER['HTTPS']) != 'off')) {
+                $protocol = 'https';
+            }
+        } 
+     
+        return $protocol;
     }
 
     /**
      * Returns current request method.
      *
-     * @throws  KRequestException Wgen the method could not be found
      * @return  string
      */
     public static function method()
     {
+        $method = '';
+
         if(PHP_SAPI != 'cli')
         {
             $method  =  strtoupper($_SERVER['REQUEST_METHOD']);
@@ -509,15 +523,11 @@ class KRequest
                 if(isset($_SERVER['HTTP_X_HTTP_METHOD_OVERRIDE'])) {
                     $method = strtoupper($_SERVER['HTTP_X_HTTP_METHOD_OVERRIDE']);
                 }
-                
+
                 if(self::has('post._method')) {
                     $method = strtoupper(self::get('post._method', 'cmd'));
                 }
             }
-        } 
-
-        if ( ! in_array($method, self::$_methods)) {
-            throw new KRequestException('Unknown method : '.$method);
         }
 
         return $method;
@@ -540,9 +550,13 @@ class KRequest
             $type = 'FLASH';
         }
 
+        if(preg_match('/^(Shockwave|Adobe) Flash/', KRequest::client()) == 1) {
+             $type = 'FLASH';
+        }
+
         return $type;
     }
-    
+
     /**
      * Return the request token
      *
@@ -551,23 +565,23 @@ class KRequest
     public static function token()
     {
         $token = null;
-        
+
         if(self::has('server.HTTP_X_TOKEN')) {
             $token = self::get('server.HTTP_X_TOKEN', 'md5');
         }
-        
+
         if(self::has('request._token')) {
             $token = self::get('request._token', 'md5');
         }
-        
+
         return $token;
     }
-    
+
     /**
      * Return the request format
-     * 
-     * This function tries to find the format by inspecting the accept header, 
-     * only if one accept type is specified the format will be parsed from it, 
+     *
+     * This function tries to find the format by inspecting the accept header,
+     * only if one accept type is specified the format will be parsed from it,
      * otherwise the path extension or the 'format' request variable is used.
      *
      * @return  string  The request format or NULL if no format could be found
@@ -575,30 +589,26 @@ class KRequest
     public static function format()
     {
         $format = null;
-        
-        if(count(self::accept('format')) == 1) 
+
+        if(count(self::accept('format')) == 1)
         {
             $mime   = explode('/', key(self::accept('format')));
             $format = $mime[1];
-            
+
             if($pos = strpos($format, '+')) {
                 $format = substr($format, 0, $pos);
             }
-            
+
             //Format cannot be *
-            if($format == '*') { 
-                $format = null; 
-            } 
+            if($format == '*') {
+                $format = null;
+            }
         }
-        
-        if(!empty(self::url()->format) && self::url()->format != 'php') {
-            $format = self::url()->format;
-        }
-        
+
         if(self::has('request.format')) {
             $format = self::get('request.format', 'word');
         }
-        
+
         return $format;
     }
 
@@ -606,7 +616,6 @@ class KRequest
      * Parse the variable identifier
      *
      * @param   string  Variable identifier
-     * @throws  KRequestException   When the hash could not be found
      * @return  array   0 => hash, 1 => parts
      */
     protected static function _parseIdentifier($identifier)
@@ -625,10 +634,6 @@ class KRequest
         }
 
         $hash = strtoupper($hash);
-
-        if(!in_array($hash, self::$_hashes)) {
-            throw new KRequestException("Unknown hash '$hash' in '$identifier'");
-        }
 
         return array($hash, $parts);
     }
@@ -662,8 +667,9 @@ class KRequest
                 foreach ($parts as $part)
                 {
                     // Prevent undefined $value notice below
-                    if (strpos($part, '=') === FALSE)
-                    continue;
+                    if (strpos($part, '=') === FALSE) {
+                        continue;
+                    }
 
                     // Separate the key and value
                     list ($key, $value) = explode('=', trim($part));
@@ -688,7 +694,7 @@ class KRequest
 
         return $accepts;
     }
-    
+
     /**
      * Strips slashes recursively on an array
      *
@@ -700,7 +706,7 @@ class KRequest
         if(!is_object($value)) {
             $value = is_array( $value ) ? array_map( array( 'KRequest', '_stripSlashes' ), $value ) : stripslashes( $value );
         }
-        
+
         return $value;
     }
 }

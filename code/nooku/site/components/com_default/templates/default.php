@@ -1,6 +1,6 @@
 <?php
 /**
- * @version     $Id: default.php 2876 2011-03-07 22:19:20Z johanjanssens $
+ * @version     $Id: default.php 1372 2011-10-11 18:56:47Z stian $
  * @category	Nooku
  * @package     Nooku_Components
  * @subpackage  Default
@@ -17,7 +17,7 @@
  * @package     Nooku_Components
  * @subpackage  Default
  */
-class ComDefaultTemplateDefault extends KTemplateDefault
+class ComDefaultTemplateDefault extends ComDefaultTemplateAbstract
 { 
     /**
      * Load a template helper
@@ -31,23 +31,23 @@ class ComDefaultTemplateDefault extends KTemplateDefault
      * @param   mixed   Parameters to be passed to the helper
      * @return  string  Helper output
      */
-    public function loadHelper($identifier, $params = array())
+    public function renderHelper($identifier, $params = array())
     {
-        $view = KFactory::get($this->getView());
+        $view = $this->getView();
         
         if(KInflector::isPlural($view->getName())) 
         {
-            if($state = KFactory::get($view->getModel())->getState()) {
+            if($state = $view->getModel()->getState()) {
                 $params = array_merge( $state->getData(), $params);
             }
         } 
         else 
         {
-            if($item = KFactory::get($view->getModel())->getItem()) {
+            if($item = $view->getModel()->getItem()) {
                 $params = array_merge( $item->getData(), $params);
             }
         }   
         
-        return parent::loadHelper($identifier, $params);
+        return parent::renderHelper($identifier, $params);
     }
 }

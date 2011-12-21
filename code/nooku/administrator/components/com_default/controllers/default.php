@@ -1,6 +1,6 @@
 <?php
 /**
- * @version     $Id: default.php 3027 2011-03-29 19:20:06Z johanjanssens $
+ * @version     $Id: default.php 1372 2011-10-11 18:56:47Z stian $
  * @category	Nooku
  * @package     Nooku_Components
  * @subpackage  Default
@@ -11,95 +11,55 @@
 
 
 /**
- * Default View Controller
+ * Default Controller
 .*
  * @author      Johan Janssens <johan@nooku.org>
  * @category    Nooku
  * @package     Nooku_Components
  * @subpackage  Default
  */
-class ComDefaultControllerDefault extends KControllerForm
-{
-    /**
-     * Constructor
-     *
-     * @param   object  An optional KConfig object with configuration options
-     */
-    public function __construct(KConfig $config)
-    {
-        parent::__construct($config);
+class ComDefaultControllerDefault extends KControllerService
+{    
+	/**
+	 * Constructor
+	 *
+	 * @param 	object 	An optional KConfig object with configuration options.
+	 */
+	public function __construct(KConfig $config)
+	{
+		parent::__construct($config);
 
-        //Register command callbacks
-        $this->registerCallback(array('after.save', 'after.delete'), array($this, 'setMessage'));
-        
-        //Enqueue the authorization command
-        $command = clone $this->_identifier;
-	    $command->path = 'command';
-		$command->name = 'authorize';
-	    
-        $this->getCommandChain()->enqueue( KFactory::get($command));
-    }
-    
-    /**
-     * Set the request information
-     * 
-     * This function translates 'limitstart' to 'offset' for compatibility with Joomla
+		if($config->persistable && $this->isDispatched()) {
+			$this->addBehavior('persistable');
+		}
+	}
+	
+	/**
+     * Initializes the default configuration for the object
      *
-     * @param array An associative array of request information
-     * @return KControllerBread
-     */
-    public function setRequest(array $request = array())
-    {
-        if(isset($request['limitstart'])) {
-            $request['offset'] = $request['limitstart'];
-        }
-        
-        $this->_request = new KConfig($request);
-        return $this;
-    }
-    
-    /**
-     * Filter that creates a redirect message based on the action
-     * 
-     * This function takes the row(set) status into account. If the status is STATUS_FAILED the status message information 
-     * us used to generate an appropriate redirect message and set the redirect to the referrer. Otherwise, we generate the 
-     * message based on the action and identifier name.
+     * Called from {@link __construct()} as a first step of object instantiation.
      *
-     * @param KCommandContext   The active command context
+     * @param 	object 	An optional KConfig object with configuration options.
      * @return void
      */
-    public function setMessage(KCommandContext $context)
-    { 
-        if($context->result instanceof KDatabaseRowsetInterface) {
-            $row = $context->result->top();
-        } else {
-            $row = $context->result;
-        }
+    protected function _initialize(KConfig $config)
+    {
+    	/* 
+         * Disable controller persistency on non-HTTP requests, e.g. AJAX, and requests containing 
+         * the tmpl variable set to component, e.g. requests using modal boxes. This avoids 
+         * changing the model state session variable of the requested model, which is often 
+         * undesirable under these circumstances. 
+         */  
         
-        $action = KRequest::get('post.action', 'cmd');
-        $name   = $this->_identifier->name;
-        $status = $row->getStatus();
+        $config->append(array(
+    		'persistable'  => (KRequest::type() == 'HTTP' && KRequest::get('get.tmpl','cmd') != 'component'),
+            //'behaviors'  =>  array('cacheable')
+        ));
 
-        if($status == KDatabase::STATUS_FAILED)
-        {
-            $this->_redirect        = KRequest::referrer();
-            $this->_redirect_type   = 'error';
-            
-            if($row->getStatusMessage()) {
-                $this->_redirect_message = $row->getStatusMessage();
-            } else {
-                $this->_redirect_message = JText::_(ucfirst(KInflector::singularize($name)) . ' ' . $action.' failed');
-            }
-        }
-            
-        if(!is_null($status) && ($status != KDatabase::STATUS_LOADED))
-        {
-           $suffix = ($action == 'add' || $action == 'edit') ? 'ed' : 'd';
-           $this->_redirect_message = JText::_(ucfirst(KInflector::singularize($name)) . ' ' . $action.$suffix);
-        }
+        parent::_initialize($config);
     }
-
-    /**
+ 	
+ 	/**
      * Read action
      *
      * This functions implements an extra check to hide the main menu is the view name
@@ -116,11 +76,42 @@ class ComDefaultControllerDefault extends KControllerForm
         if(isset($row))
         {
             if(!isset($this->_request->layout) && $row->isLockable() && $row->locked()) {
-                KFactory::get('lib.joomla.application')->enqueueMessage($row->lockMessage(), 'notice');
+                JFactory::getApplication()->enqueueMessage($row->lockMessage(), 'notice');
             }
         }
 
         return $row;
+    }
+    
+	/**
+     * Browse action
+     * 
+     * Use the application default limit if no limit exists in the model and limit the
+     * limit to a maximum of 100.
+     *
+     * @param   KCommandContext A command context object
+     * @return  KDatabaseRow(set)   A row(set) object containing the data to display
+     */
+    protected function _actionBrowse(KCommandContext $context)
+    {
+        if($this->isDispatched()) 
+        {
+            $limit = $this->getModel()->get('limit');
+            
+            //If limit is empty use default
+            if(empty($limit)) {
+                $limit = JFactory::getApplication()->getCfg('list_limit');
+            }
+
+            //Limit cannot be larger then 100
+            if($limit > 100) {
+                $limit = 100;
+            }
+            
+            $this->limit = $limit; 
+        }
+         
+        return parent::_actionBrowse($context);
     }
     
     /**
@@ -132,13 +123,30 @@ class ComDefaultControllerDefault extends KControllerForm
      * @param   KCommandContext A command context object
      * @return  KDatabaseRow(set)   A row(set) object containing the data to display
      */
-    protected function _actionDisplay(KCommandContext $context)
+    protected function _actionGet(KCommandContext $context)
     {
         //Load the language file for HMVC requests who are not routed through the dispatcher
         if(!$this->isDispatched()) {
-            KFactory::get('lib.joomla.language')->load('com_'.$this->getIdentifier()->package); 
+            JFactory::getLanguage()->load('com_'.$this->getIdentifier()->package); 
         }
-        
-        return parent::_actionDisplay($context);
+         
+        return parent::_actionGet($context);
     }
+    
+	/**
+     * Set a request property
+     * 
+     *  This function translates 'limitstart' to 'offset' for compatibility with Joomla
+     *
+     * @param  	string 	The property name.
+     * @param 	mixed 	The property value.
+     */
+ 	public function __set($property, $value)
+    {          
+        if($property == 'limitstart') {
+            $property = 'offset';
+        } 
+        	
+        parent::__set($property, $value);     
+  	}
 }

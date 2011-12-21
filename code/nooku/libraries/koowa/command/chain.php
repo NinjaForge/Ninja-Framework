@@ -1,6 +1,6 @@
 <?php
 /**
- * @version		$Id: chain.php 3012 2011-03-27 01:53:57Z johanjanssens $
+ * @version		$Id: chain.php 1054 2011-06-16 14:35:04Z stian $
  * @category	Koowa
  * @package		Koowa_Command
  * @copyright	Copyright (C) 2007 - 2010 Johan Janssens. All rights reserved.
@@ -109,7 +109,7 @@ class KCommandChain extends KObjectQueue
     public function run( $name, KCommandContext $context )
     {
         if($this->_enabled)
-        {
+        { 
             foreach($this as $command) 
             {
                 if ( $command->execute( $name, $context ) === $this->_break_condition) {

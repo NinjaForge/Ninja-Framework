@@ -1,24 +1,24 @@
 <?php defined( 'KOOWA' ) or die( 'Restricted access' );
 /**
- * @version		$Id: html.php 794 2011-01-10 18:44:32Z stian $
+ * @version		$Id: html.php 1399 2011-11-01 14:22:48Z stian $
  * @category	Ninja
  * @copyright	Copyright (C) 2007 - 2011 NinjaForge. All rights reserved.
  * @license		GNU GPLv3 <http://www.gnu.org/licenses/gpl.html>
  * @link     	http://ninjaforge.com
  */
 
-class ComNinjaViewTemplatesHtml extends ComNinjaViewDefault
+class NinjaViewTemplatesHtml extends NinjaViewDefault
 {
 	public function display()
 	{	
-		$this->assign('date', KFactory::get('lib.joomla.utilities.date'));
+		$this->assign('date', JFactory::getDate());
 	
 		$this->_createToolbar()
 			->reset();
-			//->append(KFactory::get('admin::com.ninja.toolbar.button.install'))
+			//->append($this->getService('ninja:toolbar.button.install'))
 			//->append('uninstall');
 
-		$this->setLayout('admin::com.ninja.view.templates.default');
+		$this->setLayout('ninja:view.templates.default');
 		return parent::display();
 	}
 }

@@ -10,7 +10,7 @@ div.header.pagetitle {
 	padding: 0;
 	margin: 0;
 }
-table.toolbar td {
+:not(.-koowa-box) > #toolbar-box table.toolbar td {
 	/*color:#666666;*/
 	height:48px;
 	padding-top: 1px;
@@ -40,18 +40,18 @@ table.toolbar td {
 table.toolbar td.spacer {
 	width: 10px;
 }
-table.toolbar td.divider {
+:not(.-koowa-box) > #toolbar-box table.toolbar td.divider {
 	border-right: 1px solid #EEEEEE;
 	width: 5px;
 }
-table.toolbar span {
+:not(.-koowa-box) > #toolbar-box table.toolbar span {
 	display: block;
 	float: none;
 	height: 32px;
 	margin: 0 auto;
 	width: 32px;
 }
-table.toolbar a {
+:not(.-koowa-box) > #toolbar-box table.toolbar a {
 	border: 1px solid #FBFBFB;
 	cursor: pointer;
 	display: block;
@@ -68,6 +68,46 @@ table.toolbar a {
 .toolbar a:focus { 
     outline: none; 
 }
+
+/* @group Nooku Server */
+/*body .-koowa-box table.toolbar {
+	margin: 0 5px;
+    padding: 0;
+}
+.-koowa-box table.toolbar td {
+	/*color:#666666;*!/
+	height: auto;
+    text-align: center;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+    margin: 0;
+    padding: 0;
+}
+
+.-koowa-box table.toolbar td.divider {
+    width: 5px;
+    border-right: 0 none transparent;
+}
+
+.-koowa-box table.toolbar span {
+	float: none;
+	margin: 0 auto;
+}
+.-koowa-box table.toolbar a {
+	border: 1px solid #FBFBFB;
+	cursor: pointer;
+	display: block;
+	float: left;
+	padding: 1px 5px;
+	white-space: nowrap;
+	text-shadow: hsla(0, 0%, 100%, .2) 0 1px 0;
+	color: #333;
+}
+*/
+.-koowa-box #toolbar-box .header {
+	background-image: none!important;
+}
+/* @end */
 
 /* @group Khepri */
 
@@ -201,7 +241,7 @@ div[id^="toolbar-"] .mc-dropdown {
 }
 /* @end */
 
-body table.toolbar {
+body :not(.-koowa-box) > #toolbar-box table.toolbar {
 	border-collapse: collapse;
 	margin: 0;
 	margin-bottom: 5px;
@@ -211,7 +251,7 @@ body table.toolbar {
 	margin-right: 10px;
 	margin-bottom: 0;
 }
-table.toolbar tbody tr td .toolbar, table.toolbar a:hover {
+:not(.-koowa-box) > #toolbar-box table.toolbar tbody tr td .toolbar, :not(.-koowa-box) > #toolbar-box table.toolbar a:hover {
 	border-color: #EEEEEE #CCCCCC #CCCCCC #EEEEEE;
 	border-style: solid;
 	border-width: 1px;
@@ -229,35 +269,12 @@ table.toolbar tbody tr td .toolbar, table.toolbar a:hover {
 	transition: opacity 100ms ease-in-out;
 }
 
-table.toolbar tbody tr td .toolbar:hover {
-	/*-webkit-box-shadow: white 0 -1px 0, lightgray 0 1px 0;
-	-moz-box-shadow: white 0 -1px 0, lightgray 0 1px 0;
-	background-color: white;
-	background-color: hsla(0, 0%, 100%, 0.95);*/
-}
-table.toolbar tbody tr td .toolbar.invalid {
+table.toolbar tbody tr td .toolbar.disabled {
 	opacity: 0.5;
 	/*color: gray;*/
 	cursor: default;
 }
-table.toolbar tbody tr td .toolbar.disabled, table.toolbar tbody tr td .toolbar.disabled:hover, table.toolbar tbody tr td .toolbar.disabled:active {
-	box-shadow: none;
-	-webkit-box-shadow: none;
-	-moz-box-shadow: none;
-	opacity: 0.5;
-	background-color: transparent;
-	transform: translateY(0px);
-	-webkit-transform: translateY(0px);
-	-moz-transform: translateY(0px);
-	top: 0;
-	background-color: transparent;
-	text-shadow: hsla(0, 0%, 100%, .2) 0 1px 0;
-	background-image: none;
-	box-shadow: none;
-	-webkit-box-shadow: none;
-	-moz-box-shadow: none;
-}
-table.toolbar tbody tr td a.toolbar:active, table.toolbar tbody tr td a.toolbar.active, table.toolbar tbody tr td .toolbar.droppable.active {
+:not(.-koowa-box) > #toolbar-box table.toolbar tbody tr td a.toolbar:active, :not(.-koowa-box) > #toolbar-box table.toolbar tbody tr td a.toolbar.active, :not(.-koowa-box) > #toolbar-box table.toolbar tbody tr td .toolbar.droppable.active {
 	/*transform: translateY(1px);
 	-webkit-transform: translateY(1px);
 	-moz-transform: translateY(1px);*/
@@ -273,7 +290,7 @@ table.toolbar tbody tr td a.toolbar:active, table.toolbar tbody tr td a.toolbar.
 	-webkit-box-shadow: hsla(0, 0%, 0%, .2) 0 -1px 0, hsla(0, 0%, 100%, .2) 0 1px 0;
 	-moz-box-shadow: hsla(0, 0%, 0%, .2) 0 -1px 0, hsla(0, 0%, 100%, .2) 0 1px 0;
 }
-table.toolbar tbody tr td .toolbar:active span, table.toolbar tbody tr td .toolbar.droppable.active span, table.toolbar tbody tr td .toolbar.disabled span {
+table.toolbar tbody tr td .toolbar:active span, table.toolbar tbody tr td .toolbar.droppable.active span {
 	background-position: center bottom;
 }
 table.toolbar tbody tr td.spacer {
@@ -289,3 +306,26 @@ table.toolbar tbody tr td.spacer + td.spacer {
 
 /* The default button, should have a star, not the default icon */
 .toolbar .icon-32-default { background-image: url(../images/32/star.png) !important; }
+.toolbar .icon-32-new {
+    background-image: url(../images/32/new.png);
+}
+.toolbar .icon-32-delete {
+    background-image: url(../images/32/delete.png);
+}
+.toolbar .icon-32-enable,
+.toolbar .icon-32-publish {
+    background-image: url(../images/32/enable.png);
+}
+.toolbar .icon-32-disable,
+.toolbar .icon-32-unpublish {
+    background-image: url(../images/32/disable.png);
+}
+.toolbar .icon-32-save {
+    background-image: url(../images/32/save.png);
+}
+.toolbar .icon-32-apply {
+    background-image: url(../images/32/apply.png);
+}
+.toolbar .icon-32-cancel {
+    background-image: url(../images/32/cancel.png);
+}

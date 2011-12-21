@@ -1,6 +1,6 @@
 <?php
 /**
- * @version     $Id: array.php 2876 2011-03-07 22:19:20Z johanjanssens $
+ * @version     $Id: array.php 1372 2011-10-11 18:56:47Z stian $
  * @category	Koowa
  * @package     Koowa_Helper
  * @subpackage	Array
@@ -130,31 +130,41 @@ class KHelperArray
      * @param   boolean 
      * @return  string  The string mapped from the given array
      */
-    public static function toString( $array = null, $inner_glue = '=', $outer_glue = ' ', $keepOuterKey = false )
+    public static function toString($array = null, $inner_glue = '=', $outer_glue = ' ', $keepOuterKey = false)
     {
         $output = array();
         
+        if($array instanceof KConfig)
+        {
+            $data = array();
+            foreach($array as $key => $item)
+            {
+                $data[$key] = (string) $item;
+            }
+            $array = $data;
+        }
+        
         if(is_object($array)) {
-            $array = (array) KConfig::toData($array);
+            $array = (array) KConfig::unbox($array);
         }
 
-        if (is_array($array))
+        if(is_array($array))
         {
-            foreach ($array as $key => $item)
+            foreach($array as $key => $item)
             {
-                if (is_array ($item))
+                if(is_array($item))
                 {
-                    if ($keepOuterKey) {
+                    if($keepOuterKey) {
                         $output[] = $key;
                     }
 
                     // This is value is an array, go and do it again!
-                    $output[] = KHelperArray::toString( $item, $inner_glue, $outer_glue, $keepOuterKey);
+                    $output[] = KHelperArray::toString($item, $inner_glue, $outer_glue, $keepOuterKey);
                 }
-                else $output[] = $key.$inner_glue.'"'.$item.'"';
+                else $output[] = $key.$inner_glue.'"'.str_replace('"', '&quot;', $item).'"';
             }
         }
 
-        return implode( $outer_glue, $output);
+        return implode($outer_glue, $output);
     }
 }

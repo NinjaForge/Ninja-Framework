@@ -1,6 +1,6 @@
 <?php defined( 'KOOWA' ) or die( 'Restricted access' );
 /**
- * @version		$Id: hierarchy.php 919 2011-03-21 21:45:13Z stian $
+ * @version		$Id: hierarchy.php 1399 2011-11-01 14:22:48Z stian $
  * @category	Ninja
  * @package     Ninja_Rows
  * @copyright	Copyright (C) 2007 - 2011 NinjaForge. All rights reserved.
@@ -15,7 +15,7 @@
  * @category	Ninja
  * @package     Ninja_Rows
  */
-class ComNinjaDatabaseRowHierarchy extends KDatabaseRowDefault
+class NinjaDatabaseRowHierarchy extends KDatabaseRowDefault
 {
 
 	/**
@@ -31,7 +31,7 @@ class ComNinjaDatabaseRowHierarchy extends KDatabaseRowDefault
     	{
     		$id    = $this->id;
     		
-    		$table = KFactory::get($this->getTable());
+    		$table = $this->getService($this->getTable());
     		
     		$query = $table->getDatabase()->getQuery();
     		$query->where('path', 'like', '%'.$id.'%');

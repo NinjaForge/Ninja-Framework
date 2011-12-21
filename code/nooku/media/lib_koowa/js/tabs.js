@@ -1,5 +1,5 @@
 /**
- * @version     $Id: tabs.js 1001 2011-04-07 19:02:04Z stian $
+ * @version     $Id: tabs.js 1314 2011-09-07 12:30:43Z stian $
  * @category    Nooku
  * @package     Nooku_Media
  * @subpackage  Javascript
@@ -18,8 +18,13 @@ if(!Koowa) var Koowa = {};
  * @package     Nooku_Media
  * @subpackage  Javascript
  */
+(function(){
+var $ = document.id;
+
 Koowa.Tabs = new Class({
 
+    Implements: [Options, Events],
+    
     getOptions: function()
     {
         return {
@@ -42,8 +47,8 @@ Koowa.Tabs = new Class({
     {
         this.dlist = $(dlist);
         this.setOptions(this.getOptions(), options);
-        this.titles = this.dlist.getElements('dt');
-        this.descriptions = this.dlist.getElements('dd');
+        this.titles = this.dlist.getChildren('dt');
+        this.descriptions = this.dlist.getChildren('dd');
         this.content = new Element('div').injectAfter(this.dlist).addClass('current');
           
         if(this.options.height) {
@@ -86,5 +91,4 @@ Koowa.Tabs = new Class({
         this.fireEvent('onActive', [this.titles[i], this.descriptions[i]])
     }
 });
-
-Koowa.Tabs.implement(new Events, new Options);
+})();

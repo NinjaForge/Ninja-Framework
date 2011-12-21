@@ -1,6 +1,6 @@
 <?php
 /**
- * @version 	$Id: abstract.php 2876 2011-03-07 22:19:20Z johanjanssens $
+ * @version 	$Id: abstract.php 1372 2011-10-11 18:56:47Z stian $
  * @category	Koowa
  * @package		Koowa_Database
  * @subpackage 	Behavior
@@ -19,18 +19,25 @@
 abstract class KDatabaseBehaviorAbstract extends KMixinAbstract implements KDatabaseBehaviorInterface
 {
 	/**
-	 * The behavior identifier
-	 *
-	 * @var KIdentifierInterface
-	 */
-	protected $_identifier;
-	
-	/**
 	 * The behavior priority
 	 *
-	 * @var KIdentifierInterface
+	 * @var integer
 	 */
 	protected $_priority;
+	
+	/**
+     * The service identifier
+     *
+     * @var KServiceIdentifier
+     */
+    private $__service_identifier;
+    
+    /**
+     * The service container
+     *
+     * @var KServiceInterface
+     */
+    private $__service_container;
 	
 	/**
 	 * Constructor.
@@ -39,10 +46,24 @@ abstract class KDatabaseBehaviorAbstract extends KMixinAbstract implements KData
 	 */
 	public function __construct( KConfig $config = null) 
 	{ 
-		$this->_identifier = $config->identifier;
+	    //Set the service container
+        if(isset($config->service_container)) {
+            $this->__service_container = $config->service_container;
+        }
+        
+        //Set the service identifier
+        if(isset($config->service_identifier)) {
+            $this->__service_identifier = $config->service_identifier;
+        }
+        
 		parent::__construct($config);
 		
 		$this->_priority = $config->priority;
+		
+	    //Automatically mixin the behavior with the mixer (table object)
+		if($config->auto_mixin) {
+		    $this->mixin($this);
+		}
 	}
 	
 	/**
@@ -57,21 +78,11 @@ abstract class KDatabaseBehaviorAbstract extends KMixinAbstract implements KData
     {
     	$config->append(array(
 			'priority'   => KCommand::PRIORITY_NORMAL,
+    	    'auto_mixin' => false
 	  	));
 
     	parent::_initialize($config);
    	}
-	
-	/**
-	 * Get the object identifier
-	 * 
-	 * @return	KIdentifier	
-	 * @see 	KObjectIdentifiable
-	 */
-	public function getIdentifier()
-	{
-		return $this->_identifier;
-	}
 	
 	/**
 	 * Get the priority of a behavior
@@ -105,7 +116,7 @@ abstract class KDatabaseBehaviorAbstract extends KMixinAbstract implements KData
 		if(method_exists($this, $method)) 
 		{
 			if($context->data instanceof KDatabaseRowInterface) {
-			     $this->mixer = $context->data;
+			     $this->setMixer($context->data);
 			}
 		    
 			return $this->$method($context);
@@ -188,8 +199,40 @@ abstract class KDatabaseBehaviorAbstract extends KMixinAbstract implements KData
     public function getMixableMethods(KObject $mixer = null)
     {
         $methods   = parent::getMixableMethods($mixer);
-        $methods[] = 'is'.ucfirst($this->_identifier->name);
+        $methods[] = 'is'.ucfirst($this->getIdentifier()->name);
             
-        return array_diff($methods, array('execute', 'save', 'delete'));
+        return array_diff($methods, array('execute', 'save', 'delete', 'getHandle', 'getPriority', 'getIdentifier', 'getService'));
     }
+    
+	/**
+	 * Get an instance of a class based on a class identifier only creating it
+	 * if it doesn't exist yet.
+	 *
+	 * @param	string|object	The class identifier or identifier object
+	 * @param	array  			An optional associative array of configuration settings.
+	 * @throws	KServiceServiceException
+	 * @return	object  		Return object on success, throws exception on failure
+	 * @see 	KObjectServiceable
+	 */
+	final public function getService($identifier, array $config = array())
+	{
+	    return $this->__service_container->get($identifier, $config);
+	}
+	
+	/**
+	 * Gets the service identifier.
+	 *
+	 * @return	KServiceIdentifier
+	 * @see 	KObjectServiceable
+	 */
+	final public function getIdentifier($identifier = null)
+	{
+		if(isset($identifier)) {
+		    $result = $this->__service_container->getIdentifier($identifier);
+		} else {
+		    $result = $this->__service_identifier; 
+		}
+	    
+	    return $result;
+	}
 }

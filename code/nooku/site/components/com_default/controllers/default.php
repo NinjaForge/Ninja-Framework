@@ -1,6 +1,6 @@
 <?php
 /**
- * @version     $Id: default.php 2721 2010-10-27 00:58:51Z johanjanssens $
+ * @version     $Id: default.php 1372 2011-10-11 18:56:47Z stian $
  * @category    Nooku
  * @package     Nooku_Components
  * @subpackage  Default
@@ -10,50 +10,15 @@
  */
 
 /**
- * Default View Controller
+ * Default Controller
 .*
  * @author      Johan Janssens <johan@nooku.org>
  * @category    Nooku
  * @package     Nooku_Components
  * @subpackage  Default
  */
-class ComDefaultControllerDefault extends KControllerForm
+class ComDefaultControllerDefault extends KControllerService
 {
- 	/**
-     * Constructor
-     *
-     * @param   object  An optional KConfig object with configuration options
-     */
-    public function __construct(KConfig $config)
-    {
-        parent::__construct($config);
-        
-         //Enqueue the authorization command
-        $command = clone $this->_identifier;
-	    $command->path = 'command';
-		$command->name = 'authorize';
-	    
-        $this->getCommandChain()->enqueue( KFactory::get($command));
-    }
-    
-    /**
-     * Set the request information
-     * 
-     * This function translates 'limitstart' to 'offset' for compatibility with Joomla
-     *
-     * @param array An associative array of request information
-     * @return KControllerBread
-     */
-    public function setRequest(array $request = array())
-    {
-        if(isset($request['limitstart'])) {
-            $request['offset'] = $request['limitstart'];
-        }
-        
-        $this->_request = new KConfig($request);
-        return $this;
-    }
-    
     /**
      * Display action
      * 
@@ -62,13 +27,61 @@ class ComDefaultControllerDefault extends KControllerForm
      * @param   KCommandContext A command context object
      * @return  KDatabaseRow(set)   A row(set) object containing the data to display
      */
-    protected function _actionDisplay(KCommandContext $context)
+    protected function _actionGet(KCommandContext $context)
     {
         //Load the language file for HMVC requests who are not routed through the dispatcher
         if(!$this->isDispatched()) {
-            KFactory::get('lib.joomla.language')->load('com_'.$this->getIdentifier()->package); 
+            JFactory::getLanguage()->load('com_'.$this->getIdentifier()->package); 
         }
         
-        return parent::_actionDisplay($context);
+        return parent::_actionGet($context);
     }
+    
+	/**
+     * Browse action
+     * 
+     * Use the application default limit if no limit exists in the model and limit the
+     * limit to a maximum of 100.
+     *
+     * @param   KCommandContext A command context object
+     * @return  KDatabaseRow(set)   A row(set) object containing the data to display
+     */
+    protected function _actionBrowse(KCommandContext $context)
+    {
+        if($this->isDispatched()) 
+        {
+            $limit = $this->getModel()->get('limit');
+            
+            //If limit is empty use default
+            if(empty($limit)) {
+                $limit = JFactory::getApplication()->getCfg('list_limit');
+            }
+
+            //Limit cannot be larger then 100
+            if($limit > 100) {
+                $limit = 100;
+            }
+            
+            $this->limit = $limit; 
+        }
+         
+        return parent::_actionBrowse($context);
+    }
+    
+	/**
+     * Set a request property
+     * 
+     *  This function translates 'limitstart' to 'offset' for compatibility with Joomla
+     *
+     * @param  	string 	The property name.
+     * @param 	mixed 	The property value.
+     */
+ 	public function __set($property, $value)
+    {          
+        if($property == 'limitstart') {
+            $property = 'offset';
+        } 
+        	
+        parent::__set($property, $value);     
+  	}
 }

@@ -1,6 +1,6 @@
 <?php defined( 'KOOWA' ) or die( 'Restricted access' );
 /**
- * @version		$Id: textarea.php 552 2010-10-28 19:41:51Z stian $
+ * @version		$Id: textarea.php 1399 2011-11-01 14:22:48Z stian $
  * @category	Koowa
  * @package		Koowa_Form
  * @subpackage 	Element
@@ -17,7 +17,7 @@
  * @package     Koowa_Form
  * @subpackage 	Element
  */
-class ComNinjaFormElementTextarea extends ComNinjaFormElementAbstract implements ComNinjaFormElementInterface
+class NinjaFormElementTextarea extends NinjaFormElementAbstract implements NinjaFormElementInterface
 {
 	/**
 	 * Valid attributes for the element

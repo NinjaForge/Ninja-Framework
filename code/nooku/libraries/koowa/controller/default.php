@@ -1,6 +1,6 @@
 <?php
 /**
- * @version		$Id: default.php 2969 2011-03-23 21:15:11Z johanjanssens $
+ * @version		$Id: default.php 1054 2011-06-16 14:35:04Z stian $
  * @category	Koowa
  * @package     Koowa_Controller
  * @copyright	Copyright (C) 2007 - 2010 Johan Janssens. All rights reserved.
@@ -9,13 +9,13 @@
  */
 
 /**
- * Action Controller Class
+ * Default Controller Class
  *
  * @author		Johan Janssens <johan@nooku.org>
  * @category	Koowa
  * @package     Koowa_Controller
  */
-class KControllerDefault extends KControllerForm
+class KControllerDefault extends KControllerService
 {
 
 }

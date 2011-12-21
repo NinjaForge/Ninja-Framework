@@ -12,7 +12,7 @@ defined('_JEXEC') or die( 'Restricted access' );
  * 
  */
  
-class ComNinjaElementNote extends ComNinjaElementAbstract
+class NinjaElementNote extends NinjaElementAbstract
 {
 	/**
 	 * Element name
@@ -63,7 +63,7 @@ class ComNinjaElementNote extends ComNinjaElementAbstract
 				
 			
 				//Do js
-				KFactory::get('admin::com.ninja.helper.default')->js('window.addEvent("domready", function() { 
+				$this->getService('ninja:template.helper.document')->load('js', 'window.addEvent("domready", function() { 
 											var noteSlide'.$noteId.' = new Fx.Slide("'.$noteId.'").hide();
 											
 											$("noteToggle'.$noteId.'").addEvent("click", function(e){

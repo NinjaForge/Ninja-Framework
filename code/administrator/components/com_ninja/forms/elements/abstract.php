@@ -1,6 +1,6 @@
 <?php defined( 'KOOWA' ) or die( 'Restricted access' );
 /**
- * @version		$Id: abstract.php 552 2010-10-28 19:41:51Z stian $
+ * @version		$Id: abstract.php 1399 2011-11-01 14:22:48Z stian $
  * @category	Koowa
  * @package		Koowa_Form
  * @subpackage 	Element
@@ -17,7 +17,7 @@
  * @package     Koowa_Form
  * @subpackage 	Element
  */
-abstract class ComNinjaFormElementAbstract extends KObject implements ComNinjaFormElementInterface, KObjectIdentifiable
+abstract class NinjaFormElementAbstract extends KObject implements NinjaFormElementInterface
 {
 	/**
 	 * Attributes for the element
@@ -55,13 +55,6 @@ abstract class ComNinjaFormElementAbstract extends KObject implements ComNinjaFo
 	protected $_default;
 	
 	protected $_label = array( 'label', 'description');
-		
-	/**
-	 * The object identifier
-	 *
-	 * @var object 
-	 */
-	protected $_identifier = null;
 
 	/**
 	 * Constructor
@@ -70,37 +63,9 @@ abstract class ComNinjaFormElementAbstract extends KObject implements ComNinjaFo
 	 */
 	public function __construct(KConfig $options)
 	{
-        $this->_identifier = $options->identifier;
 		parent::__construct($options);
 	}
 
-	/**
-	 * Initializes the options for the object
-	 *
-	 * Called from {@link __construct()} as a first step of object instantiation.
-	 *
-	 * @param   array   Options
-	 * @return  array   Options
-	 */
-	protected function _initialize(KConfig $options)
-	{
-		$options->append(array(
-			'identifier' => null
-       	));
-       	
-        parent::_initialize($options);
-    }
-    
-    /**
-	 * Get the identifier
-	 *
-	 * @return 	object A KFactoryIdentifier object
-	 */
-	public function getIdentifier()
-	{
-		return $this->_identifier;
-	}
-	
 	/**
 	 * Set value
 	 *

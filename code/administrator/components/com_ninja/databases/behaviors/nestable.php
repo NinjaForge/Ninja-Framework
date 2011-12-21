@@ -1,6 +1,6 @@
 <?php defined( 'KOOWA' ) or die( 'Restricted access' );
 /**
- * @version		$Id: nestable.php 913 2011-03-17 18:19:44Z stian $
+ * @version		$Id: nestable.php 1399 2011-11-01 14:22:48Z stian $
  * @package		Ninja
  * @copyright	Copyright (C) 2011 NinjaForge. All rights reserved.
  * @license 	GNU GPLv3 <http://www.gnu.org/licenses/gpl.html>
@@ -14,7 +14,7 @@
  * @package     Ninja
  * @subpackage 	Behaviors
  */
-class ComNinjaDatabaseBehaviorNestable extends KDatabaseBehaviorAbstract
+class NinjaDatabaseBehaviorNestable extends KDatabaseBehaviorAbstract
 {
 	/**
 	 * Get the methods that are available for mixin based
@@ -42,7 +42,7 @@ class ComNinjaDatabaseBehaviorNestable extends KDatabaseBehaviorAbstract
 		$ids = array_filter(explode('/', $this->path));		
 		$identifier = clone $this->getTable()->getIdentifier();
 		$identifier->path = (array) 'model';
-		$model = KFactory::tmp($identifier)->limit(0);
+		$model = $this->getService($identifier)->limit(0);
 		
 		$model->id($ids);
 		foreach($states as $state => $value)
@@ -56,21 +56,21 @@ class ComNinjaDatabaseBehaviorNestable extends KDatabaseBehaviorAbstract
 	/**
 	 * Get children
 	 *
-	 * @TODO					Currently it's required to extend ComNinjaModelTable
+	 * @TODO					Currently it's required to extend NinjaModelTable
 	 *							for this function to work, or that you have an
 	 *							equalent buildQuery function in your model to
-	 *							ComNinjaModelTable::buildQuery().
+	 *							NinjaModelTable::buildQuery().
 	 *
 	 * @param  $states	array	Pass states to the model if needed.
 	 */
 	public function getChildren($states = array())
 	{
-		$table = KFactory::get($this->getTable());
+		$table = $this->getService($this->getTable());
 		$query = $table->getDatabase()->getQuery()->where('path', 'LIKE', '%/'.$this->id.'/');
 		
 		$identifier = clone $this->getTable();
 		$identifier->path = (array) 'model';
-		$model = KFactory::tmp($identifier);
+		$model = $this->getService($identifier);
 		
 		foreach($states as $state => $value)
 		{
@@ -97,7 +97,7 @@ class ComNinjaDatabaseBehaviorNestable extends KDatabaseBehaviorAbstract
 	 */
 	protected function _afterTableDelete(KCommandContext $context)
 	{
-		$query	= KFactory::tmp('lib.koowa.database.query')->where('path', 'LIKE', '%/'.$context['data']->id.'/');
+		$query	= $this->getService('koowa:database.adapter.mysqli')->getQuery()->where('path', 'LIKE', '%/'.$context['data']->id.'/');
 		$context['caller']->select($query)->delete();
 	}
 	

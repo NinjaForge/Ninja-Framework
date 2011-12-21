@@ -1,13 +1,13 @@
 <?php defined( 'KOOWA' ) or die( 'Restricted access' );
 /**
- * @version		$Id: mixin.php 980 2011-04-04 20:26:19Z stian $
+ * @version		$Id: mixin.php 1399 2011-11-01 14:22:48Z stian $
  * @category	Napi
  * @copyright	Copyright (C) 2007 - 2011 NinjaForge. All rights reserved.
  * @license		GNU GPLv3 <http://www.gnu.org/licenses/gpl.html>
  * @link     	http://ninjaforge.com
  */
 
-class ComNinjaViewUserMixin extends KMixinAbstract
+class NinjaViewUserMixin extends KMixinAbstract
 {
 	public function setLoginLayout()
 	{
@@ -18,14 +18,14 @@ class ComNinjaViewUserMixin extends KMixinAbstract
 		));
 		
 	
-		KFactory::get('lib.joomla.language')->load('com_user');
+		JFactory::getLanguage()->load('com_user');
 		
 		if($this->getIdentifier()->name == 'json') return $this->renderJsonLogin();
 
-		$template = KFactory::get('lib.joomla.application')->getTemplate();
+		$template = JFactory::getApplication()->getTemplate();
 		$path     = JPATH_THEMES.DS.$template.DS.'html'.DS.'com_user'.DS.'login';
-		KFactory::get($this->getTemplate())->addPath($path);
-		$this->setLayout('site::com.user.view.login.default_login');
+		//$this->getService($this->getTemplate())->addPath($path);
+		$this->setLayout('com://site/user.view.login.default_login');
 		$this->params = new KObject;
 		
 		$menu   =& JSite::getMenu();
@@ -61,17 +61,17 @@ class ComNinjaViewUserMixin extends KMixinAbstract
 		}
 		
 		$url = KRequest::url();
-		$uri = KFactory::get('lib.koowa.http.uri');
+		$uri = $this->getService('koowa:http.url');
 		$uri->path = $url->path;
 		$uri->query = $url->getQuery(1);
 		
-		$params->def( 'pageclass_sfx', 			'' );
-		$params->def( 'login', 					$uri );
-		$params->def( 'description_login', 		1 );
-		$params->def( 'description_logout', 		1 );
+		$params->def( 'pageclass_sfx',             '');
+		$params->def( 'login', 					    $uri );
+		$params->def( 'description_login', 		    1);
+		$params->def( 'description_logout', 		1);
 		$params->def( 'description_login_text', 	JText::_( 'LOGIN_DESCRIPTION' ) );
 		$params->def( 'description_logout_text',	JText::_( 'LOGOUT_DESCRIPTION' ) );
-		$params->def( 'image_login', 				$this->img('/32/'.$this->getIdentifier()->package.'.png'));
+		$params->def( 'image_login', 				'');
 		$params->def( 'image_login_align', 			'left' );
 		$usersConfig = &JComponentHelper::getParams( 'com_users' );
 		$params->def( 'registration', 				$usersConfig->get( 'allowUserRegistration' ) );
@@ -79,13 +79,7 @@ class ComNinjaViewUserMixin extends KMixinAbstract
 		$title = JText::_( 'Login');
 
 		// Set page title
-		KFactory::get('lib.joomla.document')->setTitle( $title );
-
-		// Build login image if enabled
-		if ( $params->get( 'image_'.$type ) != -1 ) {
-			$this->css('.login-icon{vertical-align: middle!important; -webkit-user-drag: none;}');
-			$image = '<img class="login-icon" src="'. $params->get( 'image_'.$type )  .'" align="'. $params->get( 'image_'.$type.'_align' ) .'" alt="'.$this->getIdentifier()->package.' app icon" />';
-		}
+		JFactory::getDocument()->setTitle( $title );
 
 		// Get the return URL
 		if (!$url = JRequest::getVar('return', '', 'method', 'base64')) {
@@ -103,7 +97,7 @@ class ComNinjaViewUserMixin extends KMixinAbstract
 			'type'		=> $type,
 			'return'	=> $url,
 			'params'	=> $params
-		))->mixin(KFactory::get('admin::com.ninja.template.mixin'));
+		))->mixin($this->getService('ninja:template.mixin'));
 		
 		return $this;
 	}
@@ -116,10 +110,10 @@ class ComNinjaViewUserMixin extends KMixinAbstract
 	private function renderJsonLogin()
 	{
 		//$this->_document->setMimeEncoding('application/json');
-		KFactory::get('lib.joomla.document')->setMimeEncoding('text/html');
+		JFactory::getDocument()->setMimeEncoding('text/html');
 		
 		$url = KRequest::url();
-		$uri = KFactory::get('lib.koowa.http.uri');
+		$uri = $this->getService('koowa:http.url');
 		$uri->path = $url->path;
 		$uri->query = $url->getQuery(1);
 		

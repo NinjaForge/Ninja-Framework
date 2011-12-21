@@ -1,6 +1,6 @@
 <?php defined( 'KOOWA' ) or die( 'Restricted access' );
 /**
- * @version		$Id: images.php 794 2011-01-10 18:44:32Z stian $
+ * @version		$Id: images.php 1399 2011-11-01 14:22:48Z stian $
  * @category	Napi
  * @package		Napi_Parameter
  * @copyright	Copyright (C) 2007 - 2011 NinjaForge. All rights reserved.
@@ -8,13 +8,13 @@
  * @link     	http://ninjaforge.com
  */
 
-class ComNinjaElementImages extends ComNinjaElementAbstract
+class NinjaElementImages extends NinjaElementAbstract
 {
 	public function fetchElement($name, $value, &$node, $control_name)
 	{
 		$path = 'images/stories';
 		if(isset($this->node['path'])) $path = (string) $this->node['path'];
 
-		return KFactory::get('admin::com.ninja.helper.select')->images(array('path' => JPATH_ROOT.'/'.$path, 'name' => $this->name, 'selected' => $value, 'id' => $this->id));
+		return $this->getService('ninja:template.helper.select')->images(array('path' => JPATH_ROOT.'/'.$path, 'name' => $this->name, 'selected' => $value, 'id' => $this->id));
 	}
 }

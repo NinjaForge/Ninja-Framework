@@ -1,6 +1,6 @@
 <?php defined( 'KOOWA' ) or die( 'Restricted access' );
 /**
-* @version		$Id: html.php 980 2011-04-04 20:26:19Z stian $
+* @version		$Id: html.php 1399 2011-11-01 14:22:48Z stian $
 * @category		Koowa
 * @package      Koowa_Modules
 * @copyright    Copyright (C) 2007 - 2009 Johan Janssens and Mathias Verraes. All rights reserved.
@@ -9,7 +9,7 @@
 */
 
 /**
- * ComNinjaViewModuleHtml
+ * NinjaViewModuleHtml
  *
  * Originally ModDefaultHtml, but we moved it here so that we don't have to install two dummy modules on our users sites.
  * It also allows us to make modules more easily do things that we do often @NinjaForge (like rendering modules within modules)
@@ -17,7 +17,7 @@
  * 
  * @author stian didriksen <stian@ninjaforge.com>
  */
-class ComNinjaViewModuleHtml extends ComNinjaViewHtml
+class NinjaViewModuleHtml extends NinjaViewHtml
 {
 	/**
 	 * Constructor
@@ -36,10 +36,10 @@ class ComNinjaViewModuleHtml extends ComNinjaViewHtml
         $this->module  = $options->module;
         $this->attribs = $options->attribs;
         
-        $template = KFactory::get('lib.joomla.application')->getTemplate();
-        $path     = JPATH_THEMES.DS.$template.DS.'html'.DS.'mod_'.$this->_identifier->package;
+        $template = JFactory::getApplication()->getTemplate();
+        $path     = JPATH_THEMES.DS.$template.DS.'html'.DS.'mod_'.$this->getIdentifier()->package;
           
-		KFactory::get($this->getTemplate())->addPath($path);
+		$this->getService($this->getTemplate())->addPath($path);
 	}
 	
 	/**
@@ -51,7 +51,7 @@ class ComNinjaViewModuleHtml extends ComNinjaViewHtml
 	 */
 	public function getName()
 	{
-		return $this->_identifier->package;
+		return $this->getIdentifier()->package;
 	}
 	
 	/**

@@ -1,6 +1,6 @@
 <?php defined( 'KOOWA' ) or die( 'Restricted access' );
 /**
- * @version		$Id: jsonable.php 794 2011-01-10 18:44:32Z stian $
+ * @version		$Id: jsonable.php 1399 2011-11-01 14:22:48Z stian $
  * @package		Ninja
  * @copyright	Copyright (C) 2011 NinjaForge. All rights reserved.
  * @license 	GNU GPLv3 <http://www.gnu.org/licenses/gpl.html>
@@ -14,7 +14,7 @@
  * @package     Ninja
  * @subpackage 	Behaviors
  */
-class ComNinjaDatabaseBehaviorJsonable extends KDatabaseBehaviorAbstract
+class NinjaDatabaseBehaviorJsonable extends KDatabaseBehaviorAbstract
 {
 	/**
 	 * An array over the fields to encode and decode

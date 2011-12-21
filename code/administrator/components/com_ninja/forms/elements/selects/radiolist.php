@@ -1,6 +1,6 @@
 <?php defined( 'KOOWA' ) or die( 'Restricted access' );
 /**
- * @version		$Id: radiolist.php 552 2010-10-28 19:41:51Z stian $
+ * @version		$Id: radiolist.php 1399 2011-11-01 14:22:48Z stian $
  * @category	Koowa
  * @package		Koowa_Form
  * @subpackage 	Element
@@ -17,7 +17,7 @@
  * @package     Koowa_Form
  * @subpackage 	Element
  */
-class ComNinjaFormElementSelectRadiolist extends ComNinjaFormElementAbstract implements ComNinjaFormElementInterface
+class NinjaFormElementSelectRadiolist extends NinjaFormElementAbstract implements NinjaFormElementInterface
 {
 	/**
 	 * Options for the element
@@ -40,13 +40,13 @@ class ComNinjaFormElementSelectRadiolist extends ComNinjaFormElementAbstract imp
 		
 		foreach($this->_xml->option as $option)	
 		{
-			$elem = KFactory::tmp('admin::com.ninja.form.element.select.radio')
+			$elem = $this->getService('ninja:form.element.select.radio')
 				->importXml($option);
 			$this->addOption($elem);
 		}
 		if($this->_xml['get']) 
 		{
-			$get = isset($this->_xml['tmp']) && $this->_xml['tmp'] == true ? KFactory::tmp(new KIdentifier($this->_xml['get'])) : KFactory::get(new KIdentifier($this->_xml['get']));
+			$get = isset($this->_xml['tmp']) && $this->_xml['tmp'] == true ? $this->getService(new KServiceIdentifier($this->_xml['get'])) : $this->getService(new KServiceIdentifier($this->_xml['get']));
 			if($this->_xml['set'])
 			{
 				$json 	= '{"'.str_replace(array(';', ':'), array('","', '":"'), (string)$this->_xml['set']).'"}';
@@ -63,7 +63,7 @@ class ComNinjaFormElementSelectRadiolist extends ComNinjaFormElementAbstract imp
 			foreach($get->getList() as $item)
 			{
 				$string = '<option value="' . $item->$val . '">'.$item->$key. '</option>';
-				$elem = KFactory::tmp('admin::com.ninja.form.element.select.radio')
+				$elem = $this->getService('ninja:form.element.select.radio')
 					->importXml(simplexml_load_string($string));
 				$this->addOption($elem);
 			}
@@ -108,7 +108,7 @@ class ComNinjaFormElementSelectRadiolist extends ComNinjaFormElementAbstract imp
 		}
 		
 		/*
-		$filter 	= KFactory::get('lib.koowa.filter.boolean');
+		$filter 	= $this->getService('koowa:filter.boolean');
 		
 		$name 		= ' name="'.htmlspecialchars($this->getName()).'"';
 		$id			= ' id="'.htmlspecialchars($this->getName()).'_id"';

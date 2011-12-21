@@ -27,7 +27,7 @@ defined('_JEXEC') or die();
  * @package RocketTheme
  * @subpackage rokstories.elements
  */
-class ComNinjaElementComponentcheck extends ComNinjaElementAbstract {
+class NinjaElementComponentcheck extends NinjaElementAbstract {
 	
 
 	function fetchElement($name, $value, &$node, $control_name)

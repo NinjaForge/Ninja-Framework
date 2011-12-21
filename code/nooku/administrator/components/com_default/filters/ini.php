@@ -1,6 +1,6 @@
 <?php
 /**
-* @version      $Id: ini.php 918 2011-03-21 21:30:59Z stian $
+* @version      $Id: ini.php 1389 2011-10-17 17:45:47Z stian $
 * @category     Koowa
 * @package      Koowa_Filter
 * @copyright    Copyright (C) 2007 - 2010 Johan Janssens. All rights reserved.
@@ -61,24 +61,28 @@ class ComDefaultFilterIni extends KFilterAbstract
     {
         $result  = null;
         
-        $handler = JRegistryFormat::getInstance('INI');
+        if(!($value instanceof JRegistry))
+        {
+            $handler = JRegistryFormat::getInstance('INI');
 
-        if(is_a($value, 'KConfig')) {
-            $value = $value->toArray(); 
-        }    
+            if($value instanceof KConfig) {
+                $value = $value->toArray(); 
+            }    
 
-        if(is_string($value)) {
-            $result = $handler->stringToObject($value);
-        }
+            if(is_string($value)) {
+                $result = $handler->stringToObject($value);
+            }
         
-        if(is_array($value)) {
-            $value = (object) $value;
-        }
+            if(is_array($value)) {
+                $value = (object) $value;
+            }
 
-        if(is_null($result)) {
-             $result = $handler->objectToString($value, null);
+            if(is_null($result)) {
+                 $result = $handler->objectToString($value, null);
+            } 
         }
-
+        else $result = $value->toString('INI');
+        
         return $result;
     }
 }

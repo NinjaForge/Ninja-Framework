@@ -1,6 +1,6 @@
 <?php
 /**
- * @version     $Id: abstract.php 1919 2010-04-25 20:49:47Z johanjanssens $
+ * @version     $Id: abstract.php 1372 2011-10-11 18:56:47Z stian $
  * @category    Koowa
  * @package     Koowa_Database
  * @subpackage  Behavior
@@ -21,7 +21,7 @@ abstract class KTemplateFilterAbstract extends KObject implements KTemplateFilte
     /**
      * The behavior priority
      *
-     * @var KIdentifierInterface
+     * @var integer
      */
     protected $_priority;
     
@@ -60,18 +60,7 @@ abstract class KTemplateFilterAbstract extends KObject implements KTemplateFilte
 
         parent::_initialize($config);
     }
-    
-    /**
-     * Get the object identifier
-     * 
-     * @return  KIdentifier 
-     * @see     KObjectIdentifiable
-     */
-    public function getIdentifier()
-    {
-        return $this->_identifier;
-    }
-    
+        
     /**
      * Get the priority of a behavior
      *
@@ -80,6 +69,16 @@ abstract class KTemplateFilterAbstract extends KObject implements KTemplateFilte
     public function getPriority()
     {
         return $this->_priority;
+    }
+    
+    /**
+     * Get the template object
+     *
+     * @return  object	The template object
+     */
+    public function getTemplate()
+    {
+        return $this->_template;
     }
         
     /**

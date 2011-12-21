@@ -1,6 +1,6 @@
 <?php
 /**
- * @version		$Id: callback.php 2986 2011-03-25 02:10:12Z johanjanssens $
+ * @version		$Id: callback.php 1372 2011-10-11 18:56:47Z stian $
  * @category	Koowa
  * @package		Koowa_Mixin
  * @copyright	Copyright (C) 2007 - 2010 Johan Janssens. All rights reserved.
@@ -34,7 +34,7 @@ class KMixinCallback extends KMixinAbstract implements KCommandInterface
 	/**
 	 * The command priority
 	 *
-	 * @var KIdentifierInterface
+	 * @var integer
 	 */
 	protected $_priority;
 	
@@ -84,7 +84,7 @@ class KMixinCallback extends KMixinAbstract implements KCommandInterface
 	 *
 	 * @return boolean
 	 */
-	final public function execute( $name, KCommandContext $context) 
+	public function execute( $name, KCommandContext $context) 
 	{
 		$result    = true;
 		
@@ -95,11 +95,15 @@ class KMixinCallback extends KMixinAbstract implements KCommandInterface
 					
 			foreach($callbacks as $key => $callback) 
    			{
-                //Append the config to the context
-   				$context->append($params[$key]); 
-   				
+                $param = $params[$key]; 
+   			    
+                if(is_array($param) && is_numeric(key($param))) { 
+   				    $result = call_user_func_array($callback, $params);
+                } else {
+                    $result = call_user_func($callback,  $context->append($param));
+                }
+   			  
    				//Call the callback
-   				$result = call_user_func($callback, $context);
 				if ( $result === false) {
         			break;
         		}
@@ -131,7 +135,10 @@ class KMixinCallback extends KMixinAbstract implements KCommandInterface
  	 * Registers a callback function
  	 * 
  	 * If the callback has already been registered. It will not be re-registered. 
- 	 * If params are passed those will be merged with the existing paramaters.
+ 	 * 
+ 	 * If params are passed as a associative array or as a KConfig object they will be merged with the 
+ 	 * context of the command chain and passed along. If they are passed as an indexed array they
+ 	 * will be passed to the callback directly.
  	 * 
  	 * @param  	string|array	The command name to register the callback for or an array of command names
  	 * @param 	callback		The callback function to register
@@ -141,7 +148,7 @@ class KMixinCallback extends KMixinAbstract implements KCommandInterface
 	public function registerCallback($commands, $callback, $params = array())
 	{
 		$commands = (array) $commands;
-		$params  = (array) KConfig::toData($params); 
+		$params  = (array) KConfig::unbox($params); 
 		
 		foreach($commands as $command)
 		{

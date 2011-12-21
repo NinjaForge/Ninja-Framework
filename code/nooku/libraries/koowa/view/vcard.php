@@ -1,6 +1,6 @@
 <?php
 /**
- * @version		$Id: vcard.php 2876 2011-03-07 22:19:20Z johanjanssens $
+ * @version		$Id: vcard.php 1372 2011-10-11 18:56:47Z stian $
  * @category	Koowa
  * @package     Koowa_View
  * @copyright	Copyright (C) 2007 - 2010 Johan Janssens. All rights reserved.
@@ -19,7 +19,6 @@
  * @see         http://www.imc.org/pdi/
  * @see         http://en.wikipedia.org/wiki/VCard
  * @uses        KFilter
- * @uses        KFactory
  */
 class KViewVcard extends KViewFile
 {
@@ -55,7 +54,7 @@ class KViewVcard extends KViewFile
     public function display()
     {
         //Set the filename
-        $filename = KFactory::tmp('lib.koowa.filter.filename')->sanitize($this->_properties['FN']);
+        $filename = $this->getService('koowa:filter.filename')->sanitize($this->_properties['FN']);
         $this->filename = $filename.'.vcf';
         
         //Render the vcard  

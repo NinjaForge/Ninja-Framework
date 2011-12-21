@@ -1,6 +1,6 @@
 <?php
 /**
- * @version     $Id: dispatcher.php 3074 2011-04-07 20:24:06Z johanjanssens $
+ * @version     $Id: dispatcher.php 1372 2011-10-11 18:56:47Z stian $
  * @category	Nooku
  * @package     Nooku_Components
  * @subpackage  Default
@@ -17,7 +17,7 @@
  * @package     Nooku_Components
  * @subpackage  Default
  */
-class ComDefaultDispatcher extends KDispatcherDefault
+class ComDefaultDispatcher extends KDispatcherDefault implements KServiceInstantiatable
 { 
     /**
      * Initializes the options for the object
@@ -28,14 +28,39 @@ class ComDefaultDispatcher extends KDispatcherDefault
      * @return  void
      */
     protected function _initialize(KConfig $config)
-    {
-        $config->append(array(
-            'request_persistent' => true
-        ));
-
+    { 
         parent::_initialize($config);
+        
+        //Force the controller to the information found in the request
+        if($config->request->view) {
+            $config->controller = $config->request->view;
+        }
     }
-   
+    
+	/**
+     * Force creation of a singleton
+     *
+     * @param 	object 	An optional KConfig object with configuration options
+     * @param 	object	A KServiceInterface object
+     * @return KDispatcherDefault
+     */
+    public static function getInstance(KConfigInterface $config, KServiceInterface $container)
+    { 
+       // Check if an instance with this identifier already exists or not
+        if (!$container->has($config->service_identifier))
+        {
+            //Create the singleton
+            $classname = $config->service_identifier->classname;
+            $instance  = new $classname($config);
+            $container->set($config->service_identifier, $instance);
+            
+            //Add the factory map to allow easy access to the singleton
+            $container->setAlias('dispatcher', $config->service_identifier);
+        }
+        
+        return $container->get($config->service_identifier);
+    }
+    
     /**
      * Dispatch the controller and redirect
      * 
@@ -54,54 +79,33 @@ class ComDefaultDispatcher extends KDispatcherDefault
         //Redirect if no view information can be found in the request
         if(!KRequest::has('get.view')) 
         {
-            $view = count($context->data) ? $context->data : $this->_controller_default;
+            $package = $this->getIdentifier()->package;
+            $view    = $this->getController()->getView()->getName();
+            $route = JRoute::_('index.php?option=com_'.$package.'&view='.$view, false);
             
-            $url = clone(KRequest::url());
-            $url->query['view'] = $view;
-            
-            KFactory::get('lib.joomla.application')->redirect($url);
+            JFactory::getApplication()->redirect($route);
         }
-        
+       
         return parent::_actionDispatch($context);
     }
     
     /**
-     * Push the controller data into the document
-     * 
-     * This function divert the standard behavior and will push specific controller data
-     * into the document
+     * Set the mimetype of the document and hide the menu if required
      *
      * @return  KDispatcherDefault
      */
     protected function _actionRender(KCommandContext $context)
     {
-        $controller = KFactory::get($this->getController());
-        $view       = $controller->getView();
-    
-        $document = KFactory::get('lib.joomla.document');
-        $document->setMimeEncoding($view->mimetype);
+        $view = $this->getController()->getView();
         
-        if($view instanceof ComDefaultViewHtml)
-        {
-            $document->setBuffer($view->getToolbar()->render(), 'modules', 'toolbar');
-            $document->setBuffer($view->getToolbar()->renderTitle(), 'modules', 'title');
-            
-            if(KInflector::isSingular($view->getName()) && !KRequest::has('get.hidemainmenu')) {
-                KRequest::set('get.hidemainmenu', 1);
-            }
-            
-            if(isset($view->views)) 
-            {
-                foreach($view->views as $name => $title)
-                {
-                    $active    = ($name == strtolower($view->getName()));
-                    $component = $this->_identifier->package;
-            
-                    JSubMenuHelper::addEntry(JText::_($title), 'index.php?option=com_'.$component.'&view='.$name, $active );
-                }
-            }       
-        }
+        //Set the document mimetype
+        JFactory::getDocument()->setMimeEncoding($view->mimetype);
         
+        //Disabled the application menubar
+        if($this->getController()->isEditable() && KInflector::isSingular($view->getName())) {
+            KRequest::set('get.hidemainmenu', 1);
+        } 
+   
         return parent::_actionRender($context);
     }
 }

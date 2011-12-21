@@ -1,13 +1,13 @@
 <?php defined( 'KOOWA' ) or die( 'Restricted access' );
 /**
- * @version		$Id: settings.php 933 2011-03-24 00:09:14Z stian $
+ * @version		$Id: settings.php 1399 2011-11-01 14:22:48Z stian $
  * @category	Ninja
  * @copyright	Copyright (C) 2007 - 2011 NinjaForge. All rights reserved.
  * @license		GNU GPLv3 <http://www.gnu.org/licenses/gpl.html>
  * @link     	http://ninjaforge.com
  */
 
-class ComNinjaDatabaseTableSettings extends KDatabaseTableDefault
+class NinjaDatabaseTableSettings extends KDatabaseTableDefault
 {
 	/**
 	 * The path to the settings xml
@@ -59,8 +59,8 @@ class ComNinjaDatabaseTableSettings extends KDatabaseTableDefault
 	 */
 	protected function _initialize(KConfig $config)
 	{
-		$package = $this->_identifier->package;
-		$name	 = KInflector::singularize($this->_identifier->name);
+		$package = $this->getIdentifier()->package;
+		$name	 = KInflector::singularize($this->getIdentifier()->name);
 		
 		$config->append(array(
 			'xml_path'        => JPATH_ADMINISTRATOR.'/components/com_'.$package.'/views/'.$name.'/tmpl/'.$name.'.xml',
@@ -89,22 +89,18 @@ class ComNinjaDatabaseTableSettings extends KDatabaseTableDefault
 
 		if($mode === KDatabase::FETCH_FIELD) return $result;
 
-		if(is_a($result, 'KDatabaseRowInterface')) $result = array($result);
-		
-		
-		foreach($result as $row)
+		foreach(is_a($result, 'KDatabaseRowInterface') ? array($result) : $result as $row)
 		{
 			$params = json_decode($row->params, true);
 			if(!is_array($params)) $params = array();
 			
 			$defaults = $this->_getDefaultsFromXML($row);
-			
 			$params = new KConfig($params);
 			$params->append($defaults);
-			$row->params = $params;
+    		$row->params = $params->toArray();
 		}
 
-		return is_array($result) ? $result[0] : $result;
+		return $result;
 	}
 	
 	/**
@@ -138,12 +134,7 @@ class ComNinjaDatabaseTableSettings extends KDatabaseTableDefault
 		
 		return $this->_xml_defaults_cache[$this->_xml_path];
 	}
-	
-	/**
-	 * Get the path to the xml file
-	 *
-	 * @return dir
-	 */
+
 	public function getXMLPath()
 	{
 		return $this->_xml_path;

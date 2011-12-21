@@ -1,6 +1,6 @@
 <?php
 /**
- * @version		$Id: query.php 3057 2011-04-01 16:31:16Z johanjanssens $
+ * @version		$Id: query.php 1372 2011-10-11 18:56:47Z stian $
  * @category	Koowa
  * @package     Koowa_Database
  * @subpackage  Query
@@ -17,7 +17,7 @@
  * @package     Koowa_Database
  * @subpackage  Query
  */
-class KDatabaseQuery extends KObject
+class KDatabaseQuery
 {
 	/**
 	 * Count operation
@@ -110,13 +110,14 @@ class KDatabaseQuery extends KObject
 	 *
 	 * @param 	object 	An optional KConfig object with configuration options.
 	 */
-	public function __construct( KConfig $config = null)
+	public function __construct( KConfig $config )
 	{
         //If no config is passed create it
 		if(!isset($config)) $config = new KConfig();
-
-		parent::__construct($config);
-
+		
+	    //Initialise the object
+        $this->_initialize($config);
+       
 		//set the model adapter
 		$this->_adapter = $config->adapter;
 	}
@@ -130,10 +131,8 @@ class KDatabaseQuery extends KObject
     protected function _initialize(KConfig $config)
     {
     	$config->append(array(
-            'adapter' => KFactory::get('lib.koowa.database.adapter.mysqli')
+            'adapter' => ''
         ));
-
-        parent::_initialize($config);
     }
 
     /**
@@ -145,7 +144,18 @@ class KDatabaseQuery extends KObject
     {
         return $this->_adapter;
     }
-
+    
+	/**
+     * Set the database adapter for this particular KDatabaseQuery object.
+     *
+     * @param object A KDatabaseAdapterInterface object
+     * @return KDatabaseQuery
+     */
+    public function setAdapter(KDatabaseAdapterInterface $adapter)
+    {
+        $this->_adapter = $adapter;
+        return $this;
+    }
 
     /**
      * Built a select query
@@ -235,29 +245,29 @@ class KDatabaseQuery extends KObject
      */
     public function where( $property, $constraint = null, $value = null, $condition = 'AND' )
     {
-        if(empty($property)) {
-            return $this;
-        }
-        
-        $where = array();
-        $where['property'] = $property;
-
-        if(isset($constraint) && isset($value))
+        if(!empty($property)) 
         {
-            $constraint = strtoupper($constraint);
-            $condition  = strtoupper($condition);
-            
-            $where['constraint'] = $constraint;
-            $where['value']      = $value;
-        }
-        
-        $where['condition']  = count($this->where) ? $condition : '';
+            $where = array();
+            $where['property'] = $property;
 
-        //Make sure we don't store the same where clauses twice
-        $signature = md5($property.$constraint.$value);
-        //Make sure not to let duplicates rewrite each other as it may cause invalid sql syntax (like 'WHERE AND tbl.foo = tbl.bar')
-        if(!isset($this->where[$signature])) $this->where[$signature] = $where;
+            if(isset($constraint))
+            {
+                $constraint = strtoupper($constraint);
+                $condition  = strtoupper($condition);
+            
+                $where['constraint'] = $constraint;
+                $where['value']      = $value;
+            }
         
+            $where['condition']  = count($this->where) ? $condition : '';
+
+            //Make sure we don't store the same where clauses twice
+            $signature = md5($property.$constraint.$value);
+            if(!isset($this->where[$signature])) {
+                $this->where[$signature] = $where;
+            }
+        }
+            
         return $this;
     }
 

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <install type="component" version="1.5.0" method="upgrade">
-    <name>extensions</name>
+    <name>koowa</name>
     <author>Nooku Project</author>
     <creationDate>April 2010</creationDate>
     <copyright>Copyright (C) 2010 Timble CVBA and Contributors. (http://www.timble.net)</copyright>
@@ -13,10 +13,11 @@
     <!-- Application/administrator -->
     <administration>
 
-        <files folder="administrator/components/com_extensions">
+        <files folder="administrator/components/com_koowa">
 
+            <file>dispatcher.php</file>
+            <file>koowa.php</file>
             <file>README.php</file>
-            <file>extensions.php</file>
 
             <folder>controllers</folder>
             <folder>helpers</folder>
@@ -29,7 +30,7 @@
     </administration>
 
     <!--  Media -->
-    <media destination="com_extensions" folder="media/com_extensions">
+    <media destination="com_koowa" folder="media/com_koowa">
         <folder>js</folder>
         <folder>css</folder>
         <folder>images</folder>
@@ -45,6 +46,7 @@
         <file>/plugins/system/koowa.php</file>
         <file>/plugins/system/koowa.xml</file>
 
+		<folder src="/media/com_default">/media/com_default</folder>
         <folder src="/site/components/com_default">/components/com_default</folder>
         <folder src="/site/modules/mod_default">/modules/mod_default</folder>
         <folder>/administrator/components/com_default</folder>

@@ -1,13 +1,23 @@
 <?php defined( 'KOOWA' ) or die( 'Restricted access' );
 /**
- * @version		$Id: splitview.php 1032 2011-04-29 19:05:11Z stian $
- * @package		Ninja
+ * @version		$Id: splitview.php 1399 2011-11-01 14:22:48Z stian $
+ * @category	Ninja
+ * @package		Ninja_Template
+ * @subpackage	Helper
  * @copyright	Copyright (C) 2011 NinjaForge. All rights reserved.
  * @license 	GNU GPLv3 <http://www.gnu.org/licenses/gpl.html>
  * @link     	http://ninjaforge.com
  */
 
-class ComNinjaTemplateHelperSplitview extends KTemplateHelperAbstract
+/**
+ * Splitview Helper Class
+ *
+ * @author		Stian Didriksen <stian@ninjaforge.com>
+ * @category	Ninja
+ * @package		Ninja_Template
+ * @subpackage	Helper
+ */
+class NinjaTemplateHelperSplitview extends KTemplateHelperAbstract
 {
 	/**
 	 * Generates an HTML optionlist based on the distinct data from a model column.
@@ -46,8 +56,8 @@ class ComNinjaTemplateHelperSplitview extends KTemplateHelperAbstract
 			)
 		));
 		
-		KFactory::get('admin::com.ninja.helper.default')->js('/splitview.js');
-		KFactory::get('admin::com.ninja.helper.default')->js("\njQuery(function($){
+		$this->getService('ninja:template.helper.document')->load('/splitview.js');
+		$this->getService('ninja:template.helper.document')->load('js', "\njQuery(function($){
 			$('#".$config->id."').splitview(".json_encode($config->options->toArray()).");
 		});\n");
 

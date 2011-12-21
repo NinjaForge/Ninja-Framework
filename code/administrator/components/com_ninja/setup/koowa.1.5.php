@@ -1,6 +1,6 @@
 <?php 
 /**
- * @version		$Id: koowa.1.5.php 1168 2011-08-06 14:46:16Z stian $
+ * @version		$Id: koowa.1.5.php 1172 2011-08-06 16:12:17Z stian $
  * @category	Ninja
  * @copyright	Copyright (C) 2007 - 2011 NinjaForge. All rights reserved.
  * @license		GNU GPLv3 <http://www.gnu.org/licenses/gpl.html>

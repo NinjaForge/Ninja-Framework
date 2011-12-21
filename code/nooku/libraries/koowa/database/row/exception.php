@@ -1,6 +1,6 @@
 <?php
 /**
- * @version     $Id: exception.php 2876 2011-03-07 22:19:20Z johanjanssens $
+ * @version     $Id: exception.php 1054 2011-06-16 14:35:04Z stian $
  * @category	Koowa
  * @package     Koowa_Database
  * @subpackage	Row

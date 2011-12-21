@@ -1,6 +1,6 @@
 <?php defined( 'KOOWA' ) or die( 'Restricted access' );
 /**
- * @version		$Id: image.php 1025 2011-04-16 14:32:46Z richie $
+ * @version		$Id: image.php 1399 2011-11-01 14:22:48Z stian $
  * @category	Ninja
  * @copyright	Copyright (C) 2007 - 2011 NinjaForge. All rights reserved.
  * @license		GNU GPLv3 <http://www.gnu.org/licenses/gpl.html>
@@ -12,7 +12,7 @@
  *
  * @package Ninja
  */
-class ComNinjaViewImage extends KViewFile
+class NinjaViewImage extends KViewFile
 {
 	/**
 	 * Default mimetype
@@ -62,11 +62,11 @@ class ComNinjaViewImage extends KViewFile
 	
 		$item	= $this->getModel()->getItem();
 		$image	= $this->getModel()->getImage();
-		if(is_a($image, 'ComNinjaHelperImage')) {
+		if(is_a($image, 'NinjaHelperImage')) {
 			$path = $image->file;
 		} else {
 			$path	= $image;
-			$image	= KFactory::get('admin::com.ninja.helper.image', array('image' => $path));
+			$image	= $this->getService('ninja:helper.image', array('image' => $path));
 		}
 
 		//$this->mimetype = 'image/'.MediaHelper::getTypeIcon($image->file);

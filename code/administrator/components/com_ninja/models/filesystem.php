@@ -1,6 +1,6 @@
 <?php defined( 'KOOWA' ) or die( 'Restricted access' );
 /**
- * @version		$Id: filesystem.php 794 2011-01-10 18:44:32Z stian $
+ * @version		$Id: filesystem.php 1399 2011-11-01 14:22:48Z stian $
  * @category	Napi
  * @package		Napi_Model
  * @copyright	Copyright (C) 2007 - 2011 NinjaForge. All rights reserved.
@@ -16,7 +16,7 @@
  * @category	Napi
  * @package     Napi_Model
  */
-class ComNinjaModelFilesystem extends KModelAbstract
+class NinjaModelFilesystem extends KModelAbstract
 {
 
 	/**
@@ -41,8 +41,8 @@ class ComNinjaModelFilesystem extends KModelAbstract
 		}
 		else
 		{
-			$package		= $this->_identifier->package;
-			$this->_path	= JPATH_ROOT.DS.'components'.DS.'com_'.$package.DS.KInflector::pluralize($this->_identifier->name);
+			$package		= $this->getIdentifier()->package;
+			$this->_path	= JPATH_ROOT.DS.'components'.DS.'com_'.$package.DS.KInflector::pluralize($this->getIdentifier()->name);
 		}
 		
 		// Set the state
@@ -53,7 +53,7 @@ class ComNinjaModelFilesystem extends KModelAbstract
 			->insert('order'    , 'cmd')
 			->insert('direction', 'word', 'asc')
 			->insert('search'   , 'string')
-			->insert('name'   , 'admin::com.ninja.filter.path');
+			->insert('name'   , 'ninja:filter.path');
 		
 		return $this;
 	}
@@ -67,8 +67,8 @@ class ComNinjaModelFilesystem extends KModelAbstract
 	public function getPath(array $options = array())
 	{
 		if(!is_object($this->_path)) {
-			$package		= $this->_identifier->package;
-			$this->_path	= JPATH_ROOT.DS.'components'.DS.'com_'.$package.DS.KInflector::pluralize($this->_identifier->name);
+			$package		= $this->getIdentifier()->package;
+			$this->_path	= JPATH_ROOT.DS.'components'.DS.'com_'.$package.DS.KInflector::pluralize($this->getIdentifier()->name);
 		}
 
 		return $this->_path;

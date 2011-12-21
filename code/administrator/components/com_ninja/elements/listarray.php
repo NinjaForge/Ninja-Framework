@@ -1,6 +1,6 @@
 <?php defined( 'KOOWA' ) or die( 'Restricted access' );
 /**
- * @version		$Id: listarray.php 794 2011-01-10 18:44:32Z stian $
+ * @version		$Id: listarray.php 1399 2011-11-01 14:22:48Z stian $
  * @category	Napi
  * @package		Napi_Parameter
  * @copyright	Copyright (C) 2007 - 2011 NinjaForge. All rights reserved.
@@ -8,7 +8,7 @@
  * @link     	http://ninjaforge.com
  */
 
-class ComNinjaElementListArray extends ComNinjaElementAbstract
+class NinjaElementListArray extends NinjaElementAbstract
 {
 	function fetchElement($name, $value, &$node, $control_name)
 	{

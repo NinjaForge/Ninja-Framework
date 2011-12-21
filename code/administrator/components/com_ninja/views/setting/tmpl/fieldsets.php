@@ -8,7 +8,7 @@
 	
 	<? if(count($fieldset->children()) < 1 || isset($fieldset['hide'])) continue ?>
 	
-	<?= KFactory::tmp('admin::com.ninja.form.parameter', array(
+	<?= $this->getService('ninja:form.parameter', array(
 	  		'data' 	   => $setting->params,
 	  		'xml'  	   => $setting->xml,
 	  		'render'   => 'fieldset',

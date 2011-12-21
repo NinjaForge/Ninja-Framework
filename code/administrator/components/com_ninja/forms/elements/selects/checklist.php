@@ -1,6 +1,6 @@
 <?php defined( 'KOOWA' ) or die( 'Restricted access' );
 /**
- * @version		$Id: checklist.php 552 2010-10-28 19:41:51Z stian $
+ * @version		$Id: checklist.php 1399 2011-11-01 14:22:48Z stian $
  * @category	Koowa
  * @package		Koowa_Form
  * @subpackage 	Element
@@ -17,7 +17,7 @@
  * @package     Koowa_Form
  * @subpackage 	Element
  */
-class ComNinjaFormElementSelectChecklist extends ComNinjaFormElementAbstract implements ComNinjaFormElementInterface
+class NinjaFormElementSelectChecklist extends NinjaFormElementAbstract implements NinjaFormElementInterface
 {
 	/**
 	 * Options for the element
@@ -40,7 +40,7 @@ class ComNinjaFormElementSelectChecklist extends ComNinjaFormElementAbstract imp
 		
 		foreach($this->_xml->option as $option)	
 		{
-			$elem = KFactory::tmp('admin::com.ninja.form.element.select.checkbox')
+			$elem = $this->getService('ninja:form.element.select.checkbox')
 				->importXml($option);
 			$this->addOption($elem);
 		}
@@ -83,7 +83,7 @@ class ComNinjaFormElementSelectChecklist extends ComNinjaFormElementAbstract imp
 		}
 		
 		/*
-		$filter 	= KFactory::get('lib.koowa.filter.boolean');
+		$filter 	= $this->getService('koowa:filter.boolean');
 		
 		$name 		= ' name="'.htmlspecialchars($this->getName()).'"';
 		$id			= ' id="'.htmlspecialchars($this->getName()).'_id"';

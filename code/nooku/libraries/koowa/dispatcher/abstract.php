@@ -1,6 +1,6 @@
 <?php
 /**
- * @version		$Id: abstract.php 3077 2011-04-07 20:25:59Z johanjanssens $
+ * @version		$Id: abstract.php 1372 2011-10-11 18:56:47Z stian $
  * @category	Koowa
  * @package		Koowa_Dispatcher
  * @copyright	Copyright (C) 2007 - 2010 Johan Janssens. All rights reserved.
@@ -16,30 +16,15 @@
  * @package     Koowa_Dispatcher
  * @uses		KMixinClass
  * @uses        KObject
- * @uses        KFactory
  */
 abstract class KDispatcherAbstract extends KControllerAbstract
 {
 	/**
-	 * Controller object or identifier (APP::com.COMPONENT.controller.NAME)
+	 * Controller object or identifier (com://APP/COMPONENT.controller.NAME)
 	 *
 	 * @var	string|object
 	 */
 	protected $_controller;
-	
-	/**
-	 * Default controller name
-	 *
-	 * @var	string
-	 */
-	protected $_controller_default;
-	
-	/**
-	 * The request persistency
-	 * 
-	 * @var boolean
-	 */
-	protected $_request_persistent;
 
 	/**
 	 * Constructor.
@@ -50,16 +35,9 @@ abstract class KDispatcherAbstract extends KControllerAbstract
 	{
 		parent::__construct($config);
 		
-		//Set the request persistency
-		$this->_request_persistent = $config->request_persistent;
+		//Set the controller
+		$this->_controller = $config->controller;
 		
-		//Set the controller default
-		$this->_controller_default = $config->controller_default;
-		
-		if($config->controller !== null) {
-			$this->setController($config->controller);
-		}
-
 		if(KRequest::method() != 'GET') {
 			$this->registerCallback('after.dispatch' , array($this, 'forward'));
 	  	}
@@ -78,102 +56,77 @@ abstract class KDispatcherAbstract extends KControllerAbstract
     protected function _initialize(KConfig $config)
     {
     	$config->append(array(
-        	'controller'			=> null,
-    		'controller_default'	=> $this->_identifier->package,
+        	'controller'			=> $this->getIdentifier()->package,
     		'request'				=> KRequest::get('get', 'string'),
-    		'request_persistent' 	=> false
+        ))->append(array(
+            'request' 				=> array('format' => KRequest::format() ? KRequest::format() : 'html')
         ));
 
         parent::_initialize($config);
     }
-
+    
 	/**
-	 * Method to get a controller identifier
+	 * Method to get a controller object
 	 *
-	 * @return	object	The controller.
+	 * @return	KControllerAbstract
 	 */
 	public function getController()
 	{
-		if(!$this->_controller)
-		{
-			$application 	= $this->_identifier->application;
-			$package 		= $this->_identifier->package;
-
-			//Get the controller name
-			$controller = KRequest::get('get.view', 'cmd', $this->_controller_default);
-		
-			// Controller names are always singular
-			if(KInflector::isPlural($controller)) {
-				$controller = KInflector::singularize($controller);
+		if(!($this->_controller instanceof KControllerAbstract))
+		{  
+		    //Make sure we have a controller identifier
+		    if(!($this->_controller instanceof KServiceIdentifier)) {
+		        $this->setController($this->_controller);
 			}
-			
-			$config = array(
+		    
+		    $config = array(
         		'request' 	   => $this->_request,
-        		'persistent'   => $this->_request_persistent,
 			    'dispatched'   => true	
         	);
-
-			$this->_controller = KFactory::get($application.'::com.'.$package.'.controller.'.$controller, $config);
+        	
+			$this->_controller = $this->getService($this->_controller, $config);
 		}
-
+	
 		return $this->_controller;
 	}
 
 	/**
 	 * Method to set a controller object attached to the dispatcher
 	 *
-	 * @param	mixed	An object that implements KObjectIdentifiable, an object that
-	 *                  implements KIndentifierInterface or valid identifier string
-	 * @throws	KDatabaseRowsetException	If the identifier is not a controller identifier
+	 * @param	mixed	An object that implements KObjectServiceable, KServiceIdentifier object 
+	 * 					or valid identifier string
+	 * @throws	KDispatcherException	If the identifier is not a controller identifier
 	 * @return	KDispatcherAbstract
 	 */
 	public function setController($controller)
 	{
 		if(!($controller instanceof KControllerAbstract))
 		{
-			$identifier = KFactory::identify($controller);
+			if(is_string($controller) && strpos($controller, '.') === false ) 
+		    {
+		        // Controller names are always singular
+			    if(KInflector::isPlural($controller)) {
+				    $controller = KInflector::singularize($controller);
+			    } 
+			    
+			    $identifier			= clone $this->getIdentifier();
+			    $identifier->path	= array('controller');
+			    $identifier->name	= $controller;
+			}
+		    else $identifier = $this->getIdentifier($controller);
 
 			if($identifier->path[0] != 'controller') {
 				throw new KDispatcherException('Identifier: '.$identifier.' is not a controller identifier');
 			}
 
-			$this->_controller = $identifier;
+			$controller = $identifier;
 		}
 		
 		$this->_controller = $controller;
+	
 		return $this;
 	}
-
-	/**
-	 * Get the data from the request based the request method
-	 *
-	 * @return	array 	An array with the request data
-	 */
-	public function getData()
-	{
-		$method = KRequest::method();
-        $data   = $method != 'GET' ? KRequest::get(strtolower($method), 'raw') : null;
-        
-        return $data;
-	}
 	
-	/**
-	 * Get the action 
-	 *
-	 * @return	string 	The action to dispatch
-	 */
-	public function getAction()
-	{
-        //For none GET requests get the action based on action variable or request method
-	    if(KRequest::method() != KHttpRequest::GET) {
-            $action = KRequest::get('post.action', 'cmd', strtolower(KRequest::method()));
-        } else {
-           $action = $this->getController()->getAction();
-        }
-           
-        return $action;
-	}
-
 	/**
 	 * Dispatch the controller
 	 *
@@ -181,23 +134,15 @@ abstract class KDispatcherAbstract extends KControllerAbstract
 	 * @return	mixed
 	 */
 	protected function _actionDispatch(KCommandContext $context)
-	{        	
-	    //Set the default controller
-	    if($context->data) {
-        	$this->_controller_default = KConfig::toData($context->data);
+	{        	 
+	    $action = KRequest::get('post.action', 'cmd', strtolower(KRequest::method()));
+	    
+	    if(KRequest::method() != KHttpRequest::GET) {
+            $context->data = KRequest::get(strtolower(KRequest::method()), 'raw');;
         }
- 
-        //Set the date in the context
-        $context->data = $this->getData();
-         
-        //Execute the controller
-        $result = $this->getController()->execute($this->getAction(), $context);
-        
-        //Set the response header
-	    if($context->status) {
-		    header(KHttpResponse::getHeader($context->status));
-		}
-		
+	     
+	    $result = $this->getController()->execute($action, $context);
+	           
         return $result;
 	}
 
@@ -213,17 +158,16 @@ abstract class KDispatcherAbstract extends KControllerAbstract
 	{
 		if (KRequest::type() == 'HTTP')
 		{
-			if($redirect = KFactory::get($this->getController())->getRedirect())
+			if($redirect = $this->getController()->getRedirect())
 			{
-				KFactory::get('lib.joomla.application')
+			    JFactory::getApplication()
 					->redirect($redirect['url'], $redirect['message'], $redirect['type']);
 			}
 		}
 
 		if(KRequest::type() == 'AJAX')
 		{
-			$view = KRequest::get('get.view', 'cmd');
-			$context->result = KFactory::get($this->getController())->execute('display', $context);
+			$context->result = $this->getController()->execute('display', $context);
 			return $context->result;
 		}
 	}
@@ -238,6 +182,19 @@ abstract class KDispatcherAbstract extends KControllerAbstract
 	 */
 	protected function _actionRender(KCommandContext $context)
 	{
+	    //Headers
+	    if($context->headers) 
+	    {
+	        foreach($context->headers as $name => $value) {
+	            header($name.' : '.$value);
+	        }
+	    }
+	    
+	    //Status
+        if($context->status) {
+           header(KHttpResponse::getHeader($context->status));
+        }
+	    
 	    if(is_string($context->result)) {
 		     return $context->result;
 		}

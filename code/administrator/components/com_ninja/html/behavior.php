@@ -1,6 +1,6 @@
 <?php defined( 'KOOWA' ) or die( 'Restricted access' );
 /**
-* @version		$Id: behavior.php 635 2010-11-09 10:25:43Z stian $
+* @version		$Id: behavior.php 1399 2011-11-01 14:22:48Z stian $
 * @package		Joomla.Framework
 * @subpackage	HTML
 * @copyright	Copyright (C) 2005 - 2008 Open Source Matters. All rights reserved.
@@ -43,7 +43,7 @@ class JHTMLBehavior
 
 		self::framework();
 
-		KFactory::get('admin::com.ninja.helper.default')->js('/moocompat.js');
+		$this->getService('ninja:template.helper.document')->load('/moocompat.js');
 			
 		$loaded = true;
 		return;
@@ -77,7 +77,7 @@ class JHTMLBehavior
 		// TODO NOTE: Here we are checking for Konqueror - If they fix thier issue with compressed, we will need to update this
 		$konkcheck = isset($_SERVER['HTTP_USER_AGENT']) ? strpos(strtolower($_SERVER['HTTP_USER_AGENT']), "konqueror") : null;
 
-		KFactory::get('admin::com.ninja.helper.default')->js('/mootools12.js');
+		$this->getService('ninja:template.helper.document')->load('/mootools12.js');
 
 		$loaded = true;
 		return;
@@ -86,27 +86,27 @@ class JHTMLBehavior
 	function caption() {
 		// pass false to script so that we don't load the compatibility layer if we don't need it
 		JHTMLBehavior::framework();
-		KFactory::get('admin::com.ninja.helper.default')->js('/caption.js');
+		$this->getService('ninja:template.helper.document')->load('/caption.js');
 	}
 
 	function formvalidation() {
 		// pass false to script so that we don't load the compatibility layer if we don't need it
 		JHTMLBehavior::framework();
-		KFactory::get('admin::com.ninja.helper.default')->js('/validate.js');
+		$this->getService('ninja:template.helper.document')->load('/validate.js');
 	}
 
 	function switcher() {
 		// pass false to script so that we don't load the compatibility layer if we don't need it
 		//JHTMLBehavior::framework();
 		//JHTML::script('switcher.js', 'media/com_ninja/js/', false);
-		KFactory::get('admin::com.ninja.helper.default')->js('/switcher.js');
+		$this->getService('ninja:template.helper.document')->load('/switcher.js');
 	}
 
 	function combobox() {
 		// pass false to script so that we don't load the compatibility layer if we don't need it
 		//JHTMLBehavior::framework();
 		//JHTML::script('combobox.js', 'media/com_ninja/js/', false);
-		KFactory::get('admin::com.ninja.helper.default')->js('/combobox.js');
+		$this->getService('ninja:template.helper.document')->load('/combobox.js');
 	}
 
 	function tooltip($selector='.hasTip', $params = array())
@@ -119,7 +119,7 @@ class JHTMLBehavior
 
 		// Include mootools framework
 		JHTMLBehavior::framework();
-		KFactory::get('admin::com.ninja.helper.default')->js('/tips.js');
+		$this->getService('ninja:template.helper.document')->load('/tips.js');
 		$sig = md5(serialize(array($selector,$params)));
 		if (isset($tips[$sig]) && ($tips[$sig])) {
 			return;
@@ -170,8 +170,8 @@ class JHTMLBehavior
 
 			// Load the javascript and css
 			JHTMLBehavior::framework();
-			KFactory::get('admin::com.ninja.helper.default')->js('/modal.js');
-			KFactory::get('admin::com.ninja.helper.default')->css('/modal.css');
+			$this->getService('ninja:template.helper.document')->load('/modal.js');
+			$this->getService('ninja:template.helper.document')->load('/modal.css');
 
 			$included = true;
 		}
@@ -219,8 +219,8 @@ class JHTMLBehavior
 
 	function uploader($id='file-upload', $params = array())
 	{
-		KFactory::get('admin::com.ninja.helper.default')->js('/swf.js');
-		KFactory::get('admin::com.ninja.helper.default')->js('/uploader.js');
+		$this->getService('ninja:template.helper.document')->load('/swf.js');
+		$this->getService('ninja:template.helper.document')->load('/uploader.js');
 
 		static $uploaders;
 
@@ -281,7 +281,7 @@ class JHTMLBehavior
 
 		// Include mootools framework
 		JHTMLBehavior::framework();
-		KFactory::get('admin::com.ninja.helper.default')->js('/mootree.js');
+		$this->getService('ninja:template.helper.document')->load('/mootree.js');
 		JHTML::stylesheet('mootree.css');
 
 		if (isset($trees[$id]) && ($trees[$id])) {
@@ -330,8 +330,8 @@ class JHTMLBehavior
 		$document =& JFactory::getDocument();
 		JHTML::stylesheet('calendar-jos.css', 'media/system/css/', array(' title' => JText::_( 'green' ) ,' media' => 'all' ));
 		JHTMLBehavior::framework();
-		KFactory::get('admin::com.ninja.helper.default')->js('/calendar.js');
-		KFactory::get('admin::com.ninja.helper.default')->js('/calendar-setup.js');
+		$this->getService('ninja:template.helper.document')->load('/calendar.js');
+		$this->getService('ninja:template.helper.document')->load('/calendar-setup.js');
 
 		$translation = JHTMLBehavior::_calendartranslation();
 		if($translation) {

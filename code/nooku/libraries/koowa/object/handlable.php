@@ -1,6 +1,6 @@
 <?php
 /**
- * @version		$Id: handlable.php 948 2011-03-28 23:15:58Z stian $
+ * @version		$Id: handlable.php 1054 2011-06-16 14:35:04Z stian $
  * @category	Koowa
  * @package		Koowa_Object
  * @copyright	Copyright (C) 2007 - 2010 Johan Janssens. All rights reserved.

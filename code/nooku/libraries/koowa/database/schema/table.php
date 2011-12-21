@@ -1,6 +1,6 @@
 <?php
 /**
- * @version		$Id: table.php 2725 2010-10-28 01:54:08Z johanjanssens $
+ * @version		$Id: table.php 1054 2011-06-16 14:35:04Z stian $
  * @category	Koowa
  * @package     Koowa_Database
  * @subpackage  Schema
@@ -69,12 +69,32 @@ class KDatabaseSchemaTable extends KObject
 	public $description;
 	
 	/**
+	 * List of columns
+	 * 
+	 * Associative array of columns, where key holds the columns name and the value is 
+	 * an KDatabaseSchemaColumn object.
+	 * 
+	 * @var	array
+	 */
+	public $columns = array();
+	
+	/**
 	 * List of behaviors
 	 * 
 	 * Associative array of behaviors, where key holds the behavior identifier string
-	 * and the value is an identifier object.
+	 * and the value is an KDatabaseBehavior object.
 	 * 
 	 * @var	array
 	 */
 	public $behaviors = array();
+	
+	/**
+	 * List of indexes
+	 * 
+	 * Associative array of indexes, where key holds the index name and the
+	 * and the value is an object.
+	 * 
+	 * @var	array
+	 */
+	public $indexes = array();
 }

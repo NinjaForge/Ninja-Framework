@@ -1,6 +1,6 @@
 <?php
 /**
- * @version		$Id: csv.php 2983 2011-03-25 01:53:57Z johanjanssens $
+ * @version		$Id: csv.php 1054 2011-06-16 14:35:04Z stian $
  * @category	Koowa
  * @package     Koowa_View
  * @copyright	Copyright (C) 2007 - 2010 Johan Janssens. All rights reserved.
@@ -66,16 +66,36 @@ class KViewCsv extends KViewFile
 	 */
 	public function display()
 	{
-		//Get the rowset
-		$rowset = $this->getModel()->getList();
+		$rows    = '';
+	    $columns = array();
+		$rowset  = $this->getModel()->getList();
 		
-		// Header
-		$this->output .= $this->_arrayToString($rowset->getColumns()).$this->eol;
-		
-		// Data
-		foreach($rowset as $row) {
-			$this->output .= $this->_arrayToString($row->toArray()).$this->eol;
+		// Get the columns
+		foreach($rowset as $row) 
+		{
+			$data    = $row->toArray();
+		    $columns = array_merge($columns + array_flip(array_keys($data)));
 		}
+		
+		// Empty the column values
+		foreach($columns as $key => $value) {
+		    $columns[$key] = '';
+		}
+		
+		//Create the rows
+	    foreach($rowset as $row) 
+		{
+			$data = $row->toArray();
+		    $data = array_merge($columns, $data);
+		    
+		    $rows .= $this->_arrayToString(array_values($data)).$this->eol;
+		}
+		
+		// Create the header
+		$header = $this->_arrayToString(array_keys($columns)).$this->eol;
+		
+		// Set the output
+		$this->output = $header.$rows;
 	 	
 		return parent::display();
 	}
@@ -91,9 +111,14 @@ class KViewCsv extends KViewFile
     	$fields = array();
         foreach($data as $value)
         {
+            //Implode array's
+            if(is_array($value)) {
+    	        $value = implode(',', $value);
+    	    }
+            
+    	     // Escape the quote character within the field (e.g. " becomes "")
             if ($this->_quoteValue($value)) 
-            {
-                // Escape the quote character within the field (e.g. " becomes "")
+            { 
                 $quoted_value = str_replace($this->quote, $this->quote.$this->quote, $value);
                 $fields[] 	  = $this->quote . $quoted_value . $this->quote;
             } 
@@ -111,7 +136,7 @@ class KViewCsv extends KViewFile
      */
     protected function _quoteValue($value)
     {
-    	if(is_numeric($value)) {
+        if(is_numeric($value)) {
     		return false;
     	}
     	

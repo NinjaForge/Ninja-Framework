@@ -1,6 +1,6 @@
 <?php defined( 'KOOWA' ) or die( 'Restricted access' );
 /**
- * @version		$Id: settings.php 980 2011-04-04 20:26:19Z stian $
+ * @version		$Id: settings.php 1437 2011-12-02 11:21:58Z richie $
  * @category	Ninja
  * @copyright	Copyright (C) 2007 - 2011 NinjaForge. All rights reserved.
  * @license		GNU GPLv3 <http://www.gnu.org/licenses/gpl.html>
@@ -9,8 +9,15 @@
 
 JLoader::register('JParameter', JPATH_LIBRARIES.'/joomla/html/parameter.php');
 
-class ComNinjaModelSettings extends ComDefaultModelDefault
+class NinjaModelSettings extends ComDefaultModelDefault
 {
+    /**
+     * The params instance
+     *
+     * @var mixed
+     */
+    protected $_params;
+
 	public function __construct(KConfig $options)
 	{
 		parent::__construct($options);
@@ -18,7 +25,7 @@ class ComNinjaModelSettings extends ComDefaultModelDefault
 		//lets get our states
 	   	$this->_state
 	   		 ->insert('active', 'boolean', false)
-	   		 ->insert('enabled', 'int', KFactory::get('lib.joomla.application')->isSite())
+	   		 ->insert('enabled', 'int', JFactory::getApplication()->isSite())
 	   		 ->insert('default', 'boolean', false);
 	}
 	
@@ -33,18 +40,19 @@ class ComNinjaModelSettings extends ComDefaultModelDefault
 	 */
 	public function getParams()
 	{
-		if (!isset($this->_params))
+	    $identifier = 'com://'.$this->getIdentifier()->application.'/'.$this->getIdentifier()->package.'.settings';
+		if (!KService::has($identifier))
 		{
 			$table  = $this->getTable();
    			$query = $table->getDatabase()->getQuery();
 
-			if(!$this->_state->id && !KFactory::get('lib.joomla.application')->isAdmin())
+			if(!$this->_state->id && !JFactory::getApplication()->isAdmin())
 			{
 				$params = $this->_getPageParameters();
 				$package = $this->getIdentifier()->package;
 				if(array_key_exists($package.'_setting_id', $params)) $this->_state->id = $params[$package.'_setting_id'];
 			}
-			elseif(KFactory::get('lib.joomla.application')->isSite())
+			elseif(JFactory::getApplication()->isSite())
 			{
 				$query->where('default', '=', 1);
 			}
@@ -57,10 +65,10 @@ class ComNinjaModelSettings extends ComDefaultModelDefault
 			$this->_buildQueryHaving($query);
 			$query->order('default', 'desc');
 
-		 	$this->_params = $table->select($query, KDatabase::FETCH_ROW);
+		 	$item = $table->select($query, KDatabase::FETCH_ROW);
 
 			//No settings exists with this query get the default one or any row really
-			if(!$this->_params->id)
+			if(!$item->id)
 			{
 				$query = $table->getDatabase()->getQuery();
 				unset($this->_state->id);
@@ -72,21 +80,26 @@ class ComNinjaModelSettings extends ComDefaultModelDefault
 				$this->_buildQueryHaving($query);
 				$query->order('default', 'desc');
 				
-				$this->_params = $table->select($query, KDatabase::FETCH_ROW);
+				$item = $table->select($query, KDatabase::FETCH_ROW);
 			}
 
 
-		 	if(!KFactory::get('lib.joomla.application')->isAdmin())
+		 	if(!JFactory::getApplication()->isAdmin())
 		 	{
-		 		$this->_params->params->append($this->_getPageParameters());
+		 	    if(is_array($item->params)) $item->params = new KConfig($item->params);
+		 		$item->params->append($this->_getPageParameters());
 		 	}
+		 	
+		 	if(isset($item->params) && is_array($item->params)) $item->params = new KConfig($item->params);
+		 	
+		 	KService::set($identifier, $item);
 		}
 
-		return $this->_params->params;
+		return KService::get($identifier)->params;
 	}
 	
 	/**
-	 * KFactory::get('lib.joomla.application')->getPageParameters() doesn't always work as expected, so we do this
+	 * JFactory::getApplication()->getPageParameters() doesn't always work as expected, so we do this
 	 *
 	 * @author Stian Didriksen <stian@ninjaforge.com>
 	 * @return array 	page parameter values
@@ -107,13 +120,13 @@ class ComNinjaModelSettings extends ComDefaultModelDefault
 			$isNotSetting = KRequest::get('get.view', 'cmd') != 'setting';
 			
 			$params = array();
-			if(!KFactory::get('lib.joomla.application')->isAdmin())
+			if(!JFactory::getApplication()->isAdmin())
 			{
 				$menus	= JSite::getMenu();
 				$menu	= $menus->getActive() ? $menus->getActive() : $menus->getDefault();
 				$settings	= new JParameter($menu->params);
 				$params = (array) $settings->_registry['_default']['data'];
-				$pk		= KFactory::get($this->getTable())->getPrimaryKey();
+				$pk		= $this->getTable()->getPrimaryKey();
 				$name	= $pk['id']->name;
 
 				$id = !empty($params[$name]) ? $params[$name] : false;
@@ -127,6 +140,7 @@ class ComNinjaModelSettings extends ComDefaultModelDefault
 				{
 					$item = $this->getDefault();
 				}
+				$item->params->append($params);
 			} else {
 				if($isNotSetting)
 				{
@@ -137,8 +151,6 @@ class ComNinjaModelSettings extends ComDefaultModelDefault
 					$item = parent::getItem();
 				}
 			}
-	
-			$item->params->append($params);
 			$item->xml		= simplexml_load_file($this->getTable()->getXMLPath());
 			
 			$this->_item = $item;
@@ -149,7 +161,7 @@ class ComNinjaModelSettings extends ComDefaultModelDefault
 	
 	public function getDefault()
 	{
-		$table = KFactory::get($this->getTable());
+		$table = $this->getService($this->getTable());
 		$query = $table->getDatabase()->getQuery()
 					->where('default', '=', 1);
 		
@@ -168,7 +180,7 @@ class ComNinjaModelSettings extends ComDefaultModelDefault
 			$query->where('tbl.title', 'LIKE', '%'.$search.'%');
 		}
 		
-		if($this->_state->enabled !== false && $this->_state->enabled !== '')
+		if($this->_state->enabled !== false && $this->_state->enabled !== 0)
 		{
 			$query->where('tbl.enabled', '=', $this->_state->enabled);
 		}

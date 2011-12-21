@@ -25,7 +25,7 @@
  * @package com_ninja
  * @subpackage admin.elements
  */
-class ComNinjaElementChain extends ComNinjaElementAbstract
+class NinjaElementChain extends NinjaElementAbstract
 {
 	public function fetchElement($name, $value, &$node, $control_name)
 	{
@@ -33,7 +33,7 @@ class ComNinjaElementChain extends ComNinjaElementAbstract
         $chain = $node->children();
       
      if (!defined('NINJA_CHAIN')){  
-      $document = KFactory::get('lib.joomla.document');
+      $document = JFactory::getDocument();
 			$document->addStyleDeclaration("
 				.wrapper {
 					-webkit-border-radius: 3px;
@@ -66,11 +66,11 @@ class ComNinjaElementChain extends ComNinjaElementAbstract
     		$type = (string) $item['type'];
     		try
     		{
-    			$identifier = new KIdentifier($type);
+    			$identifier = new KServiceIdentifier($type);
     		}
     		catch(KException $e)
     		{
-    			$identifier = 'admin::com.ninja.element.'.$type;
+    			$identifier = 'ninja:element.'.$type;
     		}
     		
     	
@@ -83,7 +83,7 @@ class ComNinjaElementChain extends ComNinjaElementAbstract
     			$value = (string)$item['default'];
     		}
     
-    		$element = KFactory::tmp($identifier, array(
+    		$element = $this->getService($identifier, array(
     								'parent'		=> $this->_parent,
     								'node'			=> $item,
     								'value'			=> $value,

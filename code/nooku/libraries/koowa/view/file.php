@@ -1,6 +1,6 @@
 <?php
 /**
- * @version		$Id: file.php 2995 2011-03-26 22:36:15Z johanjanssens $
+ * @version		$Id: file.php 1372 2011-10-11 18:56:47Z stian $
  * @category	Koowa
  * @package     Koowa_View
  * @copyright	Copyright (C) 2007 - 2010 Johan Janssens. All rights reserved.
@@ -78,11 +78,11 @@ class KViewFile extends KViewAbstract
      */
     protected function _initialize(KConfig $config)
     {
-        $count = count($this->_identifier->path);
+        $count = count($this->getIdentifier()->path);
 
         $config->append(array(
             'path'        => '',
-            'filename'    => $this->_identifier->path[$count-1].'.'.$this->_identifier->name,
+            'filename'    => $this->getIdentifier()->path[$count-1].'.'.$this->getIdentifier()->name,
             'disposition' => 'attachment'
         ));
         
@@ -92,7 +92,7 @@ class KViewFile extends KViewAbstract
     /**
      * Return the views output
      *
-     * @return KViewFile
+     * @return void
      */
     public function display()
     {

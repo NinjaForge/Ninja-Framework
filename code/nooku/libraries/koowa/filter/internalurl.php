@@ -1,6 +1,6 @@
 <?php
 /**
-* @version		$Id: internalurl.php 2876 2011-03-07 22:19:20Z johanjanssens $
+* @version		$Id: internalurl.php 1080 2011-06-23 22:21:14Z stian $
 * @category		Koowa
 * @package      Koowa_Filter
 * @copyright    Copyright (C) 2007 - 2010 Johan Janssens. All rights reserved.
@@ -34,7 +34,7 @@ class KFilterInternalurl extends KFilterAbstract
             return false;
         }
                 
-        if(stripos($value, (string)  dirname(KRequest::url()->get(KHttpUri::PART_BASE))) !== 0) {
+        if(stripos($value, (string)  dirname(KRequest::url()->get(KHttpUrl::BASE))) !== 0) {
             return false;
         }
         

@@ -1,6 +1,6 @@
 <?php
 /**
- * @version 	$Id: modifiable.php 3045 2011-03-30 23:17:39Z johanjanssens $
+ * @version 	$Id: modifiable.php 1344 2011-09-13 15:50:55Z stian $
  * @category	Koowa
  * @package		Koowa_Database
  * @subpackage 	Behavior
@@ -71,7 +71,7 @@ class KDatabaseBehaviorModifiable extends KDatabaseBehaviorAbstract
 		if(!empty($modified))
 		{
 			if(isset($this->modified_by)) {
-				$this->modified_by = (int) KFactory::get('lib.joomla.user')->get('id');
+				$this->modified_by = (int) JFactory::getUser()->get('id');
 			}
 		
 			if(isset($this->modified_on)) {

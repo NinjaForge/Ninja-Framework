@@ -1,5 +1,5 @@
 <?php
-// $Id: migrate.php 387 2010-07-17 20:25:16Z stian $
+// $Id: migrate.php 1375 2011-10-11 21:28:25Z stian $
 
 defined( '_JEXEC' ) or die( 'Restricted access' );
 
@@ -23,7 +23,7 @@ if(!$xml || !isset($xml->migrate)) return;
 foreach($xml->migrate->tables->children() as $table)
 {
 	$query = 'ALTER IGNORE TABLE `#__'.$table.'` RENAME TO `#__'.$table.'_backups`';
-	$db->execute($query);	
+	$db->execute($query);
 }
 
 if(!$buffer = file_get_contents(dirname(__FILE__).'/install.sql')) return false;

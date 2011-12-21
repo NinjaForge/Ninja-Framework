@@ -1,6 +1,6 @@
 <?php defined( 'KOOWA' ) or die( 'Restricted access' );
 /**
- * @version		$Id: path.php 794 2011-01-10 18:44:32Z stian $
+ * @version		$Id: path.php 1399 2011-11-01 14:22:48Z stian $
  * @package		Ninja
  * @copyright	Copyright (C) 2011 NinjaForge. All rights reserved.
  * @license 	GNU GPLv3 <http://www.gnu.org/licenses/gpl.html>
@@ -14,7 +14,7 @@
  * @package     Ninja
  * @subpackage 	Filters
  */
-class ComNinjaFilterPath extends KFilterAbstract
+class NinjaFilterPath extends KFilterAbstract
 {
 	const PATTERN = '/^([\\\\\/]|[A-Za-z0-9_-\s])+[A-Za-z0-9_\.-\s]*([\\\\\/][A-Za-z0-9_-]+[A-Za-z0-9_\.-\s]*)*$/';
 

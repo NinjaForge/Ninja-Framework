@@ -1,6 +1,6 @@
 <?php
 /**
- * @version     $Id: default.php 2721 2010-10-27 00:58:51Z johanjanssens $
+ * @version     $Id: paginator.php 1390 2011-10-18 21:34:16Z stian $
  * @category    Nooku
  * @package     Nooku_Components
  * @subpackage  Default
@@ -32,31 +32,27 @@ class ComDefaultTemplateHelperPaginator extends KTemplateHelperPaginator
     {
         $config = new KConfig($config);
         $config->append(array(
-            'total'   => 0,
-            'display' => 4,
-            'offset'  => 0,
-            'limit'   => 0,
-            'attribs' => array('attribs' => array('onchange' => 'this.form.submit();'))
+            'total'      => 0,
+            'display'    => 4,
+            'offset'     => 0,
+            'limit'      => 0,
+            'show_limit' => true,
+		    'show_count' => true
         ));
         
-        // Paginator object
-        $paginator = KFactory::tmp('lib.koowa.model.paginator')->setData(
-                array('total'  => $config->total,
-                      'offset' => $config->offset,
-                      'limit'  => $config->limit,
-                      'display' => $config->display)
-        );
-                
-        // Get the paginator data
-        $list = $paginator->getList();
+        $this->_initialize($config);
         
-        $html  = '<del class="container">';
+        $html  = '<div class="container">';
         $html  = '<div class="pagination">';
-        $html .= '<div class="limit">'.JText::_('Display NUM').' '.$this->limit($config->toArray()).'</div>';
-        $html .=  $this->_pages($list);
-        $html .= '<div class="limit"> '.JText::_('Page').' '.$paginator->current.' '.JText::_('of').' '.$paginator->count.'</div>';
+        if($config->show_limit) {
+            $html .= '<div class="limit">'.JText::_('Display NUM').' '.$this->limit($config).'</div>';
+        }
+        $html .=  $this->_pages($this->_items($config));
+        if($config->show_count) {
+            $html .= '<div class="limit"> '.JText::_('Page').' '.$config->current.' '.JText::_('of').' '.$config->count.'</div>';
+        }
         $html .= '</div>';
-        $html .= '</del>';
+        $html .= '</div>';
         
         return $html;
     }
@@ -107,7 +103,7 @@ class ComDefaultTemplateHelperPaginator extends KTemplateHelperPaginator
         $class = $page->current ? 'class="active"' : '';
 
         if($page->active && !$page->current) {
-            $html = '<a href="'.JRoute::_('index.php?'.$url->getQuery()).'" '.$class.'>'.JText::_($title).'</a>';
+            $html = '<a href="'.$url.'" '.$class.'>'.JText::_($title).'</a>';
         } else {
             $html = '<span '.$class.'>'.JText::_($title).'</span>';
         }

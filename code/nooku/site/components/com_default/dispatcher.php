@@ -1,6 +1,6 @@
 <?php
 /**
- * @version     $Id: dispatcher.php 3076 2011-04-07 20:24:25Z johanjanssens $
+ * @version     $Id: dispatcher.php 1372 2011-10-11 18:56:47Z stian $
  * @category	Nooku
  * @package     Nooku_Components
  * @subpackage  Default
@@ -17,8 +17,50 @@
  * @package     Nooku_Components
  * @subpackage  Default
  */
-class ComDefaultDispatcher extends KDispatcherDefault
+class ComDefaultDispatcher extends KDispatcherDefault implements KServiceInstantiatable
 { 
+ 	/**
+     * Initializes the options for the object
+     *
+     * Called from {@link __construct()} as a first step of object instantiation.
+     *
+     * @param   object  An optional KConfig object with configuration options.
+     * @return  void
+     */
+    protected function _initialize(KConfig $config)
+    {
+        parent::_initialize($config);
+        
+        //Force the controller to the information found in the request
+        if($config->request->view) {
+            $config->controller = $config->request->view;
+        }
+    }
+    
+	/**
+     * Force creation of a singleton
+     *
+     * @param 	object 	An optional KConfig object with configuration options
+     * @param 	object	A KServiceInterface object
+     * @return KDispatcherDefault
+     */
+    public static function getInstance(KConfigInterface $config, KServiceInterface $container)
+    { 
+       // Check if an instance with this identifier already exists or not
+        if (!$container->has($config->service_identifier))
+        {
+            //Create the singleton
+            $classname = $config->service_identifier->classname;
+            $instance  = new $classname($config);
+            $container->set($config->service_identifier, $instance);
+            
+            //Add the factory map to allow easy access to the singleton
+            $container->setAlias('dispatcher', $config->service_identifier);
+        }
+        
+        return $container->get($config->service_identifier);
+    }
+      
     /**
      * Dispatch the controller and redirect
      * 
@@ -37,14 +79,12 @@ class ComDefaultDispatcher extends KDispatcherDefault
         //Redirect if no view information can be found in the request
         if(!KRequest::has('get.view')) 
         {
-            $view = count($context->data) ? $context->data : $this->_controller_default;
-            
             $url = clone(KRequest::url());
-            $url->query['view'] = $view;
-            
-            KFactory::get('lib.joomla.application')->redirect($url);
+            $url->query['view'] = $this->getController()->getView()->getName();
+           
+            JFactory::getApplication()->redirect($url);
         }
-        
+       
         return parent::_actionDispatch($context);
     }
     
@@ -58,10 +98,9 @@ class ComDefaultDispatcher extends KDispatcherDefault
      */
     protected function _actionRender(KCommandContext $context)
     {
-        $controller = KFactory::get($this->getController());
-        $view       = KFactory::get($controller->getView());
+        $view  = $this->getController()->getView();
     
-        $document = KFactory::get('lib.joomla.document');
+        $document = JFactory::getDocument();
         $document->setMimeEncoding($view->mimetype);
         
         return parent::_actionRender($context);

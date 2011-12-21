@@ -1,6 +1,6 @@
 <?php
 /**
- * @version     $Id: abstract.php 1815 2010-03-27 21:42:55Z johan $
+ * @version     $Id: template.php 1372 2011-10-11 18:56:47Z stian $
  * @category    Koowa
  * @package     Koowa_View
  * @copyright   Copyright (C) 2007 - 2010 Johan Janssens. All rights reserved.
@@ -16,26 +16,12 @@
  * @package     Koowa_View
  * @uses        KMixinClass
  * @uses        KTemplate
- * @uses        KFactory
+ * @uses        KService
  */
 abstract class KViewTemplate extends KViewAbstract
-{
+{ 
     /**
-     * Layout name
-     *
-     * @var     string
-     */
-    protected $_layout;
-    
-    /**
-     * Default Layout name
-     *
-     * @var     string
-     */
-    protected $_layout_default;
-
-    /**
-     * Template identifier (APP::com.COMPONENT.template.NAME)
+     * Template identifier (com://APP/COMPONENT.template.NAME)
      *
      * @var string|object
      */
@@ -54,14 +40,7 @@ abstract class KViewTemplate extends KViewAbstract
      * @var boolean
      */
     protected $_auto_assign;
-    
-    /**
-     * Auto filter
-     *
-     * @var boolean
-     */
-    protected $_auto_filter;
-    
+     
     /**
      * The assigned data
      *
@@ -95,47 +74,31 @@ abstract class KViewTemplate extends KViewAbstract
         // set the auto assign state
         $this->_auto_assign = $config->auto_assign;
         
-        // set the auto filter state
-        $this->_auto_filter = $config->auto_filter;
-        
-        // set the default layout for the view
-        $this->_layout_default = $config->layout_default;
-        
+        //set the data
+        $this->_data = KConfig::unbox($config->data);
+          
          // user-defined escaping callback
         $this->setEscape($config->escape);
-        
-        // set the layout
-        $this->setLayout($config->layout);
-        
+         
         // set the template object
-        if(!empty($config->template)) {
-            $this->setTemplate($config->template);
-        }
-            
-        //Get the template object
-        $template = $this->getTemplate()->setView($this);
-        
+        $this->_template = $config->template;
+             
         //Set the template filters
         if(!empty($config->template_filters)) {
-            $template->addFilters($config->template_filters);
+            $this->getTemplate()->addFilter($config->template_filters);
         }
-        
-        // Add default template paths
-        if(!empty($config->template_path)) {
-            $template->addPath($config->template_path);
-        }
-        
+         
         // Set base and media urls for use by the view
         $this->assign('baseurl' , $config->base_url)
              ->assign('mediaurl', $config->media_url);
         
         //Add alias filter for media:// namespace
-        $template->getFilter('alias')->append(
+        $this->getTemplate()->getFilter('alias')->append(
             array('media://' => $config->media_url.'/'), KTemplateFilter::MODE_READ | KTemplateFilter::MODE_WRITE
         );
         
         //Add alias filter for base:// namespace
-        $template->getFilter('alias')->append(
+        $this->getTemplate()->getFilter('alias')->append(
             array('base://' => $config->base_url.'/'), KTemplateFilter::MODE_READ | KTemplateFilter::MODE_WRITE
         );
     }
@@ -150,18 +113,17 @@ abstract class KViewTemplate extends KViewAbstract
      */
     protected function _initialize(KConfig $config)
     {
+        //Clone the identifier
+        $identifier = clone $this->getIdentifier();
+        
         $config->append(array(
+            'data'			   => array(),
             'escape'           => 'htmlspecialchars',
-            'layout_default'   => 'default',
-            'template'         => null,
-            'template_filters' => array('shorttag', 'alias', 'variable', 'script', 'style', 'link'),
-            'template_path'    => null,
+            'template'         => $this->getName(),
+            'template_filters' => array('shorttag', 'alias', 'variable', 'script', 'style', 'link', 'template'),
             'auto_assign'      => true,
-            'auto_filter'	   => false,
             'base_url'         => KRequest::base(),
             'media_url'        => KRequest::root().'/media',
-        ))->append(array(
-            'layout'            => $config->layout_default
         ));
         
         parent::_initialize($config);
@@ -262,43 +224,18 @@ abstract class KViewTemplate extends KViewAbstract
     /**
      * Return the views output
      *
-     * @param  boolean 	If TRUE apply write filters. Default FALSE.
-     * @return string   The output of the view
+     * @return string 	The output of the view
      */
     public function display()
     {
         if(empty($this->output))
 		{
-            //Load the template object
-            $this->output = $this->getTemplate()
-                 ->loadIdentifier($this->_layout, $this->_data)
-                 ->render($this->_auto_filter);
+		    $this->output = $this->getTemplate()
+                                 ->loadIdentifier($this->_layout, $this->_data)
+                                 ->render();
 		}
                         
         return parent::display();
-    }
-
-    /**
-    * Get the layout.
-    *
-    * @return string The layout name
-    */
-
-    public function getLayout()
-    {
-        return $this->_layout;
-    }
-
-   /**
-    * Sets the layout name to use
-    *
-    * @param    string  The template name.
-    * @return   KViewAbstract
-    */
-    public function setLayout($layout, $default = false)
-    {
-        $this->_layout = $layout;
-        return $this;
     }
 
      /**
@@ -313,21 +250,54 @@ abstract class KViewTemplate extends KViewAbstract
         return $this;
     }
     
+	/**
+     * Sets the layout name
+     *
+     * @param    string  The template name.
+     * @return   KViewAbstract
+     */
+    public function setLayout($layout)
+    {
+        if(is_string($layout) && strpos($layout, '.') === false ) 
+		{
+            $identifier = clone $this->getIdentifier(); 
+            $identifier->name = $layout;
+	    }
+		else $identifier = $this->getIdentifier($layout);
+        
+        $this->_layout = $identifier;
+        return $this;
+    }
+    
+	/**
+     * Get the layout.
+     *
+     * @return string The layout name
+     */
+    public function getLayout()
+    {
+        return $this->_layout->name;
+    }
+    
     /**
      * Get the identifier for the template with the same name
      *
-     * @return  KIdentifierInterface
+     * @return  KTemplate
      */
     public function getTemplate()
     {
-        if(!$this->_template)
-        {
-            $identifier = clone $this->_identifier;
-            $name = array_pop($identifier->path);
-            $identifier->name   = $name;
-            $identifier->path   = array('template');
+        if(!$this->_template instanceof KTemplateAbstract)
+        { 
+            //Make sure we have a template identifier
+            if(!($this->_template instanceof KServiceIdentifier)) {
+                $this->setTemplate($this->_template);
+            }
+              
+            $options = array(
+            	'view' => $this
+            );
             
-            $this->_template = KFactory::get($identifier);
+            $this->_template = $this->getService($this->_template, $options);
         }
         
         return $this->_template;
@@ -336,8 +306,8 @@ abstract class KViewTemplate extends KViewAbstract
     /**
      * Method to set a template object attached to the view
      *
-     * @param   mixed   An object that implements KObjectIdentifiable, an object that 
-     *                  implements KIndentifierInterface or valid identifier string
+     * @param   mixed   An object that implements KObjectServiceable, an object that 
+     *                  implements KServiceIdentifierInterface or valid identifier string
      * @throws  KDatabaseRowsetException    If the identifier is not a table identifier
      * @return  KViewAbstract
      */
@@ -345,15 +315,22 @@ abstract class KViewTemplate extends KViewAbstract
     {
         if(!($template instanceof KTemplateAbstract))
         {
-            $identifier = KFactory::identify($template);
-        
+            if(is_string($template) && strpos($template, '.') === false ) 
+		    {
+			    $identifier = clone $this->getIdentifier(); 
+                $identifier->path = array('template');
+                $identifier->name = $template;
+			}
+			else $identifier = $this->getIdentifier($template);
+            
             if($identifier->path[0] != 'template') {
                 throw new KViewException('Identifier: '.$identifier.' is not a template identifier');
             }
         
-            $this->_template = KFactory::get($identifier);
+            $template = $identifier;
         } 
-        else $this->_template = $template;
+        
+        $this->_template = $template;
             
         return $this;
     }

@@ -1,6 +1,6 @@
 <?php
 /**
- * @version		$Id: grid.php 2946 2011-03-20 01:19:15Z johanjanssens $
+ * @version		$Id: grid.php 1372 2011-10-11 18:56:47Z stian $
  * @category	Koowa
  * @package		Koowa_Template
  * @subpackage	Helper
@@ -40,18 +40,52 @@ class KTemplateHelperGrid extends KTemplateHelperAbstract
 					</span>';
 		}
 		else
-		{  
+		{
 		    $column = $config->row->getIdentityColumn();
 		    $value  = $config->row->{$column};
-		    
+
 		    $html = '<input type="checkbox" class="-koowa-grid-checkbox" name="'.$column.'[]" value="'.$value.'" />';
 		}
 
 		return $html;
 	}
+	
+	/**
+	 * Render an search header
+	 *
+	 * @param 	array 	An optional array with configuration options
+	 * @return	string	Html
+	 */
+	public function search($config = array())
+	{
+	    $config = new KConfig($config);
+		$config->append(array(
+			'search' => null
+		));
+	    
+	    $html = '<input name="search" id="search" value="'.$this->getTemplate()->getView()->escape($config->search).'" />';
+        $html .= '<button>'.JText::_('Go').'</button>';
+		$html .= '<button onclick="document.getElementById(\'search\').value=\'\';this.form.submit();">'.JText::_('Reset').'</button>';
+	
+	    return $html;
+	}
 
 	/**
-	 * Render a sorting field
+	 * Render a checkall header
+	 *
+	 * @param 	array 	An optional array with configuration options
+	 * @return	string	Html
+	 */
+	public function checkall($config = array())
+	{
+		$config = new KConfig($config);
+
+		$html = '<input type="checkbox" class="-koowa-grid-checkall" />';
+		return $html;
+	}
+
+	/**
+	 * Render a sorting header
 	 *
 	 * @param 	array 	An optional array with configuration options
 	 * @return	string	Html
@@ -81,7 +115,7 @@ class KTemplateHelperGrid extends KTemplateHelperAbstract
 		if($config->column == $config->sort)
 		{
 			$direction = $direction == 'desc' ? 'asc' : 'desc'; // toggle
-			$class = 'class="'.$direction.'"';
+			$class = 'class="-koowa-'.$direction.'"';
 		}
 
 		$url = clone KRequest::url();
@@ -91,7 +125,7 @@ class KTemplateHelperGrid extends KTemplateHelperAbstract
 		$query['direction'] = $direction;
 		$url->setQuery($query);
 
-		$html  = '<a href="'.JRoute::_('index.php?'.$url->getQuery()).'" title="'.JText::_('Click to sort by this column').'"  '.$class.'>';
+		$html  = '<a href="'.$url.'" title="'.JText::_('Click to sort by this column').'"  '.$class.'>';
 		$html .= JText::_($config->title);
 		$html .= '</a>';
 
@@ -109,21 +143,19 @@ class KTemplateHelperGrid extends KTemplateHelperAbstract
 		$config = new KConfig($config);
 		$config->append(array(
 			'row'  		=> null,
+		    'field'		=> 'enabled'
+		))->append(array(
+		    'data'		=> array($config->field => $config->row->{$config->field})
 		));
 
-		$html = '';
-		$html .= '<script src="media://lib_koowa/js/koowa.js" />';
+		$img    = $config->row->{$config->field} ? 'enabled.png' : 'disabled.png';
+		$alt 	= $config->row->{$config->field} ? JText::_( 'Enabled' ) : JText::_( 'Disabled' );
+		$text 	= $config->row->{$config->field} ? JText::_( 'Disable Item' ) : JText::_( 'Enable Item' );
 		
-		$img    = $config->row->enabled ? 'enabled.png' : 'disabled.png'; 
-		$alt 	= $config->row->enabled ? JText::_( 'Enabled' ) : JText::_( 'Disabled' );
-		$text 	= $config->row->enabled ? JText::_( 'Disable Item' ) : JText::_( 'Enable Item' );
-		$value 	= $config->row->enabled ? 0 : 1;
+	    $config->data->{$config->field} = $config->row->{$config->field} ? 0 : 1;
+	    $data = str_replace('"', '&quot;', $config->data);
 
-		$url   = $this->_createURL($config->row).'&id='.$config->row->id;
-		$token = JUtility::getToken();
-
-		$rel   = "{method:'post', url:'$url', params:{enabled:$value, _token:'$token', action:'edit'}}";
-		$html .= '<img src="media://lib_koowa/images/'. $img .'" border="0" alt="'. $alt .'" class="submitable" rel="'.$rel.'" />';
+		$html = '<img src="media://lib_koowa/images/'. $img .'" border="0" alt="'. $alt .'" data-action="edit" data-data="'.$data.'" title='.$text.' />';
 
 		return $html;
 	}
@@ -139,31 +171,32 @@ class KTemplateHelperGrid extends KTemplateHelperAbstract
 		$config = new KConfig($config);
 		$config->append(array(
 			'row'  		=> null,
-		    'total'		=> null
+		    'total'		=> null,
+		    'field'		=> 'ordering',
+		    'data'		=> array('order' => 0)
 		));
-		
-		$html = '';
-		$html .= '<script src="media://lib_koowa/js/koowa.js" />';
-	
+
 		$up   = 'media://lib_koowa/images/arrow_up.png';
 		$down = 'media://lib_koowa/images/arrow_down.png';
-
-		$url   = $this->_createURL($config->row).'&id='.$config->row->id;
-		$token = JUtility::getToken();
-
-		$uprel = "{method:'post', url:'$url', params:{order:-1, action:'edit', _token:'$token'}}";
-		$downrel = "{method:'post', url:'$url', params:{order:1, action:'edit', _token:'$token'}}";
-
-		if ($config->row->ordering > 1) { 
-            $html .= '<img src="'.$up.'" border="0" alt="'.JText::_('Move up').'" class="submitable" rel="'.$uprel.'" />';
+		
+		$config->data->order = -1;
+		$updata   = str_replace('"', '&quot;', $config->data);
+		
+		$config->data->order = +1;
+		$downdata = str_replace('"', '&quot;', $config->data);
+		
+		$html = '';
+		
+		if ($config->row->{$config->field} > 1) {
+            $html .= '<img src="'.$up.'" border="0" alt="'.JText::_('Move up').'" data-action="edit" data-data="'.$updata.'" />';
         }
-         
-        $html .= $config->row->ordering;
-        
-        if($config->row->ordering != $config->total) {
-            $html .= '<img src="'.$down.'" border="0" alt="'.JText::_('Move down').'" class="submitable" rel="'.$downrel.'"/>';
+
+        $html .= $config->row->{$config->field};
+
+        if($config->row->{$config->field} != $config->total) {
+            $html .= '<img src="'.$down.'" border="0" alt="'.JText::_('Move down').'" data-action="edit" data-data="'.$downdata.'"/>';
 	    }
-        
+
 		return $html;
 	}
 
@@ -178,12 +211,12 @@ class KTemplateHelperGrid extends KTemplateHelperAbstract
 		$config = new KConfig($config);
 		$config->append(array(
 			'row'  		=> null,
+		    'field'		=> 'access'
+		))->append(array(
+		    'data'		=> array($config->field => $config->row->{$config->field})
 		));
-		
-		$html = '';
-		$html .= '<script src="media://lib_koowa/js/koowa.js" />';
 
-		switch($config->row->access)
+		switch($config->row->{$config->field})
 		{
 			case 0 :
 			{
@@ -207,23 +240,12 @@ class KTemplateHelperGrid extends KTemplateHelperAbstract
 			} break;
 
 		}
+		
+		$config->data->{$config->field} = $access;
+	    $data = str_replace('"', '&quot;', $config->data);
 
-		$url   = $this->_createURL($config->row).'&id='.$config->row->id;
-		$token = JUtility::getToken();
-
-		$rel   = "{method:'post',  url:'$url', params:{access:$access, _token:'$token'}}";
-		$html .= '<span style="color:'.$color.'" class="submitable" rel="'.$rel.'" />'.$group.'</span>';
+		$html = '<span style="color:'.$color.'" data-action="edit" data-data="'.$data.'">'.$group.'</span>';
 
 		return $html;
-	}
-
-	protected function _createURL(KDatabaseRowInterface $row)
-	{
-		$option = 'com_'.$row->getIdentifier()->package;
-		$view   = $row->getIdentifier()->name;
-
-		$url = 'index.php?option='.$option.'&view='.$view;
-
-		return $url;
 	}
 }

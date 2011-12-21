@@ -1,0 +1,64 @@
+/* @group IE things */
+.opacity (@var: 1) {
+    @alpha: @var * 100;
+    // The property ordering is intentional
+    opacity: @var;
+    -ms-filter: ~"progid:DXImageTransform.Microsoft.Alpha(Opacity=@{alpha})";
+    filter: ~"alpha(opacity=@{alpha})";
+}
+/* @end */
+
+/* @group Border Radius */
+.border-radius (@radius: 10px) {
+	-moz-border-radius: @radius;
+	border-radius: @radius;
+}
+.border-top-left-radius (@radius: 10px) {
+	-moz-border-radius-topleft: @radius;
+	border-top-left-radius: @radius;
+}
+.border-top-right-radius (@radius: 10px) {
+	-moz-border-radius-topright: @radius;
+	border-top-right-radius: @radius;
+}
+.border-bottom-right-radius (@radius: 10px) {
+	-moz-border-radius-bottomright: @radius;
+	border-bottom-right-radius: @radius;
+}
+.border-bottom-left-radius (@radius: 10px) {
+	-moz-border-radius-bottomleft: @radius;
+	border-bottom-left-radius: @radius;
+}
+/* @end */
+
+/* @group Box Shadow */
+.box-shadow (@var: 0 2px 2px hsla(0, 0%, 0%, 0.2)) {
+    -moz-box-shadow: @var;
+    box-shadow: @var;
+}
+/* @end */
+
+/* @group Gradient */
+.linear-gradient (@from: hsla(0, 0%, 100%, 0.5), @to: hsla(0, 0%, 0%, 0.5)) {
+
+    @fromAlphaFromFloat: ~`Math.round(parseFloat("@{from}".split(',')[3])*255)`;
+    @fromAlphaToHex: ~`(parseInt("@{fromAlphaFromFloat}", 10) > 255 ? 255 : (parseInt("@{fromAlphaFromFloat}", 10) < 0 ? 0 : parseInt("@{fromAlphaFromFloat}", 10))).toString(16).toUpperCase()`;
+    @fromAlpha: ~`"@{from}".length != 7 ? ("@{fromAlphaToHex}".length === 1 ? '0' + "@{fromAlphaToHex}" : "@{fromAlphaToHex}") : ''`;
+    @fromOpaqueToHex: fadein(@from, 100%);
+    @fromOpaque: ~`"@{fromOpaqueToHex}".replace("#", "").toUpperCase()`;
+
+    @toAlphaFromFloat: ~`Math.round(parseFloat("@{to}".split(',')[3])*255)`;
+    @toAlphaToHex: ~`(parseInt("@{toAlphaFromFloat}", 10) > 255 ? 255 : (parseInt("@{toAlphaFromFloat}", 10) < 0 ? 0 : parseInt("@{toAlphaFromFloat}", 10))).toString(16).toUpperCase()`;
+    @toAlpha: ~`"@{to}".length != 7 ? ("@{toAlphaToHex}".length === 1 ? '0' + "@{toAlphaToHex}" : "@{toAlphaToHex}") : ''`;
+    @toOpaqueToHex: fadein(@to, 100%);
+    @toOpaque: ~`"@{toOpaqueToHex}".replace("#", "").toUpperCase()`;
+
+    background-image: ~"-webkit-gradient(linear, 0% 0%, 0% 100%, from(@{from}), to(@{to}))";
+    background-image: ~"-webkit-linear-gradient(top, @{from}, @{to}))";
+    background-image: ~"-moz-linear-gradient(top, @{from}, @{to}))";
+    background-image: ~"-ms-linear-gradient(top, @{from}, @{to}))";
+    background-image: ~"-o-linear-gradient(top, @{from}, @{to}))";
+    background-image: ~"linear-gradient(top, @{from}, @{to}))";
+    filter: ~"progid:DXImageTransform.Microsoft.gradient(startColorstr='#@{fromAlpha}@{fromOpaque}', endColorstr='#@{toAlpha}@{toOpaque}')";
+}
+/* @end */

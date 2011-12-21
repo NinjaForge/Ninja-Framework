@@ -1,6 +1,6 @@
 <?php
 /**
- * @version		$Id: abstract.php 3046 2011-03-30 23:18:24Z johanjanssens $
+ * @version		$Id: abstract.php 1414 2011-11-07 23:27:31Z stian $
  * @category	Koowa
  * @package     Koowa_Database
  * @subpackage  Adapter
@@ -18,14 +18,14 @@
  * @subpackage  Adapter
  * @uses 		KPatternCommandChain
  */
-abstract class KDatabaseAdapterAbstract extends KObject implements KDatabaseAdapterInterface, KObjectIdentifiable
+abstract class KDatabaseAdapterAbstract extends KObject implements KDatabaseAdapterInterface
 {
 	/**
 	 * Active state of the connection
 	 *
 	 * @var boolean
 	 */
-	protected $_active = null;
+	protected $_connected = null;
 
 	/**
 	 * The database connection resource
@@ -143,17 +143,6 @@ abstract class KDatabaseAdapterAbstract extends KObject implements KDatabaseAdap
     }
     
 	/**
-	 * Get the object identifier
-	 * 
-	 * @return	KIdentifier	
-	 * @see 	KObjectIdentifiable
-	 */
-	public function getIdentifier()
-	{
-		return $this->_identifier;
-	}
-
-	/**
 	 * Get a database query object
 	 *
 	 * @return KDatabaseQuery
@@ -188,10 +177,25 @@ abstract class KDatabaseAdapterAbstract extends KObject implements KDatabaseAdap
 	public function disconnect()
 	{
 		$this->_connection = null;
-		$this->_active = false;
+		$this->_connected  = false;
 		
 		return $this;
 	}
+	
+	/**
+	 * Get the database name
+	 *
+	 * @return string	The database name
+	 */
+	abstract function getDatabase();
+	
+	/**
+	 * Set the database name
+	 *
+	 * @param 	string 	The database name
+	 * @return  KDatabaseAdapterAbstract
+	 */
+	abstract function setDatabase($database);
 
 	/**
 	 * Get the connection
@@ -205,7 +209,7 @@ abstract class KDatabaseAdapterAbstract extends KObject implements KDatabaseAdap
 	{
 		return $this->_connection;
 	}
-
+	
 	/**
 	 * Set the connection
 	 *
@@ -217,7 +221,7 @@ abstract class KDatabaseAdapterAbstract extends KObject implements KDatabaseAdap
 	    $this->_connection = $resource;
 		return $this;
 	}
-
+	
 	/**
 	 * Get the insert id of the last insert operation
 	 *
@@ -266,7 +270,7 @@ abstract class KDatabaseAdapterAbstract extends KObject implements KDatabaseAdap
 						break;
 						
 					case KDatabase::FETCH_FIELD       : 
-						$context->result = $this->_fetchField($result); 
+						$context->result = $this->_fetchField($result, $key); 
 						break;
 						
 					case KDatabase::FETCH_FIELD_LIST  : 
@@ -288,7 +292,7 @@ abstract class KDatabaseAdapterAbstract extends KObject implements KDatabaseAdap
 			$this->getCommandChain()->run('after.select', $context);
 		}
 
-		return KConfig::toData($context->result);
+		return KConfig::unbox($context->result);
 	}
 	
 	/**
@@ -345,7 +349,7 @@ abstract class KDatabaseAdapterAbstract extends KObject implements KDatabaseAdap
 			$this->getCommandChain()->run('after.show', $context);
 		}
 
-		return KConfig::toData($context->result);
+		return KConfig::unbox($context->result);
 	}
 
 	/**
@@ -356,9 +360,8 @@ abstract class KDatabaseAdapterAbstract extends KObject implements KDatabaseAdap
      * @param string  	The table to insert data into.
      * @param array 	An associative array where the key is the colum name and
      * 					the value is the value to insert for that column.
-     * @return bool|integer  If the insert query was executed returns the id on a table with a column having the 
-     * 						 AUTO_INCREMENT attribute. If the table does not have a column with the AUTO_INCREMENT 
-     * 						 attribute, this function will return zero. Otherwise FALSE.
+     * @return bool|integer  If the insert query was executed returns the number of rows updated, or 0 if 
+     * 					     no rows where updated, or -1 if an error occurred. Otherwise FALSE.
      */
 	public function insert($table, array $data)
 	{
@@ -383,18 +386,16 @@ abstract class KDatabaseAdapterAbstract extends KObject implements KDatabaseAdap
 					 . '('.implode(', ', $keys).') VALUES ('.implode(', ', $vals).')';
 				 
 				//Execute the query
-				if($context->result = $this->execute($context->query)) {
-					$context->insert_id = $this->_insert_id;
-				} else {
-					$context->insert_id = false;
-				}
+				$context->result = $this->execute($context->query);
+				
+				$context->affected = $this->_affected_rows;	
 			
 				$this->getCommandChain()->run('after.insert', $context);
 			}
-			else $context->insert_id = false;
+			else $context->affected = false;
 		}
 
-		return $context->insert_id;
+		return $context->affected;
 	}
 
 	/**
@@ -407,7 +408,7 @@ abstract class KDatabaseAdapterAbstract extends KObject implements KDatabaseAdap
      * 				 	the value is the value to use ofr that column.
      * @param mixed 	A sql string or KDatabaseQuery object to limit which rows are updated.
      * @return integer  If the update query was executed returns the number of rows updated, or 0 if 
-     * 					no rows where updated, or -1 if an error occured. Otherwise FALSE. 
+     * 					no rows where updated, or -1 if an error occurred. Otherwise FALSE. 
      */
 	public function update($table, array $data, $where = null)
 	{
@@ -539,7 +540,7 @@ abstract class KDatabaseAdapterAbstract extends KObject implements KDatabaseAdap
 	 */
 	public function replaceTablePrefix( $sql, $replace = null, $needle = '#__' )
 	{
-		$replace = $replace ? $replace : $this->getTablePrefix();
+		$replace = isset($replace) ? $replace : $this->getTablePrefix();
 		$sql = trim( $sql );
 		
 		$pattern = "($needle(?=[a-z0-9]))";
@@ -563,7 +564,7 @@ abstract class KDatabaseAdapterAbstract extends KObject implements KDatabaseAdap
     {
         if (is_array($value))
         {
-            // quote array values, not keys, then combine with commas.
+            //Quote array values, not keys, then combine with commas.
             foreach ($value as $k => $v) {
                 $value[$k] = $this->quoteValue($v);
             }
@@ -617,18 +618,19 @@ abstract class KDatabaseAdapterAbstract extends KObject implements KDatabaseAdap
      * Fetch the first field of the first row
      *
      * @param   mysqli_result   The result object. A result set identifier returned by the select() function
+     * @param   integer         The index to use
      * @return The value returned in the query or null if the query failed.
      */
-    abstract protected function _fetchField($result);
+    abstract protected function _fetchField($result, $key = 0);
 
     /**
      * Fetch an array of single field results
      *
      * @param   mysqli_result   The result object. A result set identifier returned by the select() function
-     * @param   string          The column name of the index to use
+     * @param   integer         The index to use
      * @return  array           A sequential array of returned rows.
      */
-    abstract protected function _fetchFieldList($result);
+    abstract protected function _fetchFieldList($result, $key = 0);
 
     /**
      * Fetch the first row of a result set as an associative array

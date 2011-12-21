@@ -1,6 +1,6 @@
 <?php
 /**
- * @version		$Id: interface.php 2876 2011-03-07 22:19:20Z johanjanssens $
+ * @version		$Id: interface.php 1298 2011-08-31 19:37:26Z stian $
  * @category	Koowa
  * @package     Koowa_Database
  * @subpackage  Adapter
@@ -34,13 +34,6 @@ interface KDatabaseAdapterInterface
 	public function connect();
 
 	/**
-	 * Determines if the connection to the server is active.
-	 *
-	 * @return      boolean
-	 */
-	public function active();
-
-	/**
 	 * Reconnect to the db
 	 * 
 	 * @return  KDatabaseAdapterAbstract
@@ -72,6 +65,13 @@ interface KDatabaseAdapterInterface
 	 * @return  KDatabaseAdapterAbstract
 	 */
 	public function setConnection($resource);
+	
+	/**
+	 * Determines if the connection to the server is active.
+	 *
+	 * @return      boolean
+	 */
+	public function isConnected();
 
 	/**
 	 * Get the insert id of the last insert operation
@@ -81,28 +81,28 @@ interface KDatabaseAdapterInterface
  	public function getInsertId();
 
 	/**
-	 * Retrieves the column schema information about the given tables
+	 * Retrieves the column schema information about the given table
 	 *
-	 * @param 	array|string 	A table name or a list of table names
-	 * @return	array 	An associative array of columns by table
+	 * @param 	string 	A table name 
+	 * @return	KDatabaseSchemaTable
 	 */
-	public function getTableColumns($tables);
+	public function getTableSchema($table);
 	
-	/**
-	 * Retrieves the table schema information about the given tables
-	 *
-	 * @param 	array|string 	A table name or a list of table names
-	 * @return	array 	An associative array of table information by table
-	 */
-	public function getTableInfo($tables);
-	
-	/**
-	 * Retrieves the index information about the given tables
-	 *
-	 * @param 	array|string 	A table name or a list of table names
-	 * @return	array 	An associative array of indexes by table
-	 */
-	public function getTableIndexes($tables);
+    /**
+     * Lock a table.
+     * 
+     * @param  string  Base name of the table.
+     * @param  string  Real name of the table.
+     * @return boolean True on success, false otherwise.
+     */
+    public function lockTable($base, $name);
+    
+    /**
+     * Unlock a table.
+     * 
+     * @return boolean True on success, false otherwise.
+     */
+    public function unlockTable();
 	
 	/**
      * Preforms a select query
@@ -117,6 +117,17 @@ interface KDatabaseAdapterInterface
      * @return  mixed 		If successfull returns a result object otherwise FALSE
      */
 	public function select($sql, $mode = KDatabase::RESULT_STORE);
+	
+	/**
+     * Preforms a show query
+     *
+     * @param	string|object  	A full SQL query to run. Data inside the query should be properly escaped. 
+     * @param   integer			The fetch mode. Controls how the result will be returned to the caller. This 
+     * 							value must be one of the KDatabase::FETCH_* constants.
+     * @return  mixed 			The return value of this function on success depends on the fetch type. 
+     * 					    	In all cases, FALSE is returned on failure.
+     */
+	public function show($query, $mode = KDatabase::FETCH_ARRAY_LIST);
 
 	/**
      * Inserts a row of data into a table.

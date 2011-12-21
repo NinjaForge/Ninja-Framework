@@ -1,6 +1,6 @@
 <?php
 /**
-* @version      $Id: link.php 2785 2011-01-08 19:59:35Z johanjanssens $
+* @version      $Id: link.php 1054 2011-06-16 14:35:04Z stian $
 * @category		Koowa
 * @package      Koowa_Template
 * @subpackage	Filter

@@ -1,6 +1,6 @@
 <?php
 /**
- * @version     $Id: editor.php 2876 2011-03-07 22:19:20Z johanjanssens $
+ * @version     $Id: editor.php 1372 2011-10-11 18:56:47Z stian $
  * @category	Nooku
  * @package     Nooku_Components
  * @subpackage  Default
@@ -17,7 +17,6 @@
  * @category    Nooku
  * @package     Nooku_Components
  * @subpackage  Default
- * @uses        KFactory
  * @uses        KConfig
  */
 class ComDefaultTemplateHelperEditor extends KTemplateHelperAbstract
@@ -42,9 +41,15 @@ class ComDefaultTemplateHelperEditor extends KTemplateHelperAbstract
             'options'   => array()
         ));
 
-        $editor  = KFactory::get('lib.joomla.editor', array($config->editor));
-        $options = KConfig::toData($config->options);
+        $editor  = JFactory::getEditor($config->editor);
+        $options = KConfig::unbox($config->options);
 
-        return $editor->display($config->name, $config->{$config->name}, $config->width, $config->height, $config->cols, $config->rows, $config->buttons, $options);
+        if (version_compare(JVERSION, '1.6.0', 'ge')) { 
+            $result = $editor->display($config->name, $config->{$config->name}, $config->width, $config->height, $config->cols, $config->rows, KConfig::unbox($config->buttons), $config->name, null, null, $options); 
+        } else { 
+            $result = $editor->display($config->name, $config->{$config->name}, $config->width, $config->height, $config->cols, $config->rows, KConfig::unbox($config->buttons), $options); 
+        } 
+        
+        return $result;
     }
 }

@@ -1,13 +1,13 @@
 <?php defined( 'KOOWA' ) or die( 'Restricted access' );
 /**
- * @version		$Id: module_chrome.php 913 2011-03-17 18:19:44Z stian $
+ * @version		$Id: module_chrome.php 1399 2011-11-01 14:22:48Z stian $
  * @package		Koowa
  * @copyright	Copyright (C) 2010 Nooku. All rights reserved.
  * @license 	GNU GPLv3 <http://www.gnu.org/licenses/gpl.html>
  * @link     	http://www.nooku.org
  */
 
-class ComNinjaModelModule_chrome extends KModelAbstract
+class NinjaModelModule_chrome extends KModelAbstract
 {	
 	/**
 	 * Constructor
@@ -18,7 +18,7 @@ class ComNinjaModelModule_chrome extends KModelAbstract
 	{
 		parent::__construct($options);
 		
-		KLoader::load('lib.joomla.filesystem.file');
+		jimport('joomla.filesystem.file');
 		
 		//$attr = array_diff_key($node->attributes(), array_fill_keys(array('name', 'type', 'default', 'get', 'label', 'description'), null) );
 

@@ -1,6 +1,6 @@
 <?php
 /**
- * @version     $Id: date.php 2957 2011-03-22 01:07:08Z johanjanssens $
+ * @version     $Id: date.php 1372 2011-10-11 18:56:47Z stian $
  * @category	Nooku
  * @package     Nooku_Components
  * @subpackage  Default
@@ -16,7 +16,6 @@
  * @category    Nooku
  * @package     Nooku_Components
  * @subpackage  Default
- * @uses        KFactory
  */
 class ComDefaultTemplateHelperDate extends KTemplateHelperDate
 {
@@ -33,7 +32,7 @@ class ComDefaultTemplateHelperDate extends KTemplateHelperDate
         $config = new KConfig($config);
         $config->append(array(
             'format' => JText::_('DATE_FORMAT_LC1'),
-            'gmt_offset' => KFactory::get('lib.joomla.config')->getValue('config.offset') * 3600
+            'gmt_offset' => JFactory::getConfig()->getValue('config.offset') * 3600
         ));
         
         return parent::format($config);
@@ -49,7 +48,7 @@ class ComDefaultTemplateHelperDate extends KTemplateHelperDate
     {
         $config = new KConfig($config);
         $config->append(array(
-            'gmt_offset' => KFactory::get('lib.joomla.config')->getValue('config.offset') * 3600
+            'gmt_offset' => 0
         ));
         
        return parent::humanize($config);

@@ -1,6 +1,6 @@
 <?php
 /**
- * @version		$Id: abstract.php 2725 2010-10-28 01:54:08Z johanjanssens $
+ * @version		$Id: abstract.php 1372 2011-10-11 18:56:47Z stian $
  * @category	Koowa
  * @package		Koowa_Template
  * @subpackage	Helper
@@ -20,13 +20,34 @@
 abstract class KTemplateHelperAbstract extends KObject implements KTemplateHelperInterface
 {
 	/**
-	 * Get the object identifier
-	 * 
-	 * @return	KIdentifier	
-	 * @see 	KObjectIdentifiable
+	 * Template object
+	 *
+	 * @var	object
 	 */
-	public function getIdentifier()
+    protected $_template;
+    
+	/**
+	 * Constructor
+	 *
+	 * Prevent creating instances of this class by making the contructor private
+	 * 
+	 * @param 	object 	An optional KConfig object with configuration options
+	 */
+	public function __construct(KConfig $config)
 	{
-		return $this->_identifier;
+		parent::__construct($config);
+	
+		// Set the view indentifier
+    	$this->_template = $config->template;
 	}
+
+    /**
+     * Get the template object
+     *
+     * @return  object	The template object
+     */
+    public function getTemplate()
+    {
+        return $this->_template;
+    }
 }

@@ -1,6 +1,6 @@
 <?php
 /**
-* @version		$Id: abstract.php 2843 2011-02-28 23:29:57Z johanjanssens $
+* @version		$Id: abstract.php 1372 2011-10-11 18:56:47Z stian $
 * @category		Koowa
 * @package      Koowa_Filter
 * @copyright    Copyright (C) 2007 - 2010 Johan Janssens. All rights reserved.
@@ -15,7 +15,7 @@
  * @category	Koowa
  * @package     Koowa_Filter
  */
-abstract class KFilterAbstract implements KFilterInterface
+abstract class KFilterAbstract extends KObject implements KFilterInterface
 {
 	/**
 	 * The filter chain
@@ -31,7 +31,7 @@ abstract class KFilterAbstract implements KFilterInterface
 	 * @var	boolean
 	 */
 	protected $_walk = true;
-	
+	    
 	/**
 	 * Constructor
 	 *
@@ -39,23 +39,31 @@ abstract class KFilterAbstract implements KFilterInterface
 	 */
 	public function __construct(KConfig $config) 
 	{
-		 $this->_chain = new KFilterChain();
-		 $this->addFilter($this);
+		parent::__construct($config); 
 		 
-		$this->_initialize($config);
+	    $this->_chain = new KFilterChain();
+		$this->addFilter($this);
 	}
 	
- 	/**
-     * Initializes the options for the object
+    /**
+     * Force creation of a singleton
      *
-     * Called from {@link __construct()} as a first step of object instantiation.
-     *
-     * @param 	object 	An optional KConfig object with configuration options.
-     * @return 	void
+     * @param 	object 	An optional KConfig object with configuration options
+     * @param 	object	A KServiceInterface object
+     * @return KFilterInterface
      */
-    protected function _initialize(KConfig $config)
-    {
-    	//do nothing
+    public static function getInstance(KConfigInterface $config, KServiceInterface $container)
+    { 
+       // Check if an instance with this identifier already exists or not
+        if (!$container->has($config->service_identifier))
+        {
+            //Create the singleton
+            $classname = $config->service_identifier->classname;
+            $instance  = new $classname($config);
+            $container->set($config->service_identifier, $instance);
+        }
+        
+        return $container->get($config->service_identifier);
     }
 	
 	/**
@@ -144,13 +152,15 @@ abstract class KFilterAbstract implements KFilterInterface
 	 * Add a filter based on priority
 	 * 
 	 * @param object 	A KFilter
-	 * @param integer	The filter priority
+	 * @param integer	The command priority, usually between 1 (high priority) and 5 (lowest), 
+     *                  default is 3. If no priority is set, the command priority will be used 
+     *                  instead.
 	 *
-	 * @return this
+	 * @return KFilterAbstract
 	 */
-	public function addFilter(KFilterInterface $filter)
+	public function addFilter(KFilterInterface $filter, $priority = null)
 	{	
-		$this->_chain->enqueue($filter);
+		$this->_chain->enqueue($filter, $priority);
 		return $this;
 	}
 	

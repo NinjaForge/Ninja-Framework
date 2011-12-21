@@ -1,13 +1,13 @@
 <?php defined( 'KOOWA' ) or die( 'Restricted access' );
 /**
- * @version		$Id: timezones.php 913 2011-03-17 18:19:44Z stian $
+ * @version		$Id: timezones.php 1399 2011-11-01 14:22:48Z stian $
  * @package		Koowa
  * @copyright	Copyright (C) 2010 Nooku. All rights reserved.
  * @license 	GNU GPLv3 <http://www.gnu.org/licenses/gpl.html>
  * @link     	http://www.nooku.org
  */
 
-class ComNinjaModelTimezones extends KModelAbstract
+class NinjaModelTimezones extends KModelAbstract
 {	
 	/**
 	 * Constructor

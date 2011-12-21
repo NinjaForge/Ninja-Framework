@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <install type="component" version="1.5.0" method="upgrade">
 	<name>Ninja</name>
-	<creationDate>November 2009</creationDate>
+	<creationDate>June 2011</creationDate>
 	<author>Stian Didriksen</author>
 	<authorEmail>stian@ninjaforge.com</authorEmail>
 	<authorUrl>http://ninjaforge.com</authorUrl>
 	<copyright>(C) 2009-2010 Ninja Media Group. All rights reserved.</copyright>
 	<license>GNU GPLv3</license>
-	<version>1.0.0</version>
-	<revision>$Rev: 1046 $</revision>
-	<koowa>3090</koowa>
+	<version>2.0.0</version>
+	<revision>$Rev: 1435 $</revision>
+	<koowa>3707</koowa>
 	<description>NinjaForge API Library</description>
-	
+
 	<!-- Admin Files Copy Section -->
 	<administration>
 		<files folder="administrator/components/com_ninja">
-			<file>htaccess.txt</file>
+		    <file>dispatcher.php</file>
 			<file>ninja.php</file>
 			<file>permissions.php</file>
 			<folder>controllers</folder>
@@ -25,46 +25,93 @@
 			<folder>forms</folder>
 			<folder>helpers</folder>
 			<folder>html</folder>
-			<folder>mixins</folder>
+			<folder>loader</folder>
 			<folder>models</folder>
 			<folder>overrides</folder>
+			<folder>service</folder>
 			<folder>setup</folder>
 			<folder>templates</folder>
-			<folder>toolbars</folder>
 			<folder>views</folder>
 		</files>
 	</administration>	
-	
+
 	<!-- Media Files Copy Section -->
 	<media destination="com_ninja" folder="media/com_ninja">  
-		<file>htaccess.txt</file>
  		<folder>css</folder>
- 		<folder>fonts</folder>  
  		<folder>images</folder>  
  		<folder>js</folder>
  		<folder>swf</folder>
 	</media>
-	
+
 	<deleted>
 		<admin>
+		    <!-- 2.0 -->
+		    <folder>helpers/image</folder>
+		    <folder>models/joomla</folder>
+		    <folder>templates/filter</folder>
+		    <folder>toolbars</folder>
+		    <file>templates/helpers/tabs.php</file>
+		    <file>controllers/toolbars/menubar.php</file>
+		    <file>templates/helpers/editor.php</file>
+		    <folder>views/toolbar</folder>
+		    <file>templates/helpers/image.php</file>
+		    <file>templates/helpers/curl.php</file>
+		    <file>templates/helpers/accordions.php</file>
+		    <file>helpers/access.php</file>
+		    <file>helpers/accordions.php</file>
+		    <file>helpers/behavior.php</file>
+		    <file>helpers/convert.php</file>
+		    <file>helpers/date.php</file>
+		    <file>helpers/graphael.php</file>
+		    <file>helpers/grid.php</file>
+		    <file>helpers/inflector.php</file>
+		    <file>helpers/manifest.php</file>
+		    <file>helpers/paginator.php</file>
+		    <file>helpers/placeholder.php</file>
+		    <file>helpers/select.php</file>
+		    <file>helpers/tabs.php</file>
+		    <file>templates/helpers/default.php</file>
+            <file>elements/flip.php</file>
+            <file>elements/JPane.php</file>
+            <file>elements/livetext.php</file>
+            <file>helpers/default.php</file>
+            <file>overrides/modulehelper.php</file>
+            <file>views/toolbar/tmpl/button_default.php</file>
+            <file>views/toolbar/tmpl/button_spacer.php</file>
+            <file>views/toolbar/tmpl/default.php</file>
+            <file>views/toolbar/tmpl/toolbar_render.php</file>
+            <file>views/toolbar/tmpl/toolbar_title.php</file>
+		    <folder>mixins</folder>
+		    <file>controllers/view.php</file>
+		    <file>controllers/install.php</file>
+		    <file>controllers/template.php</file>
+		    <file>views/ajax.php</file>
+		    <file>views/json.php</file>
+
+		    <!-- 1.0 -->
 			<folder revision="693">databases/behavior</folder>
 			<file revision="681">elements/joomla.php</file>
-			<folder revision="655">helpers/images</folder>
 			<folder revision="641">forms/elememts/select</folder>
 			<folder revision="641">forms/elememt</folder>
-			<folder revision="640">toolbars/button</folder>
 			<folder revision="625">behaviors</folder>
 			<folder revision="625">rows</folder>
 			<folder revision="625">tables</folder>
 			<folder revision="537">commands</folder>
 			<folder revision="0">helpers/htmlpurifier</folder>
 			<file revision="0">helpers/htmlpurifier.php</file>
-			<file revision="0">views/dashboard/html.php</file>
 			<file revision="0">forms/element/select.php</file>
 			<file revision="0">forms/element/select/select.php</file>
 		</admin>
 		<site removed="true" revision="0" />
 		<media>
+		    <!-- 2.0 -->
+		    <file>js/mootools12/grid.js</file>
+		    <folder>fonts</folder>
+		    <file>js/ninja.js</file>
+		    <file>js/mootools12/tabs.js</file>
+            <folder>js/mootools11</folder>
+
+		    <!-- 1.0 -->
 		    <file revision="1037">images/32/unread_badge.png</file>
 			<file revision="872">fonts/Fertigo_PRO.otf</file>
 			<file revision="678">images/16/checkbox_active.png</file>

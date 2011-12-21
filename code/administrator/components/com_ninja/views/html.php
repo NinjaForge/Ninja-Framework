@@ -1,13 +1,13 @@
 <?php defined( 'KOOWA' ) or die( 'Restricted access' );
 /**
- * @version		$Id: html.php 1037 2011-05-18 20:03:26Z stian $
+ * @version		$Id: html.php 1399 2011-11-01 14:22:48Z stian $
  * @package		Ninja
  * @copyright	Copyright (C) 2011 NinjaForge. All rights reserved.
  * @license 	GNU GPLv3 <http://www.gnu.org/licenses/gpl.html>
  * @link     	http://ninjaforge.com
  */
 
-class ComNinjaViewHtml extends ComDefaultViewHtml
+class NinjaViewHtml extends ComDefaultViewHtml
 {	
 	/**
 	 * Document title
@@ -51,20 +51,10 @@ class ComNinjaViewHtml extends ComDefaultViewHtml
 	 */
 	public $_auto_title = true;
 
-	public function __construct($config)
-	{
-		//@TODO this is legacy, do not use this property in your views anymore
-		$this->_document = KFactory::get('lib.joomla.document');
-
-		parent::__construct($config);
-		
-		$this->getTemplate()->addFilters(array(KFactory::get('admin::com.ninja.template.filter.document')));
-	}
-
 	public function display()
 	{
 		//Add the template override path
-		$parts = $this->_identifier->path;
+		$parts = $this->getIdentifier()->path;
 		
 		array_shift($parts);
 		if(count($parts) > 1)
@@ -75,22 +65,11 @@ class ComNinjaViewHtml extends ComDefaultViewHtml
 		} 
 		else $path  = strtolower($this->getName());
 		       
-		$template = KFactory::get('lib.joomla.application')->getTemplate();
-		$override = JPATH_THEMES.DS.$template.DS.'html'.DS.'com_'.$this->_identifier->package.DS.$path;
-		  
-		KFactory::get($this->getTemplate())->addPath($override);
-
-		if($template == 'morph' && class_exists('Morph'))
-		{
-			$override = JPATH_ROOT.'/morph_assets/themelets/'.Morph::getInstance()->themelet.'/html/'.'com_'.$this->_identifier->package.'/'.$path;
-			KFactory::get($this->getTemplate())->addPath($override);
-		}
-	
-		$model		= KFactory::get($this->getModel());
+		$model		= $this->getModel();
 		$identifier	= $model->getIdentifier();
 		$type		= $identifier->type;
 		$package	= $identifier->package;
-		$isAdmin	= KFactory::get('lib.joomla.application')->isAdmin();
+		$isAdmin	= JFactory::getApplication()->isAdmin();
 				
 		//Set the document title
 		if($this->_auto_title) $this->setDocumentTitle();
@@ -98,63 +77,46 @@ class ComNinjaViewHtml extends ComDefaultViewHtml
 		// Hide the toolbar if we're in an iframe
 		if(KRequest::get('get.tmpl', 'cmd') == 'component') $this->_toolbar = false;
 
-		$this->assign('length', KFactory::tmp($this->getModel()->getIdentifier())->getTotal());
+		$this->assign('length', $this->getService($this->getModel()->getIdentifier())->getTotal());
 
-		if($this->_toolbar)
+        //@TODO fix up toolbar
+		/*if($this->_toolbar)
 		{
-			$toolbar = $this->_createToolbar();
+			$toolbar = $this->getToolbar();
 			if(!$this->length && KInflector::isPlural($this->getName())) $toolbar->removeListButtons();
 			$this->_document->setBuffer($toolbar->renderTitle(), 'modules', 'title');
 			$this->_document->setBuffer($toolbar->render(), 'modules', 'toolbar');
 			
 			//Needed for templates like AdminPraise2
 			//@TODO submit patch to com_default's dispatcher
-			KFactory::get('lib.joomla.application')->set('JComponentTitle', $toolbar->renderTitle());
-		}
+			JFactory::getApplication()->set('JComponentTitle', $toolbar->renderTitle());
+		}*/
 		
-		KFactory::map('admin::com.' . $package . '.form.default', 'admin::com.ninja.form.default');
-		
-		//Add admin.css from the extension or current template if it exists.
-		if($isAdmin) $this->css('/admin.css');
+		KService::setAlias('com://admin/' . $package . '.form.default', 'ninja:form.default');
 		
 		return parent::display();
 	}
 	
-	protected function _createToolbar()
-	{
-		return $this->getToolbar();
-	}
-	
-	/**
-	 * Get the identifier for the toolbar with the same name
-	 *
-	 * @return	KIdentifierInterface
-	 */
-	public function getToolbar()
-	{
-		return KFactory::get('admin::com.ninja.view.toolbar.html', array('name' => $this->getName()));
-	}
-	
 	public function js($src = false)
-	{		
-		return KFactory::get('admin::com.ninja.helper.default')->js($src);
+	{
+	    throw new BadMethodCallException(__METHOD__.' is deprecated.');
 	}
 	
 	public function css($href = false)
 	{
-		return KFactory::get('admin::com.ninja.helper.default')->css($href);
+	    throw new BadMethodCallException(__METHOD__.' is deprecated.');
 	}
 	
 	public function img($src)
-	{		
-		return KFactory::get('admin::com.ninja.helper.default')->img($src);
+	{
+	    throw new BadMethodCallException(__METHOD__.' is deprecated.');
 	}
 	
 	public function placeholder($name = null, $attr = null,  $text = 'Add %s&hellip;', $notice = false, $options = array())
 	{
 		if (!$name) $name = $this->getName();
 		if (!$text) $text = 'Add %s&hellip;';
-		if(!isset($this->length)) $this->length = KFactory::tmp($this->getModel()->getIdentifier())->getTotal();
+		if(!isset($this->length)) $this->length = $this->getService($this->getModel()->getIdentifier())->getTotal();
 		if ($this->length > 0) return false;
 		
 		$attr = (is_array($attr) || is_object($attr)) 
@@ -164,14 +126,7 @@ class ComNinjaViewHtml extends ComDefaultViewHtml
 		$options['name'] = $name;
 		if($notice) $options['notice'] = $notice;
 				
-		return KFactory::get('admin::com.ninja.helper.placeholder', $options)->append($name, $attr, $text);
-	}
-	
-	public function edit($row, $i, $name = 'name', $id = 'id', $escape = true, $filter = false)
-	{
-		$text = $escape ? $this->escape($row->{$name}) : $row->{$name};
-		if($filter) $text = $filter->sanitize($text);
-		return KFactory::get('admin::com.ninja.helper.grid')->ischeckedout($row, $i) ? '<span style="cursor:default;">' . $row->{$name} . '</span>' : '<a href="'. self::createRoute('view='. KInflector::singularize($this->getName()) .'&id='.$row->{$id}) .'">'. $text . '</a>';
+		return $this->getService('ninja:template.helper.placeholder', $options)->append($name, $attr, $text);
 	}
 	
 	public function getDocumentSubTitle()
@@ -184,12 +139,12 @@ class ComNinjaViewHtml extends ComDefaultViewHtml
 	{
 		if(!$this->_title)
 		{
-			$app = KFactory::get('lib.joomla.application');
+			$app = JFactory::getApplication();
 			if($app->isAdmin())
 			{
 				$this->_title = htmlspecialchars_decode($this->getDocumentSubTitle() 
-								. ' | ' . JText::_(ucfirst(KFactory::get($this->getModel())->getIdentifier()->package)) 
-								. ' | ' . JText::_( 'Admin' ) . ' ' . KFactory::get('lib.joomla.application')->getCfg('sitename'));
+								. ' | ' . JText::_(ucfirst($this->getService($this->getModel())->getIdentifier()->package)) 
+								. ' | ' . JText::_( 'Admin' ) . ' ' . JFactory::getApplication()->getCfg('sitename'));
 			}
 			else
 			{
@@ -203,13 +158,13 @@ class ComNinjaViewHtml extends ComDefaultViewHtml
 	
 	public function setDocumentTitle()
 	{
-		KFactory::get('lib.joomla.document')->setTitle($this->getDocumentTitle());
+		JFactory::getDocument()->setTitle($this->getDocumentTitle());
 	}
 	
 	public function render( $content = ' ', $title = false, array $module = array(), $attribs = array() )
 	{
 	/*
-		KLoader::load('lib.joomla.application.module.helper');
+		jimport('joomla.application.module.helper');
 		$load =& JModuleHelper::_load();
 		$load[] = (object) array(
 			'id' => 50,
@@ -261,13 +216,13 @@ class ComNinjaViewHtml extends ComDefaultViewHtml
 		$tmp = $module;
 		$module = new KObject;
 		$module->params = 'moduleclass_sfx='.@$tmp['moduleclass_sfx'];
-		$module->module = 'mod_' . $this->_identifier->package . '_' . $this->_identifier->name;
-		$module->id = KFactory::tmp('lib.koowa.filter.int')->sanitize(uniqid());
+		$module->module = 'mod_' . $this->getIdentifier()->package . '_' . $this->getIdentifier()->name;
+		$module->id = $this->getService('koowa:filter.int')->sanitize(uniqid());
 		$module->title = (string) $title;
 		$module->style = isset($tmp['style']) ? $tmp['style'] : 'rounded';
-		$module->position = $this->_identifier->package . '-' . $this->_identifier->name;
+		$module->position = $this->getIdentifier()->package . '-' . $this->getIdentifier()->name;
 		$module->showtitle = (bool) $title;
-		$module->name = $this->_identifier->package . '_' . $this->_identifier->name;
+		$module->name = $this->getIdentifier()->package . '_' . $this->getIdentifier()->name;
 		$module->user = 0;	
 		$module->content = $content;
 		$module->set($tmp);
@@ -277,7 +232,7 @@ class ComNinjaViewHtml extends ComDefaultViewHtml
 		if(!isset($attribs['first'])) $attribs['first'] = null;
 		if(!isset($attribs['last'])) $attribs['last'] = null;
 				
-		if (($yoofix = JPATH_THEMES.DS.KFactory::get('lib.joomla.application')->getTemplate().DS.'lib'.DS.'php'.DS.'template.php') && ($isYoo = file_exists($yoofix))) require_once $yoofix;
+		if (($yoofix = JPATH_THEMES.DS.JFactory::getApplication()->getTemplate().DS.'lib'.DS.'php'.DS.'template.php') && ($isYoo = file_exists($yoofix))) require_once $yoofix;
 		if($isYoo) $attribs['style'] = 'yoo';
 	
 		static $chrome;
@@ -312,7 +267,7 @@ class ComNinjaViewHtml extends ComDefaultViewHtml
 			$chrome = array();
 		}
 		
-		KLoader::load('lib.joomla.application.module.helper');
+		jimport('joomla.application.module.helper');
 		$load =& JModuleHelper::_load();
 		
 		if(!$this->_modules) $this->_modules_backup = $this->_modules = $load;
@@ -342,7 +297,7 @@ class ComNinjaViewHtml extends ComDefaultViewHtml
 			$attribs['style'] .= ' outline';
 		}
 
-		$tpl = KFactory::get('lib.joomla.application')->getTemplate();
+		$tpl = JFactory::getApplication()->getTemplate();
 		$yoofix	  = false;
 		$warpfive = 'templates/'.$tpl.'/layouts/module.php';
 		if(JFile::exists(JPATH_ROOT.'/'.$warpfive)) {
@@ -357,7 +312,7 @@ class ComNinjaViewHtml extends ComDefaultViewHtml
     		$warp->getHelper('path')->register($tpl_dir.'/warp/systems/joomla.1.5/layouts','layouts');
     		$warp->getHelper('path')->register($tpl_dir.'/layouts','layouts');
     		
-    		$template = KFactory::tmp($this->getTemplate())->addFilters(array('alias'));
+    		$template = $this->getService($this->getTemplate())->addFilter(array('alias'));
     		$template->getFilter('alias')->append(array('$this' => '$warp_helper_template'));
     		
     		$data = array(
@@ -434,14 +389,6 @@ class ComNinjaViewHtml extends ComDefaultViewHtml
 		}
 
 		return preg_replace($search, $replace, $render, count($search));
-	}
-	
-	protected function _mixinMenubar()
-	{
-		$this->css('/menu.css');
-		$xml = simplexml_load_file(KFactory::get('admin::com.ninja.helper.application')->getpath('com_xml'))->administration->submenu;
-
-		KFactory::get('admin::com.ninja.mixin.menubar', array('mixer' => $this, 'views' => $xml))->displayMenubar();	    
 	}
 
 	/**

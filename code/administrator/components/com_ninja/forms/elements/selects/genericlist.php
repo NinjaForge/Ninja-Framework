@@ -1,6 +1,6 @@
 <?php defined( 'KOOWA' ) or die( 'Restricted access' );
 /**
- * @version		$Id: genericlist.php 552 2010-10-28 19:41:51Z stian $
+ * @version		$Id: genericlist.php 1399 2011-11-01 14:22:48Z stian $
  * @category	Koowa
  * @package		Koowa_Form
  * @subpackage 	Element
@@ -17,7 +17,7 @@
  * @package     Koowa_Form
  * @subpackage 	Element
  */
-class ComNinjaFormElementSelectGenericlist extends ComNinjaFormElementAbstract implements ComNinjaFormElementInterface
+class NinjaFormElementSelectGenericlist extends NinjaFormElementAbstract implements NinjaFormElementInterface
 {
 	/**
 	 * Options for the element
@@ -40,13 +40,13 @@ class ComNinjaFormElementSelectGenericlist extends ComNinjaFormElementAbstract i
 		
 		foreach($this->_xml->option as $option)	
 		{
-			$elem = KFactory::tmp('admin::com.ninja.form.element.select.option')
+			$elem = $this->getService('ninja:form.element.select.option')
 				->importXml($option);
 			$this->addOption($elem);
 		}
 		if($this->_xml['get']) 
 		{
-			$get = isset($this->_xml['tmp']) && $this->_xml['tmp'] == true ? KFactory::tmp(new KIdentifier($this->_xml['get'])) : KFactory::get(new KIdentifier($this->_xml['get']));
+			$get = isset($this->_xml['tmp']) && $this->_xml['tmp'] == true ? $this->getService(new KServiceIdentifier($this->_xml['get'])) : $this->getService(new KServiceIdentifier($this->_xml['get']));
 			if($this->_xml['set'])
 			{
 				$json 	= '{"'.str_replace(array(';', ':'), array('","', '":"'), (string)$this->_xml['set']).'"}';
@@ -64,13 +64,13 @@ class ComNinjaFormElementSelectGenericlist extends ComNinjaFormElementAbstract i
 			{
 				if($item->$val == false)
 				{
-					$elem = KFactory::tmp('admin::com.ninja.form.element.select.optgroup')
+					$elem = $this->getService('ninja:form.element.select.optgroup')
 						->importXml(simplexml_load_string('<optgroup label="' . $item->$key . '"></optgroup>'));
 					$this->addOption($elem);
 				}
 				else
 				{
-					$elem = KFactory::tmp('admin::com.ninja.form.element.select.option')
+					$elem = $this->getService('ninja:form.element.select.option')
 						->importXml(simplexml_load_string('<option value="' . $item->$val . '">' . $item->$key . '</option>'));
 					$this->addOption($elem);
 				}
@@ -116,7 +116,7 @@ class ComNinjaFormElementSelectGenericlist extends ComNinjaFormElementAbstract i
 		}
 		
 		/*
-		$filter 	= KFactory::get('lib.koowa.filter.boolean');
+		$filter 	= $this->getService('koowa:filter.boolean');
 		
 		$name 		= ' name="'.htmlspecialchars($this->getName()).'"';
 		$id			= ' id="'.htmlspecialchars($this->getName()).'_id"';
@@ -132,7 +132,7 @@ class ComNinjaFormElementSelectGenericlist extends ComNinjaFormElementAbstract i
 		
 		if(count($this->_options) == 0)
 		{
-			$option = KFactory::tmp('admin::com.ninja.form.element.select.option')
+			$option = $this->getService('ninja:form.element.select.option')
 							->importXml(simplexml_load_string('<option>' . JText::_('No options') . '</option>'))
 							->renderDomElement($dom);
 			$elem->appendChild($option);

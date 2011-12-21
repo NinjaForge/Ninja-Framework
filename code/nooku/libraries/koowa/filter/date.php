@@ -1,6 +1,6 @@
 <?php
 /**
-* @version		$Id: date.php 2876 2011-03-07 22:19:20Z johanjanssens $
+* @version		$Id: date.php 1054 2011-06-16 14:35:04Z stian $
 * @category		Koowa
 * @package      Koowa_Filter
 * @copyright    Copyright (C) 2007 - 2010 Johan Janssens. All rights reserved.
@@ -61,7 +61,7 @@ class KFilterDate extends KFilterTimestamp
         {
             $format = 'Y-m-d';
         
-            if (is_int($value)) {
+            if (is_numeric($value)) {
                 $result = date($format, $value); 
             } else {
                 $result = date($format, strtotime($value)); 

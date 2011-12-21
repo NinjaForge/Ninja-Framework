@@ -1,5 +1,5 @@
 <? defined( 'KOOWA' ) or die( 'Restricted access' ) ?>
-<? @$xml = simplexml_load_file(KFactory::get('admin::com.ninja.helper.application')->getPath('com_xml')) ?>
+<? @$xml = simplexml_load_file($this->getService('ninja:helper.application')->getPath('com_xml')) ?>
 
 <style type="text/css">
 	.info dt,

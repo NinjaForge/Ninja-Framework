@@ -1,6 +1,6 @@
 <?php
 /**
- * @version     $Id: default.php 2721 2010-10-27 00:58:51Z johanjanssens $
+ * @version     $Id: html.php 1372 2011-10-11 18:56:47Z stian $
  * @category    Nooku
  * @package     Nooku_Components
  * @subpackage  Default
@@ -29,25 +29,8 @@ class ComDefaultViewHtml extends KViewDefault
         parent::__construct($config);
          
         //Add alias filter for editor helper
-        KFactory::get($this->getTemplate())->getFilter('alias')->append(array(
-            '@editor(' => '$this->loadHelper(\'admin::com.default.template.helper.editor.display\', ')
+        $this->getTemplate()->getFilter('alias')->append(array(
+            '@editor(' => '$this->renderHelper(\'com://admin/default.template.helper.editor.display\', ')
         );
-        
-        //Add the template override path
-        $parts = $this->_identifier->path;
-        
-        array_shift($parts);
-        if(count($parts) > 1) 
-        {
-            $path    = KInflector::pluralize(array_shift($parts));
-            $path   .= count($parts) ? '/'.implode('/', $parts) : '';
-            $path   .= DS.strtolower($this->getName()); 
-        } 
-        else $path  = strtolower($this->getName());
-               
-        $template = KFactory::get('lib.joomla.application')->getTemplate();
-        $path     = JPATH_THEMES.'/'.$template.'/'.'html/com_'.$this->_identifier->package.DS.$path;
-          
-         KFactory::get($this->getTemplate())->addPath($path);
     }
 }

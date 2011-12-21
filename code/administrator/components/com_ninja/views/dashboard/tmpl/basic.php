@@ -1,16 +1,18 @@
 <? /** $Id: basic.php 1950 2009-12-18 01:42:22Z stian $ */ ?>
 <? defined( 'KOOWA' ) or die( 'Restricted access' ) ?>
 
-<? $name = KFactory::get($this->getView())->getIdentifier()->package ?>
-<? $extension = KFactory::get($this->getView())->getIdentifier()->type . '_' . $name ?>
-<? $path = KFactory::get('admin::com.ninja.helper.application')->getPath('com_xml') ?>
+<script type="text/javascript" src="/koowa.js"></script>
+<?= @helper('behavior.modal') ?>
+
+<? $name      = $this->getView()->getIdentifier()->package ?>
+<? $path = @service('ninja:helper.application')->getPath('com_xml') ?>
 <? $xml  = simplexml_load_file($path) ?>
-<? $image = KFactory::get('admin::com.ninja.helper.default')->img('/256/'.$name.'.png') ? KFactory::get('admin::com.ninja.helper.default')->img('/256/'.$name.'.png') : KFactory::get('admin::com.ninja.helper.default')->img('/256/default.png') ?>
+<? $image = @ninja('document.img', '/256/'.$name.'.png') ? @ninja('document.img', '/256/'.$name.'.png') : @ninja('document.img', '/256/default.png') ?>
 
 <link rel="stylesheet" href="/admin.css" />
 <link rel="stylesheet" href="/menu.css" />
 <style type="text/css">
-	.header.icon-48-dashboard { background-image: url(<?= KFactory::get('admin::com.ninja.helper.default')->img('/48/dashboard.png') ?>); }
+	.header.icon-48-dashboard { background-image: url(<?= @ninja('document.img', '/48/dashboard.png') ?>); }
 	.logoimg { width: 256px; height: 256px; background: url(<?= $image ?>) no-repeat center; }
 
 	.slogan {
@@ -24,10 +26,10 @@
 		background: transparent right center no-repeat;
 	}
 	span.checkversion.updating, span.update.updating {
-		background-image: url(<?= KFactory::get('admin::com.ninja.helper.default')->img('/16/spinner.gif') ?>);
+		background-image: url(<?= @ninja('document.img', '/16/spinner.gif') ?>);
 	}
 	span.update.complete.success {
-		background-image: url(<?= KFactory::get('admin::com.ninja.helper.default')->img('/16/enable.png') ?>);
+		background-image: url(<?= @ninja('document.img', '/16/enable.png') ?>);
 	}
 	span.update {
 		visibility: hidden;
@@ -72,7 +74,7 @@ window.addEvent('domready', function(){
 				});
 	
 			var request = new Request.JSON({
-				url: '?option=com_<?= KFactory::get($this->getView())->getIdentifier()->package ?>&view=<?= KFactory::get($this->getView())->getName() ?>&action=update<?= $actionPostfix ?>',
+				url: '?option=com_<?= $this->getView()->getIdentifier()->package ?>&view=<?= $this->getView()->getName() ?>&action=update<?= $actionPostfix ?>',
 				method: 'get',
 				onSuccess: function(response){
 	
@@ -91,8 +93,8 @@ window.addEvent('domready', function(){
 						update.getParent().addClass('complete success');
 						//Do a silent ajax request to the current page to run cleanup procedures
 						new Request().get(<?= json_encode(array(
-							'option'	=> 'com_'.KFactory::get($this->getView())->getIdentifier()->package,
-							'view'		=> KFactory::get($this->getView())->getName()
+							'option'	=> 'com_'.$this->getView()->getIdentifier()->package,
+							'view'		=> $this->getView()->getName()
 						)) ?>);
 					} else {
 						this.set({
@@ -124,7 +126,7 @@ window.addEvent('domready', function(){
 				});
 				
 			var status = this.getParent().getNext(), update = $('update'), request = new Request.JSON({
-				url: '?option=com_<?= KFactory::get($this->getView())->getIdentifier()->package ?>&view=<?= KFactory::get($this->getView())->getName() ?>&action=checkversion<?= $actionPostfix ?>',
+				url: '?option=com_<?= $this->getView()->getIdentifier()->package ?>&view=<?= $this->getView()->getName() ?>&action=checkversion<?= $actionPostfix ?>',
 				method: 'get',
 				onSuccess: function(response){
 	
@@ -186,12 +188,12 @@ window.addEvent('domready', function(){
 <? endif ?>
 
 <style type="text/css">
-	#<?= KFactory::get('admin::com.ninja.helper.default')->formid('adminform') ?> {
+	#<?= @ninja('document.formid', 'adminform') ?> {
 		margin: 0 0 10px 0;	
 	}
 </style>
 
-<table class="adminform" id="<?= KFactory::get('admin::com.ninja.helper.default')->formid('adminform') ?>">
+<table class="adminform" id="<?= @ninja('document.formid', 'adminform') ?>">
 	<tfoot>
 		<tr>
 			<td colspan="2" style="text-align: center">
@@ -210,7 +212,7 @@ window.addEvent('domready', function(){
 		<tr>
 			<td width="55%" valign="top">
 				<div id="cpanel">
-					<?= KFactory::get('admin::com.ninja.helper.manifest')->buttons() ?>
+					<?= @ninja('manifest.buttons') ?>
 				</div>
 			</td>
 			<td width="45%" valign="top">
@@ -242,39 +244,40 @@ window.addEvent('domready', function(){
 </table>
 
 <style type="text/css">
-	#<?= KFactory::get('admin::com.ninja.helper.default')->formid('tabs') ?>, #<?= KFactory::get('admin::com.ninja.helper.default')->formid('accordions') ?> {
+	#<?= @ninja('document.formid', 'tabs') ?>, #<?= @ninja('document.formid', 'accordions') ?> {
 		float: left;
 	}
 	
-	#<?= KFactory::get('admin::com.ninja.helper.default')->formid('tabs') ?> {
+	#<?= @ninja('document.formid', 'tabs') ?> {
 		width: 55%;
 	}
-	#<?= KFactory::get('admin::com.ninja.helper.default')->formid('tabs') ?> dl.tabs {
+	#<?= @ninja('document.formid', 'tabs') ?> dl.tabs {
 		margin-top: 1px;
 	}
 	
-	#<?= KFactory::get('admin::com.ninja.helper.default')->formid('accordions') ?> {
+	#<?= @ninja('document.formid', 'accordions') ?> {
 		width: 44%;
 		margin-left: 1%;
 	}
 </style>
-<? if(count(KFactory::get('admin::com.ninja.helper.module')->render(KFactory::get($this->getView())->getIdentifier()->package . '-dashboard-tabs')) > 0) : ?>
-<div id="<?= KFactory::get('admin::com.ninja.helper.default')->formid('tabs') ?>">
-	<?= KFactory::get('admin::com.ninja.helper.tabs')->startpane(array('id' => KFactory::get('admin::com.ninja.helper.default')->formid('tabs'))) ?>
-	<? foreach (KFactory::get('admin::com.ninja.helper.module')->render(KFactory::get($this->getView())->getIdentifier()->package . '-dashboard-tabs') as $title => $content) : ?>
-		<?= KFactory::get('admin::com.ninja.helper.tabs')->startpanel(array('title' => @text($title))) ?>
+<? if(count($this->getService('ninja:helper.module')->render($this->getView()->getIdentifier()->package . '-dashboard-tabs')) > 0) : ?>
+<div id="<?= @ninja('document.formid','tabs') ?>">
+	<?= @helper('tabs.startpane', array('id' => @ninja('document.formid', 'tabs'))) ?>
+	<? foreach ($this->getService('ninja:helper.module')->render($this->getView()->getIdentifier()->package . '-dashboard-tabs') as $title => $content) : ?>
+		<?= @helper('tabs.startpanel', array('title' => @text($title))) ?>
 			<?= $content ?>
-		<?= @ninja('tabs.endpanel') ?>
+		<?= @helper('tabs.endpanel') ?>
 	<? endforeach ?>
-	<?= @ninja('tabs.endpane') ?>
+	<?= @helper('tabs.endpane') ?>
 </div>
 <? endif ?>
-<? if(count(KFactory::get('admin::com.ninja.helper.module')->render(KFactory::get($this->getView())->getIdentifier()->package . '-dashboard-accordions')) > 0) : ?>
-<?= @ninja('accordions.startpane', array('id' => KFactory::get('admin::com.ninja.helper.default')->formid('accordions'), 'options' => array('display' => 0, 'alwaysHide' => false))) ?>
-<? foreach (KFactory::get('admin::com.ninja.helper.module')->render(KFactory::get($this->getView())->getIdentifier()->package . '-dashboard-accordions') as $title => $content) : ?>
-	<?= KFactory::get('admin::com.ninja.helper.accordions')->startpanel(array('title' => @text($title))) ?>
+
+<? if(count($this->getService('ninja:helper.module')->render($this->getView()->getIdentifier()->package . '-dashboard-accordions')) > 0) : ?>
+<?= @helper('accordion.startpane', array('id' => @ninja('document.formid', 'accordions'), 'options' => array('display' => 0, 'alwaysHide' => false))) ?>
+<? foreach ($this->getService('ninja:helper.module')->render($this->getView()->getIdentifier()->package . '-dashboard-accordions') as $title => $content) : ?>
+	<?= @helper('accordion.startpanel', array('title' => @text($title))) ?>
 		<?= $content ?>
-	<?= KFactory::get('admin::com.ninja.helper.accordions')->endpanel() ?>
+	<?= @helper('accordion.endpanel') ?>
 <? endforeach ?>
-<?= KFactory::get('admin::com.ninja.helper.accordions')->endpane() ?>
+<?= @helper('accordion.endpane') ?>
 <? endif ?>

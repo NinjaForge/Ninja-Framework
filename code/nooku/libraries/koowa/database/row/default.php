@@ -1,6 +1,6 @@
 <?php
 /**
- * @version		$Id: default.php 2951 2011-03-20 01:30:04Z johanjanssens $
+ * @version		$Id: default.php 1054 2011-06-16 14:35:04Z stian $
  * @category	Koowa
  * @package     Koowa_Database
  * @subpackage  Row

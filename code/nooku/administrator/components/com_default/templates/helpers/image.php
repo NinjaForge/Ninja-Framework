@@ -1,6 +1,6 @@
 <?php
 /**
- * @version     $Id: image.php 1005 2011-04-08 13:57:54Z stian $
+ * @version     $Id: image.php 1372 2011-10-11 18:56:47Z stian $
  * @category	Nooku
  * @package     Nooku_Components
  * @subpackage  Default
@@ -16,7 +16,6 @@
  * @category    Nooku
  * @package     Nooku_Components
  * @subpackage  Default
- * @uses        KFactory
  * @uses        KConfig
  */
 class ComDefaultTemplateHelperImage extends KTemplateHelperListbox
@@ -87,7 +86,7 @@ class ComDefaultTemplateHelperImage extends KTemplateHelperListbox
 			'class' => 'inputbox'
 			)));  
 
-		$root = JURI::root(true).'/'.str_replace(JPATH_ROOT.'/', '', $config->directory);
+	    $root = JURI::root(true).str_replace(JPATH_ROOT, '', $config->directory);
 		
 		$html = "
 		<script>
@@ -157,7 +156,7 @@ class ComDefaultTemplateHelperImage extends KTemplateHelperListbox
             'selected'  => $config->{$config->name}
  	    ));
  	    
- 	    $image = JURI::root(true).'/'.str_replace(JPATH_ROOT.'/', '', $config->directory).'/'.$config->selected;
+ 	    $image = JURI::root(true).str_replace(JPATH_ROOT, '', $config->directory).'/'.$config->selected;
 
  	    $path = $config->selected ? $image : 'media://system/images/blank.png';
   		$html = '<img '.KHelperArray::toString(array(
@@ -165,7 +164,7 @@ class ComDefaultTemplateHelperImage extends KTemplateHelperListbox
   			'id'		=> $config->name.'-preview',
   			'class'		=> 'preview',
   			'width'		=> $config->width,
-  			'height'	=> $config->width,
+  			'height'	=> $config->height,
   			'border'	=> $config->border,
   			'alt'		=> JText::_('Preview'),
   			'style'		=> $config->style

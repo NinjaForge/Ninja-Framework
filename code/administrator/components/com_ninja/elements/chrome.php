@@ -1,6 +1,6 @@
 <?php defined( 'KOOWA' ) or die( 'Restricted access' );
 /**
- * @version		$Id: chrome.php 794 2011-01-10 18:44:32Z stian $
+ * @version		$Id: chrome.php 1399 2011-11-01 14:22:48Z stian $
  * @category	Napi
  * @package		Napi_Parameter
  * @copyright	Copyright (C) 2007 - 2011 NinjaForge. All rights reserved.
@@ -8,11 +8,11 @@
  * @link     	http://ninjaforge.com
  */
 
-class ComNinjaElementChrome extends ComNinjaElementAbstract
+class NinjaElementChrome extends NinjaElementAbstract
 {
 	public function fetchElement($name, $value, &$node, $control_name)
 	{
-		$options = KFactory::get('admin::com.ninja.model.module_chrome')->client(0)->optgroup('<OPTGROUP>')->getList();	
+		$options = $this->getService('ninja:model.module_chrome')->client(0)->optgroup('<OPTGROUP>')->getList();	
 
 		return JHTML::_('select.genericlist', $options, $this->name, array('class' => 'value'), 'id', 'title', $value, $this->id, false);
 	}

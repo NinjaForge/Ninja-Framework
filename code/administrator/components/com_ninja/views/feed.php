@@ -1,13 +1,13 @@
 <?php defined( 'KOOWA' ) or die( 'Restricted access' );
 /**
- * @version		$Id: feed.php 794 2011-01-10 18:44:32Z stian $
+ * @version		$Id: feed.php 1399 2011-11-01 14:22:48Z stian $
  * @package		Ninja
  * @copyright	Copyright 2011 NinjaForge. 
  * @license 	GNU GPLv2 <http://www.gnu.org/licenses/old-licenses/gpl-2.0.html>
  * @link     	http://ninjaforge.com
  */
  
-class ComNinjaViewFeed extends KViewAbstract
+class NinjaViewFeed extends KViewAbstract
 {
 	/**
 	 * Constructor

@@ -1,6 +1,6 @@
 <?php defined( 'KOOWA' ) or die( 'Restricted access' );
 /**
- * @version		$Id: getlist.php 837 2011-01-18 14:25:33Z richie $
+ * @version		$Id: getlist.php 1399 2011-11-01 14:22:48Z stian $
  * @category	Napi
  * @package		Napi_Parameter
  * @copyright	Copyright (C) 2007 - 2011 NinjaForge. All rights reserved.
@@ -8,7 +8,7 @@
  * @link     	http://ninjaforge.com
  */
 
-class ComNinjaElementGetlist extends ComNinjaElementAbstract
+class NinjaElementGetlist extends NinjaElementAbstract
 {
 	function fetchElement($name, $value, &$node, $control_name)
 	{

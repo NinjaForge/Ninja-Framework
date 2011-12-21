@@ -1,13 +1,13 @@
 <?php defined( 'KOOWA' ) or die( 'Restricted access' );
 /**
- * @version		$Id: table.php 898 2011-02-26 18:19:25Z stian $
+ * @version		$Id: table.php 1399 2011-11-01 14:22:48Z stian $
  * @category	Ninja
  * @copyright	Copyright (C) 2007 - 2011 NinjaForge. All rights reserved.
  * @license		GNU GPLv3 <http://www.gnu.org/licenses/gpl.html>
  * @link     	http://ninjaforge.com
  */
 
-class ComNinjaModelTable extends ComDefaultModelDefault
+class NinjaModelTable extends ComDefaultModelDefault
 {
 	
 	/**
@@ -49,7 +49,7 @@ class ComNinjaModelTable extends ComDefaultModelDefault
 	
 	protected function _buildQueryTreeJoins(KDatabaseQuery $query)
 	{
-		$table			= KFactory::get($this->getTable());
+		$table			= $this->getService($this->getTable());
 		$table_name		= $table->getName();
 		$primary_key	= $table->getIdentityColumn();
 		
@@ -58,7 +58,7 @@ class ComNinjaModelTable extends ComDefaultModelDefault
 	
 	protected function _buildQueryGroup(KDatabaseQuery $query)
 	{
-		$table			= KFactory::get($this->getTable());
+		$table			= $this->getService($this->getTable());
 		$table_name		= $table->getName();
 		$primary_key	= $table->getPrimaryKey();
 		
@@ -104,7 +104,7 @@ class ComNinjaModelTable extends ComDefaultModelDefault
 		// Get the data if it doesn't already exist
 	    if (!isset($this->_treelevel)||!array_key_exists($key, $this->_treelevel))
 	    {
-	    	$table = KFactory::get($this->getTable());
+	    	$table = $this->getService($this->getTable());
 	    	$query = $this->_db->getQuery()->where('tbl.lft', '<', $lft, 'and')->where('tbl.rgt', '>', $rgt, 'and');
 	    	$this->_treelevel[$key] = $table->count($query);
 	    }

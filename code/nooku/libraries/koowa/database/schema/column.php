@@ -1,6 +1,6 @@
 <?php
 /**
- * @version		$Id: column.php 2876 2011-03-07 22:19:20Z johanjanssens $
+ * @version		$Id: column.php 1372 2011-10-11 18:56:47Z stian $
  * @category	Koowa
  * @package     Koowa_Database
  * @subpackage  Schema
@@ -130,7 +130,7 @@ class KDatabaseSchemaColumn extends KObject
             }
             
             if(!($this->_filter instanceof KFilterInterface)) {
-                $this->_filter = KFilter::factory($this->_filter);
+                $this->_filter = $this->getService('koowa:filter.factory')->instantiate($this->_filter);
             }
         
             return $this->_filter;

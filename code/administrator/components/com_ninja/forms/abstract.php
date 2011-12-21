@@ -1,6 +1,6 @@
 <?php defined( 'KOOWA' ) or die( 'Restricted access' );
 /**
- * @version		$Id: abstract.php 646 2010-11-10 17:50:55Z stian $
+ * @version		$Id: abstract.php 1399 2011-11-01 14:22:48Z stian $
  * @category	Koowa
  * @package		Koowa_Form
  * @copyright	Copyright (C) 2007 - 2010 Johan Janssens and Mathias Verraes. All rights reserved.
@@ -18,7 +18,7 @@
  * @uses		KObjectArray
  * @uses		KFactory
  */
-abstract class ComNinjaFormAbstract extends KObjectArray implements ComNinjaFormInterface, KObjectIdentifiable
+abstract class NinjaFormAbstract extends KObjectArray implements NinjaFormInterface
 {
 	/**
 	 * Array with all form elements for this form
@@ -33,37 +33,6 @@ abstract class ComNinjaFormAbstract extends KObjectArray implements ComNinjaForm
 	 * @var	string
 	 */
 	protected $_xml;
-	
-	/**
-	 * The object identifier
-	 *
-	 * @var object 
-	 */
-	protected $_identifier = null;
-
-	/**
-	 * Constructor
-	 *
-	 * @param	array An optional associative array of configuration settings.
-	 */
-	public function __construct(KConfig $options)
-	{
-        $this->_identifier = $options->identifier;
-        
-        parent::__construct($options);
-        
-		//$options  = $this->_initialize($options);
-	}
-    
-    /**
-	 * Get the identifier
-	 *
-	 * @return 	object A KFactoryIdentifier object
-	 */
-	public function getIdentifier()
-	{
-		return $this->_identifier;
-	}
     
     /**
      * Add an element
@@ -96,7 +65,7 @@ abstract class ComNinjaFormAbstract extends KObjectArray implements ComNinjaForm
 	 */
 	public function getName()
 	{
-		return $this->_identifier->package.'_'.$this->_identifier->name;
+		return $this->getIdentifier()->package.'_'.$this->getIdentifier()->name;
 	}
 	
 	/**
@@ -172,7 +141,7 @@ abstract class ComNinjaFormAbstract extends KObjectArray implements ComNinjaForm
 		// Add each element to the form
 		foreach($this->_xml->element as $xmlElem)
 		{
-			$elem = KFactory::tmp((string) $xmlElem['type'])
+			$elem = $this->getService((string) $xmlElem['type'])
 				->importXml($xmlElem);
 			$this->addElement($elem);
 		}

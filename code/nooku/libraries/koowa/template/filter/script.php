@@ -1,6 +1,6 @@
 <?php
 /**
-* @version      $Id: script.php 3065 2011-04-06 13:39:41Z johanjanssens $
+* @version      $Id: script.php 1139 2011-07-19 22:21:48Z stian $
 * @category		Koowa
 * @package      Koowa_Template
 * @subpackage	Filter
@@ -19,6 +19,24 @@
  */
 class KTemplateFilterScript extends KTemplateFilterAbstract implements KTemplateFilterWrite
 {
+	/**
+     * Initializes the options for the object
+     *
+     * Called from {@link __construct()} as a first step of object instantiation.
+     *
+     * @param   object  An optional KConfig object with configuration options
+     * @return void
+     */
+    protected function _initialize(KConfig $config)
+    {
+        $config->append(array(
+            'priority'   => KCommand::PRIORITY_LOW,
+        ));
+
+        parent::_initialize($config);
+    }
+	
+	
 	/**
 	 * Find any <script src="" /> or <script></script> elements and render them
 	 *

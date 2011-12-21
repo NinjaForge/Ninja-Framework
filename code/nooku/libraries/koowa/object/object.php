@@ -1,6 +1,6 @@
 <?php
 /**
- * @version		$Id: object.php 3001 2011-03-27 01:40:01Z johanjanssens $
+ * @version		$Id: object.php 1436 2011-11-22 19:02:27Z stian $
  * @category	Koowa
  * @package		Koowa_Object
  * @copyright	Copyright (C) 2007 - 2010 Johan Janssens. All rights reserved.
@@ -17,7 +17,7 @@
  * @category    Koowa
  * @package     Koowa_Object
  */
-class KObject implements KObjectHandlable
+class KObject implements KObjectHandlable, KObjectServiceable
 {
     /**
      * Class methods
@@ -32,13 +32,20 @@ class KObject implements KObjectHandlable
      * @var array
      */
     protected $_mixed_methods = array();
-    
-   /**
-     * The object identifier
+     
+    /**
+     * The service identifier
      *
-     * @var KIdentifierInterface
+     * @var KServiceIdentifier
      */
-    protected $_identifier;
+    private $__service_identifier;
+    
+    /**
+     * The service container
+     *
+     * @var KService
+     */
+    private $__service_container;
      
     /**
      * Constructor.
@@ -47,11 +54,17 @@ class KObject implements KObjectHandlable
      */
     public function __construct( KConfig $config = null) 
     { 
-        //Set the identifier before initialise is called
-        if($this instanceof KObjectIdentifiable) {
-            $this->_identifier = $config->identifier;
+        //Set the service container
+        if(isset($config->service_container)) {
+            $this->__service_container = $config->service_container;
         }
         
+        //Set the service identifier
+        if(isset($config->service_identifier)) {
+            $this->__service_identifier = $config->service_identifier;
+        }
+        
+        //Initialise the object
         if($config) {
             $this->_initialize($config);
         }
@@ -145,9 +158,6 @@ class KObject implements KObjectHandlable
      *
      * When using mixin(), the calling object inherits the methods of the mixed
      * in objects, in a LIFO order. 
-     * 
-     * This function notifies the mixing through the onMixin function it is being
-     * mixed.
      *
      * @param   object  An object that implements KMinxInterface
      * @return  KObject
@@ -160,9 +170,8 @@ class KObject implements KObjectHandlable
             $this->_mixed_methods[$method] = $object;
         }
         
-        //Notify the mixin
-        $object->mixer = $this;
-        $object->onMixin();
+        //Set the mixer
+        $object->setMixer($this);
         
         return $this;
     }
@@ -228,6 +237,53 @@ class KObject implements KObjectHandlable
         return $this->__methods;
     }
     
+	/**
+	 * Get an instance of a class based on a class identifier only creating it
+	 * if it doesn't exist yet.
+	 *
+	 * @param	string|object	The class identifier or identifier object
+	 * @param	array  			An optional associative array of configuration settings.
+	 * @throws	KServiceServiceException
+	 * @return	object  		Return object on success, throws exception on failure
+	 * @see 	KObjectServiceable
+	 */
+	final public function getService($identifier, array $config = array())
+	{
+	    if(!isset($this->__service_container)) {
+	        throw new KObjectException("Failed to call ".get_class($this)."::getService(). The '__service_container' property is undefined.");
+	    }
+	    return $this->__service_container->get($identifier, $config);
+	}
+	
+	/**
+	 * Gets the service identifier.
+	 *
+	 * @return	KServiceIdentifier
+	 * @see 	KObjectServiceable
+	 */
+	final public function getIdentifier($identifier = null)
+	{
+		if(isset($identifier)) {
+		    $result = $this->__service_container->getIdentifier($identifier);
+		} else {
+		    $result = $this->__service_identifier; 
+		}
+	    
+	    return $result;
+	}
+	
+	/**
+     * Preform a deep clone of the object.
+     *
+     * @retun void
+     */
+    public function __clone()
+    {
+        foreach($this->_mixed_methods as $method => $object) {
+            $this->_mixed_methods[$method] = clone $object;
+        }
+    }
+    
     /**
      * Search the mixin method map and call the method or trigger an error
      *
@@ -244,7 +300,7 @@ class KObject implements KObjectHandlable
             $result = null;
             
             //Switch the mixin's attached mixer
-            $object->mixer = $this;
+            $object->setMixer($this);
             
             // Call_user_func_array is ~3 times slower than direct method calls. 
             switch(count($arguments)) 

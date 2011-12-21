@@ -436,6 +436,13 @@ html[dir=rtl] .ninja-form .key {
 	width: 98%;
 	padding: 1%;
 
+    /* Ugly input shadows on iPads, iPhones and Droids etc etc be gone! */
+    /*-webkit-appearance: caret;
+    -moz-appearance: caret;*/
+    /* Using caret had weird side effects, it's recommended to use none instead */
+    -webkit-appearance: none;
+    -moz-appearance: none;
+
 	/* Epic FireFox workaround needs to come last */
 	-moz-box-sizing: border-box;
 	padding: -moz-calc(5px);

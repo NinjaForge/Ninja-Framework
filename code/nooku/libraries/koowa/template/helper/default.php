@@ -1,6 +1,6 @@
 <?php
 /**
- * @version		$Id: default.php 2725 2010-10-28 01:54:08Z johanjanssens $
+ * @version		$Id: default.php 1372 2011-10-11 18:56:47Z stian $
  * @category	Koowa
  * @package		Koowa_Template
  * @subpackage	Helper
@@ -16,7 +16,6 @@
  * @category	Koowa
  * @package		Koowa_Template
  * @subpackage	Helper
- * @uses   		KFactory
  */
 class KTemplateHelperDefault extends KTemplateHelperAbstract
 {

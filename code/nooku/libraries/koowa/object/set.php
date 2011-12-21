@@ -1,6 +1,6 @@
 <?php
 /**
- * @version		$Id: set.php 1006 2011-04-08 16:27:49Z stian $
+ * @version		$Id: set.php 1372 2011-10-11 18:56:47Z stian $
  * @category	Koowa
  * @package		Koowa_Object
  * @copyright	Copyright (C) 2007 - 2010 Johan Janssens. All rights reserved.
@@ -19,7 +19,7 @@
  * @package     Koowa_Object
  * @see			http://www.php.net/manual/en/class.splobjectstorage.php
  */
-class KObjectSet extends KObject implements IteratorAggregate, ArrayAccess, Countable, Serializable
+class KObjectSet extends KObject implements Iterator, ArrayAccess, Countable, Serializable
 {
    /**
      * Object set
@@ -46,16 +46,20 @@ class KObjectSet extends KObject implements IteratorAggregate, ArrayAccess, Coun
   	/**
      * Inserts an object in the set
      * 
-     * @param   object      The object to insert
-     * @return  KObjectSet
+     * @param   object	The object to insert
+     * @return  boolean	TRUE on success FALSE on failure
      */
     public function insert( KObjectHandlable $object)
     { 
-        if($handle = $object->getHandle()) {
+        $result = false;
+        
+        if($handle = $object->getHandle()) 
+        {
             $this->_object_set->offsetSet($handle, $object);
+            $result = true;
         }
        
-       return $this;
+       return $result;
     }
     
     /**
@@ -114,7 +118,7 @@ class KObjectSet extends KObject implements IteratorAggregate, ArrayAccess, Coun
      */
     public function offsetExists($object)
     {
-        if($object instanceof KConfigHandlable) {
+        if($object instanceof KObjectHandlable) {
             return $this->contains($object);
         }
     }
@@ -129,7 +133,7 @@ class KObjectSet extends KObject implements IteratorAggregate, ArrayAccess, Coun
      */
     public function offsetGet($object)
     {       
-        if($object instanceof KConfigHandlable) {
+        if($object instanceof KObjectHandlable) {
             return $this->_object_set->offsetGet($object->getHandle());
         }
     }
@@ -145,7 +149,7 @@ class KObjectSet extends KObject implements IteratorAggregate, ArrayAccess, Coun
      */
     public function offsetSet($object, $data)
     {
-        if($object instanceof KConfigHandlable) {
+        if($object instanceof KObjectHandlable) {
             $this->insert($object);
         }
         return $this;
@@ -161,7 +165,7 @@ class KObjectSet extends KObject implements IteratorAggregate, ArrayAccess, Coun
      */
     public function offsetUnset($object)
     {
-        if($object instanceof KConfigHandlable) {
+        if($object instanceof KObjectHandlable) {
             $this->extract($object);
         }
         
@@ -230,6 +234,57 @@ class KObjectSet extends KObject implements IteratorAggregate, ArrayAccess, Coun
     {
         return $this->_object_set->getIterator();
     }
+    
+    /**
+     * Rewind the Iterator to the first element
+     *
+     * @return  object KObjectArray
+     */
+    public function rewind() 
+    {
+        reset($this->_object_set);
+        return $this;     
+    } 
+        
+    /**
+     * Checks if current position is valid
+     *
+     * @return  boolean
+     */
+    public function valid() 
+    {
+        return !is_null(key($this->_object_set)); 
+    } 
+        
+    /**
+     * Return the key of the current element
+     *
+     * @return  scalar
+     */
+    public function key() 
+    {
+        return key($this->_object_set); 
+    } 
+        
+	/**
+     * Return the current element
+     *
+     * @return  mixed
+     */
+    public function current() 
+    {
+        return current($this->_object_set); 
+    } 
+        
+	/**
+     * Move forward to next element
+     *
+     * @return  void
+     */
+    public function next() 
+    {
+        return next($this->_object_set); 
+    }
      
 	/**
      * Return an associative array of the data.
@@ -248,6 +303,8 @@ class KObjectSet extends KObject implements IteratorAggregate, ArrayAccess, Coun
      */
     public function __clone()
     { 
+        parent::__clone();
+        
         $this->_object_set = clone $this->_object_set;
     }
 }

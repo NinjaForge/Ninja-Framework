@@ -1,6 +1,6 @@
 <?php
 /**
- * @version 	$Id: interface.php 2725 2010-10-28 01:54:08Z johanjanssens $
+ * @version 	$Id: interface.php 1372 2011-10-11 18:56:47Z stian $
  * @category	Koowa
  * @package		Koowa_Database
  * @subpackage 	Behavior
@@ -16,7 +16,7 @@
  * @package     Koowa_Database
  * @subpackage 	Behavior
  */
-interface KDatabaseBehaviorInterface extends KCommandInterface, KObjectIdentifiable
+interface KDatabaseBehaviorInterface extends KCommandInterface, KObjectServiceable
 {
 	
 }

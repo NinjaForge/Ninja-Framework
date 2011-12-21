@@ -1,6 +1,6 @@
 <?php defined( 'KOOWA' ) or die( 'Restricted access' );
 /**
- * @version		$Id: html.php 552 2010-10-28 19:41:51Z stian $
+ * @version		$Id: html.php 1399 2011-11-01 14:22:48Z stian $
  * @category	Koowa
  * @package		Koowa_Form
  * @copyright	Copyright (C) 2007 - 2010 Johan Janssens and Mathias Verraes. All rights reserved.
@@ -15,7 +15,7 @@
  * @category	Koowa
  * @package     Koowa_Form
  */
-class ComNinjaFormHtml extends ComNinjaFormAbstract 
+class NinjaFormHtml extends NinjaFormAbstract 
 {
 	/**
 	 * Constructor
@@ -40,8 +40,8 @@ class ComNinjaFormHtml extends ComNinjaFormAbstract
 		// Add each element to the form
 		foreach($this->_xml->children() as $name => $xmlElem)
 		{
-			$type = $name == 'element' ? (string) $xmlElem['type'] : 'admin::com.ninja.form.element.' . $name;
-			$elem = KFactory::tmp($type)
+			$type = $name == 'element' ? (string) $xmlElem['type'] : 'ninja:form.element.' . $name;
+			$elem = $this->getService($type)
 				->importXml($xmlElem);
 			$this->addElement($elem);
 		}

@@ -1,6 +1,6 @@
 <?php
 /**
-* @version      $Id: ini.php 918 2011-03-21 21:30:59Z stian $
+* @version      $Id: ini.php 1372 2011-10-11 18:56:47Z stian $
 * @category     Koowa
 * @package      Koowa_Filter
 * @copyright    Copyright (C) 2007 - 2010 Johan Janssens. All rights reserved.
@@ -63,7 +63,7 @@ class ComDefaultFilterIni extends KFilterAbstract
         
         $handler = JRegistryFormat::getInstance('INI');
 
-        if(is_a($value, 'KConfig')) {
+        if($value instanceof KConfig) {
             $value = $value->toArray(); 
         }    
 

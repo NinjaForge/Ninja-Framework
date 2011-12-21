@@ -2,7 +2,7 @@
 <? defined( 'KOOWA' ) or die( 'Restricted access' ) ?>
 
 <? foreach (@$templates as $i => $template) : ?>
-<tr class="<?= @ninja('grid.zebra') ?>">
+<tr>
 	<?= @ninja('grid.count', array('total' => @$total)) ?>
 	<td><?= @ninja('grid.id', array('value' => $template->id)) ?></td>
 	<td><?= $template->name ?></td>

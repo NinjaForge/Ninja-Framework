@@ -7,13 +7,13 @@
 */
 
 /**
- * @version		$Id: curl.php 794 2011-01-10 18:44:32Z stian $
+ * @version		$Id: curl.php 1399 2011-11-01 14:22:48Z stian $
  * @category	Ninja
  * @copyright	Copyright (C) 2007 - 2011 NinjaForge. All rights reserved.
  * @license		GNU GPLv3 <http://www.gnu.org/licenses/gpl.html>
  * @link     	http://ninjaforge.com
  */
-class ComNinjaHelperCurl extends KTemplateHelperAbstract
+class NinjaHelperCurl extends KTemplateHelperAbstract
 {
 	
 	public $sessions 				=	array();

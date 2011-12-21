@@ -1,6 +1,6 @@
 <?php
 /**
- * @version		$Id: accordion.php 918 2011-03-21 21:30:59Z stian $
+ * @version		$Id: accordion.php 1054 2011-06-16 14:35:04Z stian $
  * @category	Koowa
  * @package		Koowa_Template
  * @subpackage	Helper
@@ -72,7 +72,7 @@ class KTemplateHelperAccordion extends KTemplateHelperBehavior
 		$html .= '
 			<script>
 				window.addEvent(\'domready\', function(){ 
-					new Accordion($$(\'.panel h3.jpane-toggler\'),$$(\'.panel div.jpane-slider\'),$merge('.$events.','.json_encode($config->options->toArray()).'))'.$scroll.'; 
+					new Accordion($$(\'.panel h3.jpane-toggler\'),$$(\'.panel div.jpane-slider\'),$merge('.$events.','.$config->options.'))'.$scroll.'; 
 				});
 			</script>';
 	

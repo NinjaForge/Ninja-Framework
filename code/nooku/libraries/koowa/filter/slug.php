@@ -1,6 +1,6 @@
 <?php
 /**
-* @version		$Id: slug.php 2725 2010-10-28 01:54:08Z johanjanssens $
+* @version		$Id: slug.php 1372 2011-10-11 18:56:47Z stian $
 * @category		Koowa
 * @package      Koowa_Filter
 * @copyright    Copyright (C) 2007 - 2010 Johan Janssens. All rights reserved.
@@ -75,7 +75,7 @@ class KFilterSlug extends KFilterAbstract
 	 */
 	protected function _validate($value)
 	{
-		return KFactory::tmp('lib.koowa.filter.cmd')->validate($value);
+		return $this->getService('koowa:filter.cmd')->validate($value);
 	}
 	
 	/**
@@ -93,7 +93,7 @@ class KFilterSlug extends KFilterAbstract
 		$value = str_replace($this->_separator, ' ', $value);
 		
 		//convert to ascii characters
-		$value = KFactory::tmp('lib.koowa.filter.ascii')->sanitize($value);
+		$value = $this->getService('koowa:filter.ascii')->sanitize($value);
 		
 		//lowercase and trim
 		$value = trim(strtolower($value));

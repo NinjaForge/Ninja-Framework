@@ -31,18 +31,21 @@ function do_bbcode_img ($action, $attributes, $content, $params, $node_object) {
     return '<img src="'.htmlspecialchars($content).'" alt="">';
 }
 
-class ComNinjaHelperBbcode extends StringParser_BBCode implements KTemplateHelperInterface
+class NinjaHelperBbcode extends StringParser_BBCode implements KTemplateHelperInterface, KObjectHandlable, KObjectServiceable
 {
 	/**
-	 * The object identifier
-	 * 
-	 * Public access is allowed via __get() with $identifier. The identifier
-	 * is only available of the object implements the KObjectIndetifiable
-	 * interface
+	 * The service identifier
 	 *
-	 * @var KIdentifierInterface
+	 * @var KServiceIdentifier
 	 */
-	protected $_identifier;
+	private $__service_identifier;
+	
+	/**
+	 * The service container
+	 *
+	 * @var KService
+	 */
+	private $__service_container;
 	
 	/**
 	 * Cache instance arrays using cache_group as keys
@@ -51,6 +54,13 @@ class ComNinjaHelperBbcode extends StringParser_BBCode implements KTemplateHelpe
 	 */
 	protected $_cache = array();
 
+    /**
+     * Template object
+     *
+     * @var	object
+     */
+    protected $_template;
+
 	/**
 	 * Constructor.
 	 *
@@ -58,14 +68,23 @@ class ComNinjaHelperBbcode extends StringParser_BBCode implements KTemplateHelpe
 	 */
 	public function __construct( KConfig $config = null) 
 	{ 
-		//Set the identifier before initialise is called
-		if($this instanceof KObjectIdentifiable) {
-			$this->_identifier = $config->identifier;
+		//Set the service container
+		if(isset($config->service_container)) {
+		    $this->__service_container = $config->service_container;
 		}
 		
-		if($config) {
-			$this->_initialize($config);
+		//Set the service identifier
+		if(isset($config->service_identifier)) {
+		    $this->__service_identifier = $config->service_identifier;
 		}
+		
+		//Initialise the object
+		if($config) {
+		    $this->_initialize($config);
+		}
+		
+		// Set the view indentifier
+		$this->_template = $config->template;
 		
 
 		$this->addFilter(STRINGPARSER_FILTER_PRE, 'convertlinebreaks');
@@ -91,7 +110,7 @@ class ComNinjaHelperBbcode extends StringParser_BBCode implements KTemplateHelpe
 		$this->addCode('bild', 'usecontent', 'do_bbcode_img', array (), 'image', array ('listitem', 'block', 'inline', 'link'), array ());
 		$this->setOccurrenceType('img', 'image');
 		$this->setOccurrenceType('bild', 'image');
-		$this->addCode('quote', 'simple_replace', null, array('start_tag' => '<blockquote>', 'end_tag' => '</blockquote>'), 'block', array('listitem', 'block', 'inline', 'link'), array());
+		$this->addCode('quote', 'usecontent?', array($this, 'quote'), array('usecontent_param' => 'default'), 'block', array('listitem', 'block', 'inline', 'link'), array());
 		$this->addCode('code', 'simple_replace', null, array('start_tag' => '<pre>', 'end_tag' => '</pre>'), 'inline', array('listitem', 'block', 'inline', 'link'), array());
 		//$this->setMaxOccurrences ('image', 2);
 		$this->addCode(
@@ -138,13 +157,58 @@ class ComNinjaHelperBbcode extends StringParser_BBCode implements KTemplateHelpe
 	}
 	
 	/**
-	 * Get the object identifier
-	 * 
-	 * @return	KIdentifier	
+	 * Get a handle for this object
+	 *
+	 * This function returns an unique identifier for the object. This id can be used as
+	 * a hash key for storing objects or for identifying an object
+	 *
+	 * @return string A string that is unique
 	 */
-	public function getIdentifier()
+	public function getHandle()
 	{
-		return $this->_identifier;
+	    return spl_object_hash( $this );
+	}
+	
+	/**
+	 * Get an instance of a class based on a class identifier only creating it
+	 * if it doesn't exist yet.
+	 *
+	 * @param	string|object	The class identifier or identifier object
+	 * @param	array  			An optional associative array of configuration settings.
+	 * @throws	KServiceServiceException
+	 * @return	object  		Return object on success, throws exception on failure
+	 * @see 	KObjectServiceable
+	 */
+	final public function getService($identifier, array $config = array())
+	{
+	    return $this->__service_container->get($identifier, $config);
+	}
+	
+	/**
+	 * Gets the service identifier.
+	 *
+	 * @return	KServiceIdentifier
+	 * @see 	KObjectServiceable
+	 */
+	final public function getIdentifier($identifier = null)
+	{
+		if(isset($identifier)) {
+		    $result = $this->__service_container->getIdentifier($identifier);
+		} else {
+		    $result = $this->__service_identifier; 
+		}
+	    
+	    return $result;
+	}
+	
+	/**
+	 * Get the template object
+	 *
+	 * @return  object	The template object
+	 */
+	public function getTemplate()
+	{
+	    return $this->_template;
 	}
 	
 	public function replaceStart($action, $attributes, $content, $params, $node_object)
@@ -216,10 +280,9 @@ class ComNinjaHelperBbcode extends StringParser_BBCode implements KTemplateHelpe
 	
 	    if(!isset($config['cache_group'])) $config['cache_group'] = 'com.ninja.helper.bbcode.parsed';
 	    if(!isset($config['cache_key']))   $config['cache_key'] = md5($config['text']);
-	    //$config['cache_key'] = '8690303dcae84177bf642ba30b76393f';
 	    
 	    if(!isset($this->_cache[$config['cache_group']])) {
-	        $this->_cache[$config['cache_group']] = KFactory::tmp('lib.joomla.cache', array($config['cache_group'], 'output'));
+	        $this->_cache[$config['cache_group']] = JFactory::getCache($config['cache_group'], 'output');
 	    }
 	    $cache = $this->_cache[$config['cache_group']];
 	
@@ -278,5 +341,39 @@ class ComNinjaHelperBbcode extends StringParser_BBCode implements KTemplateHelpe
 	    $url     = preg_replace($pattern, '$2', $matches[2]);
 	    $code    = str_replace($url, '', $matches[2]);
 	    return $matches[1].'[url]'.$url.'[/url]'.$code;
+	}
+	
+	/*
+	
+	 * New quote parser
+
+	 * @author CaptainHook
+
+	 */
+
+	
+
+	public function quote($action, $attributes, $content, $params, $node_object)
+
+	{
+
+	    if (!isset($attributes['default'])) {
+
+	        $text = $content;
+
+			return '<blockquote>'.$content.'</blockquote>';
+
+	    } else {
+
+	        $author = $attributes['default'];
+
+	        $text = $content;
+
+			return '<div class="blockquote"><p class="citation">'.$author.' said:</p>'.$content.'</div>';
+
+	    }
+
+	    
+
 	}
 }

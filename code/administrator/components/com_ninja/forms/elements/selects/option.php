@@ -1,6 +1,6 @@
 <?php defined( 'KOOWA' ) or die( 'Restricted access' );
 /**
- * @version		$Id: option.php 552 2010-10-28 19:41:51Z stian $
+ * @version		$Id: option.php 1399 2011-11-01 14:22:48Z stian $
  * @category	Koowa
  * @package		Koowa_Form
  * @subpackage 	Element
@@ -17,7 +17,7 @@
  * @package     Koowa_Form
  * @subpackage 	Element
  */
-class ComNinjaFormElementSelectOption extends ComNinjaFormElementAbstract
+class NinjaFormElementSelectOption extends NinjaFormElementAbstract
 {
 	/**
 	 * Is the option selected

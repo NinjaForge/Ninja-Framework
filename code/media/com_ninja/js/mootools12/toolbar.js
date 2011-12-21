@@ -1,14 +1,10 @@
-Selectors.Pseudo = new Hash({
+Selectors.Pseudo.defaultSelected = function(){
+	return this.defaultSelected;
+};
 
-	defaultSelected: function(){
-		return this.defaultSelected;
-	},
-	
-	defaultChecked: function(){
-		return this.defaultChecked;
-	}
-
-});
+Selectors.Pseudo.defaultChecked = function(){
+	return this.defaultChecked;
+};
 
 if(Browser.Platform.mac){
 	Event.Keys.extend({

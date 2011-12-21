@@ -3,7 +3,7 @@
  * Manipulate images using standard methods such as resize, crop, rotate, etc.
  * This class must be re-initialized for every image you wish to manipulate.
  *
- * $Id: image.php 1098 2011-07-07 16:57:05Z stian $
+ * $Id: image.php 1099 2011-07-07 23:27:09Z stian $
  *
  * @package    self
  * @author     Kohana Team
@@ -12,14 +12,14 @@
  */
  
  //@TODO this because Koowa changes camelCase classnames to plural, but not identifiers
- KLoader::load('admin::com.ninja.helper.image.driver');
+ KLoader::loadIdentifier('ninja:helper.image.driver');
  
  /**
  * Improved image helper class, derived from Kohanas
  *
  * @author		Stian Didriksen <stian@ninjaforge.com>
  */
-class ComNinjaHelperImage extends KTemplateHelperAbstract
+class NinjaHelperImage extends KTemplateHelperAbstract
 {
 	// Master Dimension
 	const NONE = 1;
@@ -68,6 +68,8 @@ class ComNinjaHelperImage extends KTemplateHelperAbstract
 		));
 		$this->config = $config;
 	
+	    parent::__construct($config);
+	
 		//@TODO legacy
 		$image = $config->image;
 	
@@ -113,10 +115,10 @@ class ComNinjaHelperImage extends KTemplateHelperAbstract
 
 
 		// Initialize the driver
-		$this->driver = KFactory::get('admin::com.ninja.helper.image.driver.'.$this->config['driver'], $this->config['params']);
+		$this->driver = $this->getService('ninja:helper.image.driver.'.$this->config['driver'], $this->config['params']);
 
 		// Validate the driver
-		if ( ! ($this->driver instanceof ComNinjaHelperImageDriver))
+		if ( ! ($this->driver instanceof NinjaHelperImageDriver))
 			throw new KException('image driver must be implement self_Driver class');
 	}
 

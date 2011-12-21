@@ -6,14 +6,14 @@
 	.current { max-height: 380px; overflow: auto; }
 </style>
 
-<?= @ninja('tabs.startpane', array('id' => 'popup', 'options' => array('display' => 1))) ?>
-	<?= @ninja('tabs.startpanel', array('title' => @text('General Information'))) ?>
+<?= @helper('tabs.startpane', array('id' => 'popup', 'options' => array('display' => 1))) ?>
+	<?= @helper('tabs.startpanel', array('title' => @text('General Information'))) ?>
 		<?= @template('information') ?>
-	<?= @ninja('tabs.endpanel') ?>
+	<?= @helper('tabs.endpanel') ?>
 	<? /*@helper('tabs.startpanel', @text('Support')) ?>
 		<?= @template('support') ?>
 	<?= @helper('tabs.endpanel')*/ ?>
-	<?= @ninja('tabs.startpanel', array('title' => @text('Changelog and Version Information'))) ?>
+	<?= @helper('tabs.startpanel', array('title' => @text('Changelog and Version Information'))) ?>
 		<?= @template('changelog') ?>
-	<?= @ninja('tabs.endpanel') ?>
-<?= @ninja('tabs.endpane') ?>
+	<?= @helper('tabs.endpanel') ?>
+<?= @helper('tabs.endpane') ?>

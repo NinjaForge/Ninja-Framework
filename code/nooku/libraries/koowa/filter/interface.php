@@ -1,6 +1,6 @@
 <?php
 /**
-* @version		$Id: interface.php 2876 2011-03-07 22:19:20Z johanjanssens $
+* @version		$Id: interface.php 1372 2011-10-11 18:56:47Z stian $
 * @category		Koowa
 * @package      Koowa_Filter
 * @copyright    Copyright (C) 2007 - 2010 Johan Janssens. All rights reserved.
@@ -17,7 +17,7 @@
  * @category    Koowa
  * @package     Koowa_Filter
  */
-interface KFilterInterface extends KCommandInterface
+interface KFilterInterface extends KCommandInterface, KServiceInstantiatable
 {
     /**
      * Validate a value or data collection

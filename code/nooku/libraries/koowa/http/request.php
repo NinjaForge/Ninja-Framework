@@ -1,6 +1,6 @@
 <?php
 /**
- * @version     $Id: request.php 928 2011-03-23 20:31:16Z stian $
+ * @version     $Id: request.php 1054 2011-06-16 14:35:04Z stian $
  * @category	Koowa
  * @package     Koowa_Http
  * @copyright   Copyright (C) 2007 - 2010 Johan Janssens. All rights reserved.

@@ -1,6 +1,6 @@
 <?php
 /**
- * @version		$Id: interface.php 3013 2011-03-27 02:01:21Z johanjanssens $
+ * @version		$Id: interface.php 1372 2011-10-11 18:56:47Z stian $
  * @category	Koowa
  * @package     Koowa_Database
  * @subpackage  Rowset
@@ -18,7 +18,7 @@
  * @subpackage  Rowset
  * @uses 		KMixinClass
  */
-interface KDatabaseRowsetInterface extends KObjectIdentifiable
+interface KDatabaseRowsetInterface
 {	
 	/**
      * Returns all data as an array.
@@ -109,4 +109,11 @@ interface KDatabaseRowsetInterface extends KObjectIdentifiable
      * @return KDatabaseRowsetAbstract
      */
     public function extract(KDatabaseRowInterface $row);
+    
+    /**
+	 * Test the connected status of the rowset.
+	 *
+	 * @return	bool
+	 */
+    public function isConnected();
 }

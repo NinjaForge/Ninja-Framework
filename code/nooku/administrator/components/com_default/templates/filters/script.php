@@ -1,6 +1,6 @@
 <?php
 /**
- * @version     $Id: default.php 2721 2010-10-27 00:58:51Z johanjanssens $
+ * @version     $Id: script.php 1342 2011-09-13 15:49:16Z stian $
  * @category    Nooku
  * @package     Nooku_Components
  * @subpackage  Default
@@ -33,7 +33,7 @@ class ComDefaultTemplateFilterScript extends KTemplateFilterScript
             return parent::_renderScript($script, $link, $attribs);
         }
         
-        $document = KFactory::get('lib.joomla.document');
+        $document = JFactory::getDocument();
         
         if($link) {
             $document->addScript($script, 'text/javascript');
