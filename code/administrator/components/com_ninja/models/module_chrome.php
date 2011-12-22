@@ -1,6 +1,5 @@
 <?php defined( 'KOOWA' ) or die( 'Restricted access' );
 /**
- * @version		$Id: module_chrome.php 1399 2011-11-01 14:22:48Z stian $
  * @package		Koowa
  * @copyright	Copyright (C) 2010 Nooku. All rights reserved.
  * @license 	GNU GPLv3 <http://www.gnu.org/licenses/gpl.html>

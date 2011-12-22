@@ -1,6 +1,5 @@
 <?php
 /**
- * @version 	$Id: nestable.php 162 2010-02-20 14:35:34Z stian $
  * @category	Koowa
  * @package		Koowa_Database
  * @subpackage 	Behavior

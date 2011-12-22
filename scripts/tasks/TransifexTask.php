@@ -1,7 +1,5 @@
 <?php
 /*
- * $Id: TransifexTask.php 1095 2011-07-06 19:08:45Z stian $
- *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -26,7 +24,6 @@ require_once 'phing/Task.php';
   * Updates an xml manifest with the revision number from the supplied property
   *
   * @author      Stian Didriksen <stian@ninjaforge.com>
-  * @version     $Id: TransifexTask.php 1095 2011-07-06 19:08:45Z stian $
   * @package     napi.phing.tasks
   */
 class TransifexTask extends Task

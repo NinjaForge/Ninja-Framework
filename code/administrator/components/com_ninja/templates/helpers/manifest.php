@@ -1,6 +1,5 @@
 <?php defined( 'KOOWA' ) or die( 'Restricted access' );
 /**
- * @version		$Id: manifest.php 1416 2011-11-10 15:21:02Z richie $
  * @category	Ninja
  * @package		Ninja_Template
  * @subpackage	Helper

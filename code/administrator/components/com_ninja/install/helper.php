@@ -1,8 +1,4 @@
-<?php
-// $Id: helper.php 551 2010-10-27 04:41:53Z daniel $
-
-// no direct access
-defined('_JEXEC') or die('Restricted access');
+<?php defined('_JEXEC') or die('Restricted access');
 
 class NinjaInstallHelper extends JObject
 {

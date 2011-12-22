@@ -1,6 +1,5 @@
 <?php defined( 'KOOWA' ) or die( 'Restricted access' );
 /**
- * @version		$Id: bbcode.php 1412 2011-11-02 03:20:45Z stian $
  * @category	Ninja
  * @package		Ninja_Template
  * @subpackage	Helper

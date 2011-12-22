@@ -1,5 +1,4 @@
 /**
- * @version		$Id: validation.js 552 2010-10-28 19:41:51Z stian $
  * @category    Koowa
  * @package     Koowa_Media
  * @subpackage  Javascript

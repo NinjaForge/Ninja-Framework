@@ -1,8 +1,5 @@
 <?php
-
 /*
- *  $Id: SavePropsTask.php 521 2010-10-10 15:39:54Z stian $
- *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -27,7 +24,6 @@ require_once "phing/Task.php";
  * 
  * @author Andrei Serdeliuc
  * @extends Task
- * @version   $Id: SavePropsTask.php 521 2010-10-10 15:39:54Z stian $
  * @package   phing.tasks.ext
  */
 class SavePropsTask extends Task

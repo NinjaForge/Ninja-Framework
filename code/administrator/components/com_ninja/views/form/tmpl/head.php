@@ -1,4 +1,3 @@
-<? /** $Id: head.php 1352 2011-09-13 16:39:50Z richie $ */ ?>
 <? defined( 'KOOWA' ) or die( 'Restricted access' ) ?>
 
 <link rel="stylesheet" href="media://lib_koowa/css/koowa.css" />

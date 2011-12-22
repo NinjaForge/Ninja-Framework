@@ -1,6 +1,5 @@
 <?php defined( '_JEXEC' ) or die( 'Restricted access' );
 /**
- * @version		$Id: ninja.php 1401 2011-11-01 14:52:38Z stian $
  * @category	Ninja
  * @copyright	Copyright (C) 2007 - 2011 NinjaForge. All rights reserved.
  * @license		GNU GPLv3 <http://www.gnu.org/licenses/gpl.html>

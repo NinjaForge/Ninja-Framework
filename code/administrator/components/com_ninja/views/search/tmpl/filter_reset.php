@@ -1,4 +1,3 @@
-<? /** $Id: filter_reset.php 200 2010-03-03 00:34:39Z stian $ */ ?>
 <? defined( 'KOOWA' ) or die( 'Restricted access' ) ?>
 
 <div class="button2-left" style="float:none;display:inline-block;">

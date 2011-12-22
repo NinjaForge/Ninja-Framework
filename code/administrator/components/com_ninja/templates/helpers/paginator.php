@@ -1,6 +1,5 @@
 <?php defined( 'KOOWA' ) or die( 'Restricted access' );
 /**
- * @version		$Id: paginator.php 1408 2011-11-02 02:31:29Z stian $
  * @category	Ninja
  * @package		Ninja_Template
  * @subpackage	Helper

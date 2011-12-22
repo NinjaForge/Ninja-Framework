@@ -1,4 +1,3 @@
-<? /** $Id: filter_form.php 1399 2011-11-01 14:22:48Z stian $ */ ?>
 <? defined( 'KOOWA' ) or die( 'Restricted access' ) ?>
 
 <form action="<?= @route() ?>" method="get" style="display:inline;" id="<?= @id('search') ?>">

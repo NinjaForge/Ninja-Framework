@@ -1,5 +1,4 @@
 /**
- * @version		$Id: combobox.js 12253 2009-06-21 21:22:04Z pentacle $
  * @package		Joomla.JavaScript
  * @copyright	Copyright (C) 2005 - 2010 Open Source Matters, Inc. All rights reserved.
  * @license		GNU General Public License version 2 or later; see LICENSE.txt

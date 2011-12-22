@@ -1,7 +1,4 @@
-<?php
-// $Id: migrate.php 1375 2011-10-11 21:28:25Z stian $
-
-defined( '_JEXEC' ) or die( 'Restricted access' );
+<?php defined( '_JEXEC' ) or die( 'Restricted access' );
 
 jimport('joomla.installer.helper');
 jimport('joomla.filesystem.file');

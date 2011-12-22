@@ -1,6 +1,5 @@
 <?php defined( 'KOOWA' ) or die( 'Restricted access' );
 /**
- * @version		$Id: dashboard.php 1409 2011-11-02 02:47:34Z stian $
  * @package		Ninja
  * @copyright	Copyright (C) 2011 NinjaForge. All rights reserved.
  * @license 	GNU GPLv3 <http://www.gnu.org/licenses/gpl.html>

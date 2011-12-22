@@ -1,6 +1,5 @@
 <?php
 /**
- * @version		$Id: loadgroup_backup.php 365 2010-06-23 11:43:38Z stian $
  * @category	Napi
  * @package		Napi_Parameter
  * @copyright	Copyright (C) 2007 - 2010 NinjaForge. All rights reserved.

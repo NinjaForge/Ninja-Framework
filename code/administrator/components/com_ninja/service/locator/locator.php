@@ -1,6 +1,5 @@
 <?php
 /**
- * @version 	$Id: locator.php 1405 2011-11-02 02:20:17Z stian $
  * @category	Koowa
  * @package		Koowa_Service
  * @subpackage 	Locator

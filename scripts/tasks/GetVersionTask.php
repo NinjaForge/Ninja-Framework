@@ -1,7 +1,5 @@
 <?php
 /*
- * $Id: GetVersionTask.php 521 2010-10-10 15:39:54Z stian $
- *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -29,7 +27,6 @@ require_once 'phing/Task.php';
   * Based on VersionTask by Mike Wittje <mw@mike.wittje.de>
   *
   * @author      Stian Didriksen <stian@ninjaforge.com>
-  * @version     $Id: GetVersionTask.php 521 2010-10-10 15:39:54Z stian $
   * @package     napi.phing.tasks
   */
 class GetVersionTask extends Task

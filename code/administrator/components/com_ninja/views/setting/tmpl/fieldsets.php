@@ -1,4 +1,3 @@
-<? /** $Id: fieldsets.php 1954 2009-12-19 14:08:04Z stian $ */ ?>
 <? defined( 'KOOWA' ) or die( 'Restricted access' ) ?>
 
 <? @ninja('behavior.tooltip', array('selector' => '[title].hasTip')) ?>

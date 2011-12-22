@@ -1,6 +1,5 @@
 <?php defined( 'KOOWA' ) or die( 'Restricted access' );
 /**
-* @version		$Id: html.php 1399 2011-11-01 14:22:48Z stian $
 * @category		Koowa
 * @package      Koowa_Modules
 * @copyright    Copyright (C) 2007 - 2009 Johan Janssens and Mathias Verraes. All rights reserved.

@@ -1,5 +1,4 @@
 /**
- * @version		$Id: content.php 427 2011-01-30 17:52:50Z Richie $
  * @category	Ninja
  * @package		Ninja_Media
  * @subpackage	Javascripts

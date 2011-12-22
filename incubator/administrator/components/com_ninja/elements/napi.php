@@ -1,6 +1,5 @@
 <?php defined( 'KOOWA' ) or die( 'Restricted access' );
 /**
- * @version		$Id: napi.php 682 2010-11-18 20:31:25Z stian $
  * @category	Napi
  * @package		Napi_Parameter
  * @copyright	Copyright (C) 2007 - 2010 NinjaForge. All rights reserved.

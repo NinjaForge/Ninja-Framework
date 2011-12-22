@@ -2,8 +2,6 @@
 /**
  * Image API driver.
  *
- * $Id: driver.php 1434 2011-11-22 13:36:33Z stian $
- *
  * @package    Image
  * @author     Kohana Team
  * @copyright  (c) 2007-2008 Kohana Team

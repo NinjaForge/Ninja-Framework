@@ -1,6 +1,5 @@
 <?php
 /**
- * @version 	$Id: loader.php 1404 2011-11-02 02:19:09Z stian $
  * @category	Koowa
  * @package		Koowa_Loader
  * @subpackage 	Adapter

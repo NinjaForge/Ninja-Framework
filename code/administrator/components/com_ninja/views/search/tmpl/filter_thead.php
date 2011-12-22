@@ -1,4 +1,3 @@
-<? /** $Id: filter_thead.php 425 2010-08-16 14:00:32Z stian $ */ ?>
 <? defined( 'KOOWA' ) or die( 'Restricted access' ) ?>
 
 <? if(@$length > 0) : ?>

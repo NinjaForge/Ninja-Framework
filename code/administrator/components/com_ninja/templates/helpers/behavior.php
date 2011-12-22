@@ -1,6 +1,5 @@
 <?php defined( 'KOOWA' ) or die( 'Restricted access' );
 /**
- * @version		$Id: behavior.php 1427 2011-11-22 11:30:24Z stian $
  * @category	Ninja
  * @package		Ninja_Template
  * @subpackage	Helper

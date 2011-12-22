@@ -1,7 +1,4 @@
-<?php
-// $Id: install.php 1306 2011-09-01 12:10:47Z stian $
-
-defined( '_JEXEC' ) or die( 'Restricted access' );
+<?php defined( '_JEXEC' ) or die( 'Restricted access' );
 
 if(!function_exists('humanize'))
 {

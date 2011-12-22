@@ -1,4 +1,3 @@
-<? /** $Id: default.php 1930 2009-12-16 02:09:58Z stian $ */ ?>
 <? defined( 'KOOWA' ) or die( 'Restricted access' ) ?>
 
 <form action="<?= @route() ?>" method="post" id="<?= @id() ?>">

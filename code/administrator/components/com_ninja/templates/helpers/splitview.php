@@ -1,6 +1,5 @@
 <?php defined( 'KOOWA' ) or die( 'Restricted access' );
 /**
- * @version		$Id: splitview.php 1399 2011-11-01 14:22:48Z stian $
  * @category	Ninja
  * @package		Ninja_Template
  * @subpackage	Helper

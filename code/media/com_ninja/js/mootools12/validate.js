@@ -1,5 +1,4 @@
 /**
- * @version		$Id: validate.js 13704 2009-12-11 19:22:01Z louis $
  * @copyright	Copyright (C) 2005 - 2010 Open Source Matters, Inc. All rights reserved.
  * @license		GNU General Public License version 2 or later; see LICENSE.txt
  */

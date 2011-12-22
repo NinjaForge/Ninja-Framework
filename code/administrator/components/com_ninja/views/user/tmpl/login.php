@@ -1,4 +1,3 @@
-<? /** $Id: login.php 1375 2011-10-11 21:28:25Z stian $ */ ?>
 <? defined( 'KOOWA' ) or die( 'Restricted access' ) ?>
 
 <? @$user = JFactory::getUser() ?>
