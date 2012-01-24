@@ -3,12 +3,12 @@
 	<name>System - Ninja Framework</name>
 	<author>NinjaForge</author>
 	<creationDate>January 2010</creationDate>
-	<copyright>(C) 2007-2010 Ninja Media Group. All rights reserved.</copyright>
+	<copyright>(C) 2007-2012 Ninja Media Group. All rights reserved.</copyright>
 	<license>GNU/GPL</license>
 	<authoremail>support@ninjaforge.com</authoremail>
 	<authorurl>ninjaforge.com</authorurl>
 	<version>2.0</version>
-	<description>Autoloads the Ninja Framework, required by NinjaForge apps such as Ninjaboard.</description>
+	<description>Autoloads the Ninja Framework, required by NinjaForge apps such as Ninjaboard. Requires Nooku Framework 12.1, Joomla 1.5 and 2.5 supported, use 1.6 or 1.7 on your own risk.</description>
 	<files>
 		<filename plugin="ninja">ninja.php</filename>
 	</files>
