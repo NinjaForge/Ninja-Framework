@@ -1,6 +1,6 @@
 <?php
 /**
- * @version     $Id: html.php 4266 2011-10-08 23:57:41Z johanjanssens $
+ * @version     $Id: html.php 4462 2012-02-06 15:59:36Z johanjanssens $
  * @category	Nooku
  * @package     Nooku_Modules
  * @subpackage  Default
@@ -89,10 +89,39 @@ class ModDefaultHtml extends KViewHtml
         if($property == 'module') 
         {
             if(is_string($value->params)) {
-                $value->params = new JParameter($value->params);
+                $value->params = $this->_parseParams($value->params);
             }
         }
         
         parent::__set($property, $value);
+    }
+    
+    /**
+     * Method to extract key/value pairs out of a string
+     *
+     * @param   string  String containing the parameters
+     * @return  array   Key/Value pairs for the attributes
+     */
+    protected function _parseParams( $string )
+    {
+        $params = array();
+        
+        if(!version_compare(JVERSION,'1.6.0','ge')) 
+        {
+            $string = trim($string);
+        
+            if(!empty($string))
+            {
+                foreach(explode("\n", $string) as $line) 
+                {
+                    $param = explode("=", $line, 2);
+                    $params[$param[0]] = $param[1];
+                }
+            }
+        } 
+        else $params = json_decode($string);
+       
+        $params = new KConfig($params);     
+        return $params;
     }
 }

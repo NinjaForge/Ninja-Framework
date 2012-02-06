@@ -1,6 +1,6 @@
 <?php
 /**
- * @version 	$Id: orderable.php 4266 2011-10-08 23:57:41Z johanjanssens $
+ * @version 	$Id: orderable.php 4450 2012-01-31 17:45:01Z johanjanssens $
  * @category	Koowa
  * @package		Koowa_Database
  * @subpackage 	Behavior
@@ -80,7 +80,7 @@ class KDatabaseBehaviorOrderable extends KDatabaseBehaviorAbstract
 			//Build the where query
 			$this->_buildQueryWhere($query);
 
-			$update =  'UPDATE `#__'.$table->getBase().'` ';
+			$update =  'UPDATE `'.$db->getTableNeedle().$table->getBase().'` ';
 			if($change < 0) 
 			{
 				$update .= 'SET ordering = ordering+1 ';
@@ -132,7 +132,7 @@ class KDatabaseBehaviorOrderable extends KDatabaseBehaviorAbstract
 
         $db->execute("SET @order = $base");
         $db->execute(
-             'UPDATE #__'.$table->getBase().' '
+             'UPDATE '.$db->getTableNeedle().$table->getBase().' '
             .'SET ordering = (@order := @order + 1) '
             .(string) $query.' '
             .'ORDER BY ordering ASC'
@@ -154,7 +154,7 @@ class KDatabaseBehaviorOrderable extends KDatabaseBehaviorAbstract
 
         $this->_buildQueryWhere($query);
 
-        $select = 'SELECT MAX(ordering) FROM `#__'.$table->getName().'`';
+        $select = 'SELECT MAX(ordering) FROM `'.$db->getTableNeedle().$table->getName().'`';
         $select .= (string) $query;
         
         return  (int) $db->select($select, KDatabase::FETCH_FIELD);

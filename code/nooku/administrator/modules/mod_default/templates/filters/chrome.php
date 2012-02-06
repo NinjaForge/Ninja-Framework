@@ -1,6 +1,6 @@
 <?php
 /**
-* @version      $Id: chrome.php 4266 2011-10-08 23:57:41Z johanjanssens $
+* @version      $Id: chrome.php 4441 2012-01-30 22:25:22Z johanjanssens $
 * @category		Koowa
 * @package      Koowa_Template
 * @subpackage	Filter
@@ -30,7 +30,10 @@ class ModDefaultTemplateFilterChrome extends KTemplateFilterAbstract implements 
         
         //Load the theme chrome functions
         include_once JPATH_THEMES.'/system/html/modules.php';
-		include_once JPATH_THEMES.'/'.$config->template.'/html/modules.php';
+        
+        if(file_exists(JPATH_THEMES.'/'.$config->template.'/html/modules.php')) {
+		    include_once JPATH_THEMES.'/'.$config->template.'/html/modules.php';
+        }
     }
 	
 	/**

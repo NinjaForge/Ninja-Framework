@@ -1,6 +1,6 @@
 <?php
 /**
- * @version		$Id: paginator.php 4277 2011-10-16 21:13:15Z johanjanssens $
+ * @version		$Id: paginator.php 4454 2012-01-31 23:21:47Z johanjanssens $
  * @category	Koowa
  * @package		Koowa_Template
  * @subpackage	Helper
@@ -56,7 +56,7 @@ class KTemplateHelperPaginator extends KTemplateHelperSelect
         {
             $config->limit   = 0;
             $config->offset  = 0;
-            $confgi->count   = 0;
+            $config->count   = 0;
             $config->current = 0;
         }
 

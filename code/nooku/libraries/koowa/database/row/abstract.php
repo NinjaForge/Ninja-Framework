@@ -1,6 +1,6 @@
 <?php
 /**
- * @version		$Id: abstract.php 4266 2011-10-08 23:57:41Z johanjanssens $
+ * @version		$Id: abstract.php 4445 2012-01-31 15:25:23Z johanjanssens $
  * @category	Koowa
  * @package     Koowa_Database
  * @subpackage  Row
@@ -277,7 +277,7 @@ abstract class KDatabaseRowAbstract extends KObjectArray implements KDatabaseRow
      *
      * @return integer
      */
-    function count()
+    public function count()
     {
         return false;
     }
@@ -335,6 +335,22 @@ abstract class KDatabaseRowAbstract extends KObjectArray implements KDatabaseRow
     public function getModified()
     {
         return array_keys($this->_modified);
+    }
+    
+    /**
+     * Check if a column has been modified
+     * 
+     * @param   string  The column name.
+     * @return  boolean
+     */
+    public function isModified($column)
+    {
+        $result = false;
+        if(isset($this->_modified[$column]) && $this->_modified[$column]) {
+            $result = true;
+        }
+        
+        return $result;
     }
     
     /**

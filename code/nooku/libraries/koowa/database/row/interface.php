@@ -1,6 +1,6 @@
 <?php
 /**
- * @version		$Id: interface.php 4266 2011-10-08 23:57:41Z johanjanssens $
+ * @version		$Id: interface.php 4445 2012-01-31 15:25:23Z johanjanssens $
  * @category	Koowa
  * @package     Koowa_Database
  * @subpackage  Row
@@ -88,6 +88,14 @@ interface KDatabaseRowInterface
      * @return array    An array of column names that have been modified
      */
     public function getModified();
+    
+    /**
+     * Check if a column has been modified
+     * 
+     * @param   string  The column name.
+     * @return  boolean
+     */
+    public function isModified($column);
 
     /**
      * Checks if the row is new or not

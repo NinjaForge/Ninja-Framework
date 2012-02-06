@@ -1,6 +1,6 @@
 <?php
 /**
- * @version     $Id: serviceable.php 4266 2011-10-08 23:57:41Z johanjanssens $
+ * @version     $Id: serviceable.php 4448 2012-01-31 16:49:41Z johanjanssens $
  * @category    Koowa
  * @package     Koowa_Service
  * @copyright   Copyright (C) 2007 - 2010 Johan Janssens. All rights reserved.
@@ -22,7 +22,7 @@ interface KObjectServiceable
 	 *
 	 * @param	string|object	The class identifier or identifier object
 	 * @param	array  			An optional associative array of configuration settings.
-	 * @throws	KServiceServiceException
+	 * @throws	KObjectException
 	 * @return	object  		Return object on success, throws exception on failure
 	 */
 	public function getService($identifier, array $config = array());
