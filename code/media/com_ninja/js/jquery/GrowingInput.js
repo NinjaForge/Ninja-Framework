@@ -77,4 +77,4 @@ var str_pad = function(self, length, str, dir){
 	return pad.substr(0, (pad.length / 2).floor()) + self + pad.substr(0, (pad.length / 2).ceil());
 };
 
-})(jQuery);
+})(ninja);

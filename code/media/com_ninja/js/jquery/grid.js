@@ -60,4 +60,4 @@
 		return this;
 	};
 	
-})(jQuery);
+})(ninja);
