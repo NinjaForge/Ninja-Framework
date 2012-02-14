@@ -17,8 +17,29 @@
  * @package		Ninja_Template
  * @subpackage	Helper
  */
-class NinjaTemplateHelperDocument extends KTemplateHelperDefault
+class NinjaTemplateHelperDocument extends KTemplateHelperDefault implements KServiceInstantiatable
 {
+    /**
+     * Force creation of a singleton
+     *
+     * @param   object  An optional KConfig object with configuration options
+     * @param   object  A KServiceServiceInterface object
+     * @return KTemplateStack
+     */
+    public static function getInstance(KConfigInterface $config, KServiceInterface $container)
+    { 
+        // Check if an instance with this identifier already exists or not
+        if (!$container->has($config->service_identifier))
+        {
+            //Create the singleton
+            $classname = $config->service_identifier->classname;
+            $instance  = new $classname($config);
+            $container->set($config->service_identifier, $instance);
+        }
+        
+        return $container->get($config->service_identifier);
+    }
+
     /**
      * Cache for loaded things
      *
@@ -126,6 +147,10 @@ class NinjaTemplateHelperDocument extends KTemplateHelperDefault
     public function load($load, $inline = false)
     {
         $document = JFactory::getDocument();
+
+        $key = md5($load).md5($inline);
+        if(!$this->_cache[$key]) $this->_cache[$key] = true;
+        else                     return true;
 
         if($inline)
         {
