@@ -149,8 +149,8 @@ class NinjaTemplateHelperDocument extends KTemplateHelperDefault implements KSer
         $document = JFactory::getDocument();
 
         $key = md5($load).md5($inline);
-        if(!isset($this->_cache[$key]) $this->_cache[$key] = true;
-        else                           return true;
+        if(!isset($this->_cache[$key])) $this->_cache[$key] = true;
+        else                            return true;
 
         if($inline)
         {
