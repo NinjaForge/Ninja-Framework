@@ -36,13 +36,15 @@ class JFormFieldNapi extends JFormField
 		$src = null;
 		if($src = $this->element['src']) $src = ' class="'. $src . '"';
 
+		if(!isset($this->element['xml'])) return 'You need to refactor your xml for it to work on J! 1.6 and later!';
+
 		$form = JPATH_ROOT.'/'.$this->element['xml'];
 		$form = simplexml_load_file($form)->form;
 
-		$grouptag  = $this->element['grouptag'];
+		$grouptag  = (string)$this->element['grouptag'];
 		//if(!$grouptag) $grouptag = 'jform[params]';
 		if(!$grouptag) $grouptag = 'params';
-		$groupname  = $this->element['formname'];
+		$groupname  = (string)$this->element['formname'];
 		if(!$groupname) $groupname = 'jform[params]';
 
 		$data = array();
