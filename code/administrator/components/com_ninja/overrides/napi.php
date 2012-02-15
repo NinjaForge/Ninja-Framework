@@ -40,9 +40,10 @@ class JFormFieldNapi extends JFormField
 		$form = simplexml_load_file($form)->form;
 
 		$grouptag  = $this->element['grouptag'];
-		if(!$grouptag) $grouptag = 'jform[params]';
+		//if(!$grouptag) $grouptag = 'jform[params]';
+		if(!$grouptag) $grouptag = 'params';
 		$groupname  = $this->element['formname'];
-		if(!$groupname) $groupname = 'params';
+		if(!$groupname) $groupname = 'jform[params]';
 
 		$data = array();
 		foreach($form->children() as $group)
@@ -64,15 +65,15 @@ class JFormFieldNapi extends JFormField
 					  		'name'	   => $groupname
 					  ));
 
-		$html[] = '</td></tr></tbody></table>';
+		$html[] = '</li></ul>';
 		$html[] = $parameter->render();
-		$html[] = '<table id="'.$this->name.'"><tbody><tr><td>';
+		$html[] = '<ul id="'.$this->name.'"><li>';
 					
 		KService::get('ninja:template.helper.document')->load('js', 'window.addEvent(\'domready\', function(){
 			$(\''.$this->name.'\').getParent().getChildren().each(function(el){
-				if(el.tagName == "TABLE") {
+				if(el.tagName == "UL") {
 					(function(){this.setStyle(\'height\', \'\');}.bind(el.getParent())).delay(601);
-					el.remove();
+					el.dispose();
 				}
 			});
 		});');
