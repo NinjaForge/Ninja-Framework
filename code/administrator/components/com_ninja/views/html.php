@@ -353,7 +353,7 @@ class NinjaViewHtml extends ComDefaultViewHtml
 					}
 				}
 
-				$module->content = $template->loadPath($warpfive, $data)->render(true);
+				$module->content = $template->loadFile($warpfive, $data)->render(true);
 			}
 			// Apply chrome and render module
 			elseif (function_exists($chromeMethod))
