@@ -55,6 +55,7 @@ class JElementNapi extends JElement
 		if(!$groupname) $groupname = 'params';
 		$data = $this->_parent->_raw;
 		if(!$data) $data = $this->_parent->_registry['_default']['data'];
+
 		$parameter = KService::get('ninja:form.parameter', array(
 					  		'data' 	   => $data,
 					  		'xml'  	   => $form,
