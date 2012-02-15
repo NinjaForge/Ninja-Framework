@@ -526,6 +526,8 @@ html[dir=rtl] .ninja-form .element.wide {
 }
 .ninja-form .element .group img {
 	max-width: 100%;
+	padding: 0;
+	margin: 0;
 }
 .ninja-form .element .group .value:active, .ninja-form .element .group .value:checked {
 	background-color: hsla(0, 0%, 84%, 0.8);
