@@ -266,14 +266,6 @@ class NinjaViewHtml extends ComDefaultViewHtml
 			$chrome = array();
 		}
 		
-		jimport('joomla.application.module.helper');
-		$load =& JModuleHelper::_load();
-		
-		if(!$this->_modules) $this->_modules_backup = $this->_modules = $load;
-		
-		$this->_modules[] = $module;
-		$load = $this->_modules;
-
 		require_once JPATH_BASE.DS.'templates'.DS.'system'.DS.'html'.DS.'modules.php';
 		$chromePath = JPATH_BASE.DS.'templates'.DS.$mainframe->getTemplate().DS.'html'.DS.'modules.php';
 		
