@@ -364,6 +364,8 @@ fieldset.ninja-form label, .ninja-form label {
 	clear: none;
 	display: inline-block;
 	float: none;
+	margin: 0;
+	min-width: 0!important;
 	width: auto!important;
 }
 fieldset.ninja-form input, .ninja-form input {
@@ -424,6 +426,8 @@ html[dir=rtl] .ninja-form .key {
 	display: inline-block;
 	padding-left: 0;
 	padding-right: 0;
+	padding-top: 0;
+	padding-bottom: 0;
 	margin-left: 0;
 	margin-right: 0;
 }
