@@ -1,9 +1,9 @@
 <?php
 /**
- * @version     $Id: date.php 2876 2011-03-07 22:19:20Z johanjanssens $
+ * @version     $Id: date.php 4477 2012-02-10 01:06:38Z johanjanssens $
  * @category	Koowa
  * @package     Koowa_Date
- * @copyright   Copyright (C) 2007 - 2010 Johan Janssens. All rights reserved.
+ * @copyright   Copyright (C) 2007 - 2012 Johan Janssens. All rights reserved.
  * @license     GNU GPLv3 <http://www.gnu.org/licenses/gpl.html>
  * @link        http://www.nooku.org
  */
@@ -203,7 +203,7 @@ class KDate extends KObject
         switch ($format)
         {
             case DATE_FORMAT_ISO:
-                return $this->format( '%Y-%m-%d %T' );
+                return $this->format( '%Y-%m-%d %H:%M:%S' );
                 break;
 
             case DATE_FORMAT_ISO_BASIC:

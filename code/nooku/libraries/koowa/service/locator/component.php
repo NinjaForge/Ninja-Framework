@@ -1,10 +1,10 @@
 <?php
 /**
- * @version 	$Id: component.php 4266 2011-10-08 23:57:41Z johanjanssens $
+ * @version 	$Id: component.php 4477 2012-02-10 01:06:38Z johanjanssens $
  * @category	Koowa
  * @package		Koowa_Service
  * @subpackage 	Locator
- * @copyright	Copyright (C) 2007 - 2010 Johan Janssens. All rights reserved.
+ * @copyright	Copyright (C) 2007 - 2012 Johan Janssens. All rights reserved.
  * @license		GNU GPLv3 <http://www.gnu.org/licenses/gpl.html>
  */
 
@@ -53,7 +53,7 @@ class KServiceLocatorComponent extends KServiceLocatorAbstract
 			$classtype = !empty($classpath) ? array_shift($classpath) : '';
 					
 			//Create the fallback path and make an exception for views
-			$path = ($classtype != 'view') ? KInflector::camelize(implode('_', $classpath)) : '';
+			$path = ($classtype != 'view') ? ucfirst($classtype).KInflector::camelize(implode('_', $classpath)) : ucfirst($classtype);
 						
 			/*
 			 * Find the classname to fallback too and auto-load the class
@@ -65,18 +65,18 @@ class KServiceLocatorComponent extends KServiceLocatorAbstract
 			 *                     -> Framework Specific 
 			 *                     -> Framework Default
 			 */
-			if(class_exists('Com'.ucfirst($identifier->package).ucfirst($classtype).$path.ucfirst($identifier->name))) {
-				$classname = 'Com'.ucfirst($identifier->package).ucfirst($classtype).$path.ucfirst($identifier->name);
-			} elseif(class_exists('Com'.ucfirst($identifier->package).ucfirst($classtype).$path.'Default')) {
-				$classname = 'Com'.ucfirst($identifier->package).ucfirst($classtype).$path.'Default';
-			} elseif(class_exists('ComDefault'.ucfirst($classtype).$path.ucfirst($identifier->name))) {
-				$classname = 'ComDefault'.ucfirst($classtype).$path.ucfirst($identifier->name);
-			} elseif(class_exists('ComDefault'.ucfirst($classtype).$path.'Default')) {
-				$classname = 'ComDefault'.ucfirst($classtype).$path.'Default';
-			} elseif(class_exists( 'K'.ucfirst($classtype).$path.ucfirst($identifier->name))) {
-				$classname = 'K'.ucfirst($classtype).$path.ucfirst($identifier->name);
-			} elseif(class_exists('K'.ucfirst($classtype).$path.'Default')) {
-				$classname = 'K'.ucfirst($classtype).$path.'Default';
+			if(class_exists('Com'.ucfirst($identifier->package).$path.ucfirst($identifier->name))) {
+				$classname = 'Com'.ucfirst($identifier->package).$path.ucfirst($identifier->name);
+			} elseif(class_exists('Com'.ucfirst($identifier->package).$path.'Default')) {
+				$classname = 'Com'.ucfirst($identifier->package).$path.'Default';
+			} elseif(class_exists('ComDefault'.$path.ucfirst($identifier->name))) {
+				$classname = 'ComDefault'.$path.ucfirst($identifier->name);
+			} elseif(class_exists('ComDefault'.$path.'Default')) {
+				$classname = 'ComDefault'.$path.'Default';
+			} elseif(class_exists( 'K'.$path.ucfirst($identifier->name))) {
+				$classname = 'K'.$path.ucfirst($identifier->name);
+			} elseif(class_exists('K'.$path.'Default')) {
+				$classname = 'K'.$path.'Default';
 			} else {
 				$classname = false;
 			}

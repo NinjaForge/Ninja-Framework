@@ -426,15 +426,15 @@ class NinjaFormParameter extends KObject
         	    $panel = JPane::getInstance('tabs', array('allowAllClose'=>'true'));
         	  	//TODO - D: there is a good chance this won't work because the panels should all be in the same pane
         	  	//do soem testing and expand this to opening and closing the pane outside the loop if needed. 
-        			$html[] = $panel->startPane($class); 			  
-        		  $html[] = $panel->startPanel(isset($group['legend']) ? $group['legend'] : $legend, $title);          
+        		$html[] = $panel->startPane($class); 			  
+        		$html[] = $panel->startPanel(isset($group['legend']) ? $group['legend'] : $legend, $title);          
         
               $closeHTML = $panel->endPanel().$panel->endPane();
               break;
           default:
               $html[] = '<div class="adminform ninja-form '.$class.'">';
               //closing statement for the above HTML. It is appended later
-      				$closeHTML =  '</div>';
+      		  $closeHTML =  '</div>';
               break;
       
       }

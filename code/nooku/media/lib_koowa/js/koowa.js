@@ -1,9 +1,9 @@
 /**
- * @version     $Id: koowa.js 4391 2011-11-24 16:01:16Z johanjanssens $
+ * @version     $Id: koowa.js 4497 2012-02-21 16:19:32Z johanjanssens $
  * @category	Nooku
  * @package     Nooku_Media
  * @subpackage  Javascript
- * @copyright   Copyright (C) 2007 - 2010 Johan Janssens. All rights reserved.
+ * @copyright   Copyright (C) 2007 - 2012 Johan Janssens. All rights reserved.
  * @license     GNU GPLv3 <http://www.gnu.org/licenses/gpl.html>
  * @link        http://www.nooku.org
  */
@@ -674,7 +674,7 @@ Koowa.Overlay = new Class({
     		this._tmp_scripts = scripts;
         }
         return this.parent(text);
-	},
+	}
 });
 
 

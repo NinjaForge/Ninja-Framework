@@ -23,10 +23,39 @@ class NinjaModelModules extends KModelAbstract
 						->insert('limit', 'int', 0);
 		
 		jimport('joomla.application.module.helper');
-		$this->_list = &JModuleHelper::_load();
-		$this->_total = count($this->_list);
 	}
 	
+	/**
+     * Get a list of items
+     *
+     * @return  object
+     */
+    public function getList()
+    {
+    	if(!isset($this->_list))
+    	{
+    		$this->_list = &JModuleHelper::_load();
+    	}
+
+        return $this->_list;
+    }
+
+    /**
+     * Get the total amount of items
+     *
+     * @return  int
+     */
+    public function getTotal()
+    {
+    	if(!isset($this->_totial))
+    	{
+    		$this->_total = count($this->getList());
+
+    	}
+
+        return $this->_total;
+    }
+
 	/**
 	 * Append new modules to the modules array
 	 *
@@ -36,8 +65,10 @@ class NinjaModelModules extends KModelAbstract
 	 */
 	public function append($module)
 	{
-		$this->_list[] = $module;
-		
+		$list 		 = $this->getList();
+		$list[]      = $module;
+		$this->_list = $list;
+
 		return $this;
 	}
 	
@@ -49,7 +80,7 @@ class NinjaModelModules extends KModelAbstract
 	 */
 	public function count()
 	{
-		return count(array_filter($this->_list, array($this, '_count')));
+		return count(array_filter($this->getList(), array($this, '_count')));
 	}
 	
 	/**
