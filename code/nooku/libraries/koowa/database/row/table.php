@@ -1,10 +1,10 @@
 <?php
 /**
- * @version		$Id: table.php 4266 2011-10-08 23:57:41Z johanjanssens $
+ * @version		$Id: table.php 4477 2012-02-10 01:06:38Z johanjanssens $
  * @category	Koowa
  * @package     Koowa_Database
  * @subpackage  Row
- * @copyright	Copyright (C) 2007 - 2010 Johan Janssens. All rights reserved.
+ * @copyright	Copyright (C) 2007 - 2012 Johan Janssens. All rights reserved.
  * @license		GNU GPLv2 <http://www.gnu.org/licenses/old-licenses/gpl-2.0.html>
  * @link     	http://www.koowa.org
  */
