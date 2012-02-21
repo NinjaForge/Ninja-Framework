@@ -1,10 +1,10 @@
 <?php
 /**
- * @version     $Id: executable.php 4404 2011-12-06 14:58:11Z johanjanssens $
+ * @version     $Id: executable.php 4478 2012-02-10 01:50:39Z johanjanssens $
  * @category	Nooku
  * @package     Nooku_Components
  * @subpackage  Default
- * @copyright   Copyright (C) 2007 - 2010 Johan Janssens. All rights reserved.
+ * @copyright   Copyright (C) 2007 - 2012 Johan Janssens. All rights reserved.
  * @license     GNU GPLv3 <http://www.gnu.org/licenses/gpl.html>
  * @link        http://www.nooku.org
  */

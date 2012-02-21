@@ -1,9 +1,9 @@
 <?php
 /**
- * @version 	$Id: loader.php 4285 2011-10-20 15:48:10Z johanjanssens $
+ * @version 	$Id: loader.php 4477 2012-02-10 01:06:38Z johanjanssens $
  * @category	Koowa
  * @package		Koowa_Loader
- * @copyright	Copyright (C) 2007 - 2010 Johan Janssens. All rights reserved.
+ * @copyright	Copyright (C) 2007 - 2012 Johan Janssens. All rights reserved.
  * @license		GNU GPLv3 <http://www.gnu.org/licenses/gpl.html>
  */
 
@@ -236,27 +236,33 @@ class KLoader
      */
     public function findPath($class, $basepath = null)
     {
-        if(!$this->_registry->offsetExists((string) $class)) 
+        static $base;
+        
+        //Switch the base
+        $base = $basepath ? $basepath : $base;
+        
+        if(!$this->_registry->offsetExists($base.'-'.(string) $class)) 
         {
             $result = false;
-                
+                 
             $word  = preg_replace('/(?<=\\w)([A-Z])/', ' \\1', $class);
             $parts = explode(' ', $word);
-            
-            if(isset(self::$_prefix_map[$parts[0]])) {
+         
+            if(isset(self::$_prefix_map[$parts[0]])) 
+            {    
                 $result = self::$_adapters[self::$_prefix_map[$parts[0]]]->findPath( $class, $basepath);
-            }
-             
-            if ($result !== false) 
-            {
-                //Get the canonicalized absolute pathname
-                $path = realpath($result);
-                $result = $path !== false ? $path : $result;
+            
+                if ($result !== false) 
+                {
+                   //Get the canonicalized absolute pathname
+                   $path = realpath($result);
+                   $result = $path !== false ? $path : $result;
+                }
+            
+                $this->_registry->offsetSet($base.'-'.(string) $class, $result);
             }
             
-            $this->_registry->offsetSet((string) $class, $result);
-        }
-        else $result = $this->_registry->offsetGet((string)$class);
+        } else $result = $this->_registry->offsetGet($base.'-'.(string)$class);
         
         return $result;
     }

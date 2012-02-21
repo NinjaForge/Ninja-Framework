@@ -35,44 +35,51 @@ class JFormFieldNapi extends JFormField
 	{
 		$src = null;
 		if($src = $this->element['src']) $src = ' class="'. $src . '"';
-		$form  = '<form'.$src.'>';
-		echo('<pre>'.print_r(get_class_methods($this->form), true));
-		die('<pre>'.print_r($this->form, true));
-		foreach($this->_parent->_xml as $group => $xml)
-		{
-			if($group == '_default') $xml->addAttribute('group', 'basic');
-			$form .= $xml->toString();
-		}
-		$form .= '</form>';
-	
-		$grouptag  = $this->element['grouptag'];
+
+		if(!isset($this->element['xml'])) return 'You need to refactor your xml for it to work on J! 1.6 and later!';
+
+		$form = JPATH_ROOT.'/'.$this->element['xml'];
+		$form = simplexml_load_file($form)->form;
+
+		$grouptag  = (string)$this->element['grouptag'];
+		//if(!$grouptag) $grouptag = 'jform[params]';
 		if(!$grouptag) $grouptag = 'params';
-		$groupname  = $this->element['formname'];
-		if(!$groupname) $groupname = 'params';
-		$data = $this->_parent->_raw;
-		if(!$data) $data = $this->_parent->_registry['_default']['data'];
-		$parameter = $this->getService('ninja:form.parameter', array(
+		$groupname  = (string)$this->element['formname'];
+		if(!$groupname) $groupname = 'jform[params]';
+
+		$data = array();
+		foreach($form->children() as $group)
+		{
+			foreach($group->children() as $element)
+			{
+				$key = (string)$group['group'];
+				$value = $this->form->getValue((string)$element['name'], $key);
+				if(!is_null($value)) $data[$key] = $value;
+			}
+		}
+
+		$parameter = KService::get('ninja:form.parameter', array(
 					  		'data' 	   => $data,
-					  		'xml'  	   => $form,
+					  		'xml'  	   => $form->asXML(),
 					  		'render'   => 'inline',
 					  		'groups'   => false,
 					  		'grouptag' => $grouptag,
 					  		'name'	   => $groupname
 					  ));
-	
-		$html[] = '</td></tr></tbody></table>';
+
+		$html[] = '</li></ul>';
 		$html[] = $parameter->render();
-		$html[] = '<table id="'.$this->name.'"><tbody><tr><td>';
+		$html[] = '<ul id="'.$this->name.'"><li>';
 					
-		$this->getService('ninja:template.helper.document')->load('js', 'window.addEvent(\'domready\', function(){
+		KService::get('ninja:template.helper.document')->load('js', 'window.addEvent(\'domready\', function(){
 			$(\''.$this->name.'\').getParent().getChildren().each(function(el){
-				if(el.tagName == "TABLE") {
+				if(el.tagName == "UL") {
 					(function(){this.setStyle(\'height\', \'\');}.bind(el.getParent())).delay(601);
-					el.remove();
+					el.dispose();
 				}
 			});
 		});');
-		$this->getService('ninja:template.helper.document')->load('/form.css');
+		KService::get('ninja:template.helper.document')->load('/form.css');
 		
 		return implode($html);
 	}

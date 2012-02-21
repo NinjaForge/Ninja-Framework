@@ -32,13 +32,22 @@ class JElementNapi extends JElement
 	{
 		$src = null;
 		if($src = $node->attributes('src', false)) $src = ' class="'. $src . '"';
-		$form  = '<form'.$src.'>';
-		foreach($this->_parent->_xml as $group => $xml)
+
+		$form = JPATH_ROOT.'/'.$node->attributes('xml', false);
+		if(is_file($form))
 		{
-			if($group == '_default') $xml->addAttribute('group', 'basic');
-			$form .= $xml->toString();
+			$form = simplexml_load_file($form)->form->asXML();
 		}
-		$form .= '</form>';
+		else
+		{
+			$form  = '<form'.$src.'>';
+			foreach($this->_parent->_xml as $group => $xml)
+			{
+				if($group == '_default') $xml->addAttribute('group', 'basic');
+				$form .= $xml->toString();
+			}
+			$form .= '</form>';
+		}
 
 		$grouptag  = $node->attributes('grouptag');
 		if(!$grouptag) $grouptag = 'params';
@@ -46,6 +55,7 @@ class JElementNapi extends JElement
 		if(!$groupname) $groupname = 'params';
 		$data = $this->_parent->_raw;
 		if(!$data) $data = $this->_parent->_registry['_default']['data'];
+
 		$parameter = KService::get('ninja:form.parameter', array(
 					  		'data' 	   => $data,
 					  		'xml'  	   => $form,

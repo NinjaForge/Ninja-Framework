@@ -1,10 +1,10 @@
 <?php
 /**
- * @version		$Id: paginator.php 4277 2011-10-16 21:13:15Z johanjanssens $
+ * @version		$Id: paginator.php 4477 2012-02-10 01:06:38Z johanjanssens $
  * @category	Koowa
  * @package		Koowa_Template
  * @subpackage	Helper
- * @copyright	Copyright (C) 2007 - 2010 Johan Janssens. All rights reserved.
+ * @copyright	Copyright (C) 2007 - 2012 Johan Janssens. All rights reserved.
  * @license		GNU GPLv3 <http://www.gnu.org/licenses/gpl.html>
  * @link     	http://www.nooku.org
  */
@@ -56,7 +56,7 @@ class KTemplateHelperPaginator extends KTemplateHelperSelect
         {
             $config->limit   = 0;
             $config->offset  = 0;
-            $confgi->count   = 0;
+            $config->count   = 0;
             $config->current = 0;
         }
 
