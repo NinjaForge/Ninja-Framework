@@ -4,7 +4,7 @@
 	<!-- Put username and password here, this file wont be stored on the svn -->
 	<property file="scripts/build.properties" />
 
-	<property name="framework.path" value="trunk" />
+	<property name="framework.path" value="tags/12.1" />
 	<property name="com_koowa.path" value="trunk" />
 	<echo message="framework.path = ${framework.path}" />
 	<echo message="If you need to use a branch, call 'phing -Dframework.path=branches/99-toolbar'" />
