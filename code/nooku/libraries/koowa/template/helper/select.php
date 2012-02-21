@@ -1,10 +1,10 @@
 <?php
 /**
- * @version		$Id: select.php 4408 2011-12-07 16:29:58Z johanjanssens $
+ * @version		$Id: select.php 4477 2012-02-10 01:06:38Z johanjanssens $
  * @category	Koowa
  * @package		Koowa_Template
  * @subpackage	Helper
- * @copyright	Copyright (C) 2007 - 2010 Johan Janssens. All rights reserved.
+ * @copyright	Copyright (C) 2007 - 2012 Johan Janssens. All rights reserved.
  * @license		GNU GPLv3 <http://www.gnu.org/licenses/gpl.html>
  * @link     	http://www.nooku.org
  */
@@ -88,7 +88,7 @@ class KTemplateHelperSelect extends KTemplateHelperAbstract
 					foreach ($config->selected as $selected)
 					{
 						$sel = is_object( $selected ) ? $selected->value : $selected;
-						if ((string) $value === (string) $sel)
+						if ((string) $value == (string) $sel)
 						{
 							$extra .= 'selected="selected"';
 							break;
