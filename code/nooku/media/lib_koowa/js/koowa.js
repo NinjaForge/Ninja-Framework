@@ -1,5 +1,5 @@
 /**
- * @version     $Id: koowa.js 4478 2012-02-10 01:50:39Z johanjanssens $
+ * @version     $Id: koowa.js 4497 2012-02-21 16:19:32Z johanjanssens $
  * @category	Nooku
  * @package     Nooku_Media
  * @subpackage  Javascript
@@ -674,7 +674,7 @@ Koowa.Overlay = new Class({
     		this._tmp_scripts = scripts;
         }
         return this.parent(text);
-	},
+	}
 });
 
 
