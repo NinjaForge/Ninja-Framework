@@ -274,7 +274,7 @@ class NinjaTemplateHelperBehavior extends ComDefaultTemplateHelperBehavior
 		));
 
 		// Load the javascript and css
-		$html = $this->getService('ninja:template.helper.document')->render(array('/tooltip.js', 'tooltip.css'));
+		$html = $this->getService('ninja:template.helper.document')->render(array('/tooltip.js', '/tooltip.css'));
 		
 		if(array_key_exists('showOnce', $config->options) && $config->options['showOnce'] === true) $config->options['showOnce'] = $helper->formid('tooltip');
 
