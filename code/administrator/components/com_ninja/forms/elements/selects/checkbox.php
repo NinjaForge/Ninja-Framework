@@ -16,7 +16,7 @@
  * @package     Koowa_Form
  * @subpackage 	Element
  */
-class NinjaFormElementSelectCheckbox extends NinjaFormElementAbstract
+class NinjaFormElementSelectCheckbox extends NinjaFormElementAbstract implements NinjaFormElementInterface
 {
 	/**
 	 * Is the option checked

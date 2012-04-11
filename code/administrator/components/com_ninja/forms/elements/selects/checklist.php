@@ -53,7 +53,7 @@ class NinjaFormElementSelectChecklist extends NinjaFormElementAbstract implement
 	 * @param 	string	Label
 	 * @return 	this
 	 */
-	public function addOption(comNinjaFormElementInterface $option)
+	public function addOption(NinjaFormElementInterface $option)
 	{
 		$this->_options[] = $option;
 		return $this;
