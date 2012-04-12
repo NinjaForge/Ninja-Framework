@@ -55,8 +55,8 @@ class NinjaTemplateHelperSplitview extends KTemplateHelperAbstract
 			)
 		));
 		
-		$this->getService('ninja:template.helper.document')->load('/splitview.js');
-		$this->getService('ninja:template.helper.document')->load('js', "\njQuery(function($){
+		$this->getService('ninja:template.helper.document')->load('/jquery/splitview.js');
+		$this->getService('ninja:template.helper.document')->load('js', "\nninja(function($){
 			$('#".$config->id."').splitview(".json_encode($config->options->toArray()).");
 		});\n");
 

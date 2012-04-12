@@ -10,7 +10,7 @@ Script: TextboxList.Autocomplete.Binary.js
 		Purchase to remove this message.
 */
 
-jQuery.TextboxList.Autocomplete.Methods.binary = {
+ninja.TextboxList.Autocomplete.Methods.binary = {
 	filter: function(values, search, insensitive, max){
 		var method = insensitive ? 'toLowerCase' : 'toString', low = 0, high = values.length - 1, lastTry;
 		search = search[method]();

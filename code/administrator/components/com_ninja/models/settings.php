@@ -24,7 +24,7 @@ class NinjaModelSettings extends ComDefaultModelDefault
 		//lets get our states
 	   	$this->_state
 	   		 ->insert('active', 'boolean', false)
-	   		 ->insert('enabled', 'int', JFactory::getApplication()->isSite())
+	   		 ->insert('enabled', 'int', JFactory::getApplication()->isSite() ? 1 : null)
 	   		 ->insert('default', 'boolean', false);
 	}
 	
@@ -179,7 +179,7 @@ class NinjaModelSettings extends ComDefaultModelDefault
 			$query->where('tbl.title', 'LIKE', '%'.$search.'%');
 		}
 		
-		if($this->_state->enabled !== false && $this->_state->enabled !== 0)
+		if(is_numeric($this->_state->enabled))
 		{
 			$query->where('tbl.enabled', '=', $this->_state->enabled);
 		}

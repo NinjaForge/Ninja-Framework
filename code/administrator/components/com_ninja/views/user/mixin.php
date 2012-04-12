@@ -135,12 +135,9 @@ class NinjaViewUserMixin extends KMixinAbstract implements KObjectServiceable
 		}
 		
 		$url = KRequest::url();
-		$uri = $this->getService('koowa:http.url');
-		$uri->path = $url->path;
-		$uri->query = $url->getQuery(1);
 		
 		$params->def( 'pageclass_sfx',             '');
-		$params->def( 'login', 					    $uri );
+		$params->def( 'login', 					    $url );
 		$params->def( 'description_login', 		    1);
 		$params->def( 'description_logout', 		1);
 		$params->def( 'description_login_text', 	JText::_( 'LOGIN_DESCRIPTION' ) );
@@ -160,14 +157,14 @@ class NinjaViewUserMixin extends KMixinAbstract implements KObjectServiceable
 			$url = base64_encode($params->get('login'));
 		}
 
-		$this->assign('image' , $image);
+		//$this->assign('image' , $image);
 		$this->assign('type'  , $type);
 		$this->assign('return', $url);
 
 		$this->assign('params', $params);
 		
 		$this->getTemplate()->set(array(
-			'image'		=> $image,
+			'image'		=> '',
 			'type'		=> $type,
 			'return'	=> $url,
 			'params'	=> $params
