@@ -45,7 +45,7 @@ class NinjaFormElementSelectRadiolist extends NinjaFormElementAbstract implement
 		}
 		if($this->_xml['get']) 
 		{
-			$get = isset($this->_xml['tmp']) && $this->_xml['tmp'] == true ? $this->getService(new KServiceIdentifier($this->_xml['get'])) : $this->getService(new KServiceIdentifier($this->_xml['get']));
+			$get = isset($this->_xml['tmp']) && $this->_xml['tmp'] == true ? $this->getService($this->_xml['get']) : $this->getService($this->_xml['get']);
 			if($this->_xml['set'])
 			{
 				$json 	= '{"'.str_replace(array(';', ':'), array('","', '":"'), (string)$this->_xml['set']).'"}';

@@ -16,7 +16,7 @@
  * @package     Koowa_Form
  * @subpackage 	Element
  */
-class NinjaFormElementSelectRadio extends NinjaFormElementAbstract
+class NinjaFormElementSelectRadio extends NinjaFormElementAbstract implements NinjaFormElementInterface
 {
 	/**
 	 * Is the option checked

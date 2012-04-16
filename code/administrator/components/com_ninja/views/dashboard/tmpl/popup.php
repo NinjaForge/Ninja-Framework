@@ -5,6 +5,9 @@
 	.current { max-height: 380px; overflow: auto; }
 </style>
 
+<?= @helper('behavior.mootools') ?>
+<?= @ninja('behavior.ninja') ?>
+
 <?= @helper('tabs.startpane', array('id' => 'popup', 'options' => array('display' => 1))) ?>
 	<?= @helper('tabs.startpanel', array('title' => @text('General Information'))) ?>
 		<?= @template('information') ?>

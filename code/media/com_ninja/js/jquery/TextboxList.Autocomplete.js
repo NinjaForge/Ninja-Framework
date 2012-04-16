@@ -230,4 +230,4 @@ $.TextboxList.Autocomplete.Methods = {
 var chk = function(v){ return !!(v || v === 0); };
 var escapeRegExp = function(str){ return str.replace(/([-.*+?^${}()|[\]\/\\])/g, "\\$1"); };
 
-})(jQuery);
+})(ninja);

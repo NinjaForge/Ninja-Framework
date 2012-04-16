@@ -23,7 +23,7 @@ class NinjaTemplateHelperGrid extends KTemplateHelperGrid
 	 *
 	 * @var int
 	 */
-	public $offset = null;
+	public static $offset = null;
 	
 	/**
 	 * Constructor
@@ -138,15 +138,12 @@ class NinjaTemplateHelperGrid extends KTemplateHelperGrid
 	{
 		$config = new KConfig($config);
 		
-		//This is a workaround since KTemplateHelper::factory calls $this->getService
-		$helper = $this->getService($this->getIdentifier()); 
-		
-		if(!$helper->offset) $helper->offset = $config->offset;
-		if(!$config->total && !$config->title)	return ++$helper->offset;
+		if(!self::$offset) self::$offset = $config->offset;
+		if(!$config->total && !$config->title)	return ++self::$offset;
 		
 		if($config->total <= 10)	return false;
 		elseif($config->title)		return '<th class="grid-count">' . JText::_('NUM') . '</th>';
-		else				return '<td class="grid-count">' . ++$helper->offset . '</td>';
+		else				return '<td class="grid-count">' . ++self::$offset . '</td>';
 	}
 	
 	/**

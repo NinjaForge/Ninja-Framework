@@ -110,7 +110,7 @@ class NinjaTemplateHelperBehavior extends ComDefaultTemplateHelperBehavior
 				</div>
 				
 				<div class="container">
-				<textarea id="'.$config->element.'" style="height:150px;width:100%;" placeholder="'.$config->placeholder.'">'.$config->value.'</textarea>
+				<textarea name="'.$config->element.'" id="'.$config->element.'" style="height:150px;width:100%;" placeholder="'.$config->placeholder.'">'.$config->value.'</textarea>
 				</div>
 			</div>';
 
@@ -144,11 +144,11 @@ class NinjaTemplateHelperBehavior extends ComDefaultTemplateHelperBehavior
 			'name' => $config->id,
 			'class' => $config->id
 		));
-		$html 	= $this->getService('ninja:template.helper.document')->render(array('/GrowingInput.js', '/TextboxList.js', '/TextboxList.Autocomplete.js', '/TextboxList.Autocomplete.Binary.js', '/TextboxList.css', '/TextboxList.Autocomplete.css'));
+		$html 	= $this->getService('ninja:template.helper.document')->render(array('/jquery/GrowingInput.js', '/jquery/TextboxList.js', '/jquery/TextboxList.Autocomplete.js', '/TextboxList.Autocomplete.Binary.js', '/TextboxList.css', '/TextboxList.Autocomplete.css'));
 		
 		$html .= "
 		<script>
-		jQuery(function($){
+		ninja(function($){
 			// Autocomplete with poll the server as you type
 			new $.TextboxList('#".$config->id."', ".json_encode(array(
 				'unique' => true,
@@ -274,7 +274,7 @@ class NinjaTemplateHelperBehavior extends ComDefaultTemplateHelperBehavior
 		));
 
 		// Load the javascript and css
-		$html = $this->getService('ninja:template.helper.document')->render(array('/tooltip.js', 'tooltip.css'));
+		$html = $this->getService('ninja:template.helper.document')->render(array('/tooltip.js', '/tooltip.css'));
 		
 		if(array_key_exists('showOnce', $config->options) && $config->options['showOnce'] === true) $config->options['showOnce'] = $helper->formid('tooltip');
 

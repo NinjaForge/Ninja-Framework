@@ -34,7 +34,7 @@ class NinjaControllerToolbarDashboard extends ComDefaultControllerToolbarDefault
 
         $command->append(array(
             'width'   => '720',
-            'height'  => 'window.getSize().size.y-80',
+            'height'  => '470',
             'href'	  => (string)$url
         ));
 

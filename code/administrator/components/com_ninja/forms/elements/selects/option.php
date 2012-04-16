@@ -16,7 +16,7 @@
  * @package     Koowa_Form
  * @subpackage 	Element
  */
-class NinjaFormElementSelectOption extends NinjaFormElementAbstract
+class NinjaFormElementSelectOption extends NinjaFormElementAbstract implements NinjaFormElementInterface
 {
 	/**
 	 * Is the option selected
