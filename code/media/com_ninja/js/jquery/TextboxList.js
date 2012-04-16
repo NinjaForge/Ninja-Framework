@@ -470,4 +470,4 @@ $.fn.extend({
 	
 });
 
-})(jQuery);
+})(ninja);

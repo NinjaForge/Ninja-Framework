@@ -55,6 +55,7 @@ class NinjaControllerDefault extends ComDefaultControllerDefault
 	/**
 	 * Push the request data into the model state
 	 *
+	 * @todo	is this even needed anymore??
 	 * @param	string		The action to execute
 	 * @return	mixed|false The value returned by the called method, false in error case.
 	 * @throws 	KControllerException

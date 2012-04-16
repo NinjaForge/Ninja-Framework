@@ -270,9 +270,10 @@ body :not(.-koowa-box) > #toolbar-box table.toolbar {
 }
 
 table.toolbar tbody tr td .toolbar.disabled {
-	opacity: 0.5;
+	opacity: 0.5!important;
 	/*color: gray;*/
-	cursor: default;
+	cursor: default!important;
+	font-weight: normal!important;
 }
 :not(.-koowa-box) > #toolbar-box table.toolbar tbody tr td a.toolbar:active, :not(.-koowa-box) > #toolbar-box table.toolbar tbody tr td a.toolbar.active, :not(.-koowa-box) > #toolbar-box table.toolbar tbody tr td .toolbar.droppable.active {
 	/*transform: translateY(1px);

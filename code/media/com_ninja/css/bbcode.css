@@ -345,3 +345,47 @@
 .ninja-form .element .markItUpContainer > .markItUpHeader > ul {
 	margin: 0!important;
 }
+
+/* CSS from ninjaboard */
+#text_preview {	
+	display:none;
+	padding: 5px;
+	border: 1px solid transparent;
+	margin: 0;
+	overflow: auto;
+}
+/* Hide any dropdown menus */
+.markItUpHeader.previewing ul li ul {
+	opacity: 0;
+	-ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+	filter: alpha(opacity=0);
+}
+.markItUpHeader .markItUpButton, .markItUpHeader .markItUpSeparator {
+	-webkit-transition: opacity 0s linear;
+	-moz-transition: opacity 0s linear;
+	transition: opacity 0s linear;
+}
+.markItUpHeader.previewing .markItUpButton, .markItUpHeader.previewing .markItUpSeparator {
+	-webkit-transition: opacity 300ms linear;
+	-moz-transition: opacity 300ms linear;
+	transition: opacity 300ms linear;
+	opacity: 0.2;
+	-ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=20)";
+	filter: alpha(opacity=20);
+}
+.markItUpHeader.previewing .markItUpButton.button_preview {
+	opacity: 1;
+	-ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
+	filter: alpha(opacity=100);
+}
+#text.previewing {
+	-webkit-user-select: none;
+	color: transparent;
+	opacity: 0.6;
+	
+	-ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+	filter: alpha(opacity=0);
+}
+#text::-webkit-input-placeholder {
+	color: currentcolor;
+}

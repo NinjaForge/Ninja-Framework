@@ -148,10 +148,6 @@ class NinjaTemplateHelperDocument extends KTemplateHelperDefault implements KSer
     {
         $document = JFactory::getDocument();
 
-        $key = md5($load).md5($inline);
-        if(!isset($this->_cache[$key])) $this->_cache[$key] = true;
-        else                            return true;
-
         if($inline)
         {
             if($load == 'js') {
@@ -170,6 +166,10 @@ class NinjaTemplateHelperDocument extends KTemplateHelperDefault implements KSer
                 $this->load($args[0], $args[1]);
                 continue;
             }
+
+            $key = md5($args).md5($inline);
+            if(!isset($this->_cache[$key])) $this->_cache[$key] = true;
+            else                            return true;
             
             //Is array but not valid so skip it
             if(is_array($args)) continue;

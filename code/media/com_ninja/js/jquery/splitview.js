@@ -70,4 +70,4 @@ $.fn.extend({
 	
 });
 
-})(jQuery);
+})(ninja);

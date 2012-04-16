@@ -43,9 +43,10 @@ class NinjaFormElementSelectGenericlist extends NinjaFormElementAbstract impleme
 				->importXml($option);
 			$this->addOption($elem);
 		}
+
 		if($this->_xml['get']) 
 		{
-			$get = isset($this->_xml['tmp']) && $this->_xml['tmp'] == true ? $this->getService(new KServiceIdentifier($this->_xml['get'])) : $this->getService(new KServiceIdentifier($this->_xml['get']));
+			$get = isset($this->_xml['tmp']) && $this->_xml['tmp'] == true ? $this->getService(new KServiceIdentifier((string)$this->_xml['get'])) : $this->getService(new KServiceIdentifier((string)$this->_xml['get']));
 			if($this->_xml['set'])
 			{
 				$json 	= '{"'.str_replace(array(';', ':'), array('","', '":"'), (string)$this->_xml['set']).'"}';
@@ -86,7 +87,7 @@ class NinjaFormElementSelectGenericlist extends NinjaFormElementAbstract impleme
 	 * @param 	string	Label
 	 * @return 	this
 	 */
-	public function addOption(comNinjaFormElementInterface $option)
+	public function addOption(NinjaFormElementSelectOption $option)
 	{
 		$this->_options[] = $option;
 		return $this;

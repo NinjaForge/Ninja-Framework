@@ -80,7 +80,7 @@ var Switch = new Class({
         this.steps = this.options.duration / this.width;
         this.state = !!this.check.checked;
         this.change(this.state, true);
-        this.fx = new(Fx.Base)({
+        this.fx = new Fx.Move(c, {
             duration: this.options.duration,
             transition: this.options.transition,
             wait: false

@@ -200,10 +200,12 @@ window.addEvent('domready', function(){
 				<span class="version" title="<?= @text('Version') ?>">
 					<?= $xml->version ?> <span style="color:<?= \@$xml->version['color'] ?>"><?= \@$xml->version['status'] ?></span>
 				</span>
-				~
-				<span class="revision">
-					<?= @text('Revision') ?> <?= $xml->revision ?>
-				</span>
+				<? if ($xml->revision) : ?>
+					~
+					<span class="revision">
+						<?= @text('Revision') ?> <?= $xml->revision ?>
+					</span>
+				<? endif ?>
 			</td>
 		</tr>
 	</tfoot>
