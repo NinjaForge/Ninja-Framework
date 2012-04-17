@@ -44,7 +44,7 @@ if(!function_exists('com_install'))
 			//Checking if the whitelist is ok
 			if(!@ini_get('suhosin.executor.include.whitelist') || strpos(@ini_get('suhosin.executor.include.whitelist'), 'tmpl://') === false)
 			{
-				JError::raiseWarning(0, sprintf(JText::_('The install failed because your server has Suhosin loaded, but it\'s not configured correctly. Please follow <a href="%s" target="_blank">this</a> tutorial before you reinstall.'), 'https://nooku.assembla.com/wiki/show/nooku-framework/Known_Issues'));
+				JError::raiseWarning(0, sprintf(JText::_('COM_NINJA_THE_INSTALL_FAILED_BECAUSE_YOUR_SERVER_HAS_SUHOSIN_LOADED,_BUT_ITS_NOT_CONFIGURED_CORRECTLY_PLEASE_FOLLOW_<A_HREF=%S_TARGET=_BLANK>THIS<A>_TUTORIAL_BEFORE_YOU_REINSTALL'), 'https://nooku.assembla.com/wiki/show/nooku-framework/Known_Issues'));
 				return $installable = false;
 			}
 		}
@@ -52,7 +52,7 @@ if(!function_exists('com_install'))
 		if(version_compare('5.3', phpversion(), '<=') && extension_loaded('ionCube Loader')) {
 		
 			if(ioncube_loader_iversion() < 40002) {
-				JError::raiseWarning(0, sprintf(JText::_('Your server is affected by a bug in ionCube Loader for PHP 5.3 that causes our template layout parsing to fail. Please update to a version later than ionCube Loader 4.0 (your server is %s) before reinstalling.'), ioncube_loader_version()));
+				JError::raiseWarning(0, sprintf(JText::_('COM_NINJA_YOUR_SERVER_IS_AFFECTED_BY_A_BUG_IN_IONCUBE_LOADER_FOR_PHP_53_THAT_CAUSES_OUR_TEMPLATE_LAYOUT_PARSING_TO_FAIL_PLEASE_UPDATE_TO_A_VERSION_LATER_THAN_IONCUBE_LOADER_40_YOUR_SERVER_IS_%S_BEFORE_REINSTALLING'), ioncube_loader_version()));
 				return $installable = false;
 			}
 		}
@@ -95,7 +95,7 @@ $language->load($extname);
 
 $source			= $this->parent->getPath('source');
 $extension		= simplexml_load_file($this->parent->getPath('manifest'));
-$versiontext	= '<em>'.JText::_('You need at least %s to install ' . JText::_(humanize($extension->name)) . ' You are using: %s').'</em>';
+$versiontext	= '<em>'.JText::_('YOU_NEED_AT_LEAST_%S_TO_INSTALL_' . JText::_(humanize($extension->name)) . '_YOU_ARE_USING_%S').'</em>';
 
 // If we have additional packages, move them to a safe place (or JInstaller will delete them)
 // and later install them by using KInstaller
@@ -177,7 +177,7 @@ if(JRequest::getCmd('view', false) == 'dashboard' || array_filter(headers_list()
 		.log {padding-left:270px}
 	</style>
 	
-	<div id="install" style="padding-left: 270px" class="<?php echo $class ?>"><h2 class="working"><?php echo JText::_('Please wait, checking for additional packages to install'); ?></h2></div>
+	<div id="install" style="padding-left: 270px" class="<?php echo $class ?>"><h2 class="working"><?php echo JText::_('COM_NINJA_PLEASE_WAIT_CHECKING_FOR_ADDITIONAL_PACKAGES_TO_INSTALL'); ?></h2></div>
 <?php endif ?>
 
 
@@ -185,14 +185,14 @@ if(JRequest::getCmd('view', false) == 'dashboard' || array_filter(headers_list()
 	<tbody valign="top">
 		<tr>
 			<td style="text-align: center">
-				<a href="<?php echo JRoute::_('&option='.$extname) ?>"><img src="<?php echo JURI::root() ?>media/com_<?php echo $this->name ?>/images/256/<?php echo $this->name ?>.png" alt="<?php echo JText::_('Extension logo') ?>" title="<?php echo JText::_('Extension logo') ?>" /></a>
+				<a href="<?php echo JRoute::_('&option='.$extname) ?>"><img src="<?php echo JURI::root() ?>media/com_<?php echo $this->name ?>/images/256/<?php echo $this->name ?>.png" alt="<?php echo JText::_('COM_NINJA_EXTENSION_LOGO') ?>" title="<?php echo JText::_('COM_NINJA_EXTENSION_LOGO') ?>" /></a>
 			</td>
 			<td width="100%">
 				<table class="adminlist ninja-list">
 					<thead>
 						<tr>
-							<th><?php echo JText::_('Task') ?></th>
-							<th width="30%"><?php echo JText::_('Status') ?></th>
+							<th><?php echo JText::_('COM_NINJA_TASK') ?></th>
+							<th width="30%"><?php echo JText::_('COM_NINJA_STATUS') ?></th>
 						</tr>
 					</thead>
 					<tfoot>
@@ -202,24 +202,24 @@ if(JRequest::getCmd('view', false) == 'dashboard' || array_filter(headers_list()
 					</tfoot>
 					<tbody id="tasks">
 						<tr class="row0">
-							<td class="key hasTip" title="<?php echo sprintf($versiontext, 'PHP v5.2', phpversion()) ?>"><?php echo JText::_('PHP Version') ?></td>
+							<td class="key hasTip" title="<?php echo sprintf($versiontext, 'PHP v5.2', phpversion()) ?>"><?php echo JText::_('COM_NINJA_PHP_VERSION') ?></td>
 							<td>
 								<?php echo version_compare(phpversion(), '5.2', '>=')
-									? '<strong>'.JText::_('OK').'</strong> - '.phpversion()
+									? '<strong>'.JText::_('COM_NINJA_OK').'</strong> - '.phpversion()
 									: sprintf($versiontext, 'PHP v5.2', phpversion()); ?>
 							</td>
 						</tr>
 						<tr class="row1">
-							<td class="key hasTip" title="<?php echo sprintf($versiontext, 'MySQL server v5.0.41', $db->getVersion()) ?>"><?php echo JText::_('MySQL server Version') ?></td>
+							<td class="key hasTip" title="<?php echo sprintf($versiontext, 'MySQL server v5.0.41', $db->getVersion()) ?>"><?php echo JText::_('COM_NINJA_MYSQL_SERVER_VERSION') ?></td>
 							<td>
 								<?php echo version_compare($db->getVersion(), '5.0.41', '>=')
-								? '<strong>'.JText::_('OK').'</strong> - '.$db->getVersion()
+								? '<strong>'.JText::_('COM_NINJA_OK').'</strong> - '.$db->getVersion()
 								: sprintf($versiontext, 'MySQL server v5.0.41', $db->getVersion()); ?>
 							</td>
 						</tr>
 						<tr class="row0">
 							<td class="key hasTip" title="<?php echo JText::_($extension->description) ?>"><?php echo sprintf('%s %s', JText::_(humanize($extension->name)), JText::_(ucfirst($extension['type']))) ?></td>
-							<td><strong><?php echo JText::_('Installed'); ?></strong> - <?php echo $extension->version ?></td>
+							<td><strong><?php echo JText::_('COM_NINJA_INSTALLED'); ?></strong> - <?php echo $extension->version ?></td>
 						</tr>
 					</tbody>
 				</table>

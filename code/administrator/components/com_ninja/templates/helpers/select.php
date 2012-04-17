@@ -44,46 +44,46 @@ class NinjaTemplateHelperSelect extends KTemplateHelperSelect
  
         // LOCALE SETTINGS
         $timezones = array (
-            JHTML::_('select.option', -12, JText::_('(UTC -12:00) International Date Line West')),
-            JHTML::_('select.option', -11, JText::_('(UTC -11:00) Midway Island, Samoa')),
-            JHTML::_('select.option', -10, JText::_('(UTC -10:00) Hawaii')),
-            JHTML::_('select.option', -9.5, JText::_('(UTC -09:30) Taiohae, Marquesas Islands')),
-            JHTML::_('select.option', -9, JText::_('(UTC -09:00) Alaska')),
-            JHTML::_('select.option', -8, JText::_('(UTC -08:00) Pacific Time (US &amp; Canada)')),
-            JHTML::_('select.option', -7, JText::_('(UTC -07:00) Mountain Time (US &amp; Canada)')),
-            JHTML::_('select.option', -6, JText::_('(UTC -06:00) Central Time (US &amp; Canada), Mexico City')),
-            JHTML::_('select.option', -5, JText::_('(UTC -05:00) Eastern Time (US &amp; Canada), Bogota, Lima')),
-            JHTML::_('select.option', -4, JText::_('(UTC -04:00) Atlantic Time (Canada), Caracas, La Paz')),
-            JHTML::_('select.option', -4.5, JText::_('(UTC -04:30) Venezuela')),
-            JHTML::_('select.option', -3.5, JText::_('(UTC -03:30) St. John\'s, Newfoundland, Labrador')),
-            JHTML::_('select.option', -3, JText::_('(UTC -03:00) Brazil, Buenos Aires, Georgetown')),
-            JHTML::_('select.option', -2, JText::_('(UTC -02:00) Mid-Atlantic')),
-            JHTML::_('select.option', -1, JText::_('(UTC -01:00) Azores, Cape Verde Islands')),
-            JHTML::_('select.option', 0, JText::_('(UTC 00:00) Western Europe Time, London, Lisbon, Casablanca')),
-            JHTML::_('select.option', 1, JText::_('(UTC +01:00) Amsterdam, Berlin, Brussels, Copenhagen, Madrid, Paris')),
-            JHTML::_('select.option', 2, JText::_('(UTC +02:00) Istanbul, Jerusalem, Kaliningrad, South Africa')),
-            JHTML::_('select.option', 3, JText::_('(UTC +03:00) Baghdad, Riyadh, Moscow, St. Petersburg')),
-            JHTML::_('select.option', 3.5, JText::_('(UTC +03:30) Tehran')),
-            JHTML::_('select.option', 4, JText::_('(UTC +04:00) Abu Dhabi, Muscat, Baku, Tbilisi')),
-            JHTML::_('select.option', 4.5, JText::_('(UTC +04:30) Kabul')),
-            JHTML::_('select.option', 5, JText::_('(UTC +05:00) Ekaterinburg, Islamabad, Karachi, Tashkent')),
-            JHTML::_('select.option', 5.5, JText::_('(UTC +05:30) Bombay, Calcutta, Madras, New Delhi, Colombo')),
-            JHTML::_('select.option', 5.75, JText::_('(UTC +05:45) Kathmandu')),
-            JHTML::_('select.option', 6, JText::_('(UTC +06:00) Almaty, Dhaka')),
-            JHTML::_('select.option', 6.30, JText::_('(UTC +06:30) Yagoon')),
-            JHTML::_('select.option', 7, JText::_('(UTC +07:00) Bangkok, Hanoi, Jakarta')),
-            JHTML::_('select.option', 8, JText::_('(UTC +08:00) Beijing, Perth, Singapore, Hong Kong')),
-            JHTML::_('select.option', 8.75, JText::_('(UTC +08:00) Western Australia')),
-            JHTML::_('select.option', 9, JText::_('(UTC +09:00) Tokyo, Seoul, Osaka, Sapporo, Yakutsk')),
-            JHTML::_('select.option', 9.5, JText::_('(UTC +09:30) Adelaide, Darwin, Yakutsk')),
-            JHTML::_('select.option', 10, JText::_('(UTC +10:00) Eastern Australia, Guam, Vladivostok')),
-            JHTML::_('select.option', 10.5, JText::_('(UTC +10:30) Lord Howe Island (Australia)')),
-            JHTML::_('select.option', 11, JText::_('(UTC +11:00) Magadan, Solomon Islands, New Caledonia')),
-            JHTML::_('select.option', 11.30, JText::_('(UTC +11:30) Norfolk Island')),
-            JHTML::_('select.option', 12, JText::_('(UTC +12:00) Auckland, Wellington, Fiji, Kamchatka')),
-            JHTML::_('select.option', 12.75, JText::_('(UTC +12:45) Chatham Island')),
-            JHTML::_('select.option', 13, JText::_('(UTC +13:00) Tonga')),
-            JHTML::_('select.option', 14, JText::_('(UTC +14:00) Kiribati')),);
+            JHTML::_('select.option', -12, JText::_('COM_NINJA_UTC_INTERNATIONAL_DATE_LINE_WEST')),
+            JHTML::_('select.option', -11, JText::_('COM_NINJA_UTC_MIDWAY_ISLAND,_SAMOA')),
+            JHTML::_('select.option', -10, JText::_('COM_NINJA_UTC_HAWAII')),
+            JHTML::_('select.option', -9.5, JText::_('COM_NINJA_UTC_TAIOHAE_MARQUESAS_ISLANDS')),
+            JHTML::_('select.option', -9, JText::_('COM_NINJA_UTC_ALASKA')),
+            JHTML::_('select.option', -8, JText::_('COM_NINJA_UTC_PACIFIC_TIME_US_CANADA')),
+            JHTML::_('select.option', -7, JText::_('COM_NINJA_UTC_MOUNTAIN_TIME_US_CANADA')),
+            JHTML::_('select.option', -6, JText::_('COM_NINJA_UTC_CENTRAL_TIME_US_CANADA_MEXICO_CITY')),
+            JHTML::_('select.option', -5, JText::_('COM_NINJA_UTC_EASTERN_TIME_US_CANADA_BOGOTA_LIMA')),
+            JHTML::_('select.option', -4, JText::_('COM_NINJA_UTC_ATLANTIC_TIME_CANADA_CARACAS_LA_PAZ')),
+            JHTML::_('select.option', -4.5, JText::_('COM_NINJA_UTC_VENEZUELA')),
+            JHTML::_('select.option', -3.5, JText::_('COM_NINJA_UTC_ST_JOHNS_NEWFOUNDLAND,_LABRADOR')),
+            JHTML::_('select.option', -3, JText::_('COM_NINJA_UTC_BRAZIL_BUENOS_AIRES,_GEORGETOWN')),
+            JHTML::_('select.option', -2, JText::_('COM_NINJA_UTC_MID_ATLANTIC')),
+            JHTML::_('select.option', -1, JText::_('COM_NINJA_UTC_AZORES_CAPE_VERDE_ISLANDS')),
+            JHTML::_('select.option', 0, JText::_('COM_NINJA_UTC_WESTERN_EUROPE_TIME_LONDON_LISBON_CASABLANCA')),
+            JHTML::_('select.option', 1, JText::_('COM_NINJA_UTC_AMSTERDAM_BERLIN_BRUSSELS_COPENHAGEN_MADRID_PARIS')),
+            JHTML::_('select.option', 2, JText::_('COM_NINJA_UTC_ISTANBUL_JERUSALEM_KALININGRAD,_SOUTH_AFRICA')),
+            JHTML::_('select.option', 3, JText::_('COM_NINJA_UTC_BAGHDAD_RIYADH_MOSCOW_ST_PETERSBURG')),
+            JHTML::_('select.option', 3.5, JText::_('COM_NINJA_UTC_TEHRAN')),
+            JHTML::_('select.option', 4, JText::_('COM_NINJA_UTC_ABU_DHABI_MUSCAT_BAKU_TBILISI')),
+            JHTML::_('select.option', 4.5, JText::_('COM_NINJA_UTC_KABUL')),
+            JHTML::_('select.option', 5, JText::_('COM_NINJA_UTC_EKATERINBURG_ISLAMABAD_KARACHI_TASHKENT')),
+            JHTML::_('select.option', 5.5, JText::_('COM_NINJA_UTC_BOMBAY_CALCUTTA_MADRAS_NEW_DELHI_COLOMBO')),
+            JHTML::_('select.option', 5.75, JText::_('COM_NINJA_UTC_KATHMANDU')),
+            JHTML::_('select.option', 6, JText::_('COM_NINJA_UTC_ALMATY_DHAKA')),
+            JHTML::_('select.option', 6.30, JText::_('COM_NINJA_UTC_YAGOON')),
+            JHTML::_('select.option', 7, JText::_('COM_NINJA_UTC_BANGKOK_HANOI_JAKARTA')),
+            JHTML::_('select.option', 8, JText::_('COM_NINJA_UTC_BEIJING_PERTH_SINGAPORE_HONG_KONG')),
+            JHTML::_('select.option', 8.75, JText::_('COM_NINJA_UTC_WESTERN_AUSTRALIA')),
+            JHTML::_('select.option', 9, JText::_('COM_NINJA_UTC_TOKYO,_SEOUL,_OSAKA,_SAPPORO,_YAKUTSK')),
+            JHTML::_('select.option', 9.5, JText::_('COM_NINJA_UTC_ADELAIDE_DARWIN_YAKUTSK')),
+            JHTML::_('select.option', 10, JText::_('COM_NINJA_UTC_EASTERN_AUSTRALIA_GUAM_VLADIVOSTOK')),
+            JHTML::_('select.option', 10.5, JText::_('COM_NINJA_UTC_LORD_HOWE_ISLAND_AUSTRALIA')),
+            JHTML::_('select.option', 11, JText::_('COM_NINJA_UTC_MAGADAN_SOLOMON_ISLANDS_NEW_CALEDONIA')),
+            JHTML::_('select.option', 11.30, JText::_('COM_NINJA_UTC_NORFOLK_ISLAND')),
+            JHTML::_('select.option', 12, JText::_('COM_NINJA_UTC_AUCKLAND_WELLINGTON_FIJI_KAMCHATKA')),
+            JHTML::_('select.option', 12.75, JText::_('COM_NINJA_UTC_CHATHAM_ISLAND')),
+            JHTML::_('select.option', 13, JText::_('COM_NINJA_UTC_TONGA')),
+            JHTML::_('select.option', 14, JText::_('COM_NINJA_UTC_KIRIBATI')),);
  
         return JHTML::_('select.genericlist',  $timezones, $name, ' class="inputbox"', 'value', 'text', $value, $name );
     }
@@ -144,12 +144,12 @@ class NinjaTemplateHelperSelect extends KTemplateHelperSelect
          * @TODO: change to acl_check method
          */
         if(!($user->get('gid') >= 23) && $client == 'administrator') {
-            return JText::_('No Access');
+            return JText::_('COM_NINJA_NO_ACCESS');
         }
   
         jimport('joomla.language.helper');
         $languages = JLanguageHelper::createLanguageList($value, constant('JPATH_'.strtoupper($client)), true);
-        array_unshift($languages, JHTML::_('select.option', '', '- '.JText::_('Select Language').' -'));
+        array_unshift($languages, JHTML::_('select.option', '', '- '.JText::_('COM_NINJA_SELECT_LANGUAGE').' -'));
  
         return JHTML::_('select.genericlist',  $languages, $name, 'class="inputbox"', 'value', 'text', $value, $name );
     }
@@ -251,7 +251,7 @@ class NinjaTemplateHelperSelect extends KTemplateHelperSelect
 		//Make sure the user is authorized to view this page
 		$user = & JFactory::getUser();
 		if (!$user->authorize( 'com_media', 'popup' )) {
-			return JText::_('You\'re not authorized to access the media manager');
+			return JText::_('COM_NINJA_YOURE_NOT_AUTHORIZED_TO_ACCESS_THE_MEDIA_MANAGER');
 		}
 
 		//Create the modal window link. &e_name let us have multiple instances of the modal window.
@@ -357,7 +357,7 @@ class NinjaTemplateHelperSelect extends KTemplateHelperSelect
 			ksort($img);
 		}
 
-		if(!$options) return '<strong>'.sprintf(JText::_('There are no images in: %s'), '<pre>'.$config->path.'</pre>').'</strong>';
+		if(!$options) return '<strong>'.sprintf(JText::_('COM_NINJA_THERE_ARE_NO_IMAGES_IN_%S'), '<pre>'.$config->path.'</pre>').'</strong>';
 		if(!$config->idtag) $config->idtag = $config->name;
 		
 		$document = JFactory::getDocument();

@@ -33,7 +33,7 @@ class NinjaTemplateHelperPlaceholder extends KTemplateHelperAbstract
 			'title' => null,
 			'class'	=> 'placeholder',
 			'disableToolbar' => false,
-			'notice' => 'You don\'t have any %s yet.',
+			'notice' => 'COM_NINJA_YOU_DONT_HAVE_ANY_%S_YET',
 			'showButton'=>true,
 			'buttons' => array()
 		))->toArray());
@@ -49,7 +49,7 @@ class NinjaTemplateHelperPlaceholder extends KTemplateHelperAbstract
 		if($this->disableToolbar) $document->addScriptDeclaration(implode(PHP_EOL, $script));
 	}
 	
-	public function append($name = null, $attr = null,  $msg = 'Add %s&hellip;')
+	public function append($name = null, $attr = null,  $msg = 'COM_NINJA_ADD_%S')
 	{
 		if(!$name) $name = $this->name;
 		$attributes = array('class' => $name, 'style' => '-moz-user-select: none', 'onselectstart' => 'return false;', 'ondragstart' => 'return false;', 'onclick' => "this.addClass('active'); return this;");

@@ -57,7 +57,7 @@
 <? if(isset(@$xml->support)) : ?>
 	<dt>
 		<strong>
-			<?= @text('Support') ?>
+			<?= @text('COM_NINJA_SUPPORT') ?>
 		</strong>
 	</dt>
 	<dd>
@@ -67,7 +67,7 @@
 <? if(isset(@$xml->rate)) : ?>
 	<dt>
 		<strong>
-			<?= @text('If you like this extension, consider giving it an honest review at the') ?>
+			<?= @text('COM_NINJA_IF_YOU_LIKE_THIS_EXTENSION_CONSIDER_GIVING_IT_AN_HONEST_REVIEW_AT_THE') ?>
 		</strong>
 	</dt>
 	<dd>
@@ -79,7 +79,7 @@
 <? if(isset(@$xml->credits)) : ?>
 	<hr />
 	<p>
-	<h3><?= @text('Credits') ?></h3>
+	<h3><?= @text('COM_NINJA_CREDITS') ?></h3>
 	<style type="text/css">
 		hr {
 			opacity: 0.2;

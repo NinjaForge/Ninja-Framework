@@ -178,7 +178,7 @@ class NinjaTemplateHelperAccess extends KTemplateHelperAbstract
 		$html[] = '	<thead>';
 		$html[] = '	<tr>';
 		$html[] = '		<th>';
-		$html[] = '			<span class="acl-action">'.JText::_('User Group').'</span>';
+		$html[] = '			<span class="acl-action">'.JText::_('COM_NINJA_USER_GROUP').'</span>';
 		$html[] = '		</th>';
 		foreach ($actions as $name => $action)
 		{
@@ -239,10 +239,10 @@ class NinjaTemplateHelperAccess extends KTemplateHelperAbstract
 			$html[] = '	<thead>';
 			$html[] = '	<tr>';
 			$html[] = '		<th>';
-			$html[] = '			<span class="acl-action">'.JText::_('Object').'</span>';
+			$html[] = '			<span class="acl-action">'.JText::_('COM_NINJA_OBJECT').'</span>';
 			$html[] = '		</th>';
 			$html[] = '		<th colspan="'.count($levels).'" class="permission-level">';
-			$html[] = '			<span class="acl-action">'.JText::_('Permissions Level').'</span>';
+			$html[] = '			<span class="acl-action">'.JText::_('COM_NINJA_PERMISSIONS_LEVEL').'</span>';
 			$html[] = '		</th>';
 			$html[] = '	</tr>';
 			$html[] = '	</thead>';
@@ -299,10 +299,10 @@ class NinjaTemplateHelperAccess extends KTemplateHelperAbstract
 		$html[] = '	<thead>';
 		$html[] = '	<tr>';
 		$html[] = '		<th>';
-		$html[] = '			<span class="acl-action">'.JText::_('User Group').'</span>';
+		$html[] = '			<span class="acl-action">'.JText::_('COM_NINJA_USER_GROUP').'</span>';
 		$html[] = '		</th>';
 		$html[] = '		<th colspan="'.count($levels).'" class="permission-level">';
-		$html[] = '			<span class="acl-action">'.JText::_('Permissions Level').'</span>';
+		$html[] = '			<span class="acl-action">'.JText::_('COM_NINJA_PERMISSIONS_LEVEL').'</span>';
 		$html[] = '		</th>';
 		$html[] = '	</tr>';
 		$html[] = '	</thead>';
@@ -354,7 +354,7 @@ class NinjaTemplateHelperAccess extends KTemplateHelperAbstract
 		$options = array(
 			array(
 				'value' => null,
-				'text'	=> '&hellip;'
+				'text'	=> '&'
 			),
 			array(
 				'value' => '0',

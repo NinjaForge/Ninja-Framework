@@ -1,0 +1,85 @@
+Searching 171 files for "DATE_FORMAT_LC"
+
+/Users/richie/Ninja Projects/git/Ravenlife-NinjaAPI/code/administrator/components/com_ninja/elements/timeformats.php:
+   14  		$date = JFactory::getDate();
+   15  		$options = array(
+   16: 			JHTML::_('select.option',  'DATE_FORMAT_LC1', $date->toFormat(JText::_( 'DATE_FORMAT_LC1' )) ),
+   17: 			JHTML::_('select.option',  'DATE_FORMAT_LC2', $date->toFormat(JText::_( 'DATE_FORMAT_LC2' )) ),
+   18: 			JHTML::_('select.option',  'DATE_FORMAT_LC3', $date->toFormat(JText::_( 'DATE_FORMAT_LC3' )) ),
+   19: 			JHTML::_('select.option',  'DATE_FORMAT_LC4', $date->toFormat(JText::_( 'DATE_FORMAT_LC4' )) )
+   20  		);
+   21  
+
+/Users/richie/Ninja Projects/git/Ravenlife-NinjaAPI/code/administrator/components/com_ninja/templates/helpers/date.php:
+  122  		$config->append(array(
+  123  			'date'			=> null,
+  124: 			'format'		=> JText::_('COM_NINJA_DATE_FORMAT_LC2'),
+  125  			'gmt_offset'	=> JFactory::getUser()->getParameters()->get('timezone', JFactory::getConfig()->getValue('offset')),
+  126  		));
+
+/Users/richie/Ninja Projects/git/Ravenlife-NinjaAPI/code/administrator/components/com_ninja/templates/helpers/manifest.php:
+  112  			{
+  113  				$date = JFactory::getDate($changelog);
+  114: 				$html[] = (string)$changelog == 'TBA' ? JText::_('COM_NINJA_TO_BE_ANNOUNCED') : $date->toFormat(JText::_('COM_NINJA_DATE_FORMAT_LC'));
+  115  			}
+  116  			else 					$html[] = $changelog;
+
+/Users/richie/Ninja Projects/git/Ravenlife-NinjaAPI/code/administrator/components/com_ninja/templates/helpers/select.php:
+   96  	 * // Outside a template layout
+   97  	 * $helper = $this->getService('ninja:template.helper.select');
+   98: 	 * $helper->timeformats('DATE_FORMAT_LC2', 'timeformat');
+   99  	 *
+  100  	 * // Inside a template layout
+  101: 	 * <?= @ninja('select.timeformats', 'DATE_FORMAT_LC2', 'timeformat') ?>
+  102  	 * </code>
+  103  	 *
+  ...
+  106  	 * @return	string	Html 
+  107  	 */
+  108:     public function timeformats($value = 'DATE_FORMAT_LC1', $name = 'timeformats')
+  109      {
+  110         $timeformats = $this->getService('ninja:model.timeformats')->getList();
+  ...
+  126  	 * // Outside a template layout
+  127  	 * $helper = $this->getService('ninja:template.helper.select');
+  128: 	 * $helper->languages('DATE_FORMAT_LC2', 'timeformat');
+  129  	 *
+  130  	 * // Inside a template layout
+  131: 	 * <?= @ninja('select.timeformats', 'DATE_FORMAT_LC2', 'timeformat') ?>
+  132  	 * </code>
+  133  	 *
+
+/Users/richie/Ninja Projects/git/Ravenlife-NinjaAPI/code/administrator/language/en-GB/en-GB.com_ninja.ini:
+   37  COM_NINJA_DATABASE_CONFIGURATION_SETTING_CHANGED_TO_MYSQLI="Database configuration setting changed to \'mysqli\'."
+   38  
+   39: COM_NINJA_DATE_FORMAT_LC2="DATE_FORMAT_LC2"
+   40  COM_NINJA_DATE="Date:"
+   41  COM_NINJA_DATE="Date"
+
+17 matches across 5 files
+
+
+Searching 171 files for "&hellip;"
+
+/Users/richie/Ninja Projects/git/Ravenlife-NinjaAPI/code/administrator/components/com_ninja/templates/helpers/access.php:
+  355  			array(
+  356  				'value' => null,
+  357: 				'text'	=> '&hellip;'
+  358  			),
+  359  			array(
+
+/Users/richie/Ninja Projects/git/Ravenlife-NinjaAPI/code/administrator/language/en-GB/en-GB.com_ninja.ini:
+   29  COM_NINJA_CHANGELOG_AND_VERSION_INFORMATION="Changelog and Version Information"
+   30  COM_NINJA_CHANGELOG="CHANGELOG"
+   31: COM_NINJA_CHECK_FOR_UPDATESHELLIP;="Check for Updates&hellip;"
+   32: COM_NINJA_CHECKING_FOR_UPDATESHELLIP;="Checking for updates&hellip;"
+   33  COM_NINJA_CLEAR_COMPLETED="Clear Completed"
+   34  COM_NINJA_CLICK_TO_OPEN_A_MODAL_WINDOW_AND_PICK_YOUR_CONTENT_ITEM="Click to open a modal window and pick your content item."
+   ..
+  152  COM_NINJA_UPDATE_COMPLETE="Update complete!"
+  153  COM_NINJA_UPDATE_FAILED_WITH_THE_FOLLOWING_ERROR="Update failed with the following error"
+  154: COM_NINJA_UPDATINGHELLIP;="Updating&hellip;"
+  155  COM_NINJA_USER_GROUP="User Group"
+  156  COM_NINJA_USERNAME="Username"
+
+4 matches across 2 files

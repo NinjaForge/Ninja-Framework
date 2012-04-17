@@ -34,7 +34,7 @@ foreach ($queries as $query)
 	if ($query != '' && $query{0} != '#') {
 		$db->setQuery($query);
 		if (!$db->query()) {
-			JError::raiseWarning(1, JText::_('SQL Error')." ".$db->stderr(true));
+			JError::raiseWarning(1, JText::_('COM_NINJA_SQL_ERROR')." ".$db->stderr(true));
 			return false;
 		}
 	}

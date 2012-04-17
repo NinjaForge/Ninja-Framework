@@ -111,10 +111,10 @@ class NinjaViewHtml extends ComDefaultViewHtml
 	    throw new BadMethodCallException(__METHOD__.' is deprecated.');
 	}
 	
-	public function placeholder($name = null, $attr = null,  $text = 'Add %s&hellip;', $notice = false, $options = array())
+	public function placeholder($name = null, $attr = null,  $text = 'Add %s', $notice = false, $options = array())
 	{
 		if (!$name) $name = $this->getName();
-		if (!$text) $text = 'Add %s&hellip;';
+		if (!$text) $text = 'Add %s';
 		if(!isset($this->length)) $this->length = $this->getService($this->getModel()->getIdentifier())->getTotal();
 		if ($this->length > 0) return false;
 		

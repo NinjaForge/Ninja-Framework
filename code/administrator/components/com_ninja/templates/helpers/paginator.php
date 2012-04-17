@@ -84,7 +84,7 @@ class NinjaTemplateHelperPaginator extends KTemplateHelperPaginator
 		$html  = '<div class="pagination">';
 		$html .= '<div class="limit">'.sprintf(JText::_('Listing %s ' . KInflector::humanize($items)), $limitlist ).'</div>';
 		$html .=  $this->pages($list);
-		$html .= '<div class="count"> '.JText::_('Pages').' '.$config->current.' '.JText::_('of').' '.$config->count.'</div>';
+		$html .= '<div class="count"> '.JText::_('COM_NINJA_PAGES').' '.$config->current.' '.JText::_('COM_NINJA_OF').' '.$config->count.'</div>';
 		$html .= '</div>';
 		
 		return $html;
@@ -236,7 +236,7 @@ class NinjaTemplateHelperPaginator extends KTemplateHelperPaginator
 	
 		// Set defaults
 		$config->append(array(
-			'text'		=> JText::_('Find '.KInflector::singularize(KRequest::get('get.view', 'cmd')).'&hellip;'),
+			'text'		=> JText::_('COM_NINJA_FIND_'.KInflector::singularize(KRequest::get('get.view', 'cmd')).''),
 			'autosave'	=> KRequest::get('get.option', 'string') . '.' . KRequest::get('get.view', 'string'),
 			'size'		=> 50,
 			'type'		=> 'search',
@@ -288,7 +288,7 @@ class NinjaTemplateHelperPaginator extends KTemplateHelperPaginator
 				'<tr>'.
 					'<td colspan="'.$config->colspan.'" align="center">'.
 						'<h2 class="ninja-empty-list">'.
-							sprintf(JText::_('No %s found'), JText::_($this->name)).
+							sprintf(JText::_('COM_NINJA_NO_%S_FOUND'), JText::_($this->name)).
 						'</h2>'.
 					'</td>'.
 				'</tr>'.

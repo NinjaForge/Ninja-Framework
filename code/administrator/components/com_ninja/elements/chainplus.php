@@ -75,7 +75,7 @@ class NinjaElementChainplus extends NinjaElementAbstract
 				                $jsHTMLBuffer .= "</div>";
 				    
 				}
-				$jsHTMLBuffer .= '<a class="ninja-button buttonRemoveChainLevel brcl'.$chainContId.'" title="'. JText::_('Remove'). '" id="RemoveChainLevel_'.$chainContId.'{chaindivid}">'. JText::_('Remove'). '</a>';
+				$jsHTMLBuffer .= '<a class="ninja-button buttonRemoveChainLevel brcl'.$chainContId.'" title="'. JText::_('COM_NINJA_REMOVE'). '" id="RemoveChainLevel_'.$chainContId.'{chaindivid}">'. JText::_('COM_NINJA_REMOVE'). '</a>';
 				//$jsHTMLBuffer .= '</div>';
 				
 				 $this->getService('ninja:template.helper.document')->load('js',  '
@@ -187,9 +187,9 @@ class NinjaElementChainplus extends NinjaElementAbstract
 			        
 			    }
 			    if($i == 0){
-			    	$buffer .= '<a class="ninja-button buttonAddChainLevel" title="'. JText::_('Add'). '" id="addChainLevel_'.$chainContId.'">'. JText::_('Add'). '</a>';
+			    	$buffer .= '<a class="ninja-button buttonAddChainLevel" title="'. JText::_('COM_NINJA_ADD'). '" id="addChainLevel_'.$chainContId.'">'. JText::_('COM_NINJA_ADD'). '</a>';
 			    }else{
-			    	$buffer .= '<a class="ninja-button buttonRemoveChainLevel brcl'.$chainContId.'" title="'. JText::_('Remove'). '" id="RemoveChainLevel_'.$chainContId.$fakei.'">'. JText::_('Remove'). '</a>';
+			    	$buffer .= '<a class="ninja-button buttonRemoveChainLevel brcl'.$chainContId.'" title="'. JText::_('COM_NINJA_REMOVE'). '" id="RemoveChainLevel_'.$chainContId.$fakei.'">'. JText::_('COM_NINJA_REMOVE'). '</a>';
 			    	
 			    }
 			    $buffer .= "</div>";

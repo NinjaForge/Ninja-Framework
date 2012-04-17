@@ -37,7 +37,7 @@ class NinjaElementDashboard extends NinjaElementAbstract
 		
 		jimport('joomla.language.helper');
         $locale = JLanguageHelper::detectLanguage();
-        $instructions = JText::_('NINSTRUCTIONS');
+        $instructions = JText::_('COM_NINJA_NINSTRUCTIONS');
         //$instructions = JFile::read(JURI::root().'modules/'.$modname.'/dashboard/'.$locale.'/instructions.html');
         if ( !$instructions ) {
         	//$instructions = JFile::read(JURI::root().'modules/'.$modname.'/dashboard/en-GB/instructions.html');
@@ -219,7 +219,7 @@ background-image: url('.JURI::root().$imgpath.'dashbg.png); }
 			    <h2>'.JText::_(current($xml->slogan)->data()).'</h2>
 			    <div class="boxshot nftab-content"><img class="ui-widget-content" src="'.JURI::root().'media/'.basename($path, '.xml').'/img/box.png" alt="'.JText::_(current($xml->name)->data()).'" title="'.JText::_(current($xml->name)->data()).'"></div>
 			    <div class="description nftab-content">
-				    <p><b>'.JText::_('EXTCREATEDBY').'</b> ';
+				    <p><b>'.JText::_('COM_NINJA_EXTCREATEDBY').'</b> ';
 				    $i = 0;
 				    $count = count($xml->author);
 				    $separator = '&nbsp;';
@@ -250,22 +250,22 @@ background-image: url('.JURI::root().$imgpath.'dashbg.png); }
 				    $credits = implode("\n", $credits);
 				    $return .= '</p>
 				    '.$credits.'
-				    <p><b>'.JText::_('EXTPHPLIC').'</b>  <a href="http://creativecommons.org/licenses/LGPL/2.1/"> CC-GNU LGPL</a></p>
-				    <p><b>'.JText::_('EXTJSLIC').'</b> <a rel="license" href="http://www.opensource.org/licenses/mit-license.php"> MIT </a></p>
-				    <p><b>'.JText::_('EXTCSSIMGCOP').'</b> '.JText::sprintf('EXTCSSIMGCOPTXT', '2008', date('Y')).' <a target="_blank" href="http://'.current($xml->authorUrl)->data().'" class="hasTip"  title="Click me!::Get more extensions at '.JText::_(current($xml->copyright)->data()).'">'.JText::_(current($xml->copyright)->data()).'</a></p>
-				    <p><b>'.JText::_('EXTSUP').'</b> '.JText::sprintf('EXTSUPTXT', $support).'</p>
-				    <p><b>'.JText::_('EXTRATE').'</b> '.JText::sprintf('EXTRATETXT', $rate).'</p>
+				    <p><b>'.JText::_('COM_NINJA_EXTPHPLIC').'</b>  <a href="http://creativecommons.org/licenses/LGPL/2.1/"> CC-GNU LGPL</a></p>
+				    <p><b>'.JText::_('COM_NINJA_EXTJSLIC').'</b> <a rel="license" href="http://www.opensource.org/licenses/mit-license.php"> MIT </a></p>
+				    <p><b>'.JText::_('COM_NINJA_EXTCSSIMGCOP').'</b> '.JText::sprintf('EXTCSSIMGCOPTXT', '2008', date('Y')).' <a target="_blank" href="http://'.current($xml->authorUrl)->data().'" class="hasTip"  title="Click me!::Get more extensions at '.JText::_(current($xml->copyright)->data()).'">'.JText::_(current($xml->copyright)->data()).'</a></p>
+				    <p><b>'.JText::_('COM_NINJA_EXTSUP').'</b> '.JText::sprintf('EXTSUPTXT', $support).'</p>
+				    <p><b>'.JText::_('COM_NINJA_EXTRATE').'</b> '.JText::sprintf('EXTRATETXT', $rate).'</p>
 				</div>
 			</div>
 		</div>
 		<div id="tabcontent2" class="nftab tab-instructions filter-instructions ui-helper-hidden ui-filter-select  ui-filter-item">
-		    <h1>'.JText::_('INSTRUCTIONS').'</h1>  
+		    <h1>'.JText::_('COM_NINJA_INSTRUCTIONS').'</h1>  
 		    <div class="inner">   
 		    	'.$instructions.'
 			</div>
 		</div>
 		<div id="tabcontent3" class="nftab tab-changelog ui-helper-hidden ui-filter-select">
-			<h1>'.JText::_('CHANGELOG').'</h1> 
+			<h1>'.JText::_('COM_NINJA_CHANGELOG').'</h1> 
 			<div class="inner">
 			';
 			    $i = 0;
@@ -280,9 +280,9 @@ background-image: url('.JURI::root().$imgpath.'dashbg.png); }
 			    	//die(print_r($log, true));
 			    	//$children = $children->children();
 			    	//$test = print_r($children->children(), true);
-			    	$version = ($log['version'] ? '<p><b>'.JText::_('Version:').'</b> '.$log['version'].'</p>' : '<p><b>'.JText::_('Version:').'</b> '.$xml['version'].'</p>' );
-			    	$date = ($log['date'] ? '<p><b>'.JText::_('Date:').'</b> '.$log['date'].'</p>' : '' );
-			    	$state = ($log['state'] ? '<p><b>'.JText::_('State:').'</b> '.$log['state'].'</p>' : '' );
+			    	$version = ($log['version'] ? '<p><b>'.JText::_('COM_NINJA_VERSION').'</b> '.$log['version'].'</p>' : '<p><b>'.JText::_('COM_NINJA_VERSION').'</b> '.$xml['version'].'</p>' );
+			    	$date = ($log['date'] ? '<p><b>'.JText::_('COM_NINJA_DATE').'</b> '.$log['date'].'</p>' : '' );
+			    	$state = ($log['state'] ? '<p><b>'.JText::_('COM_NINJA_STATE').'</b> '.$log['state'].'</p>' : '' );
 			    	$changes = '<ul>';
 			    	foreach($log->children() as $child)
 			    	{

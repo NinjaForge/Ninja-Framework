@@ -42,7 +42,7 @@ class NinjaElementImage extends NinjaElementAbstract
 		//Make sure the user is authorized to view this page
 		$user = & JFactory::getUser();
 		if (!$user->authorize( 'com_media', 'popup' )) {
-			return JText::_('You\'re not authorized to access the media manager');
+			return JText::_('COM_NINJA_YOURE_NOT_AUTHORIZED_TO_ACCESS_THE_MEDIA_MANAGER');
 		}
 
 		//Create the modal window link. &e_name let us have multiple instances of the modal window.
