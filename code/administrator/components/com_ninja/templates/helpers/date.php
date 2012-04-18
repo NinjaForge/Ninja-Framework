@@ -81,7 +81,7 @@ class NinjaTemplateHelperDate extends KTemplateHelperAbstract
 			
 			if($difference != 1) $periods[$i].= 's';
 	
-			$html  = sprintf(JText::_('%s '.$periods[$i].' '.$tense), $difference);
+			$html  = sprintf(JText::_('COM_NINJA_%S_'.$periods[$i].'_'.$tense), $difference);
 		}
 		elseif(gmdate('Y') == gmdate('Y', $unix_date))
 		{
@@ -121,7 +121,7 @@ class NinjaTemplateHelperDate extends KTemplateHelperAbstract
 		
 		$config->append(array(
 			'date'			=> null,
-			'format'		=> JText::_('COM_NINJA_DATE_FORMAT_LC2'),
+			'format'		=> JText::_('DATE_FORMAT_LC2'),
 			'gmt_offset'	=> JFactory::getUser()->getParameters()->get('timezone', JFactory::getConfig()->getValue('offset')),
 		));
 

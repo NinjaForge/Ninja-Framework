@@ -21,8 +21,8 @@ if(JFile::exists(JPATH_PLUGINS.'/system/koowa.php'))
 	
 	$db->execute("INSERT INTO `#__plugins` (`id`, `name`, `element`, `folder`, `published`, `ordering`) VALUES ($id, 'System - Koowa', 'koowa', 'system', 1, -1) ON DUPLICATE KEY UPDATE `published` = 1, `ordering` = -1;");
 	
-	$manager = JFactory::getApplication()->isAdmin() ? '<a href="' . JRoute::_('index.php?option=com_plugins&view=plugin&client=site&task=edit&cid[]=' . $db->insertid()) . '">'.JText::_("Edit &laquo;System - Koowa&raquo; in the Plugin Manager.").'</a>' : null;
-	$msg = JText::_("Koowa System Plugin activated. ") . $manager;
+	$manager = JFactory::getApplication()->isAdmin() ? '<a href="' . JRoute::_('index.php?option=com_plugins&view=plugin&client=site&task=edit&cid[]=' . $db->insertid()) . '">'.JText::_('COM_NINJA_EDIT_LAQUO;SYSTEM_-_KOOWARAQUO;_IN_THE_PLUGIN_MANAGER').'</a>' : null;
+	$msg = JText::_('COM_NINJA_KOOWA_SYSTEM_PLUGIN_ACTIVATED') . $manager;
 	if($user->authorize( 'com_plugins', 'manage' )) JFactory::getApplication()->enqueueMessage($msg);
 	$uri = clone JURI::getInstance();
 	JFactory::getApplication()->redirect($uri->toString());

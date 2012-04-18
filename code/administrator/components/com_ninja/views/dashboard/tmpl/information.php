@@ -27,11 +27,11 @@
 </style>
 
 <? $list = array(
-	'author'		=> 'Created By',
-	'license'		=> 'Code License',
-	'csslicense'	=> 'CSS License',
-	'jslicense'		=> 'JS License',
-	'copyright'		=> 'Copyright',
+	'author'		=> 'COM_NINJA_CREATED_BY',
+	'license'		=> 'COM_NINJA_CODE_LICENCE',
+	'csslicense'	=> 'COM_NINJA_CSS_LICENCE',
+	'jslicense'		=> 'COM_NINJA_JS_LICENCE',
+	'copyright'		=> 'COM_NINJA_COPYRIGHT',
 ) ?>
 
 <dl class="info">
@@ -67,7 +67,7 @@
 <? if(isset(@$xml->rate)) : ?>
 	<dt>
 		<strong>
-			<?= @text('COM_NINJA_IF_YOU_LIKE_THIS_EXTENSION_CONSIDER_GIVING_IT_AN_HONEST_REVIEW_AT_THE') ?>
+			<?= @text('COM_NINJA_CONSIDER_REVIEWING') ?>
 		</strong>
 	</dt>
 	<dd>

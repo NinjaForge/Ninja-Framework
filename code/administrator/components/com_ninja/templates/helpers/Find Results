@@ -13,7 +13,7 @@ Searching 171 files for "DATE_FORMAT_LC"
 /Users/richie/Ninja Projects/git/Ravenlife-NinjaAPI/code/administrator/components/com_ninja/templates/helpers/date.php:
   122  		$config->append(array(
   123  			'date'			=> null,
-  124: 			'format'		=> JText::_('COM_NINJA_DATE_FORMAT_LC2'),
+  124: 			'format'		=> JText::_('DATE_FORMAT_LC2'),
   125  			'gmt_offset'	=> JFactory::getUser()->getParameters()->get('timezone', JFactory::getConfig()->getValue('offset')),
   126  		));
 
@@ -52,7 +52,7 @@ Searching 171 files for "DATE_FORMAT_LC"
 /Users/richie/Ninja Projects/git/Ravenlife-NinjaAPI/code/administrator/language/en-GB/en-GB.com_ninja.ini:
    37  COM_NINJA_DATABASE_CONFIGURATION_SETTING_CHANGED_TO_MYSQLI="Database configuration setting changed to \'mysqli\'."
    38  
-   39: COM_NINJA_DATE_FORMAT_LC2="DATE_FORMAT_LC2"
+   39: DATE_FORMAT_LC2="DATE_FORMAT_LC2"
    40  COM_NINJA_DATE="Date:"
    41  COM_NINJA_DATE="Date"
 

@@ -254,7 +254,7 @@ class NinjaTemplateHelperAccess extends KTemplateHelperAbstract
 			{
 				$html[] = '	<tr data-object="'.$group.'">';
 				$html[] = '		<th class="acl-groups">';
-				$html[] = '			'.JText::_(KInflector::humanize($group));
+				$html[] = '			'.JText::_('COM_NINJA_PERMISSION_OBJECT_'.KInflector::humanize($group));
 				$html[] = '		</th>';
 				
 				$active = isset($rules[$group]) ? $rules[$group] : 1;
@@ -266,7 +266,7 @@ class NinjaTemplateHelperAccess extends KTemplateHelperAbstract
 					$html[] = '	<td class="permissions-level level-'.$i.'">';
 					$html[] = '		<input type="radio" name="'.$this->inputName.'['.$group.']" id="'.$id.'" value="'.$i.'" '.$checked.' />';
 					$html[] = ' 	<label for="'.$id.'">';
-					$html[] = 			JText::_($level);
+					$html[] = 			JText::_('COM_NINJA_PERMISSION_'.strtoupper(str_replace(' ', '_', $level)));
 					$html[] = '</label>';
 					$html[] = ' </td>';
 				}

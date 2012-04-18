@@ -139,10 +139,12 @@ class NinjaViewHtml extends ComDefaultViewHtml
 		if(!$this->_title)
 		{
 			$app = JFactory::getApplication();
+			$identifier = $this->getService($this->getModel())->getIdentifier();
+			
 			if($app->isAdmin())
 			{
 				$this->_title = htmlspecialchars_decode($this->getDocumentSubTitle() 
-								. ' | ' . JText::_(ucfirst($this->getService($this->getModel())->getIdentifier()->package)) 
+								. ' | ' . JText::_($identifier->type.'_'.$identifier->package.'_'.strtoupper($identifier->name)) 
 								. ' | ' . JText::_( 'Admin' ) . ' ' . JFactory::getApplication()->getCfg('sitename'));
 			}
 			else
