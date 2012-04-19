@@ -357,7 +357,7 @@ class NinjaTemplateHelperSelect extends KTemplateHelperSelect
 			ksort($img);
 		}
 
-		if(!$options) return '<strong>'.sprintf(JText::_('COM_NINJA_THERE_ARE_NO_IMAGES_IN_%S'), '<pre>'.$config->path.'</pre>').'</strong>';
+		if(!$options) return '<strong>'.sprintf(JText::_('COM_NINJA_THERE_ARE_NO_IMAGES_IN'), '<pre>'.$config->path.'</pre>').'</strong>';
 		if(!$config->idtag) $config->idtag = $config->name;
 		
 		$document = JFactory::getDocument();

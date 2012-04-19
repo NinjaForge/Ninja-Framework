@@ -71,14 +71,14 @@ Searching 171 files for "&hellip;"
 /Users/richie/Ninja Projects/git/Ravenlife-NinjaAPI/code/administrator/language/en-GB/en-GB.com_ninja.ini:
    29  COM_NINJA_CHANGELOG_AND_VERSION_INFORMATION="Changelog and Version Information"
    30  COM_NINJA_CHANGELOG="CHANGELOG"
-   31: COM_NINJA_CHECK_FOR_UPDATESHELLIP;="Check for Updates&hellip;"
-   32: COM_NINJA_CHECKING_FOR_UPDATESHELLIP;="Checking for updates&hellip;"
+   31: COM_NINJA_CHECK_FOR_UPDATES="Check for Updates&hellip;"
+   32: COM_NINJA_CHECKING_FOR_UPDATES="Checking for updates&hellip;"
    33  COM_NINJA_CLEAR_COMPLETED="Clear Completed"
    34  COM_NINJA_CLICK_TO_OPEN_A_MODAL_WINDOW_AND_PICK_YOUR_CONTENT_ITEM="Click to open a modal window and pick your content item."
    ..
   152  COM_NINJA_UPDATE_COMPLETE="Update complete!"
   153  COM_NINJA_UPDATE_FAILED_WITH_THE_FOLLOWING_ERROR="Update failed with the following error"
-  154: COM_NINJA_UPDATINGHELLIP;="Updating&hellip;"
+  154: COM_NINJA_UPDATING="Updating&hellip;"
   155  COM_NINJA_USER_GROUP="User Group"
   156  COM_NINJA_USERNAME="Username"
 

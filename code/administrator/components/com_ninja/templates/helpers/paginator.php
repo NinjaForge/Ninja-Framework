@@ -75,14 +75,14 @@ class NinjaTemplateHelperPaginator extends KTemplateHelperPaginator
 
 		$view = $config->name;
 		$items = (int) $config->total === 1 ? KInflector::singularize($view) : $view;
-		if($config->total <= 10) return '<div class="pagination"><div class="limit">'.sprintf(JText::_('COM_NINJA_LISTING_%S_' . KInflector::humanize($items)), $config->total ).'</div></div>';
+		if($config->total <= 10) return '<div class="pagination"><div class="limit">'.sprintf(JText::_('COM_NINJA_LISTING_' . KInflector::humanize($items)), $config->total ).'</div></div>';
 
 		// Get the paginator data
 		$list = $this->_items($config);
 		$limitlist = $config->total > 10 ? $this->limit($config->toArray()) : $config->total;
 		
 		$html  = '<div class="pagination">';
-		$html .= '<div class="limit">'.sprintf(JText::_('COM_NINJA_LISTING_%S_' . KInflector::humanize($items)), $limitlist ).'</div>';
+		$html .= '<div class="limit">'.sprintf(JText::_('COM_NINJA_LISTING_' . KInflector::humanize($items)), $limitlist ).'</div>';
 		$html .=  $this->pages($list);
 		$html .= '<div class="count"> '.JText::_('COM_NINJA_PAGES').' '.$config->current.' '.JText::_('COM_NINJA_OF').' '.$config->count.'</div>';
 		$html .= '</div>';
@@ -128,8 +128,8 @@ class NinjaTemplateHelperPaginator extends KTemplateHelperPaginator
 		
 		$html = '<ul class="pages">';
 		
-		$html .= '<li class="first first-child">'.$this->link($pages['first'], 'COM_NINJA_%S_FIRST', $windoze ? '<<' : '&#10094;&#10094;').'</li>';
-		$html .= '<li class="previous last-child">'.$this->link($pages['previous'], 'COM_NINJA_%S_PREVIOUS', $windoze ? '<' : '&#10094;').'</li>';
+		$html .= '<li class="first first-child">'.$this->link($pages['first'], 'COM_NINJA_FIRST', $windoze ? '<<' : '&#10094;&#10094;').'</li>';
+		$html .= '<li class="previous last-child">'.$this->link($pages['previous'], 'COM_NINJA_PREVIOUS', $windoze ? '<' : '&#10094;').'</li>';
 		
 		$html .= '</ul>';
 		$html .= '<ul class="pages">';
@@ -147,8 +147,8 @@ class NinjaTemplateHelperPaginator extends KTemplateHelperPaginator
 		
 		$html .= '</ul>';
 		$html .= '<ul class="pages">';
-		$html .= '<li class="next first-child">'.$this->link($pages['next'], 'COM_NINJA_NEXT_%S', $windoze ? '>' : '&#10095;').'</li>';
-		$html .= '<li class="last last-child">'.$this->link($pages['last'], 'COM_NINJA_LAST_%S', $windoze ? '>>' : '&#10095;&#10095;').'</li>';
+		$html .= '<li class="next first-child">'.$this->link($pages['next'], 'COM_NINJA_NEXT', $windoze ? '>' : '&#10095;').'</li>';
+		$html .= '<li class="last last-child">'.$this->link($pages['last'], 'COM_NINJA_LAST', $windoze ? '>>' : '&#10095;&#10095;').'</li>';
 
 		$html .= '</ul>';
 		return $html;
@@ -236,7 +236,7 @@ class NinjaTemplateHelperPaginator extends KTemplateHelperPaginator
 	
 		// Set defaults
 		$config->append(array(
-			'text'		=> JText::_('COM_NINJA_FIND_'.KInflector::singularize(KRequest::get('get.view', 'cmd')).''),
+			'text'		=> JText::_(''.KRequest::get('get.option', 'string').'_FIND_'.KInflector::singularize(KRequest::get('get.view', 'cmd')).''),
 			'autosave'	=> KRequest::get('get.option', 'string') . '.' . KRequest::get('get.view', 'string'),
 			'size'		=> 50,
 			'type'		=> 'search',
@@ -288,7 +288,7 @@ class NinjaTemplateHelperPaginator extends KTemplateHelperPaginator
 				'<tr>'.
 					'<td colspan="'.$config->colspan.'" align="center">'.
 						'<h2 class="ninja-empty-list">'.
-							sprintf(JText::_('COM_NINJA_NO_%S_FOUND'), JText::_($this->name)).
+							sprintf(JText::_('COM_NINJA_NO_FOUND'), JText::_($this->name)).
 						'</h2>'.
 					'</td>'.
 				'</tr>'.

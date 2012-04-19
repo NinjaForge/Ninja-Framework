@@ -23,7 +23,7 @@ if(JFile::exists(JPATH_PLUGINS.'/system/koowa/koowa.php') || JFile::exists(JPATH
 else
 {
 	//Only people able to fix the problem should be notified of the cause
-	$message	= JText::_('COM_NINJA_THE_%S_PLUGIN_DOES_NOT_EXIST_WHICH_IS_RESPONSIBLE_FOR_LOADING_THE_NOOKU_FRAMEWORK_%2$S_INSTALLS_NOOKU_FRAMEWORK_AUTOMATICALLY_SO_THIS_SHOULD_NEVER_HAPPEN_PLEASE_POST_IN_OUR_%2$S_FORUMS_SO_WE_CAN_HELP_YOU_OUT_IMMEDIATELY');
+	$message	= JText::_('COM_NINJA_THE_PLUGIN_DOES_NOT_EXIST_WHICH_IS_RESPONSIBLE_FOR_LOADING_THE_NOOKU_FRAMEWORK_%2$S_INSTALLS_NOOKU_FRAMEWORK_AUTOMATICALLY_SO_THIS_SHOULD_NEVER_HAPPEN_PLEASE_POST_IN_OUR_%2$S_FORUMS_SO_WE_CAN_HELP_YOU_OUT_IMMEDIATELY');
 	$message	= sprintf($message, 'System - Koowa ', $extension_name);
 	$condition	= $user->authorize('com_installer', 'installer');
 	return $notify($condition, $message);

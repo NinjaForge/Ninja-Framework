@@ -151,7 +151,7 @@ class NinjaControllerDashboard extends ComDefaultControllerResource
 
 		if( !(($version_compare && $revision_compare) || ($version_compare && ($revision == 0)))){
 			$msg = array(
-				'text' => sprintf(JText::_('COM_NINJA_%S_COULD_NOT_BE_UPGRADED_CORRECT_FILE_VERSION_NOT_FOUND'), JText::_($this->getIdentifier()->package)),
+				'text' => sprintf(JText::_('COM_NINJA_COULD_NOT_BE_UPGRADED_CORRECT_FILE_VERSION_NOT_FOUND'), JText::_($this->getIdentifier()->package)),
 				'update' => false
 			);
 			
@@ -161,7 +161,7 @@ class NinjaControllerDashboard extends ComDefaultControllerResource
 		
 		if (!$fileUrl){
 			$msg = array(
-				'text' => sprintf(JText::_('COM_NINJA_%S_COULD_NOT_BE_UPGRADED_NO_FILE_ATTACHED_TO_UPDATE_INFORMATION_PLEASE_DOWNLOAD_FROM_SITE'), JText::_($this->getIdentifier()->package)),
+				'text' => sprintf(JText::_('COM_NINJA_COULD_NOT_BE_UPGRADED_NO_FILE_ATTACHED_TO_UPDATE_INFORMATION_PLEASE_DOWNLOAD_FROM_SITE'), JText::_($this->getIdentifier()->package)),
 				'update' => false
 			);
 			
@@ -206,7 +206,7 @@ class NinjaControllerDashboard extends ComDefaultControllerResource
 		JFolder::delete(JPATH_ROOT.'/tmp/'.$foldername.'/');
 
 		$msg = array(
-			'text' => sprintf(JText::_('COM_NINJA_%S_UPGRADED_SUCCESSFULLY'), JText::_($this->getIdentifier()->package)).' : '.$foldername.' : '.$filename,
+			'text' => sprintf(JText::_('COM_NINJA_UPGRADED_SUCCESSFULLY'), JText::_($this->getIdentifier()->package)).' : '.$foldername.' : '.$filename,
 			'update' => true
 		);
 		
@@ -269,7 +269,7 @@ class NinjaControllerDashboard extends ComDefaultControllerResource
 		JFolder::delete(JPATH_ROOT.'/tmp/'.$foldername.'/');
 
 		$msg = array(
-			'text' => sprintf(JText::_('COM_NINJA_%S_UPGRADED_SUCCESSFULLY'), JText::_($this->getIdentifier()->package)),
+			'text' => sprintf(JText::_('COM_NINJA_UPGRADED_SUCCESSFULLY'), JText::_($this->getIdentifier()->package)),
 			'update' => true
 		);
 		
@@ -346,7 +346,7 @@ class NinjaControllerDashboard extends ComDefaultControllerResource
 		if(($version_compare && $revision_compare) || ($version_compare && ($revision == 0)))
 		{
 			$msg = array(
-				'text' => sprintf(JText::_('COM_NINJA_%1$S_%2$S_REV%3$S_AVAILABLE_FOR_DOWNLOAD'), JText::_($this->getIdentifier()->package), $version, $revision),
+				'text' => sprintf(JText::_('COM_NINJA_REV_AVAILABLE_FOR_DOWNLOAD'), JText::_($this->getIdentifier()->package), $version, $revision),
 				'update' => true
 			);
 			
@@ -356,7 +356,7 @@ class NinjaControllerDashboard extends ComDefaultControllerResource
 		else
 		{
 			$msg = array(
-				'text' => sprintf(JText::_('COM_NINJA_THIS_IS_THE_NEWEST_VERSION_OF_%1$S'), JText::_($this->getIdentifier()->package), $version, $revision).': '.$version.': '.$revision,
+				'text' => sprintf(JText::_('COM_NINJA_THIS_IS_THE_NEWEST_VERSION_OF_'), JText::_($this->getIdentifier()->package), $version, $revision).': '.$version.': '.$revision,
 				'update' => false
 			);
 			if(KRequest::type() == 'AJAX') die(json_encode($msg));
@@ -400,7 +400,7 @@ class NinjaControllerDashboard extends ComDefaultControllerResource
 		if($version_compare || (version_compare((string) $xml->version, $version, '=') && $revision_compare))
 		{
 			$msg = array(
-				'text' => sprintf(JText::_('COM_NINJA_%1$S_%2$S_%3$S_REV%4$S_AVAILABLE_FOR_DOWNLOAD'), JText::_($this->getIdentifier()->package), $version, JText::_($status), $revision),
+				'text' => sprintf(JText::_('COM_NINJA_REV_AVAILABLE_FOR_DOWNLOAD'), JText::_($this->getIdentifier()->package), $version, JText::_($status), $revision),
 				'update' => true
 			);
 			
@@ -410,7 +410,7 @@ class NinjaControllerDashboard extends ComDefaultControllerResource
 		else
 		{
 			$msg = array(
-				'text' => sprintf(JText::_('COM_NINJA_THIS_IS_THE_NEWEST_VERSION_OF_%1$S'), JText::_($this->getIdentifier()->package), $version, JText::_($status), $revision),
+				'text' => sprintf(JText::_('COM_NINJA_THIS_IS_THE_NEWEST_VERSION_OF_'), JText::_($this->getIdentifier()->package), $version, JText::_($status), $revision),
 				'update' => false
 			);
 			if(KRequest::type() == 'AJAX') die(json_encode($msg));

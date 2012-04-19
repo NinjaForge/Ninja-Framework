@@ -52,7 +52,7 @@ if(!function_exists('com_install'))
 		if(version_compare('5.3', phpversion(), '<=') && extension_loaded('ionCube Loader')) {
 		
 			if(ioncube_loader_iversion() < 40002) {
-				JError::raiseWarning(0, sprintf(JText::_('COM_NINJA_YOUR_SERVER_IS_AFFECTED_BY_A_BUG_IN_IONCUBE_LOADER_FOR_PHP_53_THAT_CAUSES_OUR_TEMPLATE_LAYOUT_PARSING_TO_FAIL_PLEASE_UPDATE_TO_A_VERSION_LATER_THAN_IONCUBE_LOADER_40_YOUR_SERVER_IS_%S_BEFORE_REINSTALLING'), ioncube_loader_version()));
+				JError::raiseWarning(0, sprintf(JText::_('COM_NINJA_YOUR_SERVER_IS_AFFECTED_BY_A_BUG_IN_IONCUBE_LOADER_FOR_PHP_53_THAT_CAUSES_OUR_TEMPLATE_LAYOUT_PARSING_TO_FAIL_PLEASE_UPDATE_TO_A_VERSION_LATER_THAN_IONCUBE_LOADER_40_YOUR_SERVER_IS_BEFORE_REINSTALLING'), ioncube_loader_version()));
 				return $installable = false;
 			}
 		}
@@ -95,7 +95,7 @@ $language->load($extname);
 
 $source			= $this->parent->getPath('source');
 $extension		= simplexml_load_file($this->parent->getPath('manifest'));
-$versiontext	= '<em>'.JText::_('YOU_NEED_AT_LEAST_%S_TO_INSTALL_' . JText::_(humanize($extension->name)) . '_YOU_ARE_USING_%S').'</em>';
+$versiontext	= '<em>'.JText::_('YOU_NEED_AT_LEAST_TO_INSTALL_' . JText::_(humanize($extension->name)) . '_YOU_ARE_USING').'</em>';
 
 // If we have additional packages, move them to a safe place (or JInstaller will delete them)
 // and later install them by using KInstaller

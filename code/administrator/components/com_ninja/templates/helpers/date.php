@@ -81,7 +81,7 @@ class NinjaTemplateHelperDate extends KTemplateHelperAbstract
 			
 			if($difference != 1) $periods[$i].= 's';
 	
-			$html  = sprintf(JText::_('COM_NINJA_%S_'.$periods[$i].'_'.$tense), $difference);
+			$html  = sprintf(JText::_('COM_NINJA_'.$periods[$i].'_'.$tense), $difference);
 		}
 		elseif(gmdate('Y') == gmdate('Y', $unix_date))
 		{
