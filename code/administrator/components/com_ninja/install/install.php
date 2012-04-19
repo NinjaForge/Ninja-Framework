@@ -44,7 +44,7 @@ if(!function_exists('com_install'))
 			//Checking if the whitelist is ok
 			if(!@ini_get('suhosin.executor.include.whitelist') || strpos(@ini_get('suhosin.executor.include.whitelist'), 'tmpl://') === false)
 			{
-				JError::raiseWarning(0, sprintf(JText::_('COM_NINJA_THE_INSTALL_FAILED_BECAUSE_YOUR_SERVER_HAS_SUHOSIN_LOADED,_BUT_ITS_NOT_CONFIGURED_CORRECTLY_PLEASE_FOLLOW_<A_HREF=%S_TARGET=_BLANK>THIS<A>_TUTORIAL_BEFORE_YOU_REINSTALL'), 'https://nooku.assembla.com/wiki/show/nooku-framework/Known_Issues'));
+				JError::raiseWarning(0, sprintf(JText::_('COM_NINJA_THE_INSTALL_FAILED_BECAUSE_SUHOSIN_LOADED'), 'https://nooku.assembla.com/wiki/show/nooku-framework/Known_Issues'));
 				return $installable = false;
 			}
 		}

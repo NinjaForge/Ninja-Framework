@@ -45,7 +45,7 @@ class NinjaTemplateHelperSelect extends KTemplateHelperSelect
         // LOCALE SETTINGS
         $timezones = array (
             JHTML::_('select.option', -12, JText::_('COM_NINJA_UTC_INTERNATIONAL_DATE_LINE_WEST')),
-            JHTML::_('select.option', -11, JText::_('COM_NINJA_UTC_MIDWAY_ISLAND,_SAMOA')),
+            JHTML::_('select.option', -11, JText::_('COM_NINJA_UTC_MIDWAY_ISLAND_SAMOA')),
             JHTML::_('select.option', -10, JText::_('COM_NINJA_UTC_HAWAII')),
             JHTML::_('select.option', -9.5, JText::_('COM_NINJA_UTC_TAIOHAE_MARQUESAS_ISLANDS')),
             JHTML::_('select.option', -9, JText::_('COM_NINJA_UTC_ALASKA')),
@@ -55,7 +55,7 @@ class NinjaTemplateHelperSelect extends KTemplateHelperSelect
             JHTML::_('select.option', -5, JText::_('COM_NINJA_UTC_EASTERN_TIME_US_CANADA_BOGOTA_LIMA')),
             JHTML::_('select.option', -4, JText::_('COM_NINJA_UTC_ATLANTIC_TIME_CANADA_CARACAS_LA_PAZ')),
             JHTML::_('select.option', -4.5, JText::_('COM_NINJA_UTC_VENEZUELA')),
-            JHTML::_('select.option', -3.5, JText::_('COM_NINJA_UTC_ST_JOHNS_NEWFOUNDLAND,_LABRADOR')),
+            JHTML::_('select.option', -3.5, JText::_('COM_NINJA_UTC_ST_JOHNS_NEWFOUNDLAND_LABRADOR')),
             JHTML::_('select.option', -3, JText::_('COM_NINJA_UTC_BRAZIL_BUENOS_AIRES,_GEORGETOWN')),
             JHTML::_('select.option', -2, JText::_('COM_NINJA_UTC_MID_ATLANTIC')),
             JHTML::_('select.option', -1, JText::_('COM_NINJA_UTC_AZORES_CAPE_VERDE_ISLANDS')),

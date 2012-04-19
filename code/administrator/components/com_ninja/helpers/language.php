@@ -7,7 +7,8 @@
  */
  
  /**
- * Adds untranslated strings (orphans) to the component language file
+ * Loads com_ninja language file and the english based language file for the component
+ * also Adds untranslated strings (orphans) to the component language file
  *
  * @author		Stian Didriksen <stian@ninjaforge.com>
  */
@@ -18,6 +19,21 @@ class NinjaHelperLanguage extends KObject
 		parent::__construct($config);
 	
 		$lang = &JFactory::getLanguage();
+
+		// work out the path
+		$path = JFactory::getApplication()->isSite() ? JPATH_SITE : JPATH_ADMINISTRATOR;
+
+		// load the com_ninja language file
+		$lang->load('com_ninja', JPATH_ADMINISTRATOR, 'en-GB', true);
+
+		// load the extensions english language file overring strings in com_ninja
+		$lang->load($config->option, $path, 'en-GB', true);
+
+		// load the foriegn language file for the extension and override teh strings from the english one
+		$lang->load($config->option, $path, $lang->getDefault(), true);
+
+		$lang->load($config->option, $path, null, true);
+
 		$orphans = $lang->getOrphans();
 		if ($orphans)
 		{

@@ -25,7 +25,7 @@ if(JFile::exists(JPATH_PLUGINS.'/system/ninja.php') || JFile::exists(JPATH_PLUGI
 else
 {
 	//Only people able to fix the problem should be notified of the cause
-	$message	= JText::_('COM_NINJA_THE_PLUGIN_DOES_NOT_EXIST_WHICH_IS_A_VITAL_PART_OF_THE_NINJA_FRAMEWORK_USED_BY_NINJAFORGE_EXTENSIONS_%2$S_INSTALLS_%1$S_AUTOMATICALLY_SO_THIS_SHOULD_NEVER_HAPPEN_PLEASE_POST_IN_OUR_%2$S_FORUMS_SO_WE_CAN_HELP_YOU_OUT_IMMEDIATELY');
+	$message	= JText::_('COM_NINJA_PLUGIN_DOES_NOT_EXIST');
 	$message	= sprintf($message, $plugin_name, $extension_name);
 	$condition	= $user->authorize('com_installer', 'installer');
 	return $notify($condition, $message);
