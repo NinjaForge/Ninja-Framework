@@ -1,7 +1,7 @@
 <?php defined( 'KOOWA' ) or die( 'Restricted access' );
 /**
  * @category	Napi
- * @package		JForm_Overrides
+ * @package		NapiFormFields
  * @copyright	Copyright (C) 2007 - 2011 NinjaForge. All rights reserved.
  * @license		GNU GPLv3 <http://www.gnu.org/licenses/gpl.html>
  * @link     	http://ninjaforge.com
@@ -11,7 +11,7 @@
  * JForm Overrides
  *
  * @package 	Napi
- * @subpackage	Napi_Parameter
+ * @subpackage	NapiFormFields
  */
 class JFormFieldListbox extends JFormFieldList
 {

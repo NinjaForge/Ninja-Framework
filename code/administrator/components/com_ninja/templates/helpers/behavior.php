@@ -222,7 +222,7 @@ class NinjaTemplateHelperBehavior extends ComDefaultTemplateHelperBehavior
 		$html = $this->getService('ninja:template.helper.document')->render(array('/sortables.js', '/sortables.css'));
 		
 		$signature = md5(serialize(array($config->selector,$config->options)));
-		if (!isset($this->_loaded[$signature])) 
+		if (!isset(self::$_loaded[$signature])) 
 		{
 			$options = !empty($config->options) ? $config->options->toArray() : array(); 
 			$html .= "
@@ -236,7 +236,7 @@ class NinjaTemplateHelperBehavior extends ComDefaultTemplateHelperBehavior
 				</script>
 			";
 
-			$this->_loaded[$signature] = true;
+			self::$_loaded[$signature] = true;
 		}
 
 		return $html;
@@ -487,7 +487,8 @@ class NinjaTemplateHelperBehavior extends ComDefaultTemplateHelperBehavior
 				$('<?php echo $config->target ?>').set('autocomplete', 'off');
 				var setTitle = function(){
 					document.title=this.value ? this.value + <?php echo json_encode(' | '.$config->doctitle) ?> : <?php echo json_encode($config->doctitle) ?>;
-					var header =	document.getElement('#toolbar-box .header') || 
+					var header =	document.getElement('#toolbar-box .header h2') ||
+									document.getElement('#toolbar-box .header') || 
 									document.getElement('.header') ||
 									document.getElement('#toolbar-top h3') ||
 									document.getElement('#mc-title h1');
@@ -501,7 +502,8 @@ class NinjaTemplateHelperBehavior extends ComDefaultTemplateHelperBehavior
 		<?php if($config->title) : ?>
 			<?php $document->setTitle($config->title . ' | ' . $config->doctitle) ?>
 			window.addEvent('domready', function(){
-				var header =	document.getElement('#toolbar-box .header') || 
+				var header =	document.getElement('#toolbar-box .header h2') ||
+								document.getElement('#toolbar-box .header') || 
 								document.getElement('.header') ||
 								document.getElement('#toolbar-top h3') ||
 								document.getElement('#mc-title h1');
@@ -510,7 +512,7 @@ class NinjaTemplateHelperBehavior extends ComDefaultTemplateHelperBehavior
 			});
 		<?php endif ?>
 	<?php
-		return '<script>'.ob_get_clean().'</script>';
+		$this->getService('ninja:template.helper.document')->load('js', ob_get_clean());
 	}
 	
 	/**

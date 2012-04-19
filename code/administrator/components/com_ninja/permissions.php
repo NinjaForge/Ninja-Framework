@@ -29,7 +29,7 @@ abstract class NinjaPermissions extends KObjectArray
 
 		parent::__construct($config);
 
-		$data			= is_a($config->data, 'KConfig') ? $config->data->toArray() : $config->data;
+		$data			= ($config->data instanceof KConfig) ? $config->data->toArray() : $config->data;
 		$this->_data	= $data;
 	}
 

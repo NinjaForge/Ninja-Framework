@@ -306,7 +306,7 @@ class NinjaControllerDashboard extends ComDefaultControllerResource
 	 */
 	public function execute($action, $data = null)
 	{
-		if(!is_a($data, 'KCommandContext')) $data = new KCommandContext;
+		if(!($data instanceof KCommandContext)) $data = new KCommandContext;
 
 		return parent::execute($action, $data);
 	}

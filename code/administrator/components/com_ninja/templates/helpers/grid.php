@@ -236,6 +236,6 @@ window.addEvent('domready', function(){
 	});		
 });");
 
-		return '<div class="ninja-filter '.$config->name.'">'.KTemplateHelperSelect::radiolist($config).'</div>';
+		return '<div class="ninja-filter '.$config->name.'">'.$this->getService('koowa:template.helper.select')->radiolist($config).'</div>';
 	}
 }

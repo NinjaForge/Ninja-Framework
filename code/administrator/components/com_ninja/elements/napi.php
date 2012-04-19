@@ -81,9 +81,4 @@ class JElementNapi extends JElement
 		
 		return implode($html);
 	}
-
-
-	public function fetchTooltip() {
-		return false;
-	}	
 }

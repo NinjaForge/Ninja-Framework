@@ -146,7 +146,8 @@ class NinjaTemplateHelperAccess extends KTemplateHelperAbstract
 		$rules = $this->getService($this->models->assets)->limit(0)->name($this->name)->getList();
 		foreach($rules as $rule)
 		{
-			$name = end(explode('.', $rule->name));
+			$name = explode('.', $rule->name);
+			$name = end($name);
 			$this->_assetrules[$name] = $rule->level;
 		}
 	}

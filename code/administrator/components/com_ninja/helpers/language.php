@@ -18,7 +18,7 @@ class NinjaHelperLanguage extends KObject
 	{
 		parent::__construct($config);
 	
-		$lang = &JFactory::getLanguage();
+		$lang = JFactory::getLanguage();
 
 		// work out the path
 		$path = JFactory::getApplication()->isSite() ? JPATH_SITE : JPATH_ADMINISTRATOR;
