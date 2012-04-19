@@ -49,11 +49,6 @@
 	</dd>
 	
 <? endforeach ?>
-</dl>
-
-<div style="clear: both"></div>
-
-<dl class="info">
 <? if(isset(@$xml->support)) : ?>
 	<dt>
 		<strong>
@@ -75,6 +70,8 @@
 	</dd>
 <? endif ?>
 </dl>
+
+<div style="clear: both"></div>
 <!--<p><strong><?= @text(@$xml->name.' - ') ?></strong>	<?= @text(@$xml->description) ?></p>-->
 <? if(isset(@$xml->credits)) : ?>
 	<hr />

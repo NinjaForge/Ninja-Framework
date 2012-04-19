@@ -3,6 +3,7 @@
 <link rel="stylesheet" href="/admin.css" />
 <style type="text/css">
 	.current { max-height: 380px; overflow: auto; }
+	.info dt { min-width: 75px; margin-bottom: 5px;}
 </style>
 
 <?= @helper('behavior.mootools') ?>
