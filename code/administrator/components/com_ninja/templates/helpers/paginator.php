@@ -310,7 +310,7 @@ class NinjaTemplateHelperPaginator extends KTemplateHelperPaginator
 	{
 		if(version_compare(JVERSION,'1.6.0','ge'))
 		{
-			return JHtml::_('access.usergroup', $name, $value[$name], 'onchange="this.form.submit()"');
+			return JHtml::_('access.usergroup', $name, @$value[$name], 'onchange="this.form.submit()"');
 		}
     
     	$node = new KObject;
