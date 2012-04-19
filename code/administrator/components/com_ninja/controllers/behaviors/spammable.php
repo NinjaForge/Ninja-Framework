@@ -60,7 +60,7 @@ class NinjaControllerBehaviorSpammable extends KControllerBehaviorAbstract
 
     		// show some warnings if the data failed
     		foreach ($this->_invalid_data as $invalid) {
-    			JError::raiseWarning(21, JText::_('NAPI_DATA_VALIDATION_MISSING_FAILED_'.strtoupper($invalid)));
+    			JError::raiseWarning(21, JText::_('NAPI_DATA_VALIDATION_MISSING_FAILED_'.$invalid));
     		} 
 
     		return false;

@@ -31,7 +31,7 @@ class NinjaHelperLanguage extends KObject
 					$guess = str_replace( '_', ' ', $info['string'] );
 					// Integers isn't translatable
 					if(is_numeric($key) || strpos($key, '??') === 0 || strpos($guess, '&bull;') === 0) continue;
-					$guesses[] = array('file' => $file, 'keys' => strtoupper( $key ).'='.$guess);
+					$guesses[] = array('file' => $file, 'keys' => strtoupper( $key ).'="'.$guess.'"');
 				}
 			}
 
@@ -45,10 +45,10 @@ class NinjaHelperLanguage extends KObject
 			$langfile	= key($lang->getPaths($config->option));
 			$readfile	= JFile::read($langfile);
 			$text		= $readfile 
-						. "\n\n# ".KInflector::humanize(KRequest::get('get.view', 'cmd'))
-						. "\n# @file     " . $guess['file']
-						. "\n# @url      " . KRequest::url()
-						. "\n# @referrer " . KRequest::referrer()
+						. "\n\n; ".KInflector::humanize(KRequest::get('get.view', 'cmd'))
+						. "\n; @file     " . $guess['file']
+						. "\n; @url      " . KRequest::url()
+						. "\n; @referrer " . KRequest::referrer()
 						."\n" 
 						. $append;
 			JFile::write($langfile, $text);

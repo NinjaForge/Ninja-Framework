@@ -266,7 +266,7 @@ class NinjaTemplateHelperAccess extends KTemplateHelperAbstract
 					$html[] = '	<td class="permissions-level level-'.$i.'">';
 					$html[] = '		<input type="radio" name="'.$this->inputName.'['.$group.']" id="'.$id.'" value="'.$i.'" '.$checked.' />';
 					$html[] = ' 	<label for="'.$id.'">';
-					$html[] = 			JText::_('COM_NINJA_PERMISSION_'.strtoupper(str_replace(' ', '_', $level)));
+					$html[] = 			JText::_('COM_NINJA_PERMISSION_'.str_replace(' ', '_', $level));
 					$html[] = '</label>';
 					$html[] = ' </td>';
 				}
