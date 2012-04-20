@@ -95,7 +95,7 @@ $language->load($extname);
 
 $source			= $this->parent->getPath('source');
 $extension		= simplexml_load_file($this->parent->getPath('manifest'));
-$versiontext	= '<em>'.JText::_('YOU_NEED_AT_LEAST_TO_INSTALL_' . JText::_(humanize($extension->name)) . '_YOU_ARE_USING').'</em>';
+$versiontext	= '<em>'.JText::_('YOU_NEED_AT_LEAST_TO_INSTALL_'.humanize($extension->name).'_YOU_ARE_USING').'</em>';
 
 // If we have additional packages, move them to a safe place (or JInstaller will delete them)
 // and later install them by using KInstaller
@@ -152,81 +152,90 @@ if(JRequest::getCmd('view', false) == 'dashboard' || array_filter(headers_list()
 		if(JFolder::exists($root.'/'.$folder)) JFolder::delete($root.'/'.$folder);
 	}
 }
+
+if (version_compare(JVERSION,'1.6.0','ge')) {
+	$db = JFactory::getDBO();
+	// Disable com_koowa from the admin menu until its realy for primetime
+	$query = "UPDATE `#__extensions` SET `enabled` = '0' WHERE type = 'component' AND element = 'com_ninja'";
+	$db->setQuery($query);
+	$db->query();
+}
 ?>
 
-<link rel="stylesheet" href="<?php echo JURI::root(1) ?>/media/com_koowa/css/install.css" />
+<div class="installation-panel">
+	<link rel="stylesheet" href="<?php echo JURI::root(1) ?>/media/com_koowa/css/install.css" />
 
+	<a class="extension-logo" href="<?php echo JRoute::_('&option='.$extname) ?>"><img src="<?php echo JURI::root() ?>media/com_<?php echo $this->name ?>/images/256/<?php echo $this->name ?>.png" alt="<?php echo JText::_('COM_NINJA_EXTENSION_LOGO') ?>" title="<?php echo JText::_('COM_NINJA_EXTENSION_LOGO') ?>" /></a>
+	<table class="install-list">
+		<tbody valign="top">
+			<tr>
+				<td width="100%">
+					<table class="adminlist ninja-list">
+						<thead>
+							<tr>
+								<th><?php echo JText::_('COM_NINJA_TASK') ?></th>
+								<th width="30%"><?php echo JText::_('COM_NINJA_STATUS') ?></th>
+							</tr>
+						</thead>
+						<tfoot>
+							<tr>
+								<td colspan="5"></td>
+							</tr>
+						</tfoot>
+						<tbody id="tasks">
+							<tr class="row0">
+								<td class="key hasTip" title="<?php echo sprintf($versiontext, 'PHP v5.2', phpversion()) ?>"><?php echo JText::_('COM_NINJA_PHP_VERSION') ?></td>
+								<td>
+									<?php echo version_compare(phpversion(), '5.2', '>=')
+										? '<strong>'.JText::_('COM_NINJA_OK').'</strong> - '.phpversion()
+										: sprintf($versiontext, 'PHP v5.2', phpversion()); ?>
+								</td>
+							</tr>
+							<tr class="row1">
+								<td class="key hasTip" title="<?php echo sprintf($versiontext, 'MySQL server v5.0.41', $db->getVersion()) ?>"><?php echo JText::_('COM_NINJA_MYSQL_SERVER_VERSION') ?></td>
+								<td>
+									<?php echo version_compare($db->getVersion(), '5.0.41', '>=')
+									? '<strong>'.JText::_('COM_NINJA_OK').'</strong> - '.$db->getVersion()
+									: sprintf($versiontext, 'MySQL server v5.0.41', $db->getVersion()); ?>
+								</td>
+							</tr>
+							<tr class="row0">
+								<td class="key hasTip" title="<?php echo JText::_($extension->description) ?>"><?php echo sprintf('%s %s', JText::_(humanize($extension->name)), JText::_(ucfirst($extension['type']))) ?></td>
+								<td><strong><?php echo JText::_('COM_NINJA_INSTALLED'); ?></strong> - <?php echo $extension->version ?></td>
+							</tr>
+						</tbody>
+					</table>
+				</td>
+			</tr>
+		</tbody>
+	</table>
 
-<?php if($packages) : ?>
-	<script type="text/javascript">
-		(function(version){
-			document.write(unescape('%3Cscript type="text/javascript" src="<?php echo JURI::root(1) ?>/media/com_koowa/js/install.'+version+'.js"%3E%3C/script%3E'));
-			window.addEvent('domready', function(){
-				if($('install')) $('install').addEvent('complete', function(){
-					var url = "<?php echo JRoute::_('&option='.$extname) ?>";
-					if(version == 1.5) {
-						new Ajax(url, {method: 'get'}).request();
-					} else {
-						new Request({url: url}).get();
-					}
+	<?php if($packages) : ?>
+		<script type="text/javascript">
+			(function(version){
+				document.write(unescape('%3Cscript type="text/javascript" src="<?php echo JURI::root(1) ?>/media/com_koowa/js/install.'+version+'.js"%3E%3C/script%3E'));
+				window.addEvent('domready', function(){
+					if($('install')) $('install').addEvent('complete', function(){
+						var url = "<?php echo JRoute::_('&option='.$extname) ?>";
+						if(version == 1.5) {
+							new Ajax(url, {method: 'get'}).request();
+						} else {
+							new Request({url: url}).get();
+						}
+					});
 				});
-			});
-		})(MooTools.version.toFloat()<1.2 ? 1.5 : 1.6);
-	</script>
-	<style type="text/css">
-		.log {padding-left:270px}
-	</style>
-	
-	<div id="install" style="padding-left: 270px" class="<?php echo $class ?>"><h2 class="working"><?php echo JText::_('COM_NINJA_PLEASE_WAIT_CHECKING_FOR_ADDITIONAL_PACKAGES_TO_INSTALL'); ?></h2></div>
-<?php endif ?>
-
-
-<table>
-	<tbody valign="top">
-		<tr>
-			<td style="text-align: center">
-				<a href="<?php echo JRoute::_('&option='.$extname) ?>"><img src="<?php echo JURI::root() ?>media/com_<?php echo $this->name ?>/images/256/<?php echo $this->name ?>.png" alt="<?php echo JText::_('COM_NINJA_EXTENSION_LOGO') ?>" title="<?php echo JText::_('COM_NINJA_EXTENSION_LOGO') ?>" /></a>
-			</td>
-			<td width="100%">
-				<table class="adminlist ninja-list">
-					<thead>
-						<tr>
-							<th><?php echo JText::_('COM_NINJA_TASK') ?></th>
-							<th width="30%"><?php echo JText::_('COM_NINJA_STATUS') ?></th>
-						</tr>
-					</thead>
-					<tfoot>
-						<tr>
-							<td colspan="5"></td>
-						</tr>
-					</tfoot>
-					<tbody id="tasks">
-						<tr class="row0">
-							<td class="key hasTip" title="<?php echo sprintf($versiontext, 'PHP v5.2', phpversion()) ?>"><?php echo JText::_('COM_NINJA_PHP_VERSION') ?></td>
-							<td>
-								<?php echo version_compare(phpversion(), '5.2', '>=')
-									? '<strong>'.JText::_('COM_NINJA_OK').'</strong> - '.phpversion()
-									: sprintf($versiontext, 'PHP v5.2', phpversion()); ?>
-							</td>
-						</tr>
-						<tr class="row1">
-							<td class="key hasTip" title="<?php echo sprintf($versiontext, 'MySQL server v5.0.41', $db->getVersion()) ?>"><?php echo JText::_('COM_NINJA_MYSQL_SERVER_VERSION') ?></td>
-							<td>
-								<?php echo version_compare($db->getVersion(), '5.0.41', '>=')
-								? '<strong>'.JText::_('COM_NINJA_OK').'</strong> - '.$db->getVersion()
-								: sprintf($versiontext, 'MySQL server v5.0.41', $db->getVersion()); ?>
-							</td>
-						</tr>
-						<tr class="row0">
-							<td class="key hasTip" title="<?php echo JText::_($extension->description) ?>"><?php echo sprintf('%s %s', JText::_(humanize($extension->name)), JText::_(ucfirst($extension['type']))) ?></td>
-							<td><strong><?php echo JText::_('COM_NINJA_INSTALLED'); ?></strong> - <?php echo $extension->version ?></td>
-						</tr>
-					</tbody>
-				</table>
-			</td>
-		</tr>
-	</tbody>
-</table>
+			})(MooTools.version.toFloat()<1.2 ? 1.5 : 1.6);
+		</script>
+		<style type="text/css">
+			.log {padding-left:270px}
+			.installation-panel {width:100%;}
+			.extension-logo {float:left; width: 20%;}
+			.install-list {width:80%;}
+		</style>
+		
+		<div id="install" style="padding-left: 270px" class="<?php echo $class ?>"><h2 class="working"><?php echo JText::_('COM_NINJA_PLEASE_WAIT_CHECKING_FOR_ADDITIONAL_PACKAGES_TO_INSTALL'); ?></h2></div>
+	</div>
+	<?php endif ?>
 <?php
 	//Delete admin cache to allow upgrade procedures to run
 	$cache = JPATH_CACHE.'/'.$extname;
