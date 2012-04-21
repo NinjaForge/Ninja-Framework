@@ -45,7 +45,7 @@ class NinjaTemplateHelperDate extends KTemplateHelperAbstract
 			'html'	=> true
 		));
 		
-		if(empty($config->date)) return JText::_('No date provided');
+		if(empty($config->date)) return JText::_('COM_NINJA_NO_DATE_PROVIDED');
 		
 		$periods		= array('second', 'minute', 'hour', 'day');
 		$lengths		= array(60, 60, 24, 7);
@@ -81,7 +81,7 @@ class NinjaTemplateHelperDate extends KTemplateHelperAbstract
 			
 			if($difference != 1) $periods[$i].= 's';
 	
-			$html  = sprintf(JText::_('%s '.$periods[$i].' '.$tense), $difference);
+			$html  = sprintf(JText::_('COM_NINJA_'.$periods[$i].'_'.$tense), $difference);
 		}
 		elseif(gmdate('Y') == gmdate('Y', $unix_date))
 		{

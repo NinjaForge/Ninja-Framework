@@ -146,7 +146,8 @@ class NinjaTemplateHelperAccess extends KTemplateHelperAbstract
 		$rules = $this->getService($this->models->assets)->limit(0)->name($this->name)->getList();
 		foreach($rules as $rule)
 		{
-			$name = end(explode('.', $rule->name));
+			$name = explode('.', $rule->name);
+			$name = end($name);
 			$this->_assetrules[$name] = $rule->level;
 		}
 	}
@@ -178,7 +179,7 @@ class NinjaTemplateHelperAccess extends KTemplateHelperAbstract
 		$html[] = '	<thead>';
 		$html[] = '	<tr>';
 		$html[] = '		<th>';
-		$html[] = '			<span class="acl-action">'.JText::_('User Group').'</span>';
+		$html[] = '			<span class="acl-action">'.JText::_('COM_NINJA_USER_GROUP').'</span>';
 		$html[] = '		</th>';
 		foreach ($actions as $name => $action)
 		{
@@ -239,10 +240,10 @@ class NinjaTemplateHelperAccess extends KTemplateHelperAbstract
 			$html[] = '	<thead>';
 			$html[] = '	<tr>';
 			$html[] = '		<th>';
-			$html[] = '			<span class="acl-action">'.JText::_('Object').'</span>';
+			$html[] = '			<span class="acl-action">'.JText::_('COM_NINJA_OBJECT').'</span>';
 			$html[] = '		</th>';
 			$html[] = '		<th colspan="'.count($levels).'" class="permission-level">';
-			$html[] = '			<span class="acl-action">'.JText::_('Permissions Level').'</span>';
+			$html[] = '			<span class="acl-action">'.JText::_('COM_NINJA_PERMISSIONS_LEVEL').'</span>';
 			$html[] = '		</th>';
 			$html[] = '	</tr>';
 			$html[] = '	</thead>';
@@ -254,7 +255,7 @@ class NinjaTemplateHelperAccess extends KTemplateHelperAbstract
 			{
 				$html[] = '	<tr data-object="'.$group.'">';
 				$html[] = '		<th class="acl-groups">';
-				$html[] = '			'.JText::_(KInflector::humanize($group));
+				$html[] = '			'.JText::_('COM_NINJA_PERMISSION_OBJECT_'.KInflector::humanize($group));
 				$html[] = '		</th>';
 				
 				$active = isset($rules[$group]) ? $rules[$group] : 1;
@@ -266,7 +267,7 @@ class NinjaTemplateHelperAccess extends KTemplateHelperAbstract
 					$html[] = '	<td class="permissions-level level-'.$i.'">';
 					$html[] = '		<input type="radio" name="'.$this->inputName.'['.$group.']" id="'.$id.'" value="'.$i.'" '.$checked.' />';
 					$html[] = ' 	<label for="'.$id.'">';
-					$html[] = 			JText::_($level);
+					$html[] = 			JText::_('COM_NINJA_PERMISSION_'.str_replace(' ', '_', $level));
 					$html[] = '</label>';
 					$html[] = ' </td>';
 				}
@@ -299,10 +300,10 @@ class NinjaTemplateHelperAccess extends KTemplateHelperAbstract
 		$html[] = '	<thead>';
 		$html[] = '	<tr>';
 		$html[] = '		<th>';
-		$html[] = '			<span class="acl-action">'.JText::_('User Group').'</span>';
+		$html[] = '			<span class="acl-action">'.JText::_('COM_NINJA_USER_GROUP').'</span>';
 		$html[] = '		</th>';
 		$html[] = '		<th colspan="'.count($levels).'" class="permission-level">';
-		$html[] = '			<span class="acl-action">'.JText::_('Permissions Level').'</span>';
+		$html[] = '			<span class="acl-action">'.JText::_('COM_NINJA_PERMISSIONS_LEVEL').'</span>';
 		$html[] = '		</th>';
 		$html[] = '	</tr>';
 		$html[] = '	</thead>';
@@ -354,7 +355,7 @@ class NinjaTemplateHelperAccess extends KTemplateHelperAbstract
 		$options = array(
 			array(
 				'value' => null,
-				'text'	=> '&hellip;'
+				'text'	=> '&'
 			),
 			array(
 				'value' => '0',

@@ -7,10 +7,10 @@
 			<tr>
 				<?= @ninja('grid.count', array('total' => @$total, 'title' => true)) ?>
 				<th width="1px"><?= @helper('grid.checkall') ?></th>
-				<th><?= @text('Name') ?></th>
-				<th><?= @text('Version') ?></th>
-				<th><?= @text('Date') ?></th>
-				<th><?= @text('Author') ?></th>
+				<th><?= @text('COM_NINJA_NAME') ?></th>
+				<th><?= @text('COM_NINJA_VERSION') ?></th>
+				<th><?= @text('COM_NINJA_DATE') ?></th>
+				<th><?= @text('COM_NINJA_AUTHOR') ?></th>
 			</tr>
 		</thead>
 		<?= @ninja('paginator.tfoot', array('total' => @$total, 'colspan' => 6)) ?>

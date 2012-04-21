@@ -111,7 +111,7 @@ class NinjaTemplateHelperManifest extends KTemplateHelperAbstract
 			if ($name == 'date')
 			{
 				$date = JFactory::getDate($changelog);
-				$html[] = (string)$changelog == 'TBA' ? JText::_('To Be Announced') : $date->toFormat(JText::_('DATE_FORMAT_LC'));
+				$html[] = (string)$changelog == 'TBA' ? JText::_('COM_NINJA_TO_BE_ANNOUNCED') : $date->toFormat('%A, %B %d, %Y');
 			}
 			else 					$html[] = $changelog;
 			$html[] = '</dd>';

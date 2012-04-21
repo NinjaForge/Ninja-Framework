@@ -151,7 +151,7 @@ class NinjaControllerDashboard extends ComDefaultControllerResource
 
 		if( !(($version_compare && $revision_compare) || ($version_compare && ($revision == 0)))){
 			$msg = array(
-				'text' => sprintf(JText::_('%s could not be upgraded. Correct file version not found'), JText::_($this->getIdentifier()->package)),
+				'text' => sprintf(JText::_('COM_NINJA_COULD_NOT_BE_UPGRADED_CORRECT_FILE_VERSION_NOT_FOUND'), JText::_($this->getIdentifier()->package)),
 				'update' => false
 			);
 			
@@ -161,7 +161,7 @@ class NinjaControllerDashboard extends ComDefaultControllerResource
 		
 		if (!$fileUrl){
 			$msg = array(
-				'text' => sprintf(JText::_('%s could not be upgraded. No file attached to update information. Please download from site.'), JText::_($this->getIdentifier()->package)),
+				'text' => sprintf(JText::_('COM_NINJA_COULD_NOT_BE_UPGRADED_NO_FILE_ATTACHED_TO_UPDATE_INFORMATION_PLEASE_DOWNLOAD_FROM_SITE'), JText::_($this->getIdentifier()->package)),
 				'update' => false
 			);
 			
@@ -206,7 +206,7 @@ class NinjaControllerDashboard extends ComDefaultControllerResource
 		JFolder::delete(JPATH_ROOT.'/tmp/'.$foldername.'/');
 
 		$msg = array(
-			'text' => sprintf(JText::_('%s upgraded successfully.'), JText::_($this->getIdentifier()->package)).' : '.$foldername.' : '.$filename,
+			'text' => sprintf(JText::_('COM_NINJA_UPGRADED_SUCCESSFULLY'), JText::_($this->getIdentifier()->package)).' : '.$foldername.' : '.$filename,
 			'update' => true
 		);
 		
@@ -269,7 +269,7 @@ class NinjaControllerDashboard extends ComDefaultControllerResource
 		JFolder::delete(JPATH_ROOT.'/tmp/'.$foldername.'/');
 
 		$msg = array(
-			'text' => sprintf(JText::_('%s upgraded successfully.'), JText::_($this->getIdentifier()->package)),
+			'text' => sprintf(JText::_('COM_NINJA_UPGRADED_SUCCESSFULLY'), JText::_($this->getIdentifier()->package)),
 			'update' => true
 		);
 		
@@ -306,7 +306,7 @@ class NinjaControllerDashboard extends ComDefaultControllerResource
 	 */
 	public function execute($action, $data = null)
 	{
-		if(!is_a($data, 'KCommandContext')) $data = new KCommandContext;
+		if(!($data instanceof KCommandContext)) $data = new KCommandContext;
 
 		return parent::execute($action, $data);
 	}
@@ -346,7 +346,7 @@ class NinjaControllerDashboard extends ComDefaultControllerResource
 		if(($version_compare && $revision_compare) || ($version_compare && ($revision == 0)))
 		{
 			$msg = array(
-				'text' => sprintf(JText::_('%1$s %2$s rev%3$s available for download.'), JText::_($this->getIdentifier()->package), $version, $revision),
+				'text' => sprintf(JText::_('COM_NINJA_REV_AVAILABLE_FOR_DOWNLOAD'), JText::_($this->getIdentifier()->package), $version, $revision),
 				'update' => true
 			);
 			
@@ -356,7 +356,7 @@ class NinjaControllerDashboard extends ComDefaultControllerResource
 		else
 		{
 			$msg = array(
-				'text' => sprintf(JText::_('This is the newest version of %1$s.'), JText::_($this->getIdentifier()->package), $version, $revision).': '.$version.': '.$revision,
+				'text' => sprintf(JText::_('COM_NINJA_THIS_IS_THE_NEWEST_VERSION_OF_'), JText::_($this->getIdentifier()->package), $version, $revision).': '.$version.': '.$revision,
 				'update' => false
 			);
 			if(KRequest::type() == 'AJAX') die(json_encode($msg));
@@ -400,7 +400,7 @@ class NinjaControllerDashboard extends ComDefaultControllerResource
 		if($version_compare || (version_compare((string) $xml->version, $version, '=') && $revision_compare))
 		{
 			$msg = array(
-				'text' => sprintf(JText::_('%1$s %2$s %3$s rev%4$s available for download.'), JText::_($this->getIdentifier()->package), $version, JText::_($status), $revision),
+				'text' => sprintf(JText::_('COM_NINJA_REV_AVAILABLE_FOR_DOWNLOAD'), JText::_($this->getIdentifier()->package), $version, JText::_($status), $revision),
 				'update' => true
 			);
 			
@@ -410,7 +410,7 @@ class NinjaControllerDashboard extends ComDefaultControllerResource
 		else
 		{
 			$msg = array(
-				'text' => sprintf(JText::_('This is the newest version of %1$s.'), JText::_($this->getIdentifier()->package), $version, JText::_($status), $revision),
+				'text' => sprintf(JText::_('COM_NINJA_THIS_IS_THE_NEWEST_VERSION_OF_'), JText::_($this->getIdentifier()->package), $version, JText::_($status), $revision),
 				'update' => false
 			);
 			if(KRequest::type() == 'AJAX') die(json_encode($msg));

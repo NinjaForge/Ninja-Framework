@@ -51,6 +51,12 @@ class NinjaViewDashboardHtml extends NinjaViewHtml
 		    $identifier->package         = $this->getModel()->getIdentifier()->package;
 
 
+		    // if this is joomla 1.5 check to see if the mootools upgrade plugin is installed
+		    if (!version_compare(JVERSION,'1.6.0','ge')) {
+			    if (!JPluginHelper::getPlugin('system', 'mtupgrade'))
+			    	 JError::raiseWarning(0, JText::_('COM_NINJA_MOO_UPGRADE_REQUIRED'));
+			}
+
 		    //die('<pre>'.var_export($this->__service_identifier, true));
 		    $this->__service_identifier  = $identifier;
 		

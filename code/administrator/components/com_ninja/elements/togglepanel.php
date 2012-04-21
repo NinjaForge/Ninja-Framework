@@ -28,8 +28,8 @@ class NinjaElementTogglePanel extends NinjaElementAbstract
 // 		$presetSaver = $node->attributes('preset-saver');
 // 		if (isset($presetSaver) && $presetSaver == "true") {
 // 			$saver  = "<span class='preset-saver'>";
-// 			$saver .= "		<a href='#' class='hasTip' title='".JText::_('PRESET_SAVER_DESC')."'>";
-// 			$saver .= "			<span>".JText::_('PRESET_SAVER')."</span>";
+// 			$saver .= "		<a href='#' class='hasTip' title='".JText::_('COM_NINJA_PRESET_SAVER_DESC')."'>";
+// 			$saver .= "			<span>".JText::_('COM_NINJA_PRESET_SAVER')."</span>";
 // 			$saver .= "		</a>";
 // 			$saver .= "</span>";
 // 		}
