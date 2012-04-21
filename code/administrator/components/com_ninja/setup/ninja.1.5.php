@@ -15,8 +15,8 @@ if(JFile::exists(JPATH_PLUGINS.'/system/ninja.php'))
 	
 	$db->execute("INSERT INTO `#__plugins` (`id`, `name`, `element`, `folder`, `published`, `ordering`) VALUES ($id, '$plugin_name', 'ninja', 'system', 1, 1) ON DUPLICATE KEY UPDATE `published` = 1, `ordering` = 1, `name` = '$plugin_name';");
 	
-	$manager = JFactory::getApplication()->isAdmin() ? '<a href="' . JRoute::_('index.php?option=com_plugins&view=plugin&client=site&task=edit&cid[]=' . $db->insertid()) . '">'.sprintf(JText::_("Edit &laquo;%s&raquo; in the Plugin Manager."), $plugin_name).'</a>' : null;
-	$msg = sprintf(JText::_("&laquo;%s&raquo; activated. "), $plugin_name) . $manager;
+	$manager = JFactory::getApplication()->isAdmin() ? '<a href="' . JRoute::_('index.php?option=com_plugins&view=plugin&client=site&task=edit&cid[]=' . $db->insertid()) . '">'.sprintf(JText::_('COM_NINJA_EDIT_LAQUO;%SRAQUO;_IN_THE_PLUGIN_MANAGER'), $plugin_name).'</a>' : null;
+	$msg = sprintf(JText::_('COM_NINJA_LAQUO;%SRAQUO;_ACTIVATED'), $plugin_name) . $manager;
 	if(!$user->authorize( 'com_plugins', 'manage' )) $msg = false;
 	$uri = clone JFactory::getURI();
 	JFactory::getApplication()->redirect($uri->toString(), $msg);
@@ -24,7 +24,7 @@ if(JFile::exists(JPATH_PLUGINS.'/system/ninja.php'))
 else
 {
 	//Only people able to fix the problem should be notified of the cause
-	$message	= JText::_('The «%s» plugin does not exist, which is a vital part of the Ninja Framework used by NinjaForge extensions. %2$s installs %1$s automatically, so this should never happen. Please post in our %2$s forums so we can help you out immediately.');
+	$message	= JText::_('COM_NINJA_PLUGIN_DOES_NOT_EXIST');
 	$message	= sprintf($message, $plugin_name, $extension_name);
 	$condition	= $user->authorize('com_installer', 'installer');
 	return $notify($condition, $message);

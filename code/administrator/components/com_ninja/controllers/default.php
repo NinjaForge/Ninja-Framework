@@ -193,7 +193,7 @@ class NinjaControllerDefault extends ComDefaultControllerDefault
 						$db->setQuery($query);
 						
 						if (!$db->query()) {
-							JError::raiseWarning(1, JText::_('SQL Error')." ".$db->stderr(true));
+							JError::raiseWarning(1, JText::_('COM_NINJA_SQL_ERROR')." ".$db->stderr(true));
 							return false;
 						}
 					}
@@ -465,12 +465,12 @@ class NinjaControllerDefault extends ComDefaultControllerDefault
 		
 		$file = KRequest::get('files.'.$config->name, 'raw');
 		if(!MediaHelper::canUpload($file, $error)) {
-			$message = JText::_("%s failed to upload because %s");
+			$message = JText::_('COM_NINJA_FAILED_TO_UPLOAD_BECAUSE');
 			JError::raiseWarning(21, sprintf($message, $file['name'], lcfirst($error)));
 			return array();
 		}
 		if($config->image && !MediaHelper::isImage($file['name'])) {
-			$message = JText::_("%s failed to upload because it's not an image.");
+			$message = JText::_('COM_NINJA_FAILED_TO_UPLOAD_BECAUSE_ITS_NOT_AN_IMAGE');
 			JError::raiseWarning(21, sprintf($message, $file['name']));
 			return array();
 		}			

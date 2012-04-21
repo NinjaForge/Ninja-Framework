@@ -27,11 +27,11 @@
 </style>
 
 <? $list = array(
-	'author'		=> 'Created By',
-	'license'		=> 'Code License',
-	'csslicense'	=> 'CSS License',
-	'jslicense'		=> 'JS License',
-	'copyright'		=> 'Copyright',
+	'author'		=> 'COM_NINJA_CREATED_BY',
+	'license'		=> 'COM_NINJA_CODE_LICENCE',
+	'csslicense'	=> 'COM_NINJA_CSS_LICENCE',
+	'jslicense'		=> 'COM_NINJA_JS_LICENCE',
+	'copyright'		=> 'COM_NINJA_COPYRIGHT',
 ) ?>
 
 <dl class="info">
@@ -49,15 +49,10 @@
 	</dd>
 	
 <? endforeach ?>
-</dl>
-
-<div style="clear: both"></div>
-
-<dl class="info">
 <? if(isset(@$xml->support)) : ?>
 	<dt>
 		<strong>
-			<?= @text('Support') ?>
+			<?= @text('COM_NINJA_SUPPORT') ?>
 		</strong>
 	</dt>
 	<dd>
@@ -67,7 +62,7 @@
 <? if(isset(@$xml->rate)) : ?>
 	<dt>
 		<strong>
-			<?= @text('If you like this extension, consider giving it an honest review at the') ?>
+			<?= @text('COM_NINJA_CONSIDER_REVIEWING') ?>
 		</strong>
 	</dt>
 	<dd>
@@ -75,11 +70,13 @@
 	</dd>
 <? endif ?>
 </dl>
+
+<div style="clear: both"></div>
 <!--<p><strong><?= @text(@$xml->name.' - ') ?></strong>	<?= @text(@$xml->description) ?></p>-->
 <? if(isset(@$xml->credits)) : ?>
 	<hr />
 	<p>
-	<h3><?= @text('Credits') ?></h3>
+	<h3><?= @text('COM_NINJA_CREDITS') ?></h3>
 	<style type="text/css">
 		hr {
 			opacity: 0.2;

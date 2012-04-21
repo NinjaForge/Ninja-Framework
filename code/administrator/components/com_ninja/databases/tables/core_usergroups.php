@@ -19,7 +19,7 @@ class NinjaDatabaseTableCore_usergroups extends KDatabaseTableAbstract
 	protected function _initialize(KConfig $config)
 	{
 	    $config->append(array(
-	        'name'              => JVersion::isCompatible('1.6.0') ? 'usergroups' : 'core_acl_aro_groups',
+	        'name'              => version_compare(JVERSION,'1.6.0','ge') ? 'usergroups' : 'core_acl_aro_groups',
 	        'column_map'        => array('title' => 'name'),
 	        'identity_column'   => 'id',
 	    ));

@@ -270,7 +270,7 @@ class NinjaFormParameter extends KObject
 		{
 			$result = array();
 			$result[0] = (string) $node['name'];
-			$result[1] = JText::_('Element not defined for type').' = '.$type;
+			$result[1] = JText::_('COM_NINJA_ELEMENT_NOT_DEFINED_FOR_TYPE').' = '.$type;
 			$result[5] = (string) $result[0];
 			return $result;
 		}
@@ -375,8 +375,8 @@ class NinjaFormParameter extends KObject
       					
       					//DC Nov 2010 - temporarily removed the jtext because the buttons don't resize when the text is translated
       					//todo - make the buttons resize and put back translation 
-      					$on = 'ON';  //JText::_('on');
-      					$off = 'OFF'; //JText::_('off');
+      					$on = 'ON';  //JText::_('COM_NINJA_ON');
+      					$off = 'OFF'; //JText::_('COM_NINJA_OFF');
       					$access = $this->getService('ninja:template.helper.document')->formid('forum');
       					$this->getService('ninja:template.helper.document')->load('js', "
       						window.addEvent('domready', function() {

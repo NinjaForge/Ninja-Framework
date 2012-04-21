@@ -16,14 +16,14 @@ if(JFile::exists(JPATH_PLUGINS.'/system/koowa/koowa.php') || JFile::exists(JPATH
 	$db->query();
 	JPluginHelper::importPlugin('system', 'koowa');
 	
-	$manager = JFactory::getApplication()->isAdmin() ? '<a href="' . JRoute::_('index.php?option=com_plugins&view=plugin&client=site&task=edit&cid[]=' . $db->insertid()) . '">'.JText::_("Edit &laquo;System - Koowa&raquo; in the Plugin Manager.").'</a>' : null;
-	$msg = JText::_("Koowa System Plugin activated. ") . $manager;
+	$manager = JFactory::getApplication()->isAdmin() ? '<a href="' . JRoute::_('index.php?option=com_plugins&view=plugin&client=site&task=edit&cid[]=' . $db->insertid()) . '">'.JText::_('COM_NINJA_EDIT_LAQUO;SYSTEM_-_KOOWARAQUO;_IN_THE_PLUGIN_MANAGER').'</a>' : null;
+	$msg = JText::_('COM_NINJA_KOOWA_SYSTEM_PLUGIN_ACTIVATED') . $manager;
 	if($user->authorize( 'com_plugins', 'manage' )) JFactory::getApplication()->enqueueMessage($msg);
 }
 else
 {
 	//Only people able to fix the problem should be notified of the cause
-	$message	= JText::_('The «%s» plugin does not exist, which is responsible for loading the Nooku Framework. %2$s installs Nooku Framework automatically, so this should never happen. Please post in our %2$s forums so we can help you out immediately.');
+	$message	= JText::_('COM_NINJA_NOOKU_PLUGIN_DOES_NOT_EXIST');
 	$message	= sprintf($message, 'System - Koowa ', $extension_name);
 	$condition	= $user->authorize('com_installer', 'installer');
 	return $notify($condition, $message);

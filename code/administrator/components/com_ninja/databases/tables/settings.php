@@ -88,7 +88,7 @@ class NinjaDatabaseTableSettings extends KDatabaseTableDefault
 
 		if($mode === KDatabase::FETCH_FIELD) return $result;
 
-		foreach(is_a($result, 'KDatabaseRowInterface') ? array($result) : $result as $row)
+		foreach(($result instanceof KDatabaseRowInterface) ? array($result) : $result as $row)
 		{
 			$params = json_decode($row->params, true);
 			if(!is_array($params)) $params = array();

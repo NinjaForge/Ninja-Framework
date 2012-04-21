@@ -49,8 +49,8 @@ class NinjaTemplateHelperSplitview extends KTemplateHelperAbstract
 				'master_url' => '?option='.$config->package.'&view='.$config->master_view.'&format=json&sort=created_on&direction=desc',
 				'detail_url' => '?option='.$config->package.'&view='.$config->detail_view.'&format=raw',
 				'label' => array(
-				    'empty' => JText::_('No '.KInflector::humanize($config->master_view).'.'),
-				    'select' => JText::_('No '.KInflector::humanize($config->detail_view).' selected.')
+				    'empty' => JText::_('COM_NINJA_NO_'.KInflector::humanize($config->master_view).''),
+				    'select' => JText::_('COM_NINJA_NO_'.KInflector::humanize($config->detail_view).'_SELECTED')
 				)
 			)
 		));

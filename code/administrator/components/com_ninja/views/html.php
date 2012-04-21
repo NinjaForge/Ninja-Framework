@@ -111,10 +111,10 @@ class NinjaViewHtml extends ComDefaultViewHtml
 	    throw new BadMethodCallException(__METHOD__.' is deprecated.');
 	}
 	
-	public function placeholder($name = null, $attr = null,  $text = 'Add %s&hellip;', $notice = false, $options = array())
+	public function placeholder($name = null, $attr = null,  $text = 'Add %s', $notice = false, $options = array())
 	{
 		if (!$name) $name = $this->getName();
-		if (!$text) $text = 'Add %s&hellip;';
+		if (!$text) $text = 'Add %s';
 		if(!isset($this->length)) $this->length = $this->getService($this->getModel()->getIdentifier())->getTotal();
 		if ($this->length > 0) return false;
 		
@@ -139,10 +139,12 @@ class NinjaViewHtml extends ComDefaultViewHtml
 		if(!$this->_title)
 		{
 			$app = JFactory::getApplication();
+			$identifier = $this->getService($this->getModel())->getIdentifier();
+
 			if($app->isAdmin())
 			{
 				$this->_title = htmlspecialchars_decode($this->getDocumentSubTitle() 
-								. ' | ' . JText::_(ucfirst($this->getService($this->getModel())->getIdentifier()->package)) 
+								. ' | ' . JText::_($identifier->type.'_'.$identifier->package.'_'.$identifier->name) 
 								. ' | ' . JText::_( 'Admin' ) . ' ' . JFactory::getApplication()->getCfg('sitename'));
 			}
 			else

@@ -105,10 +105,10 @@ class NinjaModelSettings extends ComDefaultModelDefault
 	 */
 	protected function _getPageParameters()
 	{
-		$menus	= JSite::getMenu();
+		$menus	= JFactory::getApplication()->getMenu();
 		$menu	= $menus->getActive() ? $menus->getActive() : $menus->getDefault();
 		$params	= new JParameter($menu->params);
-		return (array) $params->_registry['_default']['data'];
+		return version_compare(JVERSION,'1.6.0','ge') ? $params->toArray() : (array) $params->_registry['_default']['data'];
 	}
 		
 	public function getItem()
@@ -117,11 +117,12 @@ class NinjaModelSettings extends ComDefaultModelDefault
 		{
 			$identifier = $this->getIdentifier();
 			$isNotSetting = KRequest::get('get.view', 'cmd') != 'setting';
+			$app = JFactory::getApplication();
 			
 			$params = array();
-			if(!JFactory::getApplication()->isAdmin())
+			if(!$app->isAdmin())
 			{
-				$menus	= JSite::getMenu();
+				$menus	= $app->getMenu();
 				$menu	= $menus->getActive() ? $menus->getActive() : $menus->getDefault();
 				$settings	= new JParameter($menu->params);
 				$params = (array) $settings->_registry['_default']['data'];

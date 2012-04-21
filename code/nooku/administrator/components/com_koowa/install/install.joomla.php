@@ -26,6 +26,6 @@ if(!$database->loadResult())
 }
 
 // Disable com_koowa from the admin menu until its realy for primetime
-$query = "UPDATE `#__koowa` SET `enabled` = '0' WHERE type = 'component' AND element = 'com_koowa'";
+$query = "UPDATE `#__extensions` SET `enabled` = '0' WHERE type = 'component' AND element = 'com_koowa'";
 $database->setQuery($query);
 $database->query();

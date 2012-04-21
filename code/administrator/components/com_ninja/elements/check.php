@@ -20,7 +20,7 @@ class NinjaElementCheck extends NinjaElementAbstract
 			'selected'	=> $value,
 			'translate'	=> false
 		));
-		
+
 		$name    = $config->name;
 		$attribs = KHelperArray::toString($config->attribs);
 
@@ -29,7 +29,7 @@ class NinjaElementCheck extends NinjaElementAbstract
 		{
 			$options[] = (object) array(
 				$config->key	=> $option['value'],
-				$config->text	=> (string)$option
+				$config->text	=> JText::_((string)$option)
 			);
 		}
 		

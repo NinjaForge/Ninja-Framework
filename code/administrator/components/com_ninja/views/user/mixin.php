@@ -90,16 +90,26 @@ class NinjaViewUserMixin extends KMixinAbstract implements KObjectServiceable
 		$this->getTemplate()->getFilter('alias')->append(array(
 			'__FILE__'	=> "str_replace('tmpl://', '', __FILE__)"
 		));
-		
-	
-		JFactory::getLanguage()->load('com_user');
+
+		$view = 'user';
+		$form = null;
+
+		// joomla 2.5 is now com_users and requires a form
+		if (version_compare(JVERSION,'1.6.0','ge')) {
+			$view = 'users';
+			JForm::addFormPath(JPATH_ROOT.'/components/com_users/models/forms');
+			JForm::addFieldPath(JPATH_ROOT.'/components/com_users/models/fields');
+			$form = JForm::getInstance('com_users.login', 'login', array('load_data' => true));
+		}
+
+		JFactory::getLanguage()->load('com_'.$view);
 		
 		if($this->getIdentifier()->name == 'json') return $this->renderJsonLogin();
 
 		$template = JFactory::getApplication()->getTemplate();
 		$path     = JPATH_THEMES.DS.$template.DS.'html'.DS.'com_user'.DS.'login';
 		//$this->getService($this->getTemplate())->addPath($path);
-		$this->setLayout('com://site/user.view.login.default_login');
+		$this->setLayout('com://site/'.$view.'.view.login.default_login');
 		$this->params = new KObject;
 		
 		$menu   =& JSite::getMenu();
@@ -111,12 +121,14 @@ class NinjaViewUserMixin extends KMixinAbstract implements KObjectServiceable
 		
 		$xml = JFactory::getXMLParser('Simple');
 		
-		if ($xml->loadFile(JPATH_ROOT.'/components/com_user/views/login/tmpl/default.xml'))
-		{
-			if ($groups = $xml->document->state[0]->params) {
-				foreach ($groups as $param)
-				{
-					$params->setXML( $param );
+		if (version_compare(JVERSION,'1.6.0','ge')) {
+			if ($xml->loadFile(JPATH_ROOT.'/components/com_user/views/login/tmpl/default.xml'))
+			{
+				if ($groups = $xml->document->state[0]->params) {
+					foreach ($groups as $param)
+					{
+						$params->setXML( $param );
+					}
 				}
 			}
 		}
@@ -167,7 +179,8 @@ class NinjaViewUserMixin extends KMixinAbstract implements KObjectServiceable
 			'image'		=> '',
 			'type'		=> $type,
 			'return'	=> $url,
-			'params'	=> $params
+			'params'	=> $params,
+			'form'		=> $form
 		))->mixin($this->getService('ninja:template.mixin'));
 		
 		return $this;

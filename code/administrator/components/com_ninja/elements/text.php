@@ -11,7 +11,7 @@ class NinjaElementText extends NinjaElementAbstract
 {
 	public function fetchElement($name, $value, &$node, $control_name)
 	{
-		$doc = & JFactory::getDocument();
+		$doc = JFactory::getDocument();
 		$size = ( $node['size'] ? 'size="'.$node['size'].'"' : '' );
 		$jqui = ( $node['ui'] ? 'text ui-widget-content ui-corner-all preview ' : 'text_area preview' );
 		$class = ( $node['class'] ? ' class="'.$jqui.$node['class'].' value"' : ' class="'.$jqui.' value"' );

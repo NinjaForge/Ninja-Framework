@@ -47,9 +47,9 @@
 	}
 </style>
 
-<? $checking = @text('Checking for updates&hellip;') ?>
-<? $updating = @text('Updating&hellip;') ?>
-<? $updated  = @text('Update complete!') ?>
+<? $checking = @text('COM_NINJA_CHECKING_FOR_UPDATES') ?>
+<? $updating = @text('COM_NINJA_UPDATING') ?>
+<? $updated  = @text('COM_NINJA_UPDATE_COMPLETE') ?>
 <? $actionPostfix  = '' ?>
 <? if(isset($xml->updateurl) || isset($xml->updateurlspurss)) : ?>
 	<? if(isset($xml->updateurlspurss)) : ?>
@@ -104,7 +104,7 @@ window.addEvent('domready', function(){
 				onFailure: function(xhr){
 					(function(xhr){	
 						var html = this.response.text || xhr.responseText;			
-						status.set('html', <?= json_encode(@text('Update failed with the following error')) ?>+html);
+						status.set('html', <?= json_encode(@text('COM_NINJA_UPDATE_FAILED_WITH_THE_FOLLOWING_ERROR')) ?>+html);
 						status.getPrevious().removeClass('loading');
 					}.pass(xhr, this)).delay(10);
 				}
@@ -151,7 +151,7 @@ window.addEvent('domready', function(){
 				onFailure: function(xhr){
 					(function(xhr){	
 						var html = this.response.text || xhr.responseText;			
-						status.set('html', <?= json_encode(@text('Update check failed with the following error')) ?>+html);
+						status.set('html', <?= json_encode(@text('COM_NINJA_UPDATE_CHECK_FAILED_WITH_THE_FOLLOWING_ERROR')) ?>+html);
 						status.getPrevious().removeClass('loading');
 					}.pass(xhr, this)).delay(10);
 				}
@@ -167,7 +167,7 @@ window.addEvent('domready', function(){
 				force	= true;
 				if(!backup) backup	= $('checkversion').get('html');
 				$('checkversion')
-								.set('html', <?= json_encode(@text('Force Update')) ?>)
+								.set('html', <?= json_encode(@text('COM_NINJA_FORCE_UPDATE')) ?>)
 								.removeEvent('click', checkversion)
 								.addEvent('click', upgrade);
 			}
@@ -197,13 +197,13 @@ window.addEvent('domready', function(){
 		<tr>
 			<td colspan="2" style="text-align: center">
 				<?= @text($xml->name) ?>
-				<span class="version" title="<?= @text('Version') ?>">
+				<span class="version" title="<?= @text('COM_NINJA_VERSION') ?>">
 					<?= $xml->version ?> <span style="color:<?= \@$xml->version['color'] ?>"><?= \@$xml->version['status'] ?></span>
 				</span>
 				<? if ($xml->revision) : ?>
 					~
 					<span class="revision">
-						<?= @text('Revision') ?> <?= $xml->revision ?>
+						<?= @text('COM_NINJA_REVISION') ?> <?= $xml->revision ?>
 					</span>
 				<? endif ?>
 			</td>
@@ -228,11 +228,11 @@ window.addEvent('domready', function(){
 								<h2 class="slogan"><?= @text($xml->description) ?></h2>
 								<? if(isset($xml->updateurl) || isset($xml->updateurlspurss)) : ?>
 								<span class="checkversion">
-									<button id="checkversion"><?= sprintf(@text('Check for Updates&hellip;')) ?></button>
+									<button id="checkversion"><?= sprintf(@text('COM_NINJA_CHECK_FOR_UPDATES')) ?></button>
 								</span>
 								<p>&nbsp;</p>
 								<span class="update">
-									<button id="update"><?= @text('Install Update') ?></button>
+									<button id="update"><?= @text('COM_NINJA_INSTALL_UPDATE') ?></button>
 								</span>
 								<? endif ?>
 							<td>

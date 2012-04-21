@@ -104,7 +104,7 @@ class NinjaControllerSetting extends NinjaControllerDefault
 		$context->data->id = array($context->data->id[0]);
 		$this->_request->id = $context->data->id;
 			
-		$this->_redirect_message = JText::_('Default setting changed.');
+		$this->_redirect_message = JText::_('COM_NINJA_DEFAULT_SETTING_CHANGED');
 		
 		return $this->execute('edit', $context);
 	}

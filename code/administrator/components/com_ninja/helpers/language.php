@@ -7,7 +7,8 @@
  */
  
  /**
- * Adds untranslated strings (orphans) to the component language file
+ * Loads com_ninja language file and the english based language file for the component
+ * also Adds untranslated strings (orphans) to the component language file
  *
  * @author		Stian Didriksen <stian@ninjaforge.com>
  */
@@ -17,7 +18,22 @@ class NinjaHelperLanguage extends KObject
 	{
 		parent::__construct($config);
 	
-		$lang = &JFactory::getLanguage();
+		$lang = JFactory::getLanguage();
+
+		// work out the path
+		$path = JFactory::getApplication()->isSite() ? JPATH_SITE : JPATH_ADMINISTRATOR;
+
+		// load the com_ninja language file
+		$lang->load('com_ninja', JPATH_ADMINISTRATOR, 'en-GB', true);
+
+		// load the extensions english language file overring strings in com_ninja
+		$lang->load($config->option, $path, 'en-GB', true);
+
+		// load the foriegn language file for the extension and override teh strings from the english one
+		$lang->load($config->option, $path, $lang->getDefault(), true);
+
+		$lang->load($config->option, $path, null, true);
+
 		$orphans = $lang->getOrphans();
 		if ($orphans)
 		{
@@ -31,7 +47,7 @@ class NinjaHelperLanguage extends KObject
 					$guess = str_replace( '_', ' ', $info['string'] );
 					// Integers isn't translatable
 					if(is_numeric($key) || strpos($key, '??') === 0 || strpos($guess, '&bull;') === 0) continue;
-					$guesses[] = array('file' => $file, 'keys' => strtoupper( $key ).'='.$guess);
+					$guesses[] = array('file' => $file, 'keys' => strtoupper( $key ).'="'.$guess.'"');
 				}
 			}
 
@@ -45,10 +61,10 @@ class NinjaHelperLanguage extends KObject
 			$langfile	= key($lang->getPaths($config->option));
 			$readfile	= JFile::read($langfile);
 			$text		= $readfile 
-						. "\n\n# ".KInflector::humanize(KRequest::get('get.view', 'cmd'))
-						. "\n# @file     " . $guess['file']
-						. "\n# @url      " . KRequest::url()
-						. "\n# @referrer " . KRequest::referrer()
+						. "\n\n; ".KInflector::humanize(KRequest::get('get.view', 'cmd'))
+						. "\n; @file     " . $guess['file']
+						. "\n; @url      " . KRequest::url()
+						. "\n; @referrer " . KRequest::referrer()
 						."\n" 
 						. $append;
 			JFile::write($langfile, $text);

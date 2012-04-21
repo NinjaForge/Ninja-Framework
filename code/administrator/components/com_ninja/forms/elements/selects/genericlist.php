@@ -133,7 +133,7 @@ class NinjaFormElementSelectGenericlist extends NinjaFormElementAbstract impleme
 		if(count($this->_options) == 0)
 		{
 			$option = $this->getService('ninja:form.element.select.option')
-							->importXml(simplexml_load_string('<option>' . JText::_('No options') . '</option>'))
+							->importXml(simplexml_load_string('<option>' . JText::_('COM_NINJA_NO_OPTIONS') . '</option>'))
 							->renderDomElement($dom);
 			$elem->appendChild($option);
 			$elem->setAttribute('disabled', true);

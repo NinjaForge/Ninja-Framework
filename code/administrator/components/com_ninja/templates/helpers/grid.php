@@ -142,7 +142,7 @@ class NinjaTemplateHelperGrid extends KTemplateHelperGrid
 		if(!$config->total && !$config->title)	return ++self::$offset;
 		
 		if($config->total <= 10)	return false;
-		elseif($config->title)		return '<th class="grid-count">' . JText::_('NUM') . '</th>';
+		elseif($config->title)		return '<th class="grid-count">' . JText::_('COM_NINJA_NUM') . '</th>';
 		else				return '<td class="grid-count">' . ++self::$offset . '</td>';
 	}
 	
@@ -215,9 +215,9 @@ class NinjaTemplateHelperGrid extends KTemplateHelperGrid
 		))->append(array(
 			'selected'	=> $config->state->{$config->name},
 			'list'	=> array(
-				(object) array('id' => '', 'title' => JText::_('All')),
-				(object) array('id' => '1', 'title' => JText::_('Enabled')),
-				(object) array('id' => '0', 'title' => JText::_('Disabled'))
+				(object) array('id' => '', 'title' => JText::_('COM_NINJA_ALL')),
+				(object) array('id' => '1', 'title' => JText::_('COM_NINJA_ENABLED')),
+				(object) array('id' => '0', 'title' => JText::_('COM_NINJA_DISABLED'))
 			)
 		));
 		
@@ -236,6 +236,6 @@ window.addEvent('domready', function(){
 	});		
 });");
 
-		return '<div class="ninja-filter '.$config->name.'">'.KTemplateHelperSelect::radiolist($config).'</div>';
+		return '<div class="ninja-filter '.$config->name.'">'.$this->getService('koowa:template.helper.select')->radiolist($config).'</div>';
 	}
 }

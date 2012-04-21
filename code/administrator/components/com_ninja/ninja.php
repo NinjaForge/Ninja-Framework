@@ -22,7 +22,7 @@ $ver	= explode('.', $ver);
 $ver	= $ver[0].'.'.$ver[1];
 
 
-$public = "'".addslashes(JText::_('Whoops, something went terribly wrong!'))."'";
+$public = "'".addslashes(JText::_('COM_NINJA_WHOOPS_SOMETHING_WENT_TERRIBLY_WRONG'))."'";
 $notify = create_function('$condition, $confidential, $public = '.$public, '
 	if($condition) {
 		JError::raiseWarning(500, $confidential);

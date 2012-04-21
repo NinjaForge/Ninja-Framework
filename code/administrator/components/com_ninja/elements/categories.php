@@ -33,7 +33,7 @@ class NinjaElementCategories extends NinjaElementAbstract
                 ' LEFT JOIN #__sections AS s ON s.id=c.section' .
                 ' WHERE c.published = 1' .
                 ' AND s.scope = '.$db->Quote($section).
-                ' UNION SELECT 0 AS id, "'.JText::_('Uncategorized').'" AS title, 1 AS sorter'.
+                ' UNION SELECT 0 AS id, "'.JText::_('COM_NINJA_UNCATEGORIZED').'" AS title, 1 AS sorter'.
                 ' ORDER BY sorter, title';
         } else {
             $query = 'SELECT c.id, c.title' .
