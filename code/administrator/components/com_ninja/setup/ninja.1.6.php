@@ -16,8 +16,8 @@ if(JFile::exists(JPATH_PLUGINS.'/system/ninja.php') || JFile::exists(JPATH_PLUGI
 	$db->setQuery("INSERT INTO `#__extensions` (`extension_id`, `name`, `type`, `element`, `folder`, `enabled`) VALUES ($id, '$plugin_name', 'plugin', 'ninja', 'system', 1) ON DUPLICATE KEY UPDATE `enabled` = 1;");
 	$db->query();
 	
-	$manager = JFactory::getApplication()->isAdmin() ? '<a href="' . JRoute::_('index.php?option=com_plugins&view=plugin&client=site&task=edit&cid[]=' . $db->insertid()) . '">'.sprintf(JText::_('COM_NINJA_EDIT_LAQUO;%SRAQUO;_IN_THE_PLUGIN_MANAGER'), $plugin_name).'</a>' : null;
-	$msg = sprintf(JText::_('COM_NINJA_LAQUO;%SRAQUO;_ACTIVATED'), $plugin_name) . $manager;
+	$manager = JFactory::getApplication()->isAdmin() ? '<a href="' . JRoute::_('index.php?option=com_plugins&view=plugin&client=site&task=edit&cid[]=' . $db->insertid()) . '">'.sprintf(JText::_('COM_NINJA_EDIT_IN_THE_PLUGIN_MANAGER'), $plugin_name).'</a>' : null;
+	$msg = sprintf(JText::_('COM_NINJA_ACTIVATED'), $plugin_name) . $manager;
 	if(!$user->authorize( 'com_plugins', 'manage' )) $msg = false;
 	$uri = clone JFactory::getURI();
 	JFactory::getApplication()->redirect($uri->toString(), $msg);

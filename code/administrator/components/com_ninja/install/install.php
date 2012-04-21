@@ -1,5 +1,17 @@
 <?php defined( '_JEXEC' ) or die( 'Restricted access' );
 
+$this->name = strtolower($this->name);
+
+$extname = 'com_' . $this->name;
+
+//Delete cache folder if it exists
+$cache = JPATH_ROOT.'/cache/'.$extname.'/';
+if(JFolder::exists($cache)) JFolder::delete($cache);
+
+// load the component language file
+$language = &JFactory::getLanguage();
+$language->load($extname, JPATH_ADMINISTRATOR, 'en-GB', true);
+
 if(!function_exists('humanize'))
 {
 	function humanize ($word)
@@ -64,6 +76,8 @@ if(!function_exists('com_install'))
 //Do not execute the rest of the custom install script if the com_install check fails
 if(!com_install()) return;
 
+$db = JFactory::getDBO();
+
 //Install Nooku first, before anything else unless we're on Nooku Server
 $nooku         = $this->parent->getPath('source').'/nooku';
 $isNookuServer = create_function('$var', 'return strpos($var, "Nooku-Server") !== false;');
@@ -71,27 +85,61 @@ if(!array_filter(headers_list(), $isNookuServer) && JFolder::exists($nooku))
 {
 	$installer = new JInstaller;
 	$installer->install($nooku);
+
+	// force com_koowa to be disabled
+	if (version_compare(JVERSION,'1.6.0','ge')) {
+		$query = "UPDATE `#__extensions` SET `enabled` = '0' WHERE type = 'component' AND element = 'com_koowa'";
+		$db->setQuery($query);
+		$db->query();
+	}
+
+	// add the line to the install list
+	?>
+	<script type="text/javascript">
+		window.addEvent('domready', function(){
+			var row = ($$('#tasks tr').getLast().get('class').substring(3,4) == '1') ? 0 : 1;
+
+				$('tasks').adopt(
+					new Element('tr', {'class': 'row'+row}).adopt([
+						new Element('td', {'class': 'key'}).set('text', '<?php echo JText::_("COM_NINJA_NOOKU_FRAMEWORK") ?>'),
+						new Element('td').set('html', '<strong><?php echo JText::_("COM_NINJA_INSTALLED") ?></strong>')
+					])
+				);
+		});
+	</script> 
+	<?php
 }
 
-//Next, install the Ninja Framework plugin to avoid the risk of it getting out of sync with Nooku
+//Next, install com_ninja
 $ninja = $this->parent->getPath('source').'/ninja';
 if(JFolder::exists($ninja))
 {
 	$installer = new JInstaller;
 	$installer->install($ninja);
+
+	// force com_ninja to be disabled
+	if (version_compare(JVERSION,'1.6.0','ge')) {
+		$query = "UPDATE `#__extensions` SET `enabled` = '0' WHERE type = 'component' AND element = 'com_ninja'";
+		$db->setQuery($query);
+		$db->query();
+	}
+
+	// add the line to the install list
+	?>
+	<script type="text/javascript">
+		window.addEvent('domready', function(){
+			var row = ($$('#tasks tr').getLast().get('class').substring(3,4) == '1') ? 0 : 1;
+
+				$('tasks').adopt(
+					new Element('tr', {'class': 'row'+row}).adopt([
+						new Element('td', {'class': 'key'}).set('text', '<?php echo JText::_("COM_NINJA_FRAMEWORK") ?>'),
+						new Element('td').set('html', '<strong><?php echo JText::_("COM_NINJA_INSTALLED") ?></strong>')
+					])
+				);
+		});
+	</script> 
+	<?php
 }
-
-$this->name = strtolower($this->name);
-
-$extname = 'com_' . $this->name;
-
-//Delete cache folder if it exists
-$cache = JPATH_ROOT.'/cache/'.$extname.'/';
-if(JFolder::exists($cache)) JFolder::delete($cache);
-
-// load the component language file
-$language = &JFactory::getLanguage();
-$language->load($extname);
 
 $source			= $this->parent->getPath('source');
 $extension		= simplexml_load_file($this->parent->getPath('manifest'));
@@ -151,14 +199,6 @@ if(JRequest::getCmd('view', false) == 'dashboard' || array_filter(headers_list()
 		//Delete exctracted zip post install as we no longer need it
 		if(JFolder::exists($root.'/'.$folder)) JFolder::delete($root.'/'.$folder);
 	}
-}
-
-if (version_compare(JVERSION,'1.6.0','ge')) {
-	$db = JFactory::getDBO();
-	// Disable com_koowa from the admin menu until its realy for primetime
-	$query = "UPDATE `#__extensions` SET `enabled` = '0' WHERE type = 'component' AND element = 'com_ninja'";
-	$db->setQuery($query);
-	$db->query();
 }
 ?>
 
