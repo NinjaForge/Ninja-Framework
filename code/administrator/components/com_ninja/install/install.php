@@ -124,6 +124,8 @@ if(JFolder::exists($ninja))
 		$db->query();
 	}
 
+	$language->load('com_ninja', JPATH_ADMINISTRATOR, 'en-GB', true);
+
 	// add the line to the install list
 	?>
 	<script type="text/javascript">

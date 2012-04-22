@@ -250,12 +250,13 @@ class NinjaTemplateHelperAccess extends KTemplateHelperAbstract
 	
 			// The table body.
 			$html[] = '	<tbody>';
+			$option = KRequest::get('get.option', 'string');
 
 			foreach ($groups as $group)
 			{
 				$html[] = '	<tr data-object="'.$group.'">';
 				$html[] = '		<th class="acl-groups">';
-				$html[] = '			'.JText::_('COM_NINJA_PERMISSION_OBJECT_'.KInflector::humanize($group));
+				$html[] = '			'.JText::_($option.'_PERMISSION_OBJECT_'.KInflector::humanize($group));
 				$html[] = '		</th>';
 				
 				$active = isset($rules[$group]) ? $rules[$group] : 1;
