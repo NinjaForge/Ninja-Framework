@@ -8,7 +8,7 @@
 <link rel="stylesheet" href="/toolbar.css" />
 <link rel="stylesheet" href="/grid.css" />
 
-<?= @helper('behavior.mootools') ?>
+<?= JHTML::_('behavior.mootools') ?>
 <?= @ninja('behavior.ninja') ?>
 <script type="text/javascript" src="media://lib_koowa/js/koowa.js"></script>
 <script type="text/javascript" src="/toolbar.js"></script>

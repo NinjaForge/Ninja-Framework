@@ -23,8 +23,11 @@ class NinjaHelperLanguage extends KObject
 		// work out the path
 		$path = JFactory::getApplication()->isSite() ? JPATH_SITE : JPATH_ADMINISTRATOR;
 
-		// load the com_ninja language file
+		// load the com_ninja english language file
 		$lang->load('com_ninja', JPATH_ADMINISTRATOR, 'en-GB', true);
+
+		// load the foriegn language file for com_ninja
+		$lang->load('com_ninja', JPATH_ADMINISTRATOR, $lang->getDefault(), true);
 
 		// load the extensions english language file overring strings in com_ninja
 		$lang->load($config->option, $path, 'en-GB', true);

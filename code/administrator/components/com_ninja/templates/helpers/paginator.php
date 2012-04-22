@@ -74,15 +74,16 @@ class NinjaTemplateHelperPaginator extends KTemplateHelperPaginator
 		$this->getService('ninja:template.helper.document')->load('/pagination.css');
 
 		$view = $config->name;
+		$option = KRequest::get('get.option', 'string');
 		$items = (int) $config->total === 1 ? KInflector::singularize($view) : $view;
-		if($config->total <= 10) return '<div class="pagination"><div class="limit">'.sprintf(JText::_('COM_NINJA_LISTING_' . KInflector::humanize($items)), $config->total ).'</div></div>';
+		if($config->total <= 10) return '<div class="pagination"><div class="limit">'.sprintf(JText::_($option.'_LISTING_' . KInflector::humanize($items)), $config->total ).'</div></div>';
 
 		// Get the paginator data
 		$list = $this->_items($config);
 		$limitlist = $config->total > 10 ? $this->limit($config->toArray()) : $config->total;
 		
 		$html  = '<div class="pagination">';
-		$html .= '<div class="limit">'.sprintf(JText::_('COM_NINJA_LISTING_' . KInflector::humanize($items)), $limitlist ).'</div>';
+		$html .= '<div class="limit">'.sprintf(JText::_($option.'_LISTING_' . KInflector::humanize($items)), $limitlist ).'</div>';
 		$html .=  $this->pages($list);
 		$html .= '<div class="count"> '.JText::_('COM_NINJA_PAGES').' '.$config->current.' '.JText::_('COM_NINJA_OF').' '.$config->count.'</div>';
 		$html .= '</div>';

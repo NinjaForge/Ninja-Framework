@@ -57,7 +57,7 @@ class NinjaTemplateHelperPlaceholder extends KTemplateHelperAbstract
 		else $attributes = array_merge($attributes, (array)$attr);
 
 		$icon = $this->getService('ninja:template.helper.document')->img('/32/' . $name . '.png');
-		$style = '.placeholder .'.$attributes['class'].' > span { background-image: url('.$icon.'); }';
+		$style = '.placeholder .'.$attributes['class'].' span { background-image: url('.$icon.'); }';
 		if($icon) JFactory::getDocument()->addStyleDeclaration($style);
 
 		$attributes['class'] .= ' button';
