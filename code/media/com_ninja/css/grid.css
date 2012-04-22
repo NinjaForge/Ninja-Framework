@@ -71,7 +71,6 @@ body table.ninja-list thead tr th:first-child{border-left-width:0;}
 .placeholder a.button.active{background-color:#B5B5B5;}
 .placeholder a.button:active span{background-position:center bottom;}
 .placeholder span{background:transparent url(../images/32/default.png) no-repeat center top;}
-.placeholder span span{background:url(../images/32/add_overlay.png) no-repeat center top;}
 .no-placeholder-overlay .placeholder span span{background-image:none;}
 .placeholder .close{-khtml-user-select:none;cursor:pointer;background:url(../images/close.png) no-repeat center;}
 .placeholder .close:hover{background-image:url(../images/close-hovered.png);}
