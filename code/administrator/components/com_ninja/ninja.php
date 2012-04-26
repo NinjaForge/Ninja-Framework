@@ -14,6 +14,14 @@ $user			= JFactory::getUser();
 
 $extension_name	= JRequest::getCmd('option');
 
+$lang = JFactory::getLanguage();
+
+// load the com_ninja english language file
+$lang->load('com_ninja', JPATH_ADMINISTRATOR, 'en-GB', true);
+
+// load the foriegn language file for com_ninja
+$lang->load('com_ninja', JPATH_ADMINISTRATOR, $lang->getDefault(), true);
+
 
 $root	= JPATH_ROOT.'/administrator/components/com_ninja/';
 $ver	= new JVersion;

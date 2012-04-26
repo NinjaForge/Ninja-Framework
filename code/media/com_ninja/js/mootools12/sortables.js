@@ -381,14 +381,3 @@ Table.Sortable = new Class({
 
 });
 
-Element.implement({
-
-	sortable: function(options){
-
-		if(!this.$sortable) this.$sortable = this.get('tag') == 'tbody' ? new Table.Sortable(this, options) : new Drag.Sortable(this, options);
-
-		return this.$sortable;
-
-	}
-
-});

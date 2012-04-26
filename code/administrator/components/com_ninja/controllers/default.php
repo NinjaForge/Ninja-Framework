@@ -402,18 +402,6 @@ class NinjaControllerDefault extends ComDefaultControllerDefault
 
 		return $action;
 	}
-
-	/**
-	 * Enable/Disable action
-	 *
-	 * @TODO this is legacy, refactor toolbar to support the new RESTful structure in koowa controllers
-	 */
-	protected function _actionEnable($data)
-	{
-		$data['enabled'] = $this->getAction() == 'enable';
-
-		return $this->execute('edit', $data);
-	}
 	
 	public function clearCache(KCommandContext $context)
 	{

@@ -22,7 +22,7 @@ class NinjaElementGetlist extends NinjaElementAbstract
 		if(isset($node['multi']) && (string)$node['multi']){
 			$attr['multiple'] = 'multiple';
 			$namesuffix = '[]';
-			$value == (array)$value;			
+			$value = explode('|', $value);			
 		}
 
 		$options = array();
