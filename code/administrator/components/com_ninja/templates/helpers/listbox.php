@@ -20,8 +20,7 @@ class NinjaTemplateHelperListbox extends KTemplateHelperListbox
 {
     /**
      * Gerenates a hierarchical listbox to select an entry of a nested set.
-     * If the config param 'exclude' is set to a value of table id, this entry (and all of it's childrens)
-     * are not shown in the list box.
+     * If the config param 'exclude' is set to a value of a row, this entry and all its children will be disabled in the list
      *
      * @param KConfig $config  Nooku configuration object
      * @return string HTML-Code of listbox
@@ -34,7 +33,7 @@ class NinjaTemplateHelperListbox extends KTemplateHelperListbox
             'state' => null,
             'attribs' => array(),
             'model' => null,
-            'prompt' => 'COM_NINJA_SELECT',
+            'prompt' => 'COM_NINJA_ROOT',
             'exclude' => null
         ))->append(array(
             'selected' => $config->{$config->name}
@@ -60,22 +59,22 @@ class NinjaTemplateHelperListbox extends KTemplateHelperListbox
 
         foreach ($list as $item)
         {
-            // exclude this category and any children
-            if (isset($config->exclude) && $config->exclude == $item->id)
-            {
-                $myLft = $item->lft;
-                $myRgt = $item->rgt;
-                continue;
-            }
-
-            if (isset($myLft) && isset($myRgt) && $item->lft > $myLft && $item->rgt < $myRgt)
-                continue;
-
             // Only take parent categories
             if (isset($config->onlyparents) && $config->onlyparents && $item->rgt - $item->lft == 1)
                 continue;
 
+            // decide wether or not parents are allowed to be selected
             $disabled = ($config->noparents && $item->level == 0 && $item->rgt - $item->lft != 1)  ? true : false;
+
+            // decide if we are exluding a parent and its children
+            if (isset($config->exclude) && $config->exclude == $item->id)
+            {
+                $myLft = $item->lft;
+                $myRgt = $item->rgt;
+                $disabled = true;
+            }
+            
+            if (isset($myLft) && isset($myRgt) && $item->lft > $myLft && $item->rgt < $myRgt) $disabled = true;
 
             $options[] = $this->option(array('text' => str_repeat('|—', $item->level) . ' '.$item->title, 'value' => $item->id, 'disable' => $disabled));
         }
