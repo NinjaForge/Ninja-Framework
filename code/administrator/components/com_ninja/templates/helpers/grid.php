@@ -238,4 +238,91 @@ window.addEvent('domready', function(){
 
 		return '<div class="ninja-filter '.$config->name.'">'.$this->getService('koowa:template.helper.select')->radiolist($config).'</div>';
 	}
+
+	/**
+     * Method for generating ordering arrows for nest item sets
+     *
+     * @param   KConfig  $config  Nooku configuration data
+     * @return  string   HTML-Code for output
+     */
+    public function nestedorder($config = array())
+    {
+        $config = new KConfig($config);
+        $config->append(array(
+            'row' => null,
+            'rows' => null,
+            'id' => 'id',
+            'lft' => 'lft',
+            'rgt' => 'rgt',
+            'level' => 'level',
+            'ordering' => 'ordering',
+            'data' => array('order' => 0)
+        ));
+
+        $up = 'media://lib_koowa/images/arrow_up.png';
+        $down = 'media://lib_koowa/images/arrow_down.png';
+
+        $row = $config->row;
+        $rows = clone $config->rows;
+
+        $cid = $config->id;
+        $clft = $config->lft;
+        $crgt = $config->rgt;
+        $clevel = $config->level;
+        $ordering = $row->{$config->ordering};
+
+        $rowIsFirst = false;
+        $rowIsLast = false;
+        $rowHasPrev = false;
+        $rowHasNext = false;
+
+        $showUp = false;
+        $showDown = false;
+        $showLeft = false;
+        $showRight = false;
+
+        $first = true;
+        $lastId = -1;
+        $prevRow = true;
+        $prevRowData = null;
+
+        foreach ($rows as $r)
+        {
+            if ($r->$cid == $row->$cid)
+            {
+                $prevRow = false;
+                continue;
+            }
+
+            if ($r->$clevel == $row->$clevel && ($r->$clft - 1 == $row->$crgt || $r->$crgt + 1 == $row->$clft))
+            {
+                if ($prevRow)
+                    $showUp = true;
+                else
+                    $showDown = true;
+            }
+        }
+
+
+        $config->data->order = -1;
+        $updata = str_replace('"', '&quot;', $config->data);
+
+        $config->data->order = +1;
+        $downdata = str_replace('"', '&quot;', $config->data);
+
+        $html = '';
+        if ($showUp)
+            $html .= '<span><img src="' . $up . '" border="0" alt="' . JText::_('Move up') .
+                '" data-action="edit" data-data="' . $updata . '" /></span>';
+        else
+            $html .= '';
+
+        if ($showDown)
+            $html .= '<span><img src="' . $down . '" border="0" alt="' . JText::_('Move down') .
+                '" data-action="edit" data-data="' . $downdata . '"/></span>';
+        else
+            $html .= '';
+
+        return $html;
+    }
 }
