@@ -110,7 +110,7 @@ if(!array_filter(headers_list(), $isNookuServer) && JFolder::exists($nooku))
 	<?php
 }
 
-//Next, install com_ninja
+//Next, install com_ninja and plg_ninja
 $ninja = $this->parent->getPath('source').'/ninja';
 if(JFolder::exists($ninja))
 {
@@ -126,6 +126,9 @@ if(JFolder::exists($ninja))
 
 	$language->load('com_ninja', JPATH_ADMINISTRATOR, 'en-GB', true);
 
+	//install plg_ninja
+	$installer->install($ninja.'/plugin')
+
 	// add the line to the install list
 	?>
 	<script type="text/javascript">
@@ -135,6 +138,10 @@ if(JFolder::exists($ninja))
 				$('tasks').adopt(
 					new Element('tr', {'class': 'row'+row}).adopt([
 						new Element('td', {'class': 'key'}).set('text', '<?php echo JText::_("COM_NINJA_FRAMEWORK") ?>'),
+						new Element('td').set('html', '<strong><?php echo JText::_("COM_NINJA_INSTALLED") ?></strong>')
+					]),
+					new Element('tr', {'class': 'row'+row}).adopt([
+						new Element('td', {'class': 'key'}).set('text', '<?php echo JText::_("COM_NINJA_PLUGIN") ?>'),
 						new Element('td').set('html', '<strong><?php echo JText::_("COM_NINJA_INSTALLED") ?></strong>')
 					])
 				);
@@ -251,7 +258,12 @@ if(JRequest::getCmd('view', false) == 'dashboard' || array_filter(headers_list()
 			</tr>
 		</tbody>
 	</table>
-
+	<style type="text/css">
+		.extension-logo {float:left; width: 20%;}
+		.install-list {width:80%;}
+		.log {padding-left:270px}
+		.installation-panel {width:100%;}
+	</style>
 	<?php if($packages) : ?>
 		<script type="text/javascript">
 			(function(version){
@@ -268,12 +280,6 @@ if(JRequest::getCmd('view', false) == 'dashboard' || array_filter(headers_list()
 				});
 			})(MooTools.version.toFloat()<1.2 ? 1.5 : 1.6);
 		</script>
-		<style type="text/css">
-			.log {padding-left:270px}
-			.installation-panel {width:100%;}
-			.extension-logo {float:left; width: 20%;}
-			.install-list {width:80%;}
-		</style>
 		
 		<div id="install" style="padding-left: 270px" class="<?php echo $class ?>"><h2 class="working"><?php echo JText::_('COM_NINJA_PLEASE_WAIT_CHECKING_FOR_ADDITIONAL_PACKAGES_TO_INSTALL'); ?></h2></div>
 	</div>
