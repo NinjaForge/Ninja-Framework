@@ -78,37 +78,24 @@ if(!com_install()) return;
 
 $db = JFactory::getDBO();
 
-//Install Nooku first, before anything else unless we're on Nooku Server
-$nooku         = $this->parent->getPath('source').'/nooku';
-$isNookuServer = create_function('$var', 'return strpos($var, "Nooku-Server") !== false;');
-if(!array_filter(headers_list(), $isNookuServer) && JFolder::exists($nooku))
-{
-	$installer = new JInstaller;
-	$installer->install($nooku);
 
-	// force com_koowa to be disabled
-	if (version_compare(JVERSION,'1.6.0','ge')) {
-		$query = "UPDATE `#__extensions` SET `enabled` = '0' WHERE type = 'component' AND element = 'com_koowa'";
-		$db->setQuery($query);
-		$db->query();
-	}
-
-	// add the line to the install list
-	?>
-	<script type="text/javascript">
-		window.addEvent('domready', function(){
-			var row = ($$('#tasks tr').getLast().get('class').substring(3,4) == '1') ? 0 : 1;
+// method for appending a row to the install list
+?>
+<script type="text/javascript">
+		function updateList(text, html) {
+			window.addEvent("domready", function() {
+				var row = ($$('#tasks tr').getLast().get('class').substring(3,4) == '1') ? 0 : 1;
 
 				$('tasks').adopt(
 					new Element('tr', {'class': 'row'+row}).adopt([
-						new Element('td', {'class': 'key'}).set('text', '<?php echo JText::_("COM_NINJA_NOOKU_FRAMEWORK") ?>'),
-						new Element('td').set('html', '<strong><?php echo JText::_("COM_NINJA_INSTALLED") ?></strong>')
+						new Element('td', {'class': 'key'}).set('text', text),
+						new Element('td').set('html', '<strong>'+html+'</strong>')
 					])
 				);
-		});
+			});
+		}
 	</script> 
-	<?php
-}
+<?
 
 //Next, install com_ninja and plg_ninja
 $ninja = $this->parent->getPath('source').'/ninja';
@@ -132,20 +119,31 @@ if(JFolder::exists($ninja))
 	// add the line to the install list
 	?>
 	<script type="text/javascript">
-		window.addEvent('domready', function(){
-			var row = ($$('#tasks tr').getLast().get('class').substring(3,4) == '1') ? 0 : 1;
+		updateList('<?php echo JText::_("COM_NINJA_FRAMEWORK") ?>', '<?php echo JText::_("COM_NINJA_INSTALLED") ?>');
+		updateList('<?php echo JText::_("COM_NINJA_PLUGIN") ?>', '<?php echo JText::_("COM_NINJA_INSTALLED") ?>');
+	</script> 
+	<?php
+}
 
-				$('tasks').adopt(
-					new Element('tr', {'class': 'row'+row}).adopt([
-						new Element('td', {'class': 'key'}).set('text', '<?php echo JText::_("COM_NINJA_FRAMEWORK") ?>'),
-						new Element('td').set('html', '<strong><?php echo JText::_("COM_NINJA_INSTALLED") ?></strong>')
-					]),
-					new Element('tr', {'class': 'row'+row}).adopt([
-						new Element('td', {'class': 'key'}).set('text', '<?php echo JText::_("COM_NINJA_PLUGIN") ?>'),
-						new Element('td').set('html', '<strong><?php echo JText::_("COM_NINJA_INSTALLED") ?></strong>')
-					])
-				);
-		});
+//Install Nooku unless we're on Nooku Server
+$nooku         = $this->parent->getPath('source').'/nooku';
+$isNookuServer = create_function('$var', 'return strpos($var, "Nooku-Server") !== false;');
+if(!array_filter(headers_list(), $isNookuServer) && JFolder::exists($nooku))
+{
+	$installer = new JInstaller;
+	$installer->install($nooku);
+
+	// force com_koowa to be disabled
+	if (version_compare(JVERSION,'1.6.0','ge')) {
+		$query = "UPDATE `#__extensions` SET `enabled` = '0' WHERE type = 'component' AND element = 'com_koowa'";
+		$db->setQuery($query);
+		$db->query();
+	}
+
+	// add the line to the install list
+	?>
+	<script type="text/javascript">
+		updateList('<?php echo JText::_("COM_NINJA_NOOKU_FRAMEWORK") ?>', '<?php echo JText::_("COM_NINJA_INSTALLED") ?>');
 	</script> 
 	<?php
 }
@@ -168,8 +166,6 @@ if(JFolder::exists($source.'/packages'))
 	//Because 1.6 sucks, we have to do these inline
 	//$document->addScript(JURI::root(1).'/media/com_koowa/js/install.js');
 }
-
-if(JFolder::exists(JPATH_ADMINISTRATOR.'/components/com_koowa/packages')) $packages = true;
 
 //Because 1.6 sucks, we have to do these inline
 //$document->addStyleSheet(JURI::root(1).'/media/com_koowa/css/install.css');
@@ -207,6 +203,35 @@ if(JRequest::getCmd('view', false) == 'dashboard' || array_filter(headers_list()
 
 		//Delete exctracted zip post install as we no longer need it
 		if(JFolder::exists($root.'/'.$folder)) JFolder::delete($root.'/'.$folder);
+	}
+}
+
+//if we have packages loop through them and install them
+if(JFolder::exists(JPATH_ADMINISTRATOR.'/components/com_koowa/packages')) {
+	Jloader::register('JArchive', JPATH_LIBRARIES.'/joomla/filesystem/archive.php');
+	$root	= JPATH_ADMINISTRATOR.'/components/com_koowa/packages';
+	$files  = JFolder::files($root);
+	
+	foreach($files as $file)
+	{
+		$installer	= new JInstaller;
+		$folder		= JFile::stripExt($file);
+
+		//If there already is a folder, delete it before extracting
+		if(JFolder::exists($root.'/'.$folder)) JFolder::delete($root.'/'.$folder);
+
+		JArchive::extract($root.'/'.$file, $root.'/'.$folder);
+		JFile::delete($root.'/'.$file);
+		$installer->install($root.'/'.$folder.'/');
+
+		//Delete exctracted zip post install as we no longer need it
+		if(JFolder::exists($root.'/'.$folder)) JFolder::delete($root.'/'.$folder);
+
+		?>
+			<script type="text/javascript">
+				updateList('<?php echo JText::_($folder) ?>', '<?php echo JText::_("COM_NINJA_INSTALLED") ?>');
+			</script> 
+		<?php
 	}
 }
 ?>
@@ -264,26 +289,6 @@ if(JRequest::getCmd('view', false) == 'dashboard' || array_filter(headers_list()
 		.log {padding-left:270px}
 		.installation-panel {width:100%;}
 	</style>
-	<?php if($packages) : ?>
-		<script type="text/javascript">
-			(function(version){
-				document.write(unescape('%3Cscript type="text/javascript" src="<?php echo JURI::root(1) ?>/media/com_koowa/js/install.'+version+'.js"%3E%3C/script%3E'));
-				window.addEvent('domready', function(){
-					if($('install')) $('install').addEvent('complete', function(){
-						var url = "<?php echo JRoute::_('&option='.$extname) ?>";
-						if(version == 1.5) {
-							new Ajax(url, {method: 'get'}).request();
-						} else {
-							new Request({url: url}).get();
-						}
-					});
-				});
-			})(MooTools.version.toFloat()<1.2 ? 1.5 : 1.6);
-		</script>
-		
-		<div id="install" style="padding-left: 270px" class="<?php echo $class ?>"><h2 class="working"><?php echo JText::_('COM_NINJA_PLEASE_WAIT_CHECKING_FOR_ADDITIONAL_PACKAGES_TO_INSTALL'); ?></h2></div>
-	</div>
-	<?php endif ?>
 <?php
 	//Delete admin cache to allow upgrade procedures to run
 	$cache = JPATH_CACHE.'/'.$extname;
