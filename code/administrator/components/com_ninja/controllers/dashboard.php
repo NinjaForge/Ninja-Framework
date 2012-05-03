@@ -400,7 +400,7 @@ class NinjaControllerDashboard extends ComDefaultControllerResource
 		if($version_compare || (version_compare((string) $xml->version, $version, '=') && $revision_compare))
 		{
 			$msg = array(
-				'text' => sprintf(JText::_('COM_NINJA_REV_AVAILABLE_FOR_DOWNLOAD'), JText::_($this->getIdentifier()->package), $version, JText::_($status), $revision),
+				'text' => sprintf(JText::_('COM_NINJA_REV_AVAILABLE_FOR_DOWNLOAD_STATE'), JText::_($this->getIdentifier()->package), $version, JText::_($status), $revision),
 				'update' => true
 			);
 			
