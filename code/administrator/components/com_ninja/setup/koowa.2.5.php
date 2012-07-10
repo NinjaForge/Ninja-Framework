@@ -12,7 +12,7 @@ if(JFile::exists(JPATH_PLUGINS.'/system/koowa/koowa.php') || JFile::exists(JPATH
 	$result	= $db->loadResult();
 	$id		= $result ? $result : 'NULL';
 	
-	$db->setQuery("INSERT INTO `#__extensions` (`extension_id`, `name`, `type`, `element`, `folder`, `enabled`) VALUES ($id, 'System - Koowa', 'plugin', 'koowa', 'system', 1) ON DUPLICATE KEY UPDATE `enabled` = 1;");
+	$db->setQuery("INSERT INTO `#__extensions` (`extension_id`, `name`, `type`, `element`, `folder`, `enabled`, `access`, `ordering`) VALUES ($id, 'System - Koowa', 'plugin', 'koowa', 'system', 1, 1, 0) ON DUPLICATE KEY UPDATE `enabled` = 1, `access` = 1, `ordering` = 0;");
 	$db->query();
 	JPluginHelper::importPlugin('system', 'koowa');
 	
